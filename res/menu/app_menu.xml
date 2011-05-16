@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/welcome"
+          android:icon="@drawable/ic_welcome"
+          android:title="@string/welcome" />
+    <item android:id="@+id/credits"
+          android:icon="@drawable/ic_credits"
+          android:title="@string/credits" />
+      
+</menu>
