@@ -31,7 +31,7 @@ public class Main extends Activity  {
 		myText = (TextView) findViewById(R.id.myTextView);
 		
 		Date d = new Date();
-		myText.setText(d.toString());
+		myText.setText("Today's date is " + d.toString() + "   ") ;
 
 	}
 
