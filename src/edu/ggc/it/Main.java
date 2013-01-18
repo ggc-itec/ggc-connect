@@ -1,6 +1,5 @@
 package edu.ggc.it;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,13 +23,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 /*
- * ggc-connect is a Pedagogical app designed to teach Android programming to students
- *     at Georgia Gwinnett College.
  * 
  */
-public class Main extends Activity  {
+public class Main extends Activity {
 
 	private Button timeButton;
 	private TextView myText;
@@ -41,33 +37,19 @@ public class Main extends Activity  {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		
-		
-		
-		
 		setContentView(R.layout.main);
 
 		myContext = this;
-		
+
 		timeButton = (Button) findViewById(R.id.button1);
 		timeButton.setOnClickListener(new MyListener());
-		
-		
-		
-		
-		
-		//myText = (TextView) findViewById(R.id.myTextView);
-		
-		//Date d = new Date();
-		
-		//myText.setText("Today's date is " + d.toString() + "   ") ;
+
+		// myText = (TextView) findViewById(R.id.myTextView);
+		// Date d = new Date();
+		// myText.setText("Today's date is " + d.toString() + "   ") ;
 
 		Toast.makeText(this, "Hee hee", 3);
 	}
-
-	
-	
-
 
 	/** Called when user presses Menu key */
 	@Override
@@ -77,28 +59,31 @@ public class Main extends Activity  {
 		return true;
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.welcome:
-			//newGame();
+			// newGame();
 			return true;
 		case R.id.credits:
-			Intent myIntent = new Intent(Main.this,Credits.class);
+			Intent myIntent = new Intent(Main.this, Credits.class);
 			Main.this.startActivity(myIntent);
+			return true;
+		case R.id.news:
+			Intent myIntent2 = new Intent(Main.this, News.class);
+			Main.this.startActivity(myIntent2);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
-			
-			Intent myIntent = new Intent(myContext,News.class);
-		    startActivity(myIntent);
+
+			Intent myIntent = new Intent(myContext, News.class);
+			startActivity(myIntent);
 
 		}
 	}

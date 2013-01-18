@@ -4,4 +4,8 @@
     <string name="app_name">ggc-connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
+    <string name="news">News</string>
+    <string-array name="websites">
+        <item >CNN</item>
+    </string-array>
 </resources>

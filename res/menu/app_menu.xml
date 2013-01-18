@@ -6,5 +6,5 @@
     <item android:id="@+id/credits"
           android:icon="@drawable/ic_credits"
           android:title="@string/credits" />
-      
+    <item android:id="@+id/news" android:title="@string/news"></item>
 </menu>
