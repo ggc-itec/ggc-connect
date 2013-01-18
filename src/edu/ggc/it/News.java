@@ -32,6 +32,11 @@ public class News extends ListActivity {
 					Uri.parse("http://m.cnn.com"));
 			startActivity(browserIntent);
 		}
+		else if( selection.equals("FOX")) {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://m.fox.com"));
+			startActivity(browserIntent);
+		}
 
 	}
 

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Main!</string>
     <string name="app_name">ggc-connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
-    <string name="news">News</string>
+    <string name="news">Good News</string>
     <string-array name="websites">
         <item >CNN</item>
+        <item>FOX</item>
+        <item >ESPN</item>
     </string-array>
 </resources>

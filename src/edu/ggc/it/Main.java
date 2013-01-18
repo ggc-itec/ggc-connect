@@ -28,27 +28,30 @@ import android.widget.Toast;
  */
 public class Main extends Activity {
 
-	private Button timeButton;
-	private TextView myText;
+	private Button firstButton;
+	private Button secondButton;
+	private Button thirdButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.main);
-
 		myContext = this;
+		MyListener myListener = new MyListener();
+		firstButton = (Button) findViewById(R.id.button1);
+		firstButton.setOnClickListener(myListener);
 
-		timeButton = (Button) findViewById(R.id.button1);
-		timeButton.setOnClickListener(new MyListener());
+		secondButton = (Button) findViewById(R.id.button2);
+		secondButton.setOnClickListener(myListener);
 
+		thirdButton = (Button) findViewById(R.id.button3);
+		thirdButton.setOnClickListener(myListener);
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
 		// myText.setText("Today's date is " + d.toString() + "   ") ;
-
-		Toast.makeText(this, "Hee hee", 3);
+		// Toast.makeText(this, "Hee hee", 3);
 	}
 
 	/** Called when user presses Menu key */
@@ -64,7 +67,6 @@ public class Main extends Activity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.welcome:
-			// newGame();
 			return true;
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
@@ -81,9 +83,14 @@ public class Main extends Activity {
 
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
-
-			Intent myIntent = new Intent(myContext, News.class);
-			startActivity(myIntent);
+			if (view.getId() == R.id.button1) {
+				Intent myIntent = new Intent(myContext, News.class);
+				startActivity(myIntent);
+			} else if (view.getId() == R.id.button2) {
+				startActivity(new Intent(myContext, News.class));
+			} else if (view.getId() == R.id.button3) {
+				startActivity(new Intent(myContext, Credits.class));
+			}
 
 		}
 	}
