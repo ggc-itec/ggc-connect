@@ -31,6 +31,7 @@ public class Main extends Activity {
 	private Button firstButton;
 	private Button secondButton;
 	private Button thirdButton;
+	private Button fourthButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -48,6 +49,10 @@ public class Main extends Activity {
 
 		thirdButton = (Button) findViewById(R.id.button3);
 		thirdButton.setOnClickListener(myListener);
+		
+		fourthButton = (Button) findViewById(R.id.button4);
+		fourthButton.setOnClickListener(myListener);
+		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
 		// myText.setText("Today's date is " + d.toString() + "   ") ;
@@ -90,6 +95,8 @@ public class Main extends Activity {
 				startActivity(new Intent(myContext, News.class));
 			} else if (view.getId() == R.id.button3) {
 				startActivity(new Intent(myContext, Credits.class));
+			} else if( view.getId() == R.id.button4) {
+				startActivity(new Intent(myContext, CatActivity.class));
 			}
 
 		}
