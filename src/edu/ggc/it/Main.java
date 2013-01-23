@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /*
- * 
+ * ggc-connect is an app designed for the GGC community 
  */
 public class Main extends Activity {
 
