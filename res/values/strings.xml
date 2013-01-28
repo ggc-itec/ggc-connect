@@ -4,9 +4,15 @@
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
     <string name="news">Good News</string>
+    <string name="map_label">Campus Map</string>
+    <string name="direction_label">Campus Direction</string>
+    <string name="schedule_label">My Schedule</string>
+    <string name="directory_label">Directory</string>
+    <string name="gym_label">Gym Info</string>
     <string-array name="websites">
         <item >CNN</item>
         <item>FOX</item>
         <item >ESPN</item>
     </string-array>
+    <string name="main_title">GGC Connect</string>
 </resources>

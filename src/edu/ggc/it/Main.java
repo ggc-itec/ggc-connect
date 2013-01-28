@@ -28,10 +28,10 @@ import android.widget.Toast;
  */
 public class Main extends Activity {
 
-	private Button firstButton;
-	private Button secondButton;
-	private Button thirdButton;
-	private Button fourthButton;
+	private Button directoryButton;
+	private Button directionButton;
+	private Button mapButton;
+	private Button gymButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -41,17 +41,17 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		myContext = this;
 		MyListener myListener = new MyListener();
-		firstButton = (Button) findViewById(R.id.button1);
-		firstButton.setOnClickListener(myListener);
+		directoryButton = (Button) findViewById(R.id.directory_button);
+		directoryButton.setOnClickListener(myListener);
 
-		secondButton = (Button) findViewById(R.id.button2);
-		secondButton.setOnClickListener(myListener);
+		directionButton = (Button) findViewById(R.id.direction_button);
+		directionButton.setOnClickListener(myListener);
 
-		thirdButton = (Button) findViewById(R.id.button3);
-		thirdButton.setOnClickListener(myListener);
+		mapButton = (Button) findViewById(R.id.map_button);
+		mapButton.setOnClickListener(myListener);
 		
-		fourthButton = (Button) findViewById(R.id.button4);
-		fourthButton.setOnClickListener(myListener);
+		gymButton = (Button) findViewById(R.id.gym_button);
+		gymButton.setOnClickListener(myListener);
 		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
@@ -88,14 +88,14 @@ public class Main extends Activity {
 
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
-			if (view.getId() == R.id.button1) {
+			if (view.getId() == R.id.directory_button) {
 				Intent myIntent = new Intent(myContext, News.class);
 				startActivity(myIntent);
-			} else if (view.getId() == R.id.button2) {
+			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, News.class));
-			} else if (view.getId() == R.id.button3) {
+			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, Credits.class));
-			} else if( view.getId() == R.id.button4) {
+			} else if( view.getId() == R.id.gym_button) {
 			}
 
 		}
