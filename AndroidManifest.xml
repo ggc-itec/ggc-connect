@@ -22,9 +22,7 @@
 		<activity android:name=".Credits"
 				  android:label="@string/credits">
 		</activity>
-		<activity android:name=".CatActivity"
-		    	android:label="Cat Activity">
-		</activity>
+	
     </application>
     
     <uses-sdk android:minSdkVersion="8" />

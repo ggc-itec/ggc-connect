@@ -96,7 +96,6 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.button3) {
 				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.button4) {
-				startActivity(new Intent(myContext, CatActivity.class));
 			}
 
 		}
