@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
+/*  I chagned things
  * ggc-connect is an app designed for the GGC community 
  */
 public class Main extends Activity {
