@@ -10,10 +10,11 @@
     <string name="directory_label">Directory</string>
     <string name="gym_label">Gym Info</string>
     <string-array name="websites">
-        <item >CNN</item>
+        <item>CNN</item>
         <item>FOX</item>
         <item>ESPN</item>
         <item>GGC</item>
+        <item>Guardian</item>
     </string-array>
     <string name="main_title">GGC Connect</string>
 </resources>
