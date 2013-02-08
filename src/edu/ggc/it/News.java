@@ -41,6 +41,10 @@ public class News extends ListActivity {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.ggc.edu"));
 			startActivity(browserIntent);
+		} else {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.guardian.co.uk"));
+			startActivity(browserIntent);
 		}
 		else {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
