@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 /*
  * ggc-connect is an app designed for the GGC community 
- * 
+ * @author Team Grizz
  * 
  */
 public class Main extends Activity {
