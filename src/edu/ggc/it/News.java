@@ -31,19 +31,21 @@ public class News extends ListActivity {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://m.cnn.com"));
 			startActivity(browserIntent);
-		}
-		else if( selection.equals("FOX")) {
+		} else if (selection.equals("FOX")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://m.fox.com"));
 			startActivity(browserIntent);
-		}
-		else if(selection.equals("GGC")) {
+		} else if (selection.equals("GGC")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.ggc.edu"));
 			startActivity(browserIntent);
-		} else {
+		} else if (selection.equals("Guardian")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.guardian.co.uk"));
+			startActivity(browserIntent);
+		} else {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.reddit.com"));
 			startActivity(browserIntent);
 		}
 
