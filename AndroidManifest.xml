@@ -22,6 +22,7 @@
 		<activity android:name=".Credits"
 				  android:label="@string/credits">
 		</activity>
+		<activity android:name=".map.MapActivity"></activity>
 	
     </application>
     
