@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 
+import edu.ggc.it.direction.DirectionActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -91,12 +93,12 @@ public class Main extends Activity {
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
-				Intent myIntent = new Intent(myContext, News.class);
+				Intent myIntent = new Intent(myContext, DirectionActivity.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, News.class));
 			} else if (view.getId() == R.id.direction_button) {
-				startActivity(new Intent(myContext, Credits.class));
+				startActivity(new Intent(myContext, DirectionActivity.class));
 			} else if( view.getId() == R.id.gym_button) {
 			}
 
