@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 
+import edu.ggc.it.map.MapActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
+/*  I chagned things
  * ggc-connect is an app designed for the GGC community 
  * @author Team Grizz
  * 
@@ -94,7 +96,7 @@ public class Main extends Activity {
 				Intent myIntent = new Intent(myContext, News.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
-				startActivity(new Intent(myContext, News.class));
+				startActivity(new Intent(myContext, MapActivity.class));
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.gym_button) {
