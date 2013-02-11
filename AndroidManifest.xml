@@ -8,8 +8,10 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
     </uses-permission>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
     <application
         android:icon="@drawable/icon"
@@ -31,9 +33,22 @@
             android:name="edu.ggc.it.Credits"
             android:label="@string/credits" >
         </activity>
+
         <activity
             android:name="edu.ggc.it.direction.DirectionActivity"
             android:label="@string/title_activity_direction" >
+        </activity>
+
+        <activity android:name="edu.ggc.it.map.MapActivity" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.schedule.ScheduleActivity"
+            android:label="@string/title_activity_schedule">
+            <!-- android:parentActivityName="edu.ggc.it.Main">-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.Main" />
+
         </activity>
     </application>
 
