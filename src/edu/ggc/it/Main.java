@@ -82,7 +82,7 @@ public class Main extends Activity {
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
-				Intent myIntent = new Intent(myContext, DirectionActivity.class);
+				Intent myIntent = new Intent(myContext, News.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, News.class));
