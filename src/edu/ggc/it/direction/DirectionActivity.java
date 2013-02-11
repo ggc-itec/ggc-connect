@@ -115,7 +115,7 @@ public class DirectionActivity extends Activity {
 			} else if( view.getId() == R.id.bldLButton) {
 				Toast.makeText(myContext, "You click on Building L button", 100).show();
 			} else if( view.getId() == R.id.parkingButton) {
-				Toast.makeText(myContext, "You click on Building Praking button", 100).show();
+				Toast.makeText(myContext, "You click on Building Parking button", 100).show();
 			}
 
 		}
