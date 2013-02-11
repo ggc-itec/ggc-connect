@@ -35,22 +35,22 @@ public class MapActivity extends Activity {
 		setContentView(R.layout.map_activity);
 		
 		LocationManager locationManager = (LocationManager) this.getSystemService(context.LOCATION_SERVICE);
-		
-		//locationManager.addGpsStatusListener((Listener) new GGCLocationListener());//This is being  cast to "Listener" object. If there are problems with the listener I would start looking here. 
-		
+				
 		LocationProvider provider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
 		
 	    final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
 	    if (!gpsEnabled) {
 	    	
-	    	Toast.makeText(context, "Your need to enable the GPS service, good luck.", Toast.LENGTH_LONG);
+	    	Toast.makeText(context, "Your need to enable the GPS service.", Toast.LENGTH_LONG);
 	    	//DOTO I need to look up the process the user has to do to be able too fix this problem. 
-	
-	        // Build an alert dialog here that requests that the user enable
-	        // the location services, then when the user clicks the "OK" button,
-	        // call enableLocationSettings()
 	    }
+	    
+	    
+	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+	            10000,          // 10-second interval.
+	            10,             // 10 meters.
+	            new GGCLocationListener());
 	    	    		
 	    textViewGPSOutput = (TextView) findViewById(R.id.textViewGPSOutPut);
 	  	
@@ -63,17 +63,19 @@ public class MapActivity extends Activity {
 	    startActivity(settingsIntent);
 	}
 	
+	
+	/**
+	 * @author andrew
+	 * It is unknown at this time if GGCLocationListener is receiving location updates or not 
+	 * I will be getting a device to test this feature soon.
+	 */
 	public class GGCLocationListener implements LocationListener {
 
 	    @Override
 	    public void onLocationChanged(Location location) {
-	        // A new location update is received.  Do something useful with it.  In this case,
-	        // we're sending the update to a handler which then updates the UI with the new
-	        // location.
 	    	
 	    	textViewGPSOutput.setText(location.getLatitude() + ", " + location.getLongitude());
-	    	
-	    	
+	    	   	
 	        //Message.obtain(mHandler, UPDATE_LATLNG,location.getLatitude() + ", " + location.getLongitude()).sendToTarget();
 
 	    }
