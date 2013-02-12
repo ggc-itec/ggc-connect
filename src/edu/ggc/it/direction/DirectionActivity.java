@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,17 +30,21 @@ public class DirectionActivity extends Activity {
 	
 	private Context myContext;
 	
+	private EditText findText;
+	
 	private LocationManager lm;
 	private double latitude;
 	private double longitude;
 	private Location loc;
 
-
+	private LocationList myLocationList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
 		myContext = this;
+		myLocationList = new LocationList();
 		MyListener myListener = new MyListener();
 		findButton = (Button) findViewById(R.id.ButtonFindaPlace);
 		findButton.setOnClickListener(myListener);
@@ -91,10 +96,13 @@ public class DirectionActivity extends Activity {
 				loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 				latitude = loc.getLatitude();
 				longitude = loc.getLongitude();
-				//EditText instr = (EditText) findViewById(R.id.instruction_text);
+				//Get text from Find text box
+				findText = (EditText) findViewById(R.id.editFindaPlace);
+				String txt = findText.getText().toString();
+				String rst = myLocationList.Find(txt);
 				TextView instr = (TextView) findViewById(R.id.instruction_text);
-				instr.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude);
-				Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
+				instr.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
+				//Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
 			} else if (view.getId() == R.id.bldAButton) {
 				//startActivity(new Intent(myContext, News.class));
 				Toast.makeText(myContext, "You click on Building A button", 100).show();
