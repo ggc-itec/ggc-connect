@@ -1,20 +1,10 @@
 package edu.ggc.it;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
-
-import edu.ggc.it.map.MapActivity;
+import edu.ggc.it.direction.DirectionActivity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-/*  I chagned things
+/*
  * ggc-connect is an app designed for the GGC community 
  * @author Team Grizz
  * 
@@ -91,18 +79,20 @@ public class Main extends Activity {
 	}
 
 	public class MyListener implements OnClickListener {
+		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
 				Intent myIntent = new Intent(myContext, News.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
-				startActivity(new Intent(myContext, MapActivity.class));
+				startActivity(new Intent(myContext, News.class));
 			} else if (view.getId() == R.id.direction_button) {
-				startActivity(new Intent(myContext, Credits.class));
+				startActivity(new Intent(myContext, DirectionActivity.class));
 			} else if( view.getId() == R.id.gym_button) {
 			}
 
 		}
 	}
+
 
 }
