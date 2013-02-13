@@ -1,6 +1,8 @@
 package edu.ggc.it.love;
 
+import edu.ggc.it.R;
 import android.app.Activity;
+import android.os.Bundle;
 
 /**
  * This activity prompts the user for their profile information

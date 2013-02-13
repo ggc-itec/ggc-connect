@@ -8,9 +8,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 
+import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 
-import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
