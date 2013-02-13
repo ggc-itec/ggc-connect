@@ -1,6 +1,7 @@
 package edu.ggc.it;
 
 import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.directory.DirectoryActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -82,7 +83,7 @@ public class Main extends Activity {
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
-				Intent myIntent = new Intent(myContext, News.class);
+				Intent myIntent = new Intent(myContext, DirectoryActivity.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, News.class));

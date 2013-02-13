@@ -50,6 +50,8 @@
                 android:value="edu.ggc.it.Main" />
 
         </activity>
+        <activity android:name="edu.ggc.it.directory.DirectoryActivity" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />
