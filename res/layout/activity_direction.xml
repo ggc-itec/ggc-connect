@@ -1,19 +1,25 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/ggc_green"
+    android:padding="10dp"
     tools:context=".DirectionActivity" >
 
    <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:gravity="center">
 
-		<Button android:id="@+id/ButtonFindaPlace"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/button_FindaPlace" />
+		<Button
+		    android:id="@+id/ButtonFindaPlace"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:width="100dp" android:height="60dp"
+		    android:textStyle="bold"
+		    android:text="@string/button_FindaPlace" />
 
 		<EditText android:id="@+id/editFindaPlace"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:width="260dp" android:height="60dp"
 			android:text="@string/text_FindaPlace" />
 
 
@@ -168,17 +174,17 @@
 		android:text="Instruction:" android:textAppearance="?android:attr/textAppearanceMedium" />
         
 	</RelativeLayout>
-	<RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_gravity="center"
 		android:gravity="center">
 
 		<ImageView
-		    android:id="@+id/imageView1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
+		    android:id="@+id/imageMap"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
 		    android:layout_alignParentLeft="true"
 		    android:layout_centerVertical="true"
-		    android:src="@drawable/ggc_map" />
+		    android:src="@drawable/thai_ggc_map" />
         
 	</RelativeLayout>
 </TableLayout>

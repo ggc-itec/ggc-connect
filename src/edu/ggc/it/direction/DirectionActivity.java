@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +28,12 @@ public class DirectionActivity extends Activity {
 	private ImageButton bldLButton;
 	private ImageButton bldIButton;
 	private ImageButton parkingButton;
+	private ImageView img;
 	
 	private Context myContext;
 	
 	private EditText findText;
+	private TextView instructionText;
 	
 	private LocationManager lm;
 	private double latitude;
@@ -79,6 +82,10 @@ public class DirectionActivity extends Activity {
 		parkingButton = (ImageButton) findViewById(R.id.parkingButton);
 		parkingButton.setOnClickListener(myListener);
 		
+		instructionText = (TextView) findViewById(R.id.instruction_text);
+		
+		img = (ImageView) findViewById(R.id.imageMap);
+		//img.setImageResource(R.drawable.my_image);
 		lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
 	}
@@ -100,12 +107,19 @@ public class DirectionActivity extends Activity {
 				findText = (EditText) findViewById(R.id.editFindaPlace);
 				String txt = findText.getText().toString();
 				String rst = myLocationList.Find(txt);
-				TextView instr = (TextView) findViewById(R.id.instruction_text);
-				instr.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
+				//TextView instr = (TextView) findViewById(R.id.instruction_text);
+				//instructionText = (TextView) findViewById(R.id.instruction_text);
+				instructionText.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
 				//Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
 			} else if (view.getId() == R.id.bldAButton) {
 				//startActivity(new Intent(myContext, News.class));
-				Toast.makeText(myContext, "You click on Building A button", 100).show();
+				//img.setImageResource(R.drawable.academic);
+				//Toast.makeText(myContext, "You click on Building A button", 100).show();
+				//Set text for Direction Text Box
+				instructionText.setText("What this building has: " + 
+						"\n Food Court, ATM " +
+						"\n Testing Center." +
+						"\n Help Desk Services.");
 			} else if (view.getId() == R.id.bldBButton) {
 				Toast.makeText(myContext, "You click on Building B button", 100).show();
 			} else if( view.getId() == R.id.bldCButton) {
