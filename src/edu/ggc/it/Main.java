@@ -10,6 +10,7 @@ import java.util.Date;
 
 import edu.ggc.it.map.MapActivity;
 
+import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class Main extends Activity {
 	private Button directionButton;
 	private Button mapButton;
 	private Button gymButton;
+	private Button loveButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -56,6 +58,9 @@ public class Main extends Activity {
 		
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
+		
+		loveButton = (Button) findViewById(R.id.love_button);
+		loveButton.setOnClickListener(myListener);
 		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
@@ -100,6 +105,8 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.love_button){
+				startActivity(new Intent(myContext, SetupActivity.class));
 			}
 
 		}

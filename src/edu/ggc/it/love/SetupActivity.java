@@ -10,5 +10,8 @@ import android.app.Activity;
  *
  */
 public class SetupActivity extends Activity{
-	
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.love_setup);
+	}
 }
