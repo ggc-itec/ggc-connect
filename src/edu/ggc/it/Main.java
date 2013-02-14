@@ -1,6 +1,7 @@
 package edu.ggc.it;
 
 import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.schedule.ScheduleActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,6 +25,7 @@ public class Main extends Activity {
 	private Button directionButton;
 	private Button mapButton;
 	private Button gymButton;
+	private Button scheduleButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -44,6 +46,9 @@ public class Main extends Activity {
 		
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
+		
+		scheduleButton = (Button) findViewById(R.id.schedule_button);
+		scheduleButton.setOnClickListener(myListener);
 		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
@@ -89,6 +94,8 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, DirectionActivity.class));
 			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.schedule_button) {
+				startActivity(new Intent(myContext, ScheduleActivity.class));
 			}
 
 		}
