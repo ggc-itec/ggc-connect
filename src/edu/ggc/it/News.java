@@ -1,6 +1,5 @@
 package edu.ggc.it;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +22,7 @@ public class News extends ListActivity {
 
 	}
 
+	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 
 		String selection = getListAdapter().getItem(position).toString();

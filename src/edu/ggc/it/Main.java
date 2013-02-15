@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 
+import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 
@@ -37,6 +39,7 @@ public class Main extends Activity {
 	private Button directionButton;
 	private Button mapButton;
 	private Button gymButton;
+	private Button scheduleButton;
 	private Button loveButton;
 	private Context myContext;
 
@@ -58,6 +61,9 @@ public class Main extends Activity {
 		
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
+		
+		scheduleButton = (Button) findViewById(R.id.schedule_button);
+		scheduleButton.setOnClickListener(myListener);
 		
 		loveButton = (Button) findViewById(R.id.love_button);
 		loveButton.setOnClickListener(myListener);
@@ -105,6 +111,9 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.schedule_button) {
+				startActivity(new Intent(myContext, ScheduleActivity.class));
+			}
 			} else if (view.getId() == R.id.love_button){
 				startActivity(new Intent(myContext, SetupActivity.class));
 			}
