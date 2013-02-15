@@ -113,7 +113,6 @@ public class Main extends Activity {
 			} else if( view.getId() == R.id.gym_button) {
 			} else if (view.getId() == R.id.schedule_button) {
 				startActivity(new Intent(myContext, ScheduleActivity.class));
-			}
 			} else if (view.getId() == R.id.love_button){
 				startActivity(new Intent(myContext, SetupActivity.class));
 			}
