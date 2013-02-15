@@ -97,7 +97,7 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, MapActivity.class));
 			} else if (view.getId() == R.id.direction_button) {
-				startActivity(new Intent(myContext, Credits.class));
+				startActivity(new Intent(myContext, DirectionActivity.class));
 			} else if( view.getId() == R.id.gym_button) {
 			} else if (view.getId() == R.id.schedule_button) {
 				startActivity(new Intent(myContext, ScheduleActivity.class));
