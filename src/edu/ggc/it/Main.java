@@ -1,20 +1,13 @@
 package edu.ggc.it;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
-
+import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /*  I chagned things
  * ggc-connect is an app designed for the GGC community 
@@ -36,6 +27,8 @@ public class Main extends Activity {
 	private Button directionButton;
 	private Button mapButton;
 	private Button gymButton;
+	private Button scheduleButton;
+	private Button loveButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -56,6 +49,12 @@ public class Main extends Activity {
 		
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
+		
+		scheduleButton = (Button) findViewById(R.id.schedule_button);
+		scheduleButton.setOnClickListener(myListener);
+		
+		loveButton = (Button) findViewById(R.id.love_button);
+		loveButton.setOnClickListener(myListener);
 		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
@@ -100,6 +99,10 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.schedule_button) {
+				startActivity(new Intent(myContext, ScheduleActivity.class));
+			} else if (view.getId() == R.id.love_button){
+				startActivity(new Intent(myContext, SetupActivity.class));
 			}
 
 		}
