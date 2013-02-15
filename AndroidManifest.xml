@@ -50,6 +50,7 @@
                 android:value="edu.ggc.it.Main" />
 
         </activity>
+        <activity android:name="edu.ggc.it.love.SetupActivity" android:label="@string/dating_label"></activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />

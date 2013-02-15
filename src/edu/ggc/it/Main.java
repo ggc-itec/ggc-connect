@@ -1,6 +1,9 @@
 package edu.ggc.it;
 
 import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.love.SetupActivity;
+import edu.ggc.it.map.MapActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-/*
+/*  I chagned things
  * ggc-connect is an app designed for the GGC community 
  * @author Team Grizz
  * 
@@ -24,6 +27,8 @@ public class Main extends Activity {
 	private Button directionButton;
 	private Button mapButton;
 	private Button gymButton;
+	private Button scheduleButton;
+	private Button loveButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -44,6 +49,12 @@ public class Main extends Activity {
 		
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
+		
+		scheduleButton = (Button) findViewById(R.id.schedule_button);
+		scheduleButton.setOnClickListener(myListener);
+		
+		loveButton = (Button) findViewById(R.id.love_button);
+		loveButton.setOnClickListener(myListener);
 		
 		// myText = (TextView) findViewById(R.id.myTextView);
 		// Date d = new Date();
@@ -79,20 +90,22 @@ public class Main extends Activity {
 	}
 
 	public class MyListener implements OnClickListener {
-		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
 				Intent myIntent = new Intent(myContext, News.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
-				startActivity(new Intent(myContext, News.class));
+				startActivity(new Intent(myContext, MapActivity.class));
 			} else if (view.getId() == R.id.direction_button) {
-				startActivity(new Intent(myContext, DirectionActivity.class));
+				startActivity(new Intent(myContext, Credits.class));
 			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.schedule_button) {
+				startActivity(new Intent(myContext, ScheduleActivity.class));
+			} else if (view.getId() == R.id.love_button){
+				startActivity(new Intent(myContext, SetupActivity.class));
 			}
 
 		}
 	}
-
 
 }
