@@ -32,5 +32,6 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="add_schedule_button_text">Add class</string>
 
+	<string name="dating_label">Dating</string>
 
 </resources>
