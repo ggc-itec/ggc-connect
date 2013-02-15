@@ -24,8 +24,8 @@ public class ScheduleActivity extends Activity {
 		
 		scheduleContext = this;
 		
-		scheduleButton = (Button) findViewById(R.id.add_schedule_item_button);
-		scheduleButton.setOnClickListener(new ScheduleListener());
+		/*scheduleButton = (Button) findViewById(R.id.add_schedule_item_button);
+		scheduleButton.setOnClickListener(new ScheduleListener());*/
 		
 	}
 
@@ -57,12 +57,12 @@ public class ScheduleActivity extends Activity {
 
 		@Override
 		public void onClick(View view) {
-			if (view.getId() == R.id.add_schedule_item_button) {
+			/*if (view.getId() == R.id.add_schedule_item_button) {
 				//TODO: Display the add schedule item screen
 				Toast.makeText(scheduleContext, 
 						"This would show add schedule item screen...", 
 						Toast.LENGTH_LONG).show();
-			}
+			}*/
 		}
 		
 	}
