@@ -1,10 +1,11 @@
 package edu.ggc.it;
 
 import edu.ggc.it.direction.DirectionActivity;
+
 import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
-
+import edu.ggc.it.directory.DirectoryActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -92,7 +93,7 @@ public class Main extends Activity {
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
-				Intent myIntent = new Intent(myContext, News.class);
+				Intent myIntent = new Intent(myContext, DirectoryActivity.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, MapActivity.class));
