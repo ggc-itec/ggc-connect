@@ -100,17 +100,22 @@ public class DirectionActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.ButtonFindaPlace) {
-				loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-				latitude = loc.getLatitude();
-				longitude = loc.getLongitude();
-				//Get text from Find text box
-				findText = (EditText) findViewById(R.id.editFindaPlace);
-				String txt = findText.getText().toString();
-				String rst = myLocationList.Find(txt);
-				//TextView instr = (TextView) findViewById(R.id.instruction_text);
-				//instructionText = (TextView) findViewById(R.id.instruction_text);
-				instructionText.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
-				//Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
+				if ( !lm.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+					instructionText.setText("Ooops... Your GPS seems to be disabled, please turn it on before using this function!!!");
+			    }
+				else{
+					loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+					latitude = loc.getLatitude();
+					longitude = loc.getLongitude();
+					//Get text from Find text box
+					findText = (EditText) findViewById(R.id.editFindaPlace);
+					String txt = findText.getText().toString();
+					String rst = myLocationList.Find(txt);
+					//TextView instr = (TextView) findViewById(R.id.instruction_text);
+					//instructionText = (TextView) findViewById(R.id.instruction_text);
+					instructionText.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
+					//Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
+				}
 			} else if (view.getId() == R.id.bldAButton) {
 				//startActivity(new Intent(myContext, News.class));
 				//img.setImageResource(R.drawable.academic);
@@ -120,21 +125,28 @@ public class DirectionActivity extends Activity {
 						"\n Food Court, ATM " +
 						"\n Testing Center." +
 						"\n Help Desk Services.");
+				img.setImageResource(R.drawable.building_a);
 			} else if (view.getId() == R.id.bldBButton) {
+				img.setImageResource(R.drawable.building_b);
 				Toast.makeText(myContext, "You click on Building B button", 100).show();
 			} else if( view.getId() == R.id.bldCButton) {
+				img.setImageResource(R.drawable.building_c);
 				Toast.makeText(myContext, "You click on Building C button", 100).show();
 			} else if( view.getId() == R.id.bldDButton) {
+				img.setImageResource(R.drawable.building_d);
 				Toast.makeText(myContext, "You click on Building D button", 100).show();
 			} else if( view.getId() == R.id.bldEButton) {
+				img.setImageResource(R.drawable.building_e1);
 				Toast.makeText(myContext, "You click on Building E button", 100).show();
 			} else if( view.getId() == R.id.bldFButton) {
+				img.setImageResource(R.drawable.building_f);
 				Toast.makeText(myContext, "You click on Building Fbutton", 100).show();
 			} else if( view.getId() == R.id.bldHButton) {
 				Toast.makeText(myContext, "You click on Building H button", 100).show();
 			} else if( view.getId() == R.id.bldIButton) {
 				Toast.makeText(myContext, "You click on Building I button", 100).show();
 			} else if( view.getId() == R.id.bldLButton) {
+				img.setImageResource(R.drawable.building_l);
 				Toast.makeText(myContext, "You click on Building L button", 100).show();
 			} else if( view.getId() == R.id.parkingButton) {
 				Toast.makeText(myContext, "You click on Building Parking button", 100).show();
