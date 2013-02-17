@@ -33,5 +33,10 @@
     <string name="add_schedule_button_text">Add class</string>
 
 	<string name="dating_label">Dating</string>
+	<string-array name="parent_directories">
+	    <item>View by Department</item>
+	    <item>Search by Name</item>
+	</string-array>
+	<string name="title_activity_directory">GGC Directory</string>
 
 </resources>
