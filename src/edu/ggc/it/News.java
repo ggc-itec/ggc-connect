@@ -15,7 +15,7 @@ public class News extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news);
-
+		setTitle("Links");
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, getResources()
 						.getStringArray(R.array.websites)));
@@ -27,11 +27,11 @@ public class News extends ListActivity {
 
 		String selection = getListAdapter().getItem(position).toString();
 
-		if (selection.equals("CNN")) {
+		if (selection.equals("Clawmail")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://m.cnn.com"));
+					Uri.parse("http://clawmail.ggc.edu"));
 			startActivity(browserIntent);
-		} else if (selection.equals("FOX")) {
+		} else if (selection.equals("Banner")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://m.fox.com"));
 			startActivity(browserIntent);
@@ -39,7 +39,7 @@ public class News extends ListActivity {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.ggc.edu"));
 			startActivity(browserIntent);
-		} else if (selection.equals("Guardian")) {
+		} else if (selection.equals("My.GGC")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.guardian.co.uk"));
 			startActivity(browserIntent);

@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-/*  I chagned things
+/*  
  * ggc-connect is an app designed for the GGC community 
  * @author Team Grizz
  * 
@@ -81,7 +81,7 @@ public class Main extends Activity {
 			Intent myIntent = new Intent(Main.this, Credits.class);
 			Main.this.startActivity(myIntent);
 			return true;
-		case R.id.news:
+		case R.id.links:
 			Intent myIntent2 = new Intent(Main.this, News.class);
 			Main.this.startActivity(myIntent2);
 			return true;
