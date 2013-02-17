@@ -1,12 +1,13 @@
 package edu.ggc.it;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.webkit.WebView;
 
 public class Credits extends Activity {
 
-	private TextView myText;
+	private WebView webView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -14,7 +15,20 @@ public class Credits extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.credits);
 
-		myText = (TextView) findViewById(R.id.creditsTextView);
+		webView = (WebView) findViewById(R.id.creditsWebView);
+		webView.getSettings().setJavaScriptEnabled(false);
+		webView.setBackgroundColor(Color.BLACK);
+		webView.loadData("<font color='green'><center> <p>Leo Hernandez" +
+				"<p>Andrew Lynch" +
+				"<p>Jared Marquez" +
+				"<p>Jesse Perkins" +
+				"<p>Thai Pham" +
+				"<p>Rajesh Ramsaroop" +
+				"<p>Jacob Smallwood" +
+				"<p>Felegh Solomon" +
+				"</center></font>",
+				"text/html",
+				"UTF-8");
 	}
 
 }
