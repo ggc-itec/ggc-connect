@@ -2,24 +2,46 @@ package edu.ggc.it.schedule;
 
 import edu.ggc.it.R;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.app.DialogFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
+	
+	private Context scheduleContext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
+		scheduleContext = this;
 		
+		showAddScheduleItemDialog();		
+	}
+
+	private void showAddScheduleItemDialog() {
+		new AlertDialog.Builder(this)
+	    .setTitle("No Classes Found")
+	    .setMessage("No classes were found on your schedule. Would you like to add one now?")
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	Toast.makeText(scheduleContext, "Show add screen", Toast.LENGTH_LONG)
+				.show();
+	        }
+	     })
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	Toast.makeText(scheduleContext, "Go back to main menu", Toast.LENGTH_LONG)
+				.show();
+	        }
+	     })
+	     .show();
 	}
 
 	@Override
@@ -58,27 +80,6 @@ public class ScheduleActivity extends Activity {
 			}*/
 		}
 		
-	}
-	@SuppressLint("ValidFragment")
-	public class AddScheduleItemDialog extends DialogFragment {
-		@Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	        // Use the Builder class for convenient dialog construction
-	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        builder.setMessage("No schedule items have been found. Would you like to add a new one?")
-	               .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // FIRE ZE MISSILES!
-	                   }
-	               })
-	               .setNegativeButton("No", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // User cancelled the dialog
-	                   }
-	               });
-	        // Create the AlertDialog object and return it
-	        return builder.create();
-	    }
 	}
 
 }
