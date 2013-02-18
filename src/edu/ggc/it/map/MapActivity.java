@@ -31,7 +31,7 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.map_activity);
+		setContentView(new MapView(this));
 		setUpGPS();
 	}
 	
