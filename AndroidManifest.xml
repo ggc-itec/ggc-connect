@@ -14,7 +14,7 @@
 
 
     <application
-        android:icon="@drawable/icon"
+        android:icon="@drawable/ggc_connect_icon"
         android:label="@string/app_name" >
         <activity
             android:name="edu.ggc.it.Main"
