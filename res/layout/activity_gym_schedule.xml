@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ggc_green"
+    tools:context=".GymScheduleActivity" >
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Monday - Thursday: 7:00 a.m. - 12:00 a.m.
+Friday: 7:00 a.m. - 5:30 p.m.
+Saturday:  9:00 a.m. - 3:00 p.m.
+Sunday:  12:00 p.m. - 4:00 p.m." />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pool Schedule Spring '13"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "Monday: 7:00 a.m. – 12:00 a.m.
+Tuesday: 7:00 a.m. - 9:00 a.m.; 2:00 p.m. - 4:30 p.m.
+Wednesday:  7:00 a.m. - 8:00 p.m.
+Thursday:  7:00 a.m. - 9:00 a.m.; 2:00 p.m. - 4:30 p.m.
+Friday: 7:00 a.m. – 4:30 p.m.
+Saturday and Sunday: Closed" 
+                 />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basketball Schedule"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </TableRow>
+        
+        <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "Monday:  7:00 a.m. - 3:00 p.m.; 6:30 p.m. - 12:00 a.m.
+Tuesday:  7:00 a.m. - 12:00 p.m.; 5:00 p.m. - 12:00 a.m.
+Wednesday:  2:00 p.m. - 12:00 a.m.
+Thursday:   2:00 p.m. - 12:00 a.m.
+Friday:  7:00 a.m. - 5:30 p.m.
+Saturday:  9:00 a.m. - 3:00 p.m.
+Sunday:  12:00 p.m. - 4:00 p.m."
+                
+                />
+
+    </TableRow>
+    
+        
+    </TableLayout>
+
+  
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tableLayout1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:text="Gym Schedule Spring&apos;13"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
