@@ -1,12 +1,9 @@
 package edu.ggc.it;
 
-import edu.ggc.it.direction.DirectionActivity;
-import edu.ggc.it.schedule.ScheduleActivity;
-import edu.ggc.it.love.SetupActivity;
-import edu.ggc.it.map.MapActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import edu.ggc.it.direction.DirectionActivity;
+import edu.ggc.it.directory.DirectoryActivity;
+import edu.ggc.it.love.SetupActivity;
+import edu.ggc.it.map.MapActivity;
+import edu.ggc.it.schedule.ScheduleActivity;
 
-/*  I chagned things
+/*  
  * ggc-connect is an app designed for the GGC community 
  * @author Team Grizz
  * 
@@ -46,20 +48,16 @@ public class Main extends Activity {
 
 		mapButton = (Button) findViewById(R.id.map_button);
 		mapButton.setOnClickListener(myListener);
-		
+
 		gymButton = (Button) findViewById(R.id.gym_button);
 		gymButton.setOnClickListener(myListener);
-		
+
 		scheduleButton = (Button) findViewById(R.id.schedule_button);
 		scheduleButton.setOnClickListener(myListener);
-		
+
 		loveButton = (Button) findViewById(R.id.love_button);
 		loveButton.setOnClickListener(myListener);
-		
-		// myText = (TextView) findViewById(R.id.myTextView);
-		// Date d = new Date();
-		// myText.setText("Today's date is " + d.toString() + "   ") ;
-		// Toast.makeText(this, "Hee hee", 3);
+
 	}
 
 	/** Called when user presses Menu key */
@@ -75,12 +73,24 @@ public class Main extends Activity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.welcome:
+			new AlertDialog.Builder(this)
+					.setTitle("Welcome")
+					.setMessage(
+							"ggc-connect is an app for the Georgia Gwinnett College community")
+					.setNeutralButton("Close",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+								}
+							}).show();
 			return true;
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
 			Main.this.startActivity(myIntent);
 			return true;
-		case R.id.news:
+		case R.id.links:
 			Intent myIntent2 = new Intent(Main.this, News.class);
 			Main.this.startActivity(myIntent2);
 			return true;
@@ -92,16 +102,16 @@ public class Main extends Activity {
 	public class MyListener implements OnClickListener {
 		public void onClick(View view) {
 			if (view.getId() == R.id.directory_button) {
-				Intent myIntent = new Intent(myContext, News.class);
+				Intent myIntent = new Intent(myContext, DirectoryActivity.class);
 				startActivity(myIntent);
 			} else if (view.getId() == R.id.map_button) {
 				startActivity(new Intent(myContext, MapActivity.class));
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, DirectionActivity.class));
-			} else if( view.getId() == R.id.gym_button) {
+			} else if (view.getId() == R.id.gym_button) {
 			} else if (view.getId() == R.id.schedule_button) {
 				startActivity(new Intent(myContext, ScheduleActivity.class));
-			} else if (view.getId() == R.id.love_button){
+			} else if (view.getId() == R.id.love_button) {
 				startActivity(new Intent(myContext, SetupActivity.class));
 			}
 
