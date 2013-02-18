@@ -53,7 +53,7 @@
 
         <activity android:name="edu.ggc.it.love.SetupActivity" android:label="@string/dating_label"></activity>
 
-        <activity android:name="edu.ggc.it.directory.DirectoryActivity" android:label="@string/title_activity_directory">        </activity>
+        <activity android:name="edu.ggc.it.directory.DirectoryActivity" android:label="@string/title_activity_directory" android:screenOrientation="portrait">        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />
