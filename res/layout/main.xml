@@ -55,6 +55,12 @@
             android:layout_gravity="center"
             android:text="@string/schedule_label" />
 
+        <Button
+            android:id="@+id/love_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dating_label" />
+
     </LinearLayout>
 
 </LinearLayout>

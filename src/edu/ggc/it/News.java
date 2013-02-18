@@ -1,6 +1,5 @@
 package edu.ggc.it;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,25 +15,37 @@ public class News extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news);
-
+		setTitle("Links");
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, getResources()
 						.getStringArray(R.array.websites)));
 
 	}
 
+	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 
 		String selection = getListAdapter().getItem(position).toString();
 
-		if (selection.equals("CNN")) {
+		if (selection.equals("Clawmail")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://m.cnn.com"));
+					Uri.parse("http://clawmail.ggc.edu"));
 			startActivity(browserIntent);
-		}
-		else if( selection.equals("FOX")) {
+		} else if (selection.equals("Banner")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://m.fox.com"));
+			startActivity(browserIntent);
+		} else if (selection.equals("GGC")) {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.ggc.edu"));
+			startActivity(browserIntent);
+		} else if (selection.equals("My.GGC")) {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.guardian.co.uk"));
+			startActivity(browserIntent);
+		} else {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.reddit.com"));
 			startActivity(browserIntent);
 		}
 

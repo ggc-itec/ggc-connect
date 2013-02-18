@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">ggc-connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
-    <string name="news">Good News</string>
+    <string name="links">Links</string>
     <string name="map_label">Campus Map</string>
     <string name="direction_label">Campus Direction</string>
     <string name="schedule_label">My Schedule</string>
     <string name="directory_label">Directory</string>
     <string name="gym_label">Gym Info</string>
+
+    <string name="text_FindaPlace">Enter your place</string>
+    <string name="button_FindaPlace">Find</string>
+
+
     <string-array name="websites">
-        <item >CNN</item>
-        <item>FOX</item>
-        <item >ESPN</item>
+        <item>GGC</item>
+        <item>Clawmail</item>
+        <item>Banner</item>
+        <item>My.GGC</item>
+        <item>Calendar</item>
     </string-array>
+
     <string name="main_title">GGC Connect</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="title_activity_direction">DirectionActivity</string>
+
+    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="add_schedule_button_text">Add class</string>
+
+	<string name="dating_label">Dating</string>
+
 </resources>
