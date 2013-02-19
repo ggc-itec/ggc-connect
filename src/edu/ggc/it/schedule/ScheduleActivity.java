@@ -2,8 +2,8 @@ package edu.ggc.it.schedule;
 
 import edu.ggc.it.R;
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.Menu;
@@ -12,15 +12,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class ScheduleActivity extends Activity {
+public class ScheduleActivity extends ListActivity {
 	
 	private Context scheduleContext;
+	private ScheduleDatabase database;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
 		scheduleContext = this;
+		
+		// open new database
+		database = new ScheduleDatabase(scheduleContext);
+		database.open();
 		
 		showAddScheduleItemDialog();		
 	}
