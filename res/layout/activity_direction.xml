@@ -20,7 +20,7 @@
 		<EditText android:id="@+id/editFindaPlace"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:width="260dp" android:height="60dp"
-			android:text="@string/text_FindaPlace" />
+			android:hint="@string/text_FindaPlace" />
 
 
 	</TableRow>
