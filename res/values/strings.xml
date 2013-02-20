@@ -38,5 +38,106 @@
 	    <item>Search by Name</item>
 	</string-array>
 	<string name="title_activity_directory">GGC Directory</string>
+	<string name="ds_name_label">Name</string>
+	<string name="ds_bday_label">Birth date</string>
+	<string name="ds_gender_label">Gender</string>
+	<string name="ds_add_class_label">Add Class</string>
+	<string name="ds_subject_label">Subject</string>
+	<string name="ds_course_label">Course</string>
+	<string name="ds_section_label">Section</string>
+	<string name="ds_search_by_label">Search by</string>
+	<string name="ds_next_label">Next</string>
+	<string name="ds_done_label">Done</string>
+	<string-array name="ds_subject_names">
+		<item >Accounting</item>
+		<item >Anthropology</item>
+		<item >Art</item>
+		<item >Biochemistry</item>
+		<item >Biology</item>
+		<item >Business Administration</item>
+		<item >Chemistry</item>
+		<item >Chinese</item>
+		<item >Communications</item>
+		<item >Criminal Justice/Criminology</item>
+		<item >Early Childhood Education</item>
+		<item >Economics</item>
+		<item >Education</item>
+		<item >English</item>
+		<item >English Literature &amp; Language</item>
+		<item >English for Academic Purposes</item>
+		<item >Exercise Science</item>
+		<item >Film</item>
+		<item >Finance</item>
+		<item >French</item>
+		<item >Geography</item>
+		<item >History</item>
+		<item >Information Technology</item>
+		<item >Integrated Science</item>
+		<item >Leadership</item>
+		<item >Management</item>
+		<item >Marketing</item>
+		<item >Mathematics</item>
+		<item >Military Science &amp; Leadership</item>
+		<item >Music</item>
+		<item >Philosophy</item>
+		<item >Physical Education</item>
+		<item >Physical Science</item>
+		<item >Physics</item>
+		<item >Political Science</item>
+		<item >Psychology</item>
+		<item >Reading</item>
+		<item >Religion</item>
+		<item >Science &amp; Technology</item>
+		<item >Sociology</item>
+		<item >Spanish</item>
+		<item >Special Education</item>
+		<item >Theatre</item>
+	</string-array>
+	<string-array name="ds_subject_codes">
+		<item >ACCT</item>
+		<item >ANTH</item>
+		<item >ARTS</item>
+		<item >BCHM</item>
+		<item >BIOL</item>
+		<item >BUSA</item>
+		<item >CHEM</item>
+		<item >CHIN</item>
+		<item >COMM</item>
+		<item >CJCR</item>
+		<item >ECED</item>
+		<item >ECON</item>
+		<item >EDUC</item>
+		<item >ENGL</item>
+		<item >ELAN</item>
+		<item >EAP</item>
+		<item >EXSC</item>
+		<item >FILM</item>
+		<item >FINA</item>
+		<item >FREN</item>
+		<item >GEOG</item>
+		<item >HIST</item>
+		<item >ITEC</item>
+		<item >ISCI</item>
+		<item >LEAD</item>
+		<item >LEAD</item>
+		<item >MGMT</item>
+		<item >MKTG</item>
+		<item >MATH</item>
+		<item >MSL</item>
+		<item >MUSC</item>
+		<item >PHIL</item>
+		<item >PHED</item>
+		<item >PSCI</item>
+		<item >PHYS</item>
+		<item >POLS</item>
+		<item >PSYC</item>
+		<item >READ</item>
+		<item >RELN</item>
+		<item >STEC</item>
+		<item >SOCI</item>
+		<item >SPAN</item>
+		<item >SPED</item>
+		<item >THEA</item>
+	</string-array>
 
 </resources>
