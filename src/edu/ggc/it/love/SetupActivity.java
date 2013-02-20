@@ -1,10 +1,13 @@
 package edu.ggc.it.love;
 
+import java.util.List;
+
 import edu.ggc.it.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -24,10 +27,13 @@ public class SetupActivity extends Activity{
 	private TableRow courseRow;
 	private Spinner courseInput;
 	private String[] subjectIds;
+	private Banner banner;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.love_setup);
+		
+		banner = new Banner(this);
 		
 		// find views
 		subjectRow = (TableRow)findViewById(R.id.ds_subject_row);
@@ -72,12 +78,18 @@ public class SetupActivity extends Activity{
 		
 		private void showSubjects(){
 			subjectRow.setVisibility(View.VISIBLE);
+			classButton.setText(R.string.ds_next_label);
 		}
 		
 		private void showCourses(){
 			int selected = subjectInput.getSelectedItemPosition();
 			String code = subjectIds[selected];
-			int[] courseNumbers = Banner.getCourseNumbers(code);
+			List<String> courses = banner.getCourseNumbers(code);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
+					android.R.layout.simple_spinner_item, courses);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			courseInput.setAdapter(adapter);
+			courseRow.setVisibility(View.VISIBLE);
 		}
 		
 		private void showSections(){

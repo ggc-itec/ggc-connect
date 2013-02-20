@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,15 +23,25 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.scheme.SocketFactory;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 
+import edu.ggc.it.R;
+
+import android.content.Context;
 import android.util.Log;
 
 public class Banner {
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
-	private static final BannerForm P_GetCrse =
+	private final BannerForm P_GetCrse =
 			new BannerForm("/pls/B400/bwskfcls.P_GetCrse",
 					new NameValuePair[]{
 					new BasicNameValuePair("rsts", "dummy"),
@@ -54,23 +70,25 @@ public class Banner {
 					new BasicNameValuePair("path", "1"),
 					new BasicNameValuePair("SUB_BTN", "Course Search")
 			});
+	private Context context;
 	
-	public static int[] getCourseNumbers(String subject){
+	public Banner(Context context){
+		this.context = context;
+	}
+	
+	public List<String> getCourseNumbers(String subject){
 		P_GetCrse.set("sel_subj", subject);
 		BufferedReader response = P_GetCrse.request();
 		List<String> courses = scrapeAttr(response, "input", "value", "name=\"SEL_SUBJ\"");
-		int[] courseNumbers = new int[courses.size()];
-		for (int i = 0; i < courses.size(); i++)
-			courseNumbers[i] = Integer.parseInt(courses.get(i));
 		try{
 			response.close();
 		} catch (IOException ioe){
 			Log.w(TAG, "Failed to close HTML stream", ioe);
 		}
-		return courseNumbers;
+		return courses;
 	}
 	
-	private static List<String> scrapeAttr(BufferedReader html, String tag, String attr,
+	private List<String> scrapeAttr(BufferedReader html, String tag, String attr,
 			String... matches){
 		List<String> results = new ArrayList<String>();
 		String matched = null;
@@ -151,7 +169,56 @@ public class Banner {
 		return results;
 	}
 	
-	private static class BannerForm{
+	// Android doesn't trust Banner's certificate, so to do a request, we have to implement
+	// our own client class. This code essentially copied from:
+	// http://blog.crazybob.org/2010/02/android-trusting-ssl-certificates.html
+	private static class BannerHttpClient extends DefaultHttpClient{
+		private final Context context;
+		private static final String STORE_PASS = "i23rFJ@Qf0#";
+		
+		public BannerHttpClient(Context context){
+			this.context = context;
+		}
+		
+		@Override
+		protected ClientConnectionManager createClientConnectionManager(){
+			SchemeRegistry registry = new SchemeRegistry();
+			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+			registry.register(new Scheme("https", newSslSocketFactory(), 443));
+			return new SingleClientConnManager(getParams(), registry);
+		}
+
+		private SocketFactory newSslSocketFactory() {
+			try{
+				KeyStore trusted = KeyStore.getInstance("BKS");
+				InputStream in = context.getResources().openRawResource(R.raw.banner);
+				try{
+					trusted.load(in, STORE_PASS.toCharArray());
+					return new SSLSocketFactory(trusted);
+				} catch (CertificateException ce){
+					Log.e(TAG, "Problem with keystore certificate", ce);
+				} catch (NoSuchAlgorithmException nsae) {
+					Log.e(TAG, "Algorithm exception", nsae);
+				} catch (IOException ioe) {
+					Log.e(TAG, "Error reading keystore file", ioe);
+				} catch (KeyManagementException kme) {
+					Log.e(TAG, "Key management exception", kme);
+				} catch (UnrecoverableKeyException uke) {
+					Log.e(TAG, "Keystore corrupted", uke);
+				} finally{
+					in.close();
+				}
+			} catch (KeyStoreException kse){
+				Log.e(TAG, "Failed to create KeyStore", kse);
+			} catch (IOException ioe){
+				Log.e(TAG, "Failed to close keystore input stream", ioe);
+			}
+			
+			return null;
+		}
+	}
+	
+	private class BannerForm{
 		private String path;
 		private NameValuePair[] defaultParms;
 		private Map<String, String> currentParms;
@@ -179,7 +246,7 @@ public class Banner {
 		}
 		
 		public BufferedReader request(){
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new BannerHttpClient(context);
 			HttpPost post = new HttpPost(BANNER_URL + path);
 			List<NameValuePair> parms = new ArrayList<NameValuePair>(defaultParms.length);
 			BufferedReader ret = null;
