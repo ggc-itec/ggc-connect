@@ -33,7 +33,7 @@ public class ScheduleActivity extends ListActivity {
 	private void showAddScheduleItemDialog() {
 		new AlertDialog.Builder(this)
 	    .setTitle("No Classes Found")
-	    .setMessage("No classes were found on your schedule. Would you like to add one now?")
+	    .setMessage(R.string.schedule_no_classes_popup)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	Toast.makeText(scheduleContext, "Show add screen", Toast.LENGTH_LONG)
