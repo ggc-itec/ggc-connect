@@ -98,10 +98,10 @@ public class ScheduleDatabase {
 				+ DATABASE_TABLE + " (" + ScheduleDatabase.KEY_ROWID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ScheduleDatabase.KEY_NAME + " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_START_TIME + " TEXT NOT NULL " 
-				+ ScheduleDatabase.KEY_END_TIME + " TEXT NOT NULL "
-				+ ScheduleDatabase.KEY_DAYS + " TEXT NOT NULL "
-				+ ScheduleDatabase.KEY_BUILDING_LOCATION + " TEXT NOT NULL "
+				+ ScheduleDatabase.KEY_START_TIME + " TEXT NOT NULL, " 
+				+ ScheduleDatabase.KEY_END_TIME + " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_DAYS + " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_BUILDING_LOCATION + " TEXT NOT NULL, "
 				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL "
 				+ ");";
 

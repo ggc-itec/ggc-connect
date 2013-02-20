@@ -2,17 +2,16 @@ package edu.ggc.it.schedule;
 
 import edu.ggc.it.R;
 import android.os.Bundle;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class ScheduleActivity extends ListActivity {
+public class ScheduleActivity extends Activity {
 	
 	private Context scheduleContext;
 	private ScheduleDatabase database;
@@ -27,7 +26,25 @@ public class ScheduleActivity extends ListActivity {
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
 		
-		showAddScheduleItemDialog();		
+		if (!classesExist()) {
+			showAddScheduleItemDialog();
+		}
+		
+		populateList();
+	}
+
+	private void populateList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean classesExist() {
+		Cursor c = database.queryAll();
+		if (c.getCount()  > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void showAddScheduleItemDialog() {
@@ -72,18 +89,4 @@ public class ScheduleActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public class ScheduleListener implements OnClickListener {
-
-		@Override
-		public void onClick(View view) {
-			/*if (view.getId() == R.id.add_schedule_item_button) {
-				//TODO: Display the add schedule item screen
-				Toast.makeText(scheduleContext, 
-						"This would show add schedule item screen...", 
-						Toast.LENGTH_LONG).show();
-			}*/
-		}
-		
-	}
-
 }
