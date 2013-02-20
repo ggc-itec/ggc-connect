@@ -20,16 +20,20 @@ public class ScheduleDatabase {
 	public static final int INDEX_START_TIME = 2;
 	public static final String KEY_END_TIME = "end_time";
 	public static final int INDEX_END_TIME = 3;
-	public static final String KEY_LOCATION_BUILDING = "location_building";
-	public static final int INDEX_LOCATION_BUILDING = 4;
-	public static final String KEY_LOCATION_ROOM = "location_room";
-	public static final int INDEX_LOCATION_ROOM = 5;
+	public static final String KEY_DAYS = "days";
+	public static final int INDEX_DAYS = 4;
+	public static final String KEY_BUILDING_LOCATION = "building_location";
+	public static final int INDEX_LOCATION_BUILDING = 5;
+	public static final String KEY_ROOM_LOCATION = "room_location";
+	public static final int INDEX_LOCATION_ROOM = 6;
 
 	public static final String[] KEYS_ALL = { ScheduleDatabase.KEY_ROWID,
-			ScheduleDatabase.KEY_NAME, ScheduleDatabase.KEY_START_TIME,
+			ScheduleDatabase.KEY_NAME, 
+			ScheduleDatabase.KEY_START_TIME,
 			ScheduleDatabase.KEY_END_TIME,
-			ScheduleDatabase.KEY_LOCATION_BUILDING,
-			ScheduleDatabase.KEY_LOCATION_ROOM };
+			ScheduleDatabase.KEY_DAYS,
+			ScheduleDatabase.KEY_BUILDING_LOCATION,
+			ScheduleDatabase.KEY_ROOM_LOCATION };
 
 	private Context context;
 	private SQLiteDatabase database;
@@ -77,13 +81,14 @@ public class ScheduleDatabase {
 	}
 
 	public ContentValues createContentValues(String name, String startTime,
-			String endTime, String buildingLocation, String roomLocation) {
+			String endTime, String days, String buildingLocation, String roomLocation) {
 		ContentValues values = new ContentValues();
 		values.put(ScheduleDatabase.KEY_NAME, name);
 		values.put(ScheduleDatabase.KEY_START_TIME, startTime);
 		values.put(ScheduleDatabase.KEY_END_TIME, endTime);
-		values.put(ScheduleDatabase.KEY_LOCATION_BUILDING, buildingLocation);
-		values.put(ScheduleDatabase.KEY_LOCATION_ROOM, roomLocation);
+		values.put(ScheduleDatabase.KEY_DAYS, days);
+		values.put(ScheduleDatabase.KEY_BUILDING_LOCATION, buildingLocation);
+		values.put(ScheduleDatabase.KEY_ROOM_LOCATION, roomLocation);
 		return values;
 	}
 
@@ -95,8 +100,9 @@ public class ScheduleDatabase {
 				+ ScheduleDatabase.KEY_NAME + " TEXT NOT NULL, "
 				+ ScheduleDatabase.KEY_START_TIME + " TEXT NOT NULL " 
 				+ ScheduleDatabase.KEY_END_TIME + " TEXT NOT NULL "
-				+ ScheduleDatabase.KEY_LOCATION_BUILDING + " TEXT NOT NULL "
-				+ ScheduleDatabase.KEY_LOCATION_ROOM + " TEXT NOT NULL "
+				+ ScheduleDatabase.KEY_DAYS + " TEXT NOT NULL "
+				+ ScheduleDatabase.KEY_BUILDING_LOCATION + " TEXT NOT NULL "
+				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL "
 				+ ");";
 
 		public StudentDatabaseHelper(Context context) {
