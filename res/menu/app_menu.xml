@@ -3,15 +3,15 @@
 
     <item
         android:id="@+id/welcome"
-        android:icon="@drawable/ic_welcome"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/welcome"/>
     <item
         android:id="@+id/credits"
-        android:icon="@drawable/ic_credits"
+        android:icon="@android:drawable/ic_menu_help"
         android:title="@string/credits"/>
     <item
         android:id="@+id/links"
-        android:icon="@drawable/ic_credits"
+        android:icon="@android:drawable/ic_menu_share"
         android:title="@string/links">
     </item>
 
