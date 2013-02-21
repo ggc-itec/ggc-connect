@@ -1,12 +1,15 @@
 package edu.ggc.it.directory;
 
 
+import edu.ggc.it.DirectorySearchWebView;
 import edu.ggc.it.R;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -16,6 +19,8 @@ public class DirectoryActivity extends Activity {
 	private TabHost tabHost;
 	private Intent intent;
 	private ListView list;
+	public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
+	public final static String lastName = "edu.ggc.it.directory.MESSAGE";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,17 @@ public class DirectoryActivity extends Activity {
 		tabHost.addTab(spec1);
 		tabHost.addTab(spec2);
 		
+	}
+	
+	public void searchName(View view) {
+		Intent intent = new Intent(this, DirectorySearchWebView.class);
+		EditText editText = (EditText) findViewById(R.id.firstNameText);
+		EditText editText2 = (EditText) findViewById(R.id.lastNameText);
+		String message = editText.getText().toString();
+		String message2 = editText2.getText().toString();
+		String wholeUrl = "http://www.ggc.edu/about-ggc/directory?firstname=" + message +"&firstname_modifier=like&lastname="+message2+"&lastname_modifier=like&search=Search";
+		intent.putExtra(EXTRA_MESSAGE, wholeUrl);
+		startActivity(intent);
 	}
 
 }
