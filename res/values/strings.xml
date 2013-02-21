@@ -27,7 +27,7 @@
     <string name="title_activity_direction">DirectionActivity</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="add_schedule_button_text">Add class</string>
-    <string name="dating_label">Dating</string>
+    <string name="dating_label">Social</string>
 
     <string-array name="parent_directories">
         <item>Admissions</item>
