@@ -38,5 +38,6 @@
     </string-array>
 
     <string name="title_activity_directory">GGC Directory</string>
+    <string name="title_activity_directory_search_web_view">Directory Search</string>
 
 </resources>

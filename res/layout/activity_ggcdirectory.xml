@@ -55,7 +55,7 @@
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <EditText
-                        android:id="@+id/editText1"
+                        android:id="@+id/firstNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -72,33 +72,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignRight="@+id/textView1"
-                        android:layout_below="@+id/editText1"
+                        android:layout_below="@+id/firstNameText"
                         android:layout_marginTop="21dp"
                         android:text="Last Name"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/clearSearchButton"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/button1"
-                        android:layout_alignBottom="@+id/button1"
+                        android:layout_alignBaseline="@+id/SearchDirectoryButton"
+                        android:layout_alignBottom="@+id/SearchDirectoryButton"
                         android:layout_alignLeft="@+id/textView2"
                         android:layout_marginLeft="30dp"
                         android:text="Clear" />
 
                     <Button
-                        android:id="@+id/button1"
+                        android:id="@+id/SearchDirectoryButton"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@+id/editText2"
+                        android:layout_below="@+id/lastNameText"
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="54dp"
+                        android:onClick="searchName"
                         android:text="Search" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/lastNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
