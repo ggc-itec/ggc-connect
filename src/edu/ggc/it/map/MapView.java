@@ -14,20 +14,20 @@ import edu.ggc.it.R;
 public class MapView extends View {
 	Activity activity;
 	
-	private ScaleGestureDetector mScaleDetector;
+	private ScaleGestureDetector scaleGestureDetector;
 	private float mScaleFactor = 1.f;
 
 	public MapView(Context context){
 		super(context);
 		setDrawingCacheEnabled(true);	
 		setBackgroundColor(Color.BLACK);
-	    mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+	    scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 	    // Let the ScaleGestureDetector inspect all events.
-	    mScaleDetector.onTouchEvent(ev);
+	    scaleGestureDetector.onTouchEvent(ev);
 	    return true;
 	}
 
@@ -38,7 +38,7 @@ public class MapView extends View {
 	    canvas.save();
 	    canvas.scale(mScaleFactor, mScaleFactor);
 		Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_building_b_map);
-		canvas.drawBitmap(pic, 0, canvas.getHeight()/4, null); 
+		canvas.drawBitmap(pic, canvas.getWidth()/2, canvas.getHeight()/2, null); 
 	    canvas.restore();
 	}
 

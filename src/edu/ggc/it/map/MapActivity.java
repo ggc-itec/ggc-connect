@@ -3,20 +3,27 @@ package edu.ggc.it.map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import edu.ggc.it.R;
+
 
 public class MapActivity extends Activity {
 	
 	Context context = this;
 	LocationManager locationManager;
 	GGCLocationListener ggcLocactionListener;
+	ImageButton imageButton;
 	
 	/**
 	 *  MapActivity has an image of GGC that helps users know where they are. 
@@ -31,8 +38,13 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(new MapView(this));
+		setContentView( R.layout.map_activity);
 		setUpGPS();
+		imageButton = (ImageButton) findViewById(R.id.imageButton1);
+		
+		imageButton.setBackgroundColor(Color.TRANSPARENT);
+		
+		imageButton.setOnClickListener( (android.view.View.OnClickListener) new GGCOnClickListener());
 	}
 	
 	protected void setUpGPS(){
@@ -60,6 +72,16 @@ public class MapActivity extends Activity {
 	protected void onStop() {
 	    super.onStop();
 	    locationManager.removeUpdates(ggcLocactionListener);
+	}
+	
+	private class GGCOnClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(context, "WORKING!!", Toast.LENGTH_LONG).show();		
+			setContentView(R.layout.b_building);
+		}		
+		
 	}
 
 	private class GGCLocationListener implements LocationListener{
