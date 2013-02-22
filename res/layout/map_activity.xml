@@ -12,13 +12,78 @@
         android:src="@drawable/ggc_full_map_small" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/ImageButtonBBuilding"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignRight="@+id/imageView1"
         android:layout_alignTop="@+id/imageView1"
         android:layout_marginRight="122dp"
         android:layout_marginTop="158dp"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonFBuilding"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_alignRight="@+id/ImageButtonCBuilding"
+        android:layout_below="@+id/ImageButtonABuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonDBuilding"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/ImageButtonABuilding"
+        android:layout_below="@+id/ImageButtonFBuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imageViewTestIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/ImageButtonCBuilding"
+        android:layout_marginLeft="58dp"
+        android:src="@drawable/icon" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonABuilding"
+        android:layout_width="38dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ImageButtonBBuilding"
+        android:layout_marginTop="62dp"
+        android:layout_toLeftOf="@+id/ImageButtonBBuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonLBuilding"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/ImageButtonABuilding"
+        android:layout_below="@+id/ImageButtonBBuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonStudentCenterBuilding"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/ImageButtonBBuilding"
+        android:layout_marginBottom="21dp"
+        android:layout_toLeftOf="@+id/ImageButtonFBuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonCBuilding"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/ImageButtonStudentCenterBuilding"
+        android:layout_toRightOf="@+id/ImageButtonLBuilding"
         android:src="@drawable/clear"
         android:visibility="visible" />
 
