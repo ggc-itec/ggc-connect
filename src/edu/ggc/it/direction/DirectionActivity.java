@@ -70,14 +70,8 @@ public class DirectionActivity extends Activity {
 		bldFButton = (ImageButton) findViewById(R.id.bldFButton);
 		bldFButton.setOnClickListener(myListener);
 		
-		bldHButton = (ImageButton) findViewById(R.id.bldHButton);
-		bldHButton.setOnClickListener(myListener);
-		
 		bldLButton = (ImageButton) findViewById(R.id.bldLButton);
 		bldLButton.setOnClickListener(myListener);
-		
-		bldIButton = (ImageButton) findViewById(R.id.bldIButton);
-		bldIButton.setOnClickListener(myListener);
 		
 		parkingButton = (ImageButton) findViewById(R.id.parkingButton);
 		parkingButton.setOnClickListener(myListener);
@@ -158,11 +152,7 @@ public class DirectionActivity extends Activity {
 						"\n Weight Area, Cadio Area, and Spinning on the 2nd floor" +
 						"\n Aerobics, Elavated Track on the 2nd floor");
 				//Toast.makeText(myContext, "You click on Building Fbutton", 100).show();
-			} else if( view.getId() == R.id.bldHButton) {
-				Toast.makeText(myContext, "You click on Building H button", 100).show();
-			} else if( view.getId() == R.id.bldIButton) {
-				Toast.makeText(myContext, "You click on Building I button", 100).show();
-			} else if( view.getId() == R.id.bldLButton) {
+			}else if( view.getId() == R.id.bldLButton) {
 				img.setImageResource(R.drawable.building_l);
 				instructionText.setText("What this building has: " + 
 						"\n 1st floor: Computer Lab, Research Commons, Cafe', General Collection, Study rooms" +
