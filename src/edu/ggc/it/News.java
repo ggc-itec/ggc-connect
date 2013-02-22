@@ -33,7 +33,7 @@ public class News extends ListActivity {
 			startActivity(browserIntent);
 		} else if (selection.equals("Banner")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://m.fox.com"));
+					Uri.parse("https://ggc.gabest.usg.edu/pls/B400/twbkwbis.P_WWWLogin"));
 			startActivity(browserIntent);
 		} else if (selection.equals("GGC")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -41,11 +41,11 @@ public class News extends ListActivity {
 			startActivity(browserIntent);
 		} else if (selection.equals("My.GGC")) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.guardian.co.uk"));
+					Uri.parse("http://my.ggc.edu"));
 			startActivity(browserIntent);
 		} else {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.reddit.com"));
+					Uri.parse("http://www.ggc.edu/academics/calendar/index.html"));
 			startActivity(browserIntent);
 		}
 

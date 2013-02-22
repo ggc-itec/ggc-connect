@@ -113,7 +113,7 @@ public class DirectionActivity extends Activity {
 					String rst = myLocationList.Find(txt);
 					//TextView instr = (TextView) findViewById(R.id.instruction_text);
 					//instructionText = (TextView) findViewById(R.id.instruction_text);
-					instructionText.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, The "+txt+" is inside the "+rst+"\n Size: ");
+					instructionText.setText("Your location is: \n Latitude: "+latitude+"\n Longtitude: "+longitude + "\n Hey, You can find the "+txt+" at: "+rst+"Top"+img.getTop()+"Left"+img.getLeft()+"Bottom"+img.getBottom()+"Right"+img.getRight());
 					//Toast.makeText(myContext, "We are building this function, will be available soon..."+latitude+" : "+longitude, 100).show();
 				}
 			} else if (view.getId() == R.id.bldAButton) {
@@ -122,32 +122,53 @@ public class DirectionActivity extends Activity {
 				//Toast.makeText(myContext, "You click on Building A button", 100).show();
 				//Set text for Direction Text Box
 				instructionText.setText("What this building has: " + 
-						"\n Food Court, ATM " +
-						"\n Testing Center." +
-						"\n Help Desk Services.");
+						"\n Food Court, ATM. " +
+						"\n Campus Police, Parking Decal Service." +
+						"\n Testing and Help Desk Services.");
 				img.setImageResource(R.drawable.building_a);
 			} else if (view.getId() == R.id.bldBButton) {
 				img.setImageResource(R.drawable.building_b);
-				Toast.makeText(myContext, "You click on Building B button", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n Food Court, Stage, and Computer Lab on the base floor " +
+						"\n AEC: Writing Lab and Math Lab on the second floor" +
+						"\n Study Area on third floor");
+				//Toast.makeText(myContext, "You click on Building B button", 100).show();
 			} else if( view.getId() == R.id.bldCButton) {
 				img.setImageResource(R.drawable.building_c);
-				Toast.makeText(myContext, "You click on Building C button", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n Auditorium @ 1260 " );
+				//Toast.makeText(myContext, "You click on Building C button", 100).show();
 			} else if( view.getId() == R.id.bldDButton) {
 				img.setImageResource(R.drawable.building_d);
-				Toast.makeText(myContext, "You click on Building D button", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n Admission." +
+						"\n Financial Aid");
+				//Toast.makeText(myContext, "You click on Building D button", 100).show();
 			} else if( view.getId() == R.id.bldEButton) {
 				img.setImageResource(R.drawable.building_e1);
-				Toast.makeText(myContext, "You click on Building E button", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n 1st Floor: Dining Room, Game Room, Muilty Purpose Room" +
+						"\n 2nd Floor: Reception, Book Store, L.V.I.S" +
+						"\n 3rd Floor: Student Involvement Center");
+				//Toast.makeText(myContext, "You click on Building E button", 100).show();
 			} else if( view.getId() == R.id.bldFButton) {
 				img.setImageResource(R.drawable.building_f);
-				Toast.makeText(myContext, "You click on Building Fbutton", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n Olympic Pool, Basket Ball, Racquet Ball Courts on the 1st floor " +
+						"\n Weight Area, Cadio Area, and Spinning on the 2nd floor" +
+						"\n Aerobics, Elavated Track on the 2nd floor");
+				//Toast.makeText(myContext, "You click on Building Fbutton", 100).show();
 			} else if( view.getId() == R.id.bldHButton) {
 				Toast.makeText(myContext, "You click on Building H button", 100).show();
 			} else if( view.getId() == R.id.bldIButton) {
 				Toast.makeText(myContext, "You click on Building I button", 100).show();
 			} else if( view.getId() == R.id.bldLButton) {
 				img.setImageResource(R.drawable.building_l);
-				Toast.makeText(myContext, "You click on Building L button", 100).show();
+				instructionText.setText("What this building has: " + 
+						"\n 1st floor: Computer Lab, Research Commons, Cafe', General Collection, Study rooms" +
+						"\n 2nd floor: AEC, Research Services, Center for Teaching Excellence, Study rooms" +
+						"\n 3rd floor: Grand Reading Room, Study rooms");
+				//Toast.makeText(myContext, "You click on Building L button", 100).show();
 			} else if( view.getId() == R.id.parkingButton) {
 				Toast.makeText(myContext, "You click on Building Parking button", 100).show();
 			}

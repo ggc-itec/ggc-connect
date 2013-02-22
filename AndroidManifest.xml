@@ -16,7 +16,8 @@
         android:label="@string/app_name" >
         <activity
             android:name="edu.ggc.it.Main"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,6 +48,24 @@
                 android:value="edu.ggc.it.Main" />
         </activity>
         <activity
+            android:name="edu.ggc.it.love.SetupActivity"
+            android:label="@string/dating_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.directory.DirectoryActivity"
+            android:label="@string/title_activity_directory"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.DirectorySearchWebView"
+            android:label="@string/title_activity_directory_search_web_view"
+            android:screenOrientation="portrait"
+            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.directory.DirectoryActivity" />
+        </activity>
+        <activity
             android:name="edu.ggc.it.gym.GymMainActivity"
             android:label="@string/gym_label" >
         </activity>
@@ -58,20 +77,7 @@
             android:name="edu.ggc.it.gym.GroupsActivity"
             android:label="@string/gym_label" >
         </activity>
-        <activity
-            android:name="edu.ggc.it.love.SetupActivity"
-            android:label="@string/dating_label" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.directory.DirectoryActivity"
-            android:label="@string/title_activity_directory" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.GroupsActivity"
-            android:label="@string/title_activity_groups" >
-        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />
-
 </manifest>

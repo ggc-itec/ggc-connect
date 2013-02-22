@@ -22,7 +22,7 @@ import edu.ggc.it.schedule.ScheduleActivity;
 
 /*  
  * ggc-connect is an app designed for the GGC community 
- * @author Team Grizz
+ * @author ggc-itec
  * 
  */
 public class Main extends Activity {
