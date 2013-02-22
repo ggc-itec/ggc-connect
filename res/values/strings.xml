@@ -10,10 +10,8 @@
     <string name="schedule_label">My Schedule</string>
     <string name="directory_label">Directory</string>
     <string name="gym_label">Gym Info</string>
-
     <string name="text_FindaPlace">Enter your place</string>
     <string name="button_FindaPlace">Find</string>
-
 
     <string-array name="websites">
         <item>GGC</item>
@@ -26,17 +24,17 @@
     <string name="main_title">GGC Connect</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-
     <string name="title_activity_direction">DirectionActivity</string>
-
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="add_schedule_button_text">Add class</string>
+    <string name="dating_label">Dating</string>
 
-	<string name="dating_label">Dating</string>
-	<string-array name="parent_directories">
-	    <item>View by Department</item>
-	    <item>Search by Name</item>
-	</string-array>
-	<string name="title_activity_directory">GGC Directory</string>
+    <string-array name="parent_directories">
+        <item>View by Department</item>
+        <item>Search by Name</item>
+    </string-array>
+
+    <string name="title_activity_directory">GGC Directory</string>
+    <string name="title_activity_groups">GroupsActivity</string>
 
 </resources>

@@ -68,7 +68,7 @@ public class GymMainActivity extends Activity {
 					//.show();
 				}
 				else if (groups.isPressed()){
-					//startActivity( new Intent ( myContext, FitnessActivity.class));
+					startActivity( new Intent ( myContext, GroupsActivity.class));
 				}
 				else if (view.getId() == R.id.buddies){
 					//startActivity(new Intent (myContext, WorkoutBuddies.class));

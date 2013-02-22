@@ -51,12 +51,24 @@
             android:label="@string/gym_label" >
         </activity>
         <activity
+            android:name="edu.ggc.it.gym.GymScheduleActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GroupsActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
             android:name="edu.ggc.it.love.SetupActivity"
             android:label="@string/dating_label" >
         </activity>
         <activity
             android:name="edu.ggc.it.directory.DirectoryActivity"
             android:label="@string/title_activity_directory" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.GroupsActivity"
+            android:label="@string/title_activity_groups" >
         </activity>
     </application>
 
