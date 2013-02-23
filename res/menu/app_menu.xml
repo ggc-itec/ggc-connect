@@ -14,5 +14,7 @@
         android:icon="@android:drawable/ic_menu_share"
         android:title="@string/links">
     </item>
-
+    <item android:id="@+id/todo"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="To Do" />    
 </menu>
