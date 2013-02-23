@@ -65,19 +65,49 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
         </activity>
-        <activity
             android:name="edu.ggc.it.gym.GymMainActivity"
             android:label="@string/gym_label" >
+            </intent-filter>
         </activity>
-        <activity
             android:name="edu.ggc.it.gym.GymScheduleActivity"
             android:label="@string/gym_label" >
+            android:label="News" >
         </activity>
-        <activity
             android:name="edu.ggc.it.gym.GroupsActivity"
             android:label="@string/gym_label" >
+            android:label="@string/credits" >
         </activity>
+
+        <activity
+            android:name="edu.ggc.it.direction.DirectionActivity"
+            android:label="@string/title_activity_direction" >
+        </activity>
+
+        <activity android:name="edu.ggc.it.map.MapActivity" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.schedule.ScheduleActivity"
+            android:label="@string/title_activity_schedule">
+            <!-- android:parentActivityName="edu.ggc.it.Main">-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.Main" />
+
+        </activity>
+
+        <activity android:name="edu.ggc.it.love.SetupActivity" android:label="@string/dating_label"></activity>
+
+        <activity android:name="edu.ggc.it.directory.DirectoryActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchABuildingActivity"></activity><activity android:name=".map.ImageTouchBBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchCBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchDBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchFBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchLBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchStudentCenterActivity"></activity>
+        
     </application>
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="11" />
+
 </manifest>
