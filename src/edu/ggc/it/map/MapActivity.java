@@ -54,6 +54,10 @@ public class MapActivity extends Activity {
 	private PointF start = new PointF();
 	private PointF middle = new PointF();
 	float oldDistance = 1f;
+	double oldXVal;
+	double oldYVal;
+	double oldXScale;
+	double oldYScale;
 
 	
 	/**
@@ -69,6 +73,10 @@ public class MapActivity extends Activity {
 		backGround.setOnTouchListener(new TouchListener());
 		setUpGPS();
 		setUpImageButtons();
+		oldXVal=0;
+		oldYVal=0;
+		oldXScale=0;
+		oldXScale=0;
 	}
 	
 	/**
@@ -249,8 +257,23 @@ public class MapActivity extends Activity {
 			double xVal = Double.parseDouble(strMatrix[5]);
 			double yScale = Double.parseDouble(strMatrix[9]);
 			double yVal = Double.parseDouble(strMatrix[11]);
-			redDot.setX((float) xVal);
-			redDot.setY((float) yVal);
+			double changeInX = xVal -oldXVal;
+			double changeInY = yVal -oldYVal;
+			if(oldXScale != xScale){
+				redDot.setX((float) (redDot.getX()+(changeInX*xScale)));
+				redDot.setY((float) (redDot.getY()+(changeInY*yScale)));
+			}else{
+				redDot.setX((float) (redDot.getX()+(changeInX)));
+				redDot.setY((float) (redDot.getY()+(changeInY)));
+			}
+			imageButtonABuilding.setX((float) xVal);
+			imageButtonABuilding.setY((float) yVal);
+	
+			
+			oldXScale =xScale;
+			oldYScale =yScale;
+			oldXVal =xVal;
+			oldYVal =yVal;
 			return true;
 		}
 	
