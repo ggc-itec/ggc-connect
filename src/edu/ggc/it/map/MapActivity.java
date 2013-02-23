@@ -1,7 +1,6 @@
 package edu.ggc.it.map;
 
 import android.app.Activity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
@@ -17,9 +16,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import edu.ggc.it.R;
 /*
@@ -28,7 +27,6 @@ Log.d("LOCAL", "view Hights: "+view.getMeasuredHeight()+" view Width :"+view.get
 		+ " backGround scaleY: "+backGround.getScaleY()+" BG ScrollX: "+ backGround.getScrollX()+" BG ScrollY: "+backGround.getScrollX()
 		+"BG Width: "+ backGround.getWidth()+ " BG Hight: " +backGround.getHeight()+ "BG X: "+backGround.getY()+" BG Y: "+backGround.getY() );
 */
-import edu.ggc.it.map.ImageTouchABuildingActivity.State;
 
 public class MapActivity extends Activity {
 	
@@ -45,6 +43,7 @@ public class MapActivity extends Activity {
 	ImageButton imageButtonStudentCenter;
 	ImageView redDot;
 	ImageView backGround;
+	RelativeLayout relativeLayout;
 	private Matrix matrix = new Matrix();
 	private Matrix oldMatrix = new Matrix();
 	public enum State {
@@ -58,6 +57,11 @@ public class MapActivity extends Activity {
 	double oldYVal;
 	double oldXScale;
 	double oldYScale;
+	double redDotXOffSet;
+	double redDotYOffSet;
+	double imageButtonABuildingXOffSet;
+	double imageButtonABuildingYOffSet;
+	Boolean firstRun;
 
 	
 	/**
@@ -73,10 +77,9 @@ public class MapActivity extends Activity {
 		backGround.setOnTouchListener(new TouchListener());
 		setUpGPS();
 		setUpImageButtons();
-		oldXVal=0;
-		oldYVal=0;
-		oldXScale=0;
-		oldXScale=0;
+		oldXScale=1;
+		oldXScale=1;
+		firstRun =true;
 	}
 	
 	/**
@@ -257,24 +260,56 @@ public class MapActivity extends Activity {
 			double xVal = Double.parseDouble(strMatrix[5]);
 			double yScale = Double.parseDouble(strMatrix[9]);
 			double yVal = Double.parseDouble(strMatrix[11]);
+			if(firstRun == true){
+				redDotXOffSet = redDot.getX()/backGround.getWidth();
+				redDotYOffSet = redDot.getY()/backGround.getHeight();
+				imageButtonABuildingXOffSet = imageButtonABuilding.getX()/backGround.getWidth();
+				imageButtonABuildingYOffSet = imageButtonABuilding.getY()/backGround.getHeight();
+				oldXVal = xVal;
+				oldYVal = yVal;
+				firstRun = false;
+			}
 			double changeInX = xVal -oldXVal;
 			double changeInY = yVal -oldYVal;
+			double width = backGround.getWidth()*xScale;
+			double height = backGround.getHeight()*yScale;
 			if(oldXScale != xScale){
-				redDot.setX((float) (redDot.getX()+(changeInX*xScale)));
-				redDot.setY((float) (redDot.getY()+(changeInY*yScale)));
+				redDot.setX((float) (xVal+(redDotXOffSet*width)) );
+				redDot.setY((float) (yVal+(redDotYOffSet*height)) );
+				redDot.setX((float) (redDot.getX()+(((redDot.getWidth()*xScale)-redDot.getWidth())/2)));
+				redDot.setY((float) (redDot.getY()+(((redDot.getWidth()*yScale)-redDot.getHeight())/2)));
+				redDot.setScaleX((float) xScale);
+				redDot.setScaleY((float) yScale);
+			
+	
 			}else{
 				redDot.setX((float) (redDot.getX()+(changeInX)));
 				redDot.setY((float) (redDot.getY()+(changeInY)));
 			}
 			imageButtonABuilding.setX((float) xVal);
 			imageButtonABuilding.setY((float) yVal);
-	
+			Log.d("H/W view", view.getWidth()+"=W - H="+view.getHeight());
+			Log.d("Height/Width", height +"=W - H="+width);
+			Log.d("xScale/yScal", xScale+"=W - H="+yScale);
+			
+			
+			
 			
 			oldXScale =xScale;
 			oldYScale =yScale;
 			oldXVal =xVal;
 			oldYVal =yVal;
 			return true;
+		}
+		public int[] firstRunDataLog(View view){
+			int[] answer = new int[9];//0 viewXOffSet //1 viewYOffSet //
+			//answer[0] = view.getX()/backGround.getWidth();
+			redDotXOffSet = redDot.getX()/backGround.getWidth();
+			redDotYOffSet = redDot.getY()/backGround.getHeight();
+			imageButtonABuildingXOffSet = imageButtonABuilding.getX()/backGround.getWidth();
+			
+			return null;
+			
 		}
 	
 }
