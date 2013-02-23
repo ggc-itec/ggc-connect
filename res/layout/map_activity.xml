@@ -5,22 +5,11 @@
     android:gravity="center" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView_ggc_full_map_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="center"
+        android:scaleType="matrix"
         android:src="@drawable/ggc_full_map_small" />
-
-    <ImageButton
-        android:id="@+id/ImageButtonBBuilding"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_alignTop="@+id/imageView1"
-        android:layout_marginRight="122dp"
-        android:layout_marginTop="158dp"
-        android:src="@drawable/clear"
-        android:visibility="visible" />
 
     <ImageButton
         android:id="@+id/ImageButtonFBuilding"
@@ -40,41 +29,14 @@
         android:src="@drawable/clear"
         android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/imageViewTestIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/ImageButtonCBuilding"
-        android:layout_marginLeft="58dp"
-        android:src="@drawable/icon" />
-
     <ImageButton
-        android:id="@+id/ImageButtonABuilding"
-        android:layout_width="38dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/ImageButtonBBuilding"
-        android:layout_marginTop="62dp"
-        android:layout_toLeftOf="@+id/ImageButtonBBuilding"
-        android:src="@drawable/clear"
-        android:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/ImageButtonLBuilding"
+        android:id="@+id/ImageButtonBBuilding"
         android:layout_width="25dp"
-        android:layout_height="20dp"
-        android:layout_alignLeft="@+id/ImageButtonABuilding"
-        android:layout_below="@+id/ImageButtonBBuilding"
-        android:src="@drawable/clear"
-        android:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/ImageButtonStudentCenterBuilding"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@+id/ImageButtonBBuilding"
-        android:layout_marginBottom="21dp"
-        android:layout_toLeftOf="@+id/ImageButtonFBuilding"
+        android:layout_height="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="99dp"
+        android:layout_marginTop="197dp"
+        android:layout_toRightOf="@+id/imageViewTestIcon"
         android:src="@drawable/clear"
         android:visibility="visible" />
 
@@ -82,9 +44,49 @@
         android:id="@+id/ImageButtonCBuilding"
         android:layout_width="30dp"
         android:layout_height="25dp"
-        android:layout_alignBottom="@+id/ImageButtonStudentCenterBuilding"
-        android:layout_toRightOf="@+id/ImageButtonLBuilding"
+        android:layout_alignBottom="@+id/ImageButtonBBuilding"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
         android:src="@drawable/clear"
         android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonStudentCenterBuilding"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/ImageButtonBBuilding"
+        android:layout_toLeftOf="@+id/ImageButtonFBuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonLBuilding"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/ImageButtonCBuilding"
+        android:layout_centerVertical="true"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonABuilding"
+        android:layout_width="38dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ImageButtonLBuilding"
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@+id/buttonTestScale"
+        android:scaleType="matrix"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imageViewTestIcon"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_above="@+id/ImageButtonCBuilding"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="34dp"
+        android:layout_toRightOf="@+id/ImageButtonABuilding"
+        android:src="@drawable/red_dot" />
 
 </RelativeLayout>

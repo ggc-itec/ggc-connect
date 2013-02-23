@@ -1,15 +1,17 @@
 package edu.ggc.it.map;
 
+import java.util.Scanner;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-import android.widget.Toast;
 import edu.ggc.it.R;
 
 
@@ -18,7 +20,8 @@ import edu.ggc.it.R;
 		private Matrix matrix = new Matrix();
 		private Matrix oldMatrix = new Matrix();
 		Context context = this;
-
+		ImageView redDot;
+		
 		public enum State {
 			NONE, DRAGGING, ZOOMING
 		};
@@ -35,6 +38,8 @@ import edu.ggc.it.R;
 			setContentView(R.layout.ggc_a_building_map);
 			ImageView view = (ImageView) findViewById(R.id.imageView_ggc_a_Building_map);
 			view.setOnTouchListener(new TouchListener());
+			redDot = (ImageView)findViewById(R.id.imageView_red_dot2);
+
 		}
 
 		public class TouchListener implements OnTouchListener {
@@ -72,8 +77,15 @@ import edu.ggc.it.R;
 						matrix.postScale(scale, scale, middle.x, middle.y);
 					}
 				}
-
 				view.setImageMatrix(matrix);
+				String s = matrix.toShortString();
+				String[] strMatrix = s.split("[\\[ \\] , ]"); 
+				double xScale = Double.parseDouble(strMatrix[1]);
+				double xVal = Double.parseDouble(strMatrix[5]);
+				double yScale = Double.parseDouble(strMatrix[9]);
+				double yVal = Double.parseDouble(strMatrix[11]);
+				redDot.setX((float) xVal);
+				redDot.setY((float) yVal);
 				return true;
 			}
 

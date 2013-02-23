@@ -1,9 +1,11 @@
 package edu.ggc.it.map;
 
 import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,16 +13,26 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import edu.ggc.it.R;
-
+/*
+//import android.support.v4.widget.ImageView;
+Log.d("LOCAL", "view Hights: "+view.getMeasuredHeight()+" view Width :"+view.getMeasuredWidth()+" backGround scaleX: "+backGround.getScaleX()
+		+ " backGround scaleY: "+backGround.getScaleY()+" BG ScrollX: "+ backGround.getScrollX()+" BG ScrollY: "+backGround.getScrollX()
+		+"BG Width: "+ backGround.getWidth()+ " BG Hight: " +backGround.getHeight()+ "BG X: "+backGround.getY()+" BG Y: "+backGround.getY() );
+*/
+import edu.ggc.it.map.ImageTouchABuildingActivity.State;
 
 public class MapActivity extends Activity {
 	
+
 	Context context = this;
 	LocationManager locationManager;
 	GGCLocationListener ggcLocactionListener;
@@ -31,37 +43,41 @@ public class MapActivity extends Activity {
 	ImageButton imageButtonFBuilding;
 	ImageButton imageButtonLBuilding;
 	ImageButton imageButtonStudentCenter;
-	
-	ImageView imageTestIcon;
+	ImageView redDot;
+	ImageView backGround;
+	private Matrix matrix = new Matrix();
+	private Matrix oldMatrix = new Matrix();
+	public enum State {
+		NONE, DRAGGING, ZOOMING
+	};
+	private State mode = State.NONE;
+	private PointF start = new PointF();
+	private PointF middle = new PointF();
+	float oldDistance = 1f;
+
 	
 	/**
 	 *  MapActivity has an image of GGC that helps users know where they are. 
-	 *  
-	 *  TODO 
-	 * 	- need to find a way to show PDFs
-	 *  - need to enable zooming
-	 *  - need to figure out the math for showing current location on the map
-	 *  - need to find a way to draw over an PDF (to show were current location is)
 	 */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView( R.layout.map_activity);
-		imageTestIcon = (ImageView) findViewById(R.id.imageViewTestIcon);
+		redDot = (ImageView) findViewById(R.id.imageViewTestIcon);
+		backGround = (ImageView) findViewById(R.id.imageView_ggc_full_map_small);
+		backGround.setOnTouchListener(new TouchListener());
 		setUpGPS();
 		setUpImageButtons();
-		
-	
 	}
-	
 	
 	/**
 	 *  setUpImageButtons sets up all of the ImageButtons, sets their background color to TRANSPARENT, and adds and {@link GGCOnClickListener} to each
 	 *  of the ImageButtons. 
 	 */
 	private void setUpImageButtons() {
-		GGCOnClickListener ggcOnClickListener = new GGCOnClickListener();
+		
+		GGCOnClickListener ggcOnClickListener = new GGCOnClickListener();	
 		//A
 		imageButtonABuilding = (ImageButton) findViewById(R.id.ImageButtonABuilding);
 		//imageButtonABuilding.setBackgroundColor(Color.TRANSPARENT);	
@@ -90,29 +106,30 @@ public class MapActivity extends Activity {
 		imageButtonStudentCenter = (ImageButton) findViewById(R.id.ImageButtonStudentCenterBuilding);
 		//imageButtonStudentCenter.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonStudentCenter.setOnClickListener(ggcOnClickListener);
-
-		
-		//imageButtonStudentCenter.setTranslationX();
+		//imageButtonStudentCenter.setTranslationX();		
+	}
+	
+	private float spaceBetweenTwoFingers(MotionEvent event) {
+		float x = event.getX(0) - event.getX(1);
+		float y = event.getY(0) - event.getY(1);
+		return (float) Math.sqrt(x * x + y * y);
 	}
 
+	private void midPointBetweenTwoFingers(PointF point, MotionEvent event) {
+		float x = event.getX(0) + event.getX(1);
+		float y = event.getY(0) + event.getY(1);
+		point.set(x / 2, y / 2);
+	}
 
-	protected void setUpGPS(){
-		
+	protected void setUpGPS(){	
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		
 	    final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
 	    if (!gpsEnabled) {
-
+	    	enableLocationSettings();//
 	    }
-	
 		LocationProvider provider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-		
 		ggcLocactionListener = new GGCLocationListener();
-		
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,10, ggcLocactionListener);
-		
-		
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,10, ggcLocactionListener);	
 	}
 	
 	private void enableLocationSettings() {
@@ -145,15 +162,6 @@ public class MapActivity extends Activity {
 			}else  if(view.getId() == R.id.ImageButtonStudentCenterBuilding){ 
 				startActivity(new Intent(context, ImageTouchStudentCenterActivity.class));
 			}
-			//ImageTouchABuildingActivity touchActivity = new ImageTouchABuildingActivity();
-			/*
-			Toast.makeText(context, "WORKING!!", Toast.LENGTH_LONG).show();		
-			setContentView(R.layout.a_building);
-			imageTestIcon.setTranslationX(110);// this is the amount that the image is got be translated so it is not a relative index 
-			imageTestIcon.setTranslationY(100);// I will need a method to take care of the math 
-			*/
-			// I changed the target IPA to 11 because 8 did not have 
-			// setTranstion()
 		}		
 		
 	}
@@ -162,7 +170,6 @@ public class MapActivity extends Activity {
 
 		@Override
 		public void onLocationChanged(Location location) {
-			
 			double latitude = location.getLatitude();
 			double longitude = location.getLongitude();
 			String lat = latitude+"";
@@ -170,15 +177,14 @@ public class MapActivity extends Activity {
 			String lon = longitude+"";
 			lon = lon.substring(0,6);
 			if (Double.parseDouble(lat) == 33.98 && Double.parseDouble(lon) == -84.00  ) {
-				imageTestIcon.setTranslationX(100);
-				imageTestIcon.setTranslationY(-100);		
+				redDot.setX(50);
+				redDot.setY(50);
 			}
-			
 			Toast.makeText(context, "GPS lati " +latitude+" long "+ longitude , Toast.LENGTH_LONG).show();
 			Log.d("GPS Data", "GPS lati " +latitude+" long "+longitude );
 		}
 		
-		//So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
+		// So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
 		// 1 second of longitude = 30.922 meters.
 		// C Building lati 33.98067802886346 long -84.0065738567545
 
@@ -198,8 +204,55 @@ public class MapActivity extends Activity {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			// TODO Auto-generated method stub
 			
-		}
-		
-		
+		}	
 	}
+	
+	public class TouchListener implements OnTouchListener {
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			ImageView view = (ImageView) v;
+
+			if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
+				oldMatrix.set(matrix);
+				start.set(event.getX(), event.getY());
+				mode = State.DRAGGING;
+			}
+
+			if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_POINTER_DOWN) {
+				oldDistance = spaceBetweenTwoFingers(event);
+				oldMatrix.set(matrix);
+				midPointBetweenTwoFingers(middle, event);
+				mode = State.ZOOMING;
+			}
+
+			if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_POINTER_UP) {
+				mode = State.NONE;
+			}
+
+			if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
+				if (mode == State.DRAGGING) {
+					matrix.set(oldMatrix);
+					matrix.postTranslate(event.getX() - start.x, event.getY()
+							- start.y);
+				} else if (mode == State.ZOOMING) {
+					float newDistance = spaceBetweenTwoFingers(event);
+					matrix.set(oldMatrix);
+					float scale = newDistance / oldDistance;
+					matrix.postScale(scale, scale, middle.x, middle.y);
+				}
+			}
+			view.setImageMatrix(matrix);
+			String s = matrix.toShortString();
+			String[] strMatrix = s.split("[\\[ \\] , ]"); 
+			double xScale = Double.parseDouble(strMatrix[1]);
+			double xVal = Double.parseDouble(strMatrix[5]);
+			double yScale = Double.parseDouble(strMatrix[9]);
+			double yVal = Double.parseDouble(strMatrix[11]);
+			redDot.setX((float) xVal);
+			redDot.setY((float) yVal);
+			return true;
+		}
+	
+}
 }
