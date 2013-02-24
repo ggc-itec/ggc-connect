@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,9 +24,9 @@ import android.widget.Toast;
 import edu.ggc.it.R;
 /*
 //import android.support.v4.widget.ImageView;
-Log.d("LOCAL", "view Hights: "+view.getMeasuredHeight()+" view Width :"+view.getMeasuredWidth()+" backGround scaleX: "+backGround.getScaleX()
-		+ " backGround scaleY: "+backGround.getScaleY()+" BG ScrollX: "+ backGround.getScrollX()+" BG ScrollY: "+backGround.getScrollX()
-		+"BG Width: "+ backGround.getWidth()+ " BG Hight: " +backGround.getHeight()+ "BG X: "+backGround.getY()+" BG Y: "+backGround.getY() );
+Log.d("LOCAL", "view Hights: "+view.getMeasuredHeight()+" view Width :"+view.getMeasuredWidth()+" imageViewBackGround scaleX: "+imageViewBackGround.getScaleX()
+		+ " imageViewBackGround scaleY: "+imageViewBackGround.getScaleY()+" BG ScrollX: "+ imageViewBackGround.getScrollX()+" BG ScrollY: "+imageViewBackGround.getScrollX()
+		+"BG Width: "+ imageViewBackGround.getWidth()+ " BG Hight: " +imageViewBackGround.getHeight()+ "BG X: "+imageViewBackGround.getY()+" BG Y: "+imageViewBackGround.getY() );
 */
 
 public class MapActivity extends Activity {
@@ -42,7 +43,7 @@ public class MapActivity extends Activity {
 	ImageButton imageButtonLBuilding;
 	ImageButton imageButtonStudentCenter;
 	ImageView redDot;
-	ImageView backGround;
+	ImageView imageViewBackGround;
 	RelativeLayout relativeLayout;
 	private Matrix matrix = new Matrix();
 	private Matrix oldMatrix = new Matrix();
@@ -55,12 +56,20 @@ public class MapActivity extends Activity {
 	float oldDistance = 1f;
 	double oldXVal;
 	double oldYVal;
+	double[] backGroundImageScaleAndValArray;
+	float[] redDotArray;
+	float[] imageButtonABuildingArray;
+	float[] imageButtonBBuildingArray;
+	float[] imageButtonCBuildingArray;
+	float[] imageButtonDBuildingArray;
+	float[] imageButtonFBuildingArray;
+	float[] imageButtonLBuildingArray;
+	float[] imageButtonStudentCenterArray;
+
+
 	double oldXScale;
 	double oldYScale;
-	double redDotXOffSet;
-	double redDotYOffSet;
-	double imageButtonABuildingXOffSet;
-	double imageButtonABuildingYOffSet;
+
 	Boolean firstRun;
 
 	
@@ -73,15 +82,34 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView( R.layout.map_activity);
 		redDot = (ImageView) findViewById(R.id.imageViewTestIcon);
-		backGround = (ImageView) findViewById(R.id.imageView_ggc_full_map_small);
-		backGround.setOnTouchListener(new TouchListener());
+		imageViewBackGround = (ImageView) findViewById(R.id.imageView_ggc_full_map_small);
+		imageViewBackGround.setOnTouchListener(new TouchListener());
 		setUpGPS();
 		setUpImageButtons();
+		setImageButtonsLocation();
 		oldXScale=1;
 		oldXScale=1;
 		firstRun =true;
+		backGroundImageScaleAndValArray = new double[4];
 	}
 	
+	private void setImageButtonsLocation() {
+		imageButtonABuilding.setX(30);
+		imageButtonABuilding.setY(410);
+		imageButtonBBuilding.setX(140);
+		imageButtonBBuilding.setY(30);
+
+		
+
+/*
+		imageButtonCBuilding;
+		imageButtonDBuilding;
+		imageButtonFBuilding;
+		imageButtonLBuilding;
+		imageButtonStudentCenter;
+		*/		
+	}
+
 	/**
 	 *  setUpImageButtons sets up all of the ImageButtons, sets their background color to TRANSPARENT, and adds and {@link GGCOnClickListener} to each
 	 *  of the ImageButtons. 
@@ -114,7 +142,7 @@ public class MapActivity extends Activity {
 		//imageButtonLBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonLBuilding.setOnClickListener(ggcOnClickListener);
 		//Student Center
-		imageButtonStudentCenter = (ImageButton) findViewById(R.id.ImageButtonStudentCenterBuilding);
+		imageButtonStudentCenter = (ImageButton) findViewById(R.id.ImageButtonStudentCenter);
 		//imageButtonStudentCenter.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonStudentCenter.setOnClickListener(ggcOnClickListener);
 		//imageButtonStudentCenter.setTranslationX();		
@@ -170,7 +198,7 @@ public class MapActivity extends Activity {
 				startActivity(new Intent(context, ImageTouchFBuildingActivity.class));
 			}else  if(view.getId() == R.id.ImageButtonLBuilding ){ 
 				startActivity(new Intent(context, ImageTouchLBuildingActivity.class));
-			}else  if(view.getId() == R.id.ImageButtonStudentCenterBuilding){ 
+			}else  if(view.getId() == R.id.ImageButtonStudentCenter){ 
 				startActivity(new Intent(context, ImageTouchStudentCenterActivity.class));
 			}
 		}		
@@ -253,63 +281,97 @@ public class MapActivity extends Activity {
 					matrix.postScale(scale, scale, middle.x, middle.y);
 				}
 			}
+			
 			view.setImageMatrix(matrix);
 			String s = matrix.toShortString();
 			String[] strMatrix = s.split("[\\[ \\] , ]"); 
-			double xScale = Double.parseDouble(strMatrix[1]);
-			double xVal = Double.parseDouble(strMatrix[5]);
-			double yScale = Double.parseDouble(strMatrix[9]);
-			double yVal = Double.parseDouble(strMatrix[11]);
+			backGroundImageScaleAndVal(backGroundImageScaleAndValArray,strMatrix);
 			if(firstRun == true){
-				redDotXOffSet = redDot.getX()/backGround.getWidth();
-				redDotYOffSet = redDot.getY()/backGround.getHeight();
-				imageButtonABuildingXOffSet = imageButtonABuilding.getX()/backGround.getWidth();
-				imageButtonABuildingYOffSet = imageButtonABuilding.getY()/backGround.getHeight();
-				oldXVal = xVal;
-				oldYVal = yVal;
+				redDotArray = firstRunDataLog(redDot);
+				imageButtonABuildingArray = firstRunDataLog(imageButtonABuilding);
+				imageButtonBBuildingArray = firstRunDataLog(imageButtonBBuilding);
+				imageButtonCBuildingArray = firstRunDataLog(imageButtonCBuilding);
+				imageButtonDBuildingArray = firstRunDataLog(imageButtonDBuilding);
+				imageButtonFBuildingArray = firstRunDataLog(imageButtonFBuilding);
+				imageButtonLBuildingArray = firstRunDataLog(imageButtonLBuilding);
+				imageButtonStudentCenterArray = firstRunDataLog(imageButtonStudentCenter);
+				/*
+				ImageButton imageButtonABuilding;
+				ImageButton imageButtonBBuilding;
+				ImageButton imageButtonCBuilding;
+				ImageButton imageButtonDBuilding;
+				ImageButton imageButtonFBuilding;
+				ImageButton imageButtonLBuilding;
+				ImageButton imageButtonStudentCenter;
+				*/
+				
+				oldXVal = backGroundImageScaleAndValArray[1];///
+				oldYVal = backGroundImageScaleAndValArray[3];
 				firstRun = false;
 			}
-			double changeInX = xVal -oldXVal;
-			double changeInY = yVal -oldYVal;
-			double width = backGround.getWidth()*xScale;
-			double height = backGround.getHeight()*yScale;
-			if(oldXScale != xScale){
-				redDot.setX((float) (xVal+(redDotXOffSet*width)) );
-				redDot.setY((float) (yVal+(redDotYOffSet*height)) );
-				redDot.setX((float) (redDot.getX()+(((redDot.getWidth()*xScale)-redDot.getWidth())/2)));
-				redDot.setY((float) (redDot.getY()+(((redDot.getWidth()*yScale)-redDot.getHeight())/2)));
-				redDot.setScaleX((float) xScale);
-				redDot.setScaleY((float) yScale);
-			
-	
-			}else{
-				redDot.setX((float) (redDot.getX()+(changeInX)));
-				redDot.setY((float) (redDot.getY()+(changeInY)));
-			}
-			imageButtonABuilding.setX((float) xVal);
-			imageButtonABuilding.setY((float) yVal);
+			viewsAutoScaleAndGroup(imageViewBackGround, redDot, redDotArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonABuilding, imageButtonABuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonBBuilding, imageButtonBBuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonCBuilding, imageButtonCBuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonDBuilding, imageButtonDBuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonFBuilding, imageButtonFBuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonLBuilding, imageButtonLBuildingArray);
+			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonStudentCenter, imageButtonStudentCenterArray);
+
+			/*
 			Log.d("H/W view", view.getWidth()+"=W - H="+view.getHeight());
 			Log.d("Height/Width", height +"=W - H="+width);
-			Log.d("xScale/yScal", xScale+"=W - H="+yScale);
-			
-			
-			
-			
-			oldXScale =xScale;
-			oldYScale =yScale;
-			oldXVal =xVal;
-			oldYVal =yVal;
+			Log.d("xScale/yScal", backGroundImageScaleAndValArray[1]+"=W - H="+backGroundImageScaleAndValArray[3]);
+			*/
+			oldXScale = backGroundImageScaleAndValArray[0];
+			oldYScale = backGroundImageScaleAndValArray[2];
+			oldXVal = backGroundImageScaleAndValArray[1];
+			oldYVal = backGroundImageScaleAndValArray[3];
 			return true;
 		}
-		public int[] firstRunDataLog(View view){
-			int[] answer = new int[9];//0 viewXOffSet //1 viewYOffSet //
-			//answer[0] = view.getX()/backGround.getWidth();
-			redDotXOffSet = redDot.getX()/backGround.getWidth();
-			redDotYOffSet = redDot.getY()/backGround.getHeight();
-			imageButtonABuildingXOffSet = imageButtonABuilding.getX()/backGround.getWidth();
+		private void viewsAutoScaleAndGroup( View backGroundView,View childView, float[] viewArray) {
+			double changeInX = backGroundImageScaleAndValArray[1] -oldXVal; 
+			double changeInY = backGroundImageScaleAndValArray[3] -oldYVal;
+			double width = imageViewBackGround.getWidth()*backGroundImageScaleAndValArray[0];
+			double height = imageViewBackGround.getHeight()*backGroundImageScaleAndValArray[2];
+			if(oldXScale != backGroundImageScaleAndValArray[0] || oldYScale != backGroundImageScaleAndValArray[2]){//0 = viewXOffSet //1 = viewYOffSet // 2 = oldX // 3 = oldY
+				childView.setX((float) (backGroundImageScaleAndValArray[1]+(viewArray[0]*width)) );
+				childView.setY((float) (backGroundImageScaleAndValArray[3]+(viewArray[1]*height)) );
+				childView.setX((float) (childView.getX()+(((childView.getWidth()*backGroundImageScaleAndValArray[0])-childView.getWidth())/2)));
+				childView.setY((float) (childView.getY()+(((childView.getWidth()*backGroundImageScaleAndValArray[2])-childView.getHeight())/2)));
+				childView.setScaleX((float) backGroundImageScaleAndValArray[0]);
+				childView.setScaleY((float) backGroundImageScaleAndValArray[2]);
+			}else{
+				childView.setX((float) (childView.getX()+(changeInX)));
+				childView.setY((float) (childView.getY()+(changeInY)));
+			}	
 			
-			return null;
+			viewArray[2] = childView.getX();
+			viewArray[3] = childView.getY();
+		}
+		/** backGroundImageScaleAndVal
+		 *  0 = xSale
+		 *  1 = xVale
+		 *  2 = yScale
+		 *  3 = yVale
+		 */
+		private void backGroundImageScaleAndVal(double[] backGroundImageScaleAndValArray, String[] strMatrix) {
+			backGroundImageScaleAndValArray[0] = Double.parseDouble(strMatrix[1]);
+			backGroundImageScaleAndValArray[1] = Double.parseDouble(strMatrix[5]);
+			backGroundImageScaleAndValArray[2] = Double.parseDouble(strMatrix[9]);
+			backGroundImageScaleAndValArray[3] = Double.parseDouble(strMatrix[11]);
+		}
+
+		public float[] firstRunDataLog(View view){
+			float[] viewArray = new float[6];//0 = viewXOffSet //1 = viewYOffSet // 2 = X // 3 = Y // 4 = oldX // 5 = oldY
+			viewArray[0] = view.getX()/imageViewBackGround.getWidth();
+			viewArray[1] = view.getY()/imageViewBackGround.getHeight();		
+			viewArray[2] = view.getX();
+			viewArray[3] = view.getY();
+			viewArray[4] = view.getX();
+			viewArray[5] = view.getY();
 			
+			return viewArray;
 		}
 	
 }

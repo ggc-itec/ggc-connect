@@ -1,92 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center" >
-    
 
-        <ImageView
-            android:id="@+id/imageView_ggc_full_map_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="matrix"
-            android:src="@drawable/ggc_full_map_small" />
+    <ImageView
+        android:id="@+id/imageView_ggc_full_map_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/ggc_full_map_small" />
 
-        <ImageView
-            android:id="@+id/imageViewTestIcon"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginBottom="35dp"
-            android:layout_marginLeft="34dp"
-            android:src="@drawable/red_dot" />
+    <ImageButton
+        android:id="@+id/ImageButtonFBuilding"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_alignTop="@+id/ImageButtonDBuilding"
+        android:scaleType="center"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonBBuilding"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="74dp"
-            android:layout_marginRight="84dp"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageView
+        android:id="@+id/imageViewTestIcon"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="74dp"
+        android:layout_marginLeft="72dp"
+        android:src="@drawable/red_dot" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonABuilding"
-            android:layout_width="38dp"
-            android:layout_height="50dp"
-            android:layout_alignRight="@+id/ImageButtonBBuilding"
-            android:layout_centerVertical="true"
-            android:scaleType="matrix"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/ImageButtonDBuilding"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ImageButtonABuilding"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonStudentCenterBuilding"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/imageViewTestIcon"
-            android:layout_marginTop="46dp"
-            android:layout_toLeftOf="@+id/ImageButtonABuilding"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/ImageButtonBBuilding"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBottom="@+id/imageView_ggc_full_map_small"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="102dp"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonCBuilding"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_above="@+id/ImageButtonABuilding"
-            android:layout_alignRight="@+id/ImageButtonLBuilding"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/ImageButtonABuilding"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/ImageButtonBBuilding"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:scaleType="matrix"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonDBuilding"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_below="@+id/ImageButtonStudentCenterBuilding"
-            android:layout_marginTop="28dp"
-            android:layout_toLeftOf="@+id/ImageButtonBBuilding"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/ImageButtonLBuilding"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_above="@+id/imageViewTestIcon"
+        android:layout_alignLeft="@+id/ImageButtonABuilding"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonLBuilding"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/imageViewTestIcon"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="22dp"
-            android:layout_toLeftOf="@+id/ImageButtonStudentCenterBuilding"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+    <ImageButton
+        android:id="@+id/ImageButtonStudentCenter"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/ImageButtonFBuilding"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:layout_alignRight="@+id/ImageButtonLBuilding"
-            android:layout_alignTop="@+id/ImageButtonDBuilding"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/ImageButtonCBuilding"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/clear"
+        android:visibility="visible" />
+
+</AbsoluteLayout>
