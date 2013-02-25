@@ -46,7 +46,7 @@ import android.util.Log;
 public class Banner {
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
-	private final BannerForm P_GetCrse =
+	/*private final BannerForm P_GetCrse =
 			new BannerForm("/pls/B400/bwskfcls.P_GetCrse", true,
 					new NameValuePair[]{
 					new BasicNameValuePair("rsts", "dummy"),
@@ -74,7 +74,7 @@ public class Banner {
 					new BasicNameValuePair("end_ap", "y"),
 					new BasicNameValuePair("path", "1"),
 					new BasicNameValuePair("SUB_BTN", "Course Search")
-			});
+			});*/
 	private final BannerForm p_display_courses =
 			new BannerForm("/pls/B400/bwckctlg.p_display_courses", false,
 					new NameValuePair[]{
@@ -96,7 +96,8 @@ public class Banner {
 					new BasicNameValuePair("term_in", "201302"),
 					new BasicNameValuePair("subj_in", ""),
 					new BasicNameValuePair("crse_in", ""),
-					new BasicNameValuePair("schd_in", "")
+					new BasicNameValuePair("schd_in", ""),
+					new BasicNameValuePair("crn_in", "")
 			});
 	private Context context;
 	
@@ -106,7 +107,7 @@ public class Banner {
 	
 	public Map<String, String> getCourseNumbers(String subject){
 		p_display_courses.set("one_subj", subject);
-		BufferedReader response = p_display_courses.request();
+		String response = p_display_courses.request();
 		Map<String, String> courses = new HashMap<String, String>();
 		List<String> titles = scrapeInner(response, "A", "/pls/B400/bwckctlg.p_disp_course_detail?");
 		
@@ -120,11 +121,6 @@ public class Banner {
 			courses.put(number, name);
 		}
 		
-		try{
-			response.close();
-		} catch (IOException ioe){
-			Log.w(TAG, "Failed to close HTML stream", ioe);
-		}
 		return courses;
 	}
 	
@@ -133,7 +129,7 @@ public class Banner {
 		
 		p_disp_listcrse.set("subj_in", subject);
 		p_disp_listcrse.set("crse_in", course);
-		BufferedReader response = p_disp_listcrse.request();
+		String response = p_disp_listcrse.request();
 		Map<String, String> sections = new HashMap<String, String>();
 		List<String> titles = scrapeInner(response, "A", "/pls/B400/bwckschd.p_disp_detail_sched?");
 		
@@ -147,22 +143,57 @@ public class Banner {
 			sections.put(sectionId, crn);
 		}
 		
-		try{
-			response.close();
-		} catch (IOException ioe){
-			Log.w(TAG, "Failed to close HTML stream", ioe);
-		}
 		return sections;
 	}
 	
-	private List<String> scrapeInner(BufferedReader html, String tag, String... matches){
+	private List<Map<String, String>> scrapeTable(String html, String...matches){
+		final String summary = "This table lists the scheduled meeting times and assigned instructors for this class..";
+		
+		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
+		List<String> headers = null;
+		
+		// TODO: this method assumes uppercase tag names. This is what Banner uses,
+		// but it could change in the future
+		String tableData = scrapeInner(html, "TABLE", summary).get(0);
+		headers = scrapeInner(tableData, "TH");
+		
+		Map<String, String> tableValues = new HashMap<String, String>(headers.size());
+		
+		return results;
+	}
+	
+	private List<String> scrapeInner(String html, String tag, String... matches){
 		List<String> results = new ArrayList<String>();
 		String matched = null, line = null;
-		int begin = -1, end = -1;
+		int begin = 0, end = -1;
 		boolean inTag = false;
 		
 		// TODO: this will skip multiple matching tags on the same line
-		try{
+		searchHTML:
+		do{
+			begin = html.indexOf("<" + tag, begin);
+			if (begin != -1){
+				end = html.indexOf(">", begin);
+				if (end != -1){
+					matched = html.substring(begin, end);
+					begin = end+1;
+					
+					for (String match: matches){
+						if (matched.indexOf(match) == -1)
+							continue searchHTML;
+					}
+					
+					// this tag matches; grab the inner HTML
+					end = html.indexOf("</" + tag, begin);
+					line = html.substring(begin, end);
+					results.add(line);
+					begin = end;
+				} else{
+					begin++;
+				}
+			}
+		} while (begin != -1);
+		/*try{
 			searchHTML:
 			while ((line = html.readLine()) != null){
 				if (matched == null){
@@ -218,12 +249,12 @@ public class Banner {
 		} catch (IOException ioe){
 			Log.e(TAG, "Failed to read response stream", ioe);
 			return null;
-		}
+		}*/
 		
 		return results;
 	}
 	
-	private List<String> scrapeAttr(BufferedReader html, String tag, String attr,
+	/*private List<String> scrapeAttr(String html, String tag, String attr,
 			String... matches){
 		List<String> results = new ArrayList<String>();
 		String matched = null, line = null;
@@ -301,7 +332,7 @@ public class Banner {
 		}
 		
 		return results;
-	}
+	}*/
 	
 	// Android doesn't trust Banner's certificate, so to do a request, we have to implement
 	// our own client class. This code essentially copied from:
@@ -382,10 +413,11 @@ public class Banner {
 			return true;
 		}
 		
-		public BufferedReader request(){
+		public String request(){
 			HttpClient client = new DefaultHttpClient();//BannerHttpClient(context);
 			HttpUriRequest request = null;
-			BufferedReader ret = null;
+			BufferedReader reader = null;
+			StringBuffer ret = new StringBuffer();
 			
 			try{
 				if (isPOST){
@@ -407,8 +439,11 @@ public class Banner {
 				HttpEntity entity = response.getEntity();
 				InputStream stream = entity.getContent();
 				Header encoding = entity.getContentEncoding();
-				ret = new BufferedReader(new InputStreamReader(stream,
+				reader = new BufferedReader(new InputStreamReader(stream,
 						(encoding == null? "iso-8859-1": encoding.getValue())));
+				for (String line = reader.readLine(); line != null; line = reader.readLine())
+					ret.append(line);
+				reader.close();
 			} catch (UnsupportedEncodingException uee){
 				Log.e(TAG, "Failed to send Banner request", uee);
 			} catch (ClientProtocolException cpe) {
@@ -420,7 +455,7 @@ public class Banner {
 					currentParms.put(parm.getName(), parm.getValue());
 			}
 			
-			return ret;
+			return ret.toString();
 		}
 	}
 }
