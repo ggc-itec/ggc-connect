@@ -6,15 +6,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
 	
 	private Context scheduleContext;
+	private ScheduleDatabase database;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,35 @@ public class ScheduleActivity extends Activity {
 		setContentView(R.layout.activity_schedule);
 		scheduleContext = this;
 		
-		showAddScheduleItemDialog();		
+		// open new database
+		database = new ScheduleDatabase(scheduleContext);
+		database.open();
+		
+		if (!classesExist()) {
+			showAddScheduleItemDialog();
+		}
+		
+		populateList();
+	}
+
+	private void populateList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean classesExist() {
+		Cursor c = database.queryAll();
+		if (c.getCount()  > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void showAddScheduleItemDialog() {
 		new AlertDialog.Builder(this)
 	    .setTitle("No Classes Found")
-	    .setMessage("No classes were found on your schedule. Would you like to add one now?")
+	    .setMessage(R.string.schedule_no_classes_popup)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	Toast.makeText(scheduleContext, "Show add screen", Toast.LENGTH_LONG)
@@ -67,18 +89,4 @@ public class ScheduleActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public class ScheduleListener implements OnClickListener {
-
-		@Override
-		public void onClick(View view) {
-			/*if (view.getId() == R.id.add_schedule_item_button) {
-				//TODO: Display the add schedule item screen
-				Toast.makeText(scheduleContext, 
-						"This would show add schedule item screen...", 
-						Toast.LENGTH_LONG).show();
-			}*/
-		}
-		
-	}
-
 }

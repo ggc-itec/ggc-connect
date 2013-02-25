@@ -12,15 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 import edu.ggc.it.direction.DirectionActivity;
 import edu.ggc.it.directory.DirectoryActivity;
+import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.todo.ToDoListActivity;
 
 /*  
  * ggc-connect is an app designed for the GGC community 
- * @author Team Grizz
+ * @author ggc-itec
  * 
  */
 public class Main extends Activity {
@@ -94,6 +97,9 @@ public class Main extends Activity {
 			Intent myIntent2 = new Intent(Main.this, News.class);
 			Main.this.startActivity(myIntent2);
 			return true;
+		case R.id.todo:
+			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
+			Main.this.startActivity(myIntent3);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -109,8 +115,10 @@ public class Main extends Activity {
 			} else if (view.getId() == R.id.direction_button) {
 				startActivity(new Intent(myContext, DirectionActivity.class));
 			} else if (view.getId() == R.id.gym_button) {
+				startActivity(new Intent(myContext, GymMainActivity.class));
 			} else if (view.getId() == R.id.schedule_button) {
 				startActivity(new Intent(myContext, ScheduleActivity.class));
+				
 			} else if (view.getId() == R.id.love_button) {
 				startActivity(new Intent(myContext, SetupActivity.class));
 			}

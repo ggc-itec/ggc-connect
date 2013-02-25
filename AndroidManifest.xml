@@ -8,17 +8,16 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
     </uses-permission>
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:icon="@drawable/ggc_connect_icon"
         android:label="@string/app_name" >
         <activity
             android:name="edu.ggc.it.Main"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,27 +32,59 @@
             android:name="edu.ggc.it.Credits"
             android:label="@string/credits" >
         </activity>
-
         <activity
             android:name="edu.ggc.it.direction.DirectionActivity"
             android:label="@string/title_activity_direction" >
         </activity>
-
         <activity android:name="edu.ggc.it.map.MapActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
-            android:label="@string/title_activity_schedule">
-            <!-- android:parentActivityName="edu.ggc.it.Main">-->
+            android:label="@string/title_activity_schedule" >
+
+            <!-- android:parentActivityName="edu.ggc.it.Main"> -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.Main" />
-
         </activity>
-
-        <activity android:name="edu.ggc.it.love.SetupActivity" android:label="@string/dating_label"></activity>
-
-        <activity android:name="edu.ggc.it.directory.DirectoryActivity" android:label="@string/title_activity_directory" android:screenOrientation="portrait">        </activity>
+        <activity
+            android:name="edu.ggc.it.love.SetupActivity"
+            android:label="@string/dating_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.directory.DirectoryActivity"
+            android:label="@string/title_activity_directory"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.DirectorySearchWebView"
+            android:label="@string/title_activity_directory_search_web_view"
+            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.directory.DirectoryActivity" />
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GymMainActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GymScheduleActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GroupsActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoListActivity"
+            android:label="TODO List" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoUpdateActivity"
+            android:label="TODO Update" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />

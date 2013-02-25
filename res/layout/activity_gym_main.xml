@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ggc_green"
+    android:gravity="center"
+    tools:context=".GymMainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="29dp"
+        android:layout_marginRight="29dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/firstTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="First Time and Renewal" />
+
+        <Button
+            android:id="@+id/gymSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gym Schedule" />
+
+        <Button
+            android:id="@+id/Group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group Fitness" />
+
+        <Button
+            android:id="@+id/buddies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Workout Buddies" />
+
+        <Button
+            android:id="@+id/healthMagazine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Health Magazine" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/homeButton"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:text="&apos;The reward is not so great without the struggle&apos;"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignParentTop="true" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:text="Home" />
+
+</RelativeLayout>
