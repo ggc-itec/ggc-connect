@@ -66,7 +66,7 @@
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
         </activity>
         <activity
-            android:name="edu.ggc.it.gym.GymMainActivity"
+            android:name="edu.ggc.it.gym.GymMainActivity" 
             android:label="@string/gym_label" >
         </activity>
         <activity
@@ -77,16 +77,16 @@
             android:name="edu.ggc.it.gym.GroupsActivity"
             android:label="@string/gym_label" >
         </activity>
-        <activity
-            android:name="edu.ggc.it.todo.ToDoListActivity"
-            android:label="TODO List" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.todo.ToDoUpdateActivity"
-            android:label="TODO Update" >
-        </activity>
+
+        <activity android:name=".map.ImageTouchABuildingActivity"></activity><activity android:name=".map.ImageTouchBBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchCBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchDBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchFBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchLBuildingActivity"></activity>
+        <activity android:name=".map.ImageTouchStudentCenterActivity"></activity>
+        
     </application>
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="11" />
 
 </manifest>
