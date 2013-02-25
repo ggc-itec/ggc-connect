@@ -19,6 +19,7 @@ import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.todo.ToDoListActivity;
 
 /*  
  * ggc-connect is an app designed for the GGC community 
@@ -96,6 +97,9 @@ public class Main extends Activity {
 			Intent myIntent2 = new Intent(Main.this, News.class);
 			Main.this.startActivity(myIntent2);
 			return true;
+		case R.id.todo:
+			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
+			Main.this.startActivity(myIntent3);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
