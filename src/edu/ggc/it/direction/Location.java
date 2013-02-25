@@ -2,15 +2,13 @@ package edu.ggc.it.direction;
 
 public class Location {
 	private String name;
-	private double latitude;
-	private double longitude;
 	private String building;
+	private String instruction;
 
-	public Location(String n, double la, double lo, String bld){
+	public Location(String n, String bld, String instr){
 		name = n;
-		latitude = la;
-		longitude = lo;
 		building = bld;
+		instruction = instr;
 	}
 	
 	public String getName(){
@@ -20,12 +18,8 @@ public class Location {
 	public String getBuilding(){
 		return building;
 	}
-	
-	public double getLatitude(){
-		return latitude;
-	}
-	
-	public double getLongitude(){
-		return longitude;
+
+	public String getInstruction(){
+		return instruction;
 	}
 }
