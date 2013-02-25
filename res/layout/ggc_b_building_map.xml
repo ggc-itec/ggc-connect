@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/imageView_ggc_b_Building_map"
+        android:id="@+id/imageView_ggc_building_b_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
