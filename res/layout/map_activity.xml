@@ -1,13 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView_GGC_Full_Map_Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ggc_map" />
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:scaleType="matrix"
+        android:src="@drawable/ggc_full_map_small" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/imageButtonABulling"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageView
+        android:id="@+id/imageView_Red_Dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/red_dot" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageButton
+        android:id="@+id/imageButtonCBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageButton
+        android:id="@+id/imageButtonDBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageButton
+        android:id="@+id/imageButtonLBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+    <ImageButton
+        android:id="@+id/imageButtonStudentCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:src="@drawable/clear" />
+
+</AbsoluteLayout>
