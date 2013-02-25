@@ -59,8 +59,8 @@
         <activity
             android:name="edu.ggc.it.DirectorySearchWebView"
             android:label="@string/title_activity_directory_search_web_view"
-            android:screenOrientation="portrait"
-            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity" >
+            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
@@ -77,7 +77,16 @@
             android:name="edu.ggc.it.gym.GroupsActivity"
             android:label="@string/gym_label" >
         </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoListActivity"
+            android:label="TODO List" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoUpdateActivity"
+            android:label="TODO Update" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="8" />
+
 </manifest>
