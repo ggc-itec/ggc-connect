@@ -126,31 +126,31 @@ public class MapActivity extends Activity {
 		GGCOnClickListener ggcOnClickListener = new GGCOnClickListener();	
 		//A
 		imageButtonABuilding = (ImageButton) findViewById(R.id.imageButtonABulling);
-		imageButtonABuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonABuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonABuilding.setOnClickListener(ggcOnClickListener);
 		//B
 		imageButtonBBuilding = (ImageButton) findViewById(R.id.imageButtonBBuilding);
-		imageButtonBBuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonBBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonBBuilding.setOnClickListener(ggcOnClickListener);
 		//C
 		imageButtonCBuilding = (ImageButton) findViewById(R.id.imageButtonCBuilding);
-		imageButtonCBuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonCBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonCBuilding.setOnClickListener(ggcOnClickListener);
 		//D
 		imageButtonDBuilding = (ImageButton) findViewById(R.id.imageButtonDBuilding);
-		imageButtonDBuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonDBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonDBuilding.setOnClickListener(ggcOnClickListener);
 		//F
 		imageButtonFBuilding = (ImageButton) findViewById(R.id.imageButtonFBuilding);
-		imageButtonFBuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonFBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonFBuilding.setOnClickListener(ggcOnClickListener);
 		//L
 		imageButtonLBuilding = (ImageButton) findViewById(R.id.imageButtonLBuilding);
-		imageButtonLBuilding.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonLBuilding.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonLBuilding.setOnClickListener(ggcOnClickListener);
 		//Student Center
 		imageButtonStudentCenter = (ImageButton) findViewById(R.id.imageButtonStudentCenter);
-		imageButtonStudentCenter.setBackgroundColor(Color.TRANSPARENT);	
+		//imageButtonStudentCenter.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonStudentCenter.setOnClickListener(ggcOnClickListener);
 	}
 	
