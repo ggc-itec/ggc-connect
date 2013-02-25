@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/muscle1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/boot1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/strength1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/yogaletes"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,7 +130,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/interval1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,7 +150,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/interval2"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,7 +183,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/muscle2"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,7 +203,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/boot2"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -223,7 +223,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/kickboxing"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -243,7 +243,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/yoga"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -277,7 +277,7 @@ Conditioning" />
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/interval3"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
