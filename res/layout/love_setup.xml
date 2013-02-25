@@ -133,8 +133,8 @@
             android:id="@+id/ds_search_by_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="Number"
-            android:textOn="Name" />
+            android:textOff="Name"
+            android:textOn="Number" />
 
     </TableRow>
 
