@@ -1,4 +1,4 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -6,185 +6,30 @@
     android:padding="10dp"
     tools:context=".DirectionActivity" >
 
-   <TableRow android:id="@+id/name_row" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:gravity="center">
-
-		<Button
-		    android:id="@+id/ButtonFindaPlace"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:width="100dp" android:height="60dp"
-		    android:textStyle="bold"
-		    android:text="@string/button_FindaPlace" />
-
-		<EditText android:id="@+id/editFindaPlace"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:width="260dp" android:height="60dp"
-			android:hint="@string/text_FindaPlace" />
-
-
-	</TableRow>
-    <RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
-		android:gravity="center">
-
-		<ImageButton
-		    android:id="@+id/bldAButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_centerVertical="true"
-		    android:src="@drawable/academic" />
-
-		<ImageButton
-		    android:id="@+id/bldBButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldAButton"
-		    android:src="@drawable/academic" />
-
-		<ImageButton
-		    android:id="@+id/bldCButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldBButton"
-		    android:src="@drawable/academic" />
-
-		<ImageButton
-		    android:id="@+id/bldDButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldCButton"
-		    android:src="@drawable/admission_registration" />
-
-		<ImageButton
-		    android:id="@+id/bldEButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldDButton"
-		    android:src="@drawable/studentlife" />
-
-	</RelativeLayout>
-
-	<RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
-		android:gravity="center">
-
-		<TextView android:id="@+id/textview_name" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true" android:text="Building A" />
-
-		<TextView android:id="@+id/textView2" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textview_name"
-			android:text="Building B" />
-
-		<TextView android:id="@+id/textView3" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView2"
-			android:text="Building C" />
-		<TextView android:id="@+id/textView4" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView3"
-			android:text="Building D" />
-
-		<TextView android:id="@+id/textView9" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView4"
-			android:text="Building E" />
-
-	</RelativeLayout>
-
-	<RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
-		android:gravity="center">
-
-		<ImageButton android:id="@+id/bldFButton"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_centerVertical="true" android:src="@drawable/gym" />
-
-		<ImageButton android:id="@+id/bldHButton"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_centerVertical="true" android:layout_toRightOf="@+id/bldFButton"
-			android:src="@drawable/lab" />
-
-		<ImageButton
-		    android:id="@+id/bldLButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldHButton"
-		    android:src="@drawable/library" />
-
-		<ImageButton
-		    android:id="@+id/bldIButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldLButton"
-		    android:src="@drawable/resources" />
-
-		<ImageButton
-		    android:id="@+id/parkingButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/bldIButton"
-		    android:src="@drawable/parking" />
-
-	</RelativeLayout>
-	<RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
-		android:gravity="center">
-
-		<TextView android:id="@+id/textView5" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true" android:text="Building F" />
-
-		<TextView android:id="@+id/textView6" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView5"
-			android:text="Building H" />
-
-		<TextView android:id="@+id/textView7" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView6"
-			android:text="Building L" />
-		<TextView android:id="@+id/textView8" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView7"
-			android:text="Building I" />
-
-		<TextView android:id="@+id/textView10" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignParentTop="true"
-			android:layout_marginLeft="10dp" android:layout_toRightOf="@+id/textView8" 
-			android:text="Parking" />
-
-	</RelativeLayout>
-    <RelativeLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center"
-		android:gravity="center">
-		
-		<TextView android:id="@+id/instruction_text"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="Instruction:" android:textAppearance="?android:attr/textAppearanceMedium" />
-        
-	</RelativeLayout>
-	<RelativeLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_gravity="center"
-		android:gravity="center">
-
-		<ImageView
+    	<Spinner
+    	    android:id="@+id/spinnerText"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="60dp"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_alignParentRight="true" >
+    	    
+    	</Spinner>
+    	
+    	<TextView android:id="@+id/instruction_text"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/spinnerText"
+		android:layout_centerHorizontal="true"
+		android:textAppearance="?android:attr/textAppearanceMedium" 
+		android:text="Instruction:" />
+    	
+    	<ImageView
 		    android:id="@+id/imageMap"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
+		    android:layout_below="@+id/instruction_text"
 		    android:layout_alignParentLeft="true"
 		    android:layout_centerVertical="true"
 		    android:src="@drawable/thai_ggc_map" />
-        
-	</RelativeLayout>
-</TableLayout>
+
+</RelativeLayout>

@@ -72,6 +72,20 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.schedule.ScheduleActivity" />
+            android:name="edu.ggc.it.gym.GymMainActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GymScheduleActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GroupsActivity"
+            android:label="@string/gym_label" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoListActivity"
+            android:label="TODO List" >
         </activity>
     </application>
 

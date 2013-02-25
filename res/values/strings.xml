@@ -37,14 +37,12 @@
         <item>Science and Technology</item>
     </string-array>
 
-    <string name="title_activity_directory">GGC Directory</string>
+        <string name="title_activity_directory">GGC Directory</string>
     <string name="title_activity_directory_search_web_view">Directory Search</string>
-    <string name="schedule_no_classes_popup">You need to add at least one class for the schedule to work. Would you like to add a class now?</string>
-    <string name="schedule_add_class">Add Class</string>
-    <string name="schedule_edit_class">Edit Class</string>
-    <string name="schedule_remove_class">Remove Class</string>
-    <string name="title_activity_schedule_add_class">Add Class</string>
-    <string name="action_settings">Settings</string>
-    <string name="schedule_item_label_name">Name:</string>
+	<string name="schedule_no_classes_popup">You need to add at least one class for the schedule to work. Would you like to add a class now?</string>
+	<string name="schedule_add_class">Add Class</string>
+	<string name="schedule_edit_class">Edit Class</string>
+	<string name="schedule_remove_class">Remove Class</string>
+	<string name="title_activity_schedule_add_class">Add Class to Schedule</string>
 
 </resources>
