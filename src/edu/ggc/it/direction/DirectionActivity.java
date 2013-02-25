@@ -1,45 +1,43 @@
 package edu.ggc.it.direction;
 
+//import android.location.Location;
+//import android.location.LocationManager;
 import edu.ggc.it.R;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class DirectionActivity extends Activity {
 	
-	private Button findButton;
+	//private Button findButton;
 	private ImageView img;
-	
+
 	private Context myContext;
-	
-	private EditText findText;
+
 	private TextView instructionText;
 	
-	private LocationManager lm;
-	private double latitude;
-	private double longitude;
-	private Location loc;
+	//private LocationManager lm;
+	//private double latitude;
+	//private double longitude;
+	//private Location loc;
 
 	private LocationList myLocationList;
 	
 	private Spinner spin;
 	private String spin_val;
-	private PlaceList myPlaceList;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,10 +51,28 @@ public class DirectionActivity extends Activity {
 
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (ImageView) findViewById(R.id.imageMap);
-		lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		latitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude();
-		longitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude();
+
+		//-------------------------------------
+		int w = img.getWidth(), h = img.getHeight();
 		
+		Paint currentPaint = new Paint();
+		currentPaint.setDither(true);
+        currentPaint.setColor(0xFF00CC00);  // alpha.r.g.b
+        currentPaint.setStyle(Paint.Style.STROKE);
+        currentPaint.setStrokeJoin(Paint.Join.ROUND);
+        currentPaint.setStrokeCap(Paint.Cap.ROUND);
+        currentPaint.setStrokeWidth(2);
+
+		Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
+		Bitmap bmp = Bitmap.createBitmap(w, h, conf); // this creates a MUTABLE bitmap
+		Canvas canvas = new Canvas(bmp);
+		canvas.drawRect(100, 100, 200, 200, currentPaint);
+		
+		//--------------------------------------
+		//lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//latitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude();
+		//longitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude();
+
 		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, myLocationList.getNameList());
 	      // setting adapter to spinner
 	    spin.setAdapter(spin_adapter);
@@ -82,7 +98,7 @@ public class DirectionActivity extends Activity {
 			else{
 			instructionText.setText("It is located on building "+ bld
 					//Line below just used for test
-					+"\n Latitude: "+latitude +"\n Longitude: "+longitude
+					//+"\n Latitude: "+latitude +"\n Longitude: "+longitude
 					+ "\nInstruction: \n"+"    "+spin_val
 					+ "\nHere is building "+bld+" map");
 			}

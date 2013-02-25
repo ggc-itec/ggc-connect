@@ -21,10 +21,11 @@
 		android:layout_below="@+id/spinnerText"
 		android:layout_centerHorizontal="true"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
-		android:text="Instruction:" />
+		android:text="@string/instruction" />
     	
     	<ImageView
 		    android:id="@+id/imageMap"
+		    android:contentDescription="@string/thai_ggc_map"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:layout_below="@+id/instruction_text"

@@ -20,17 +20,6 @@ public class LocationList {
 		//Add some more here...
 	}
 	
-	public String Find(String key){
-		String str = "Ooops..I could find your place. Please make sure your typing is correct!";
-		key = key.toLowerCase();
-		for(Location i : locationList){
-			//if(i.getName().equalsIgnoreCase(key))
-			if((i.getName().equalsIgnoreCase(key))||(key.indexOf(i.getName())>=0))
-				str = i.getBuilding();
-		}
-		return str;
-	}
-	
 	public int getSize(){
 		return locationList.size();
 	}
