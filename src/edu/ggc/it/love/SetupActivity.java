@@ -182,6 +182,7 @@ public class SetupActivity extends Activity{
 			courseRow.setVisibility(View.GONE);
 			searchByRow.setVisibility(View.GONE);
 			sectionRow.setVisibility(View.GONE);
+			classButton.setText(R.string.ds_add_class_label);
 		}
 		
 	}
