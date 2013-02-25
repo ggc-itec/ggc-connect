@@ -59,11 +59,19 @@
         <activity
             android:name="edu.ggc.it.DirectorySearchWebView"
             android:label="@string/title_activity_directory_search_web_view"
-            android:screenOrientation="portrait"
-            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity" >
+            android:parentActivityName="edu.ggc.it.directory.DirectoryActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
+        </activity>
+        <activity
+            android:name="edu.ggc.it.schedule.ScheduleAddClass"
+            android:label="@string/title_activity_schedule_add_class"
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.schedule.ScheduleActivity" />
         </activity>
     </application>
 

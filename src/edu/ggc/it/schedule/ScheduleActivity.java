@@ -1,11 +1,13 @@
 package edu.ggc.it.schedule;
 
 import edu.ggc.it.R;
+import edu.ggc.it.map.MapActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,8 +55,7 @@ public class ScheduleActivity extends Activity {
 	    .setMessage(R.string.schedule_no_classes_popup)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
-	        	Toast.makeText(scheduleContext, "Show add screen", Toast.LENGTH_LONG)
-				.show();
+	        	startActivity(new Intent(scheduleContext, ScheduleAddClass.class));
 	        }
 	     })
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {

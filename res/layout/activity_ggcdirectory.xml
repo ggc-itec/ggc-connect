@@ -48,7 +48,7 @@
 
 
                     <TextView
-                        android:id="@+id/textView1"
+                        android:id="@+id/textview_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="First Name"
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@+id/textView1"
+                        android:layout_below="@+id/textview_name"
                         android:ems="10"
                         android:inputType="textPersonName" >
 
@@ -71,7 +71,7 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignRight="@+id/textView1"
+                        android:layout_alignRight="@+id/textview_name"
                         android:layout_below="@+id/firstNameText"
                         android:layout_marginTop="21dp"
                         android:text="Last Name"
