@@ -32,7 +32,7 @@ public class ImageTouchFBuildingActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ggc_f_building_map);
-		ImageView view = (ImageView) findViewById(R.id.imageView_ggc_f_Building_map);
+		ImageView view = (ImageView) findViewById(R.id.ggc_building_f_map);
 		view.setOnTouchListener(new TouchListener());
 	}
 
