@@ -51,7 +51,7 @@
                         android:id="@+id/textview_schedule_add_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
+                        android:text="First Name (Optional)"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <EditText
@@ -62,6 +62,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/textview_schedule_add_name"
                         android:ems="10"
+                        android:hint="As much as you know"
                         android:inputType="textPersonName" >
 
                         <requestFocus />
@@ -74,7 +75,7 @@
                         android:layout_alignRight="@+id/textview_schedule_add_name"
                         android:layout_below="@+id/firstNameText"
                         android:layout_marginTop="21dp"
-                        android:text="Last Name"
+                        android:text="Last Name (Optional)"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <Button
@@ -106,6 +107,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/textView2"
                         android:ems="10"
+                        android:hint="As much as you know"
                         android:inputType="textPersonName" />
                     
                 
