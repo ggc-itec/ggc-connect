@@ -51,7 +51,8 @@
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
+                        android:text="First Name (Optional)"
+                        android:hint="As much as you know"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <EditText
@@ -74,7 +75,8 @@
                         android:layout_alignRight="@+id/textView1"
                         android:layout_below="@+id/firstNameText"
                         android:layout_marginTop="21dp"
-                        android:text="Last Name"
+                        android:text="Last Name (Optional)"
+                        android:hint="As much as you know"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <Button
