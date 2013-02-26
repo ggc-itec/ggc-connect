@@ -8,9 +8,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -25,6 +27,9 @@ public class DirectoryActivity extends Activity {
 	private ListView list;
 	public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
 	public final static String lastName = "edu.ggc.it.directory.MESSAGE";
+	private Button clearSearch;
+	private EditText firstNameField;
+	private EditText lastNameField;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,38 +41,7 @@ public class DirectoryActivity extends Activity {
 		list.setAdapter(new ArrayAdapter<String>(this,
 		       android.R.layout.simple_list_item_1, getResources()
 		         .getStringArray(R.array.parent_directories)));
-		list.setOnItemClickListener(new OnItemClickListener(){
-	         public void onItemClick(AdapterView<?> parent, View v, int position, long id){
-	        	 String wholeUrl;
-	        	 if(position == 0){
-	        		 wholeUrl = "http://www.ggc.edu/admissions/meet-our-staff/";
-	        		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
-	        		 startActivity(intent2);
-	        	 }
-	        	 if(position == 1){
-	        		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-business/meet-our-faculty-and-staff/index.html";
-	        		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
-	        		 startActivity(intent2);
-	        	 }
-	        	 if(position == 2){
-	        		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-education/meet-the-faculty-and-staff/index.html";
-	        		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
-	        		 startActivity(intent2);
-	        	 }
-	        	 if(position == 3){
-	        		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-liberal-arts/meet%20the%20facultyand%20staff/index.html";
-	        		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
-	        		 startActivity(intent2);
-	        	 }
-	        	 if(position == 4){
-	        		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-science-and-technology/meet-faculty-and-staff.html";
-	        		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
-	        		 startActivity(intent2);
-	        	 }
-	        	 
-	         }
-	        }
-	        );
+		list.setOnItemClickListener(new departmentOnClickListener());
         tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec spec1 = tabHost.newTabSpec("First Tab");
@@ -83,6 +57,11 @@ public class DirectoryActivity extends Activity {
 		tabHost.addTab(spec1);
 		tabHost.addTab(spec2);
 		
+		clearSearch = (Button)findViewById(R.id.clearSearchButton);
+		firstNameField = (EditText)findViewById(R.id.firstNameText);
+		lastNameField = (EditText)findViewById(R.id.lastNameText);
+		clearSearch.setOnClickListener(new clearSearchListener());
+		
 	}
 	
 	public void searchName(View view) {
@@ -94,6 +73,54 @@ public class DirectoryActivity extends Activity {
 		String wholeUrl = "http://www.ggc.edu/about-ggc/directory?firstname=" + message +"&firstname_modifier=like&lastname="+message2+"&lastname_modifier=like&search=Search";
 		intent.putExtra(EXTRA_MESSAGE, wholeUrl);
 		startActivity(intent);
+	}
+	
+	public class clearSearchListener implements android.view.View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			
+			if(v.getId()== R.id.clearSearchButton);
+			firstNameField.setText("");
+			lastNameField.setText("");
+		}
+		
+	}
+	
+	public class departmentOnClickListener implements android.widget.AdapterView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+       	 String wholeUrl;
+       	 if(position == 0){
+       		 wholeUrl = "http://www.ggc.edu/admissions/meet-our-staff/";
+       		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+       		 startActivity(intent2);
+       	 }
+       	 if(position == 1){
+       		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-business/meet-our-faculty-and-staff/index.html";
+       		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+       		 startActivity(intent2);
+       	 }
+       	 if(position == 2){
+       		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-education/meet-the-faculty-and-staff/index.html";
+       		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+       		 startActivity(intent2);
+       	 }
+       	 if(position == 3){
+       		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-liberal-arts/meet%20the%20facultyand%20staff/index.html";
+       		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+       		 startActivity(intent2);
+       	 }
+       	 if(position == 4){
+       		 wholeUrl = "http://www.ggc.edu/academics/schools/school-of-science-and-technology/meet-faculty-and-staff.html";
+       		 intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+       		 startActivity(intent2);
+       	 }
+			
+			
+		}
+		
 	}
 
 }
