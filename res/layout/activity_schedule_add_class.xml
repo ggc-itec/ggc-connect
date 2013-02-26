@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:entries="@array/buildings"
-                android:prompt="@string/btn_scehdule_add_start_time" />
+                android:prompt="@string/schedule_add_building_spinner_prompt" />
 
         </TableRow>
 

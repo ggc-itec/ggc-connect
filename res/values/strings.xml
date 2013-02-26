@@ -69,5 +69,6 @@
 	    <string name="textview_schedule_add_room_location">Room:</string>
 	    <string name="schedule_add_building_spinner_prompt">Building</string>
 	    <string name="btn_schedule_add_cancel">Cancel</string>
+	    <string name="spinner_schedule_add_prompt">Select Building</string>
 
 </resources>
