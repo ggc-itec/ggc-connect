@@ -47,16 +47,16 @@
 	<string name="schedule_add_name_label">Class:</string>
 	<string name="schedule_add_name_hint">ITEC 2100</string>
 	<string name="textview_schedule_add_start_time">Start Time:</string>
-	<string name="chk_schedule_add_monday">M</string>
-	<string name="chk_schedule_add_tuesday">T</string>
-	<string name="chk_schedule_add_wednesday">W</string>
-	<string name="chk_schedule_add_thursday">R</string>
+	<string name="chk_schedule_add_monday">Monday</string>
+	<string name="chk_schedule_add_tuesday">Tuesday</string>
+	<string name="chk_schedule_add_wednesday">Wednesday</string>
+	<string name="chk_schedule_add_thursday">Thursday</string>
 	<string name="btn_scehdule_add_start_time">Set Start Time</string>
 	<string name="textview_schedule_add_end_time">End Time:</string>
 	<string name="btn_schedule_add_end_time">Set End Time</string>
 	<string name="textview_schedule_add_days">Days:</string>
-	<string name="chk_schedule_add_friday">F</string>
-	<string name="chk_schedule_add_saturday">S</string>
+	<string name="chk_schedule_add_friday">Friday</string>
+	<string name="chk_schedule_add_saturday">Saturday</string>
 	<string name="textview_schedule_add_building_location">Building:</string>
 	
 	<string-array name="buildings">
@@ -66,5 +66,8 @@
 	    <item>Building F</item>
 	    <item>Building H</item>
 	</string-array>
+	    <string name="textview_schedule_add_room_location">Room:</string>
+	    <string name="schedule_add_building_spinner_prompt">Building</string>
+	    <string name="btn_schedule_add_cancel">Cancel</string>
 
 </resources>

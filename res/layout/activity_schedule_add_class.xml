@@ -94,55 +94,54 @@
                 android:text="@string/textview_schedule_add_days"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_monday"
-                android:layout_width="0px"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_monday" />
+                android:orientation="vertical" >
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_tuesday"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_tuesday" />
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_monday" />
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_wednesday"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_wednesday" />
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_tuesday" />
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_thursday"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_thursday" />
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_wednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_wednesday" />
 
-        </TableRow>
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_thursday" />
 
-        <TableRow
-            android:id="@+id/second_days_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_friday" />
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_friday"
-                android:layout_height="wrap_content"
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_friday" />
+                <CheckBox
+                    android:id="@+id/chk_schedule_add_saturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chk_schedule_add_saturday" />
 
-            <CheckBox
-                android:id="@+id/chk_schedule_add_saturday"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/chk_schedule_add_saturday" />
+            </LinearLayout>
 
         </TableRow>
 
@@ -161,10 +160,10 @@
             <Spinner
                 android:id="@+id/spinner_schedule_add_building_location"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:entries="@array/buildings"
-                android:prompt="@array/buildings" />
+                android:prompt="@string/btn_scehdule_add_start_time" />
 
         </TableRow>
 
@@ -172,6 +171,40 @@
             android:id="@+id/room_location_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textview_schedule_add_room_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textview_schedule_add_room_location"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edittext_schedule_add_room_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/buttons_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btn_schedule_add_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_schedule_add_cancel" />
+
+            <Button
+                android:id="@+id/btn_schedule_add_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/schedule_add_class" />
+
         </TableRow>
 
     </TableLayout>
