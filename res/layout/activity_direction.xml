@@ -26,11 +26,19 @@
     	<ImageView
 		    android:id="@+id/imageMap"
 		    android:contentDescription="@string/thai_ggc_map"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/instruction_text"
 		    android:layout_alignParentLeft="true"
 		    android:layout_centerVertical="true"
 		    android:src="@drawable/thai_ggc_map" />
+
+    	<ImageView
+    	    android:id="@+id/imageYou"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentBottom="true"
+    	    android:layout_alignParentRight="true"
+    	    android:src="@drawable/you" />
 
 </RelativeLayout>
