@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.app.Activity;
 
-public class ScheduleAddClass extends Activity {
+public class ScheduleUpdateActivity extends Activity {
 	
 	private Button btnCancel;
 	private Button btnAddClass;
@@ -24,14 +24,27 @@ public class ScheduleAddClass extends Activity {
 		btnAddClass.setOnClickListener(new scheduleAddListener());
 	}
 	
+	/**
+	 * Listener inner class for the add class activity.
+	 * @author Raj
+	 *
+	 */
 	public class scheduleAddListener implements OnClickListener {
 
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.btn_schedule_add_cancel) {
 				finish();
+			} else if (view.getId() == R.id.btn_schedule_add_submit) {
+				addClass();
 			}
 		}
+	}
+	
+	/**
+	 * This method adds a class to the schedule
+	 */
+	private void addClass() {
 		
 	}
 

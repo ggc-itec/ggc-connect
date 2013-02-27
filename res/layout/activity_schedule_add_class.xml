@@ -7,7 +7,7 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentTop="true"
     android:padding="5dp"
-    tools:context=".ScheduleAddClass" >
+    tools:context=".ScheduleUpdateActivity" >
 
     <TableLayout
         android:layout_width="match_parent"
