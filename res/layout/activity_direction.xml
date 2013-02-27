@@ -41,4 +41,12 @@
     	    android:layout_alignParentRight="true"
     	    android:src="@drawable/you" />
 
+    	<ImageView
+    	    android:id="@+id/imageHere"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentBottom="true"
+    	    android:layout_alignParentLeft="true"
+    	    android:src="@drawable/here" />
+
 </RelativeLayout>

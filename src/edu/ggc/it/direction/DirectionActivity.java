@@ -39,8 +39,10 @@ public class DirectionActivity extends Activity {
 	private ImageView img;
 	//Create a imageview for the current position on map
 	private ImageView img1;
+	//Create a imageview for the place position on map
+	private ImageView img2;
 	//Create new context for activity
-	private Context myContext;
+	//private Context myContext;
 	//Create a textview to display instructions to users
 	private TextView instructionText;
 	//Create location manager 
@@ -49,6 +51,10 @@ public class DirectionActivity extends Activity {
 	private double latitude;
 	//This will get the user's longitude
 	private double longitude;
+	//This will get the destination's latitude
+	private double latitudeDes;
+	//This will get the destination's longitude
+	private double longitudeDes;
 	//Create new location
 	private Location loc;
 	//Create a location list that holds list of places in GGC
@@ -63,7 +69,7 @@ public class DirectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
-		myContext = this;
+		//myContext = this;
 		//Init locationlist
 		myLocationList = new LocationList();
 		//Create new listenner for spinner
@@ -74,6 +80,7 @@ public class DirectionActivity extends Activity {
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (ImageView) findViewById(R.id.imageMap);
 		img1=(ImageView) findViewById(R.id.imageYou);
+		img2=(ImageView) findViewById(R.id.imageHere);
 		
 		//Require real device has GPS
 		//lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -85,7 +92,7 @@ public class DirectionActivity extends Activity {
 		longitude =  -84.00265;
 		
 		//Create ArrayAdapter for spinner
-		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, myLocationList.getNameList());
+		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
 	      // setting adapter to spinner
 	    spin.setAdapter(spin_adapter);
 	}
@@ -118,7 +125,7 @@ public class DirectionActivity extends Activity {
 				//Update the top for the image
 				imgViewTop = imgViewTop + imgPadding;
 				//Do not to re-get above data
-				save = true;
+				//save = true;
 			}
 			//Set the x for the current user's position on Map(-84.01209 to -83.99772)
 			img1.setX((float) (imgLeft+((longitude + 84.01209)*100000*imgWidth/1437)));
@@ -130,36 +137,57 @@ public class DirectionActivity extends Activity {
 				img.setImageResource(R.drawable.thai_ggc_map);	
 				img1.setImageResource(R.drawable.you);
 				//Set the current position of user on Map
-				img1.setVisibility(View.VISIBLE);
+				img2.setVisibility(View.INVISIBLE);
 				//Display instruction to the textview 
 				instructionText.setText(spin_val);
 			}
 			else{//Run these lines when users click on any item on the list of spinner
-				img1.setVisibility(View.INVISIBLE);
+				img2.setVisibility(View.VISIBLE);
 				instructionText.setText("It is located on building "+ bld
-						+ "\nInstruction: \n"+"    "+spin_val
-						+ "\nHere is building "+bld+" map");
+						+ "\nInstruction: \n"+"    "+spin_val);
 			}
 			//Depend on building where the instruction points to, these lines will show the appropriate map
 			if (bld.equals("A")){
-				img.setImageResource(R.drawable.building_a);
+				latitudeDes = 33.97999;
+				longitudeDes = -84.00096;
 			}else if(bld.equals("B")){
-				img.setImageResource(R.drawable.building_b);
+				latitudeDes = 33.98095;
+				longitudeDes =  -84.00526;
 			}else if(bld.equals("C")){
-				img.setImageResource(R.drawable.building_c);
+				latitudeDes = 33.98040;
+				longitudeDes =  -84.00622;
 			}else if(bld.equals("D")){
-				img.setImageResource(R.drawable.building_d);
-			}else if(bld.equals("E1")){
-				img.setImageResource(R.drawable.building_e1);
-			}else if(bld.equals("E2")){
-				img.setImageResource(R.drawable.building_e2);
-			}else if(bld.equals("E3")){
-				img.setImageResource(R.drawable.building_e3);
+				latitudeDes = 33.97970; 
+				longitudeDes = -83.99837;
+			}else if(bld.equals("E")){
+				latitudeDes = 33.97939; 
+				longitudeDes = -84.00553;
+			}else if(bld.equals("R")){
+				latitudeDes = 33.98032; 
+				longitudeDes = -84.00914;
+			}else if(bld.equals("S")){
+				latitudeDes = 33.97884; 
+				longitudeDes = -84.00848;
 			}else if(bld.equals("F")){
-				img.setImageResource(R.drawable.building_f);
+				latitudeDes = 33.97756; 
+				longitudeDes = -83.99980;
 			}else if(bld.equals("L")){
-				img.setImageResource(R.drawable.building_l);
+				latitudeDes = 33.97959;
+				longitudeDes =  -84.00454;
+			}else if(bld.equals("BB")){
+				latitudeDes = 33.98402;
+				longitudeDes =  -84.00212;
+			}else if(bld.equals("PD")){
+				latitudeDes = 33.98162;
+				longitudeDes = -83.99993;
+			}else if(bld.equals("P")){
+				latitudeDes = 33.97860;
+				longitudeDes = -84.01110;
 			}
+			//Set the x for the current destination's position on Map(-84.01209 to -83.99772)
+			img2.setX((float) (imgLeft+((longitudeDes + 84.01209)*100000*imgWidth/1437)));
+			//Set the y for the current destination's position on Map(33.98565 to 33.97652)
+			img2.setY((float) (imgViewTop-30+((33.98565 - latitudeDes)*100000*imgHeight/913)));
 		}
 
 		@Override
