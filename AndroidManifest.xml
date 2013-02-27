@@ -65,7 +65,7 @@
         </activity>
         <activity
             android:name="edu.ggc.it.schedule.ScheduleUpdateActivity"
-            android:label="@string/title_activity_schedule_add_class"
+            android:label="@string/title_activity_schedule_update_class"
             android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

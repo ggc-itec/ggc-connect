@@ -19,15 +19,15 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_name"
+                android:id="@+id/textview_schedule_update_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/schedule_add_name_label"
+                android:text="@string/schedule_update_name_label"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/edittext_schedule_add_name"
+                android:id="@+id/edittext_schedule_update_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -46,18 +46,18 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_start_time"
+                android:id="@+id/textview_schedule_update_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textview_schedule_add_start_time"
+                android:text="@string/textview_schedule_update_start_time"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
-                android:id="@+id/btn_schedule_add_select_start_time"
+                android:id="@+id/btn_schedule_update_start_time"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_scehdule_add_start_time" />
+                android:text="@string/btn_schedule_update_start_time" />
 
         </TableRow>
 
@@ -67,18 +67,18 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_end_time"
+                android:id="@+id/textview_schedule_update_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textview_schedule_add_end_time"
+                android:text="@string/textview_schedule_update_end_time"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
-                android:id="@+id/btn_schedule_add_end_time"
+                android:id="@+id/btn_schedule_update_end_time"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_schedule_add_end_time" />
+                android:text="@string/btn_schedule_update_end_time" />
 
         </TableRow>
 
@@ -88,10 +88,10 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_days"
+                android:id="@+id/textview_schedule_update_days"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textview_schedule_add_days"
+                android:text="@string/textview_schedule_update_days"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout
@@ -100,46 +100,46 @@
                 android:orientation="vertical" >
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_monday"
+                    android:id="@+id/chk_schedule_update_monday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_monday" />
+                    android:text="@string/chk_schedule_update_monday" />
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_tuesday"
+                    android:id="@+id/chk_schedule_update_tuesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_tuesday" />
+                    android:text="@string/chk_schedule_update_tuesday" />
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_wednesday"
+                    android:id="@+id/chk_schedule_update_wednesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_wednesday" />
+                    android:text="@string/chk_schedule_update_wednesday" />
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_thursday"
+                    android:id="@+id/chk_schedule_update_thursday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_thursday" />
+                    android:text="@string/chk_schedule_update_thursday" />
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_friday"
+                    android:id="@+id/chk_schedule_update_friday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_friday" />
+                    android:text="@string/chk_schedule_update_friday" />
 
                 <CheckBox
-                    android:id="@+id/chk_schedule_add_saturday"
+                    android:id="@+id/chk_schedule_update_saturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/chk_schedule_add_saturday" />
+                    android:text="@string/chk_schedule_update_saturday" />
 
             </LinearLayout>
 
@@ -151,19 +151,19 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_building_location"
+                android:id="@+id/textview_schedule_update_building_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textview_schedule_add_building_location"
+                android:text="@string/textview_schedule_update_building_location"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
-                android:id="@+id/spinner_schedule_add_building_location"
+                android:id="@+id/spinner_schedule_update_building_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:entries="@array/buildings"
-                android:prompt="@string/schedule_add_building_spinner_prompt" />
+                android:prompt="@string/schedule_update_building_spinner_prompt" />
 
         </TableRow>
 
@@ -173,14 +173,14 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textview_schedule_add_room_location"
+                android:id="@+id/textview_schedule_update_room_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textview_schedule_add_room_location"
+                android:text="@string/textview_schedule_update_room_location"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/edittext_schedule_add_room_location"
+                android:id="@+id/edittext_schedule_update_room_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -194,13 +194,13 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/btn_schedule_add_cancel"
+                android:id="@+id/btn_schedule_update_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_schedule_add_cancel" />
+                android:text="@string/btn_schedule_update_cancel" />
 
             <Button
-                android:id="@+id/btn_schedule_add_submit"
+                android:id="@+id/btn_schedule_update_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/schedule_add_class" />

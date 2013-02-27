@@ -1,27 +1,54 @@
 package edu.ggc.it.schedule;
 
-import edu.ggc.it.R;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.app.Activity;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import edu.ggc.it.R;
 
 public class ScheduleUpdateActivity extends Activity {
 	
+	private ScheduleDatabase database;
+	private Long rowID;
+	
+	/**
+	 * Cancel button
+	 */
 	private Button btnCancel;
-	private Button btnAddClass;
-
+	
+	/**
+	 * Update button. Either says "edit" or "add" depending on action.
+	 */
+	private Button btnUpdateClass;
+	
+	private EditText txtClass;
+	private Button btnStartTime;
+	private Button btnEndTime;
+	private CheckBox chkMonday, chkTuesday, chkWednesday, chkThursday, chkFriday, chlSaturday;
+	private Spinner buildingLocation;
+	private EditText txtRoomLocation;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_schedule_add_class);
+		setContentView(R.layout.activity_schedule_update_class);
 		
-		btnCancel = (Button) findViewById(R.id.btn_schedule_add_cancel);
-		btnCancel.setOnClickListener(new scheduleAddListener());
+		// Create listeners for each button
+		btnCancel = (Button) findViewById(R.id.btn_schedule_update_cancel);
+		btnCancel.setOnClickListener(new ScheduleUpdateListener());
 		
-		btnAddClass = (Button) findViewById(R.id.btn_schedule_add_submit);
-		btnAddClass.setOnClickListener(new scheduleAddListener());
+		btnUpdateClass = (Button) findViewById(R.id.btn_schedule_update_submit);
+		btnUpdateClass.setOnClickListener(new ScheduleUpdateListener());
+		
+		btnStartTime = (Button) findViewById(R.id.btn_schedule_update_start_time);
+		btnStartTime.setOnClickListener(new ScheduleUpdateListener());
+		
+		btnEndTime = (Button) findViewById(R.id.btn_schedule_update_end_time);
+		btnEndTime.setOnClickListener(new ScheduleUpdateListener());
 	}
 	
 	/**
@@ -29,13 +56,13 @@ public class ScheduleUpdateActivity extends Activity {
 	 * @author Raj
 	 *
 	 */
-	public class scheduleAddListener implements OnClickListener {
+	public class ScheduleUpdateListener implements OnClickListener {
 
 		@Override
 		public void onClick(View view) {
-			if (view.getId() == R.id.btn_schedule_add_cancel) {
+			if (view.getId() == R.id.btn_schedule_update_cancel) {
 				finish();
-			} else if (view.getId() == R.id.btn_schedule_add_submit) {
+			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			}
 		}
