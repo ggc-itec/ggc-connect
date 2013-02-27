@@ -27,7 +27,7 @@
     <string name="title_activity_direction">DirectionActivity</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="add_schedule_button_text">Add class</string>
-	<string name="dating_label">Social</string>
+    <string name="dating_label">Social</string>
 
     <string-array name="parent_directories">
         <item>Admissions</item>
@@ -37,12 +37,41 @@
         <item>Science and Technology</item>
     </string-array>
 
-	<string name="title_activity_directory">GGC Directory</string>
+    <string name="title_activity_directory">GGC Directory</string>
     <string name="title_activity_directory_search_web_view">Directory Search</string>
 	<string name="schedule_no_classes_popup">You need to add at least one class for the schedule to work. Would you like to add a class now?</string>
 	<string name="schedule_add_class">Add Class</string>
 	<string name="schedule_edit_class">Edit Class</string>
 	<string name="schedule_remove_class">Remove Class</string>
+	<string name="title_activity_schedule_update_class">Add Class to Schedule</string>
+	<string name="schedule_update_name_label">Class:</string>
+	<string name="schedule_add_name_hint">ITEC 2100</string>
+	<string name="textview_schedule_update_start_time">Start Time:</string>
+	<string name="chk_schedule_update_monday">Monday</string>
+	<string name="chk_schedule_update_tuesday">Tuesday</string>
+	<string name="chk_schedule_update_wednesday">Wednesday</string>
+	<string name="chk_schedule_update_thursday">Thursday</string>
+	<string name="btn_schedule_update_start_time">Set Start Time</string>
+	<string name="textview_schedule_update_end_time">End Time:</string>
+	<string name="btn_schedule_update_end_time">Set End Time</string>
+	<string name="textview_schedule_update_days">Days:</string>
+	<string name="chk_schedule_update_friday">Friday</string>
+	<string name="chk_schedule_update_saturday">Saturday</string>
+	<string name="textview_schedule_update_building_location">Building:</string>
+	
+	<string-array name="buildings">
+	    <item>Building A</item>
+	    <item>Building B</item>
+	    <item>Building C</item>
+	    <item>Building F</item>
+	    <item>Building H</item>
+	</string-array>
+	
+	<string name="textview_schedule_update_room_location">Room:</string>
+	<string name="schedule_update_building_spinner_prompt">Building</string>
+	<string name="btn_schedule_update_cancel">Cancel</string>
+	<string name="spinner_schedule_update_prompt">Select Building</string>
+	    
 	<string name="ds_name_label">Name</string>
 	<string name="ds_bday_label">Birth date</string>
 	<string name="ds_gender_label">Gender</string>

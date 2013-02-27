@@ -15,12 +15,12 @@
             android:layout_marginTop="26dp" >
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/name_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/textview_schedule_add_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TUESDAY"
@@ -28,12 +28,12 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow2"
+                android:id="@+id/start_time_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/btn_schedule_add_select_start_time"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_schedule_add_submit"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@ Conditioning" />
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow3"
+                android:id="@+id/end_time_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -268,7 +268,7 @@ Conditioning" />
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow4"
+                android:id="@+id/days_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 

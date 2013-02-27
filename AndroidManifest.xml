@@ -41,7 +41,7 @@
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
             android:label="@string/title_activity_schedule" >
-            <meta-data
+          <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.Main" />
         </activity>
@@ -64,6 +64,12 @@
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
         </activity>
         <activity
+            android:name="edu.ggc.it.schedule.ScheduleUpdateActivity"
+            android:label="@string/title_activity_schedule_update_class"
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.schedule.ScheduleActivity" />
             android:name="edu.ggc.it.gym.GymMainActivity"
             android:label="@string/gym_label" >
         </activity>
@@ -99,6 +105,6 @@
         </activity>
     </application>
 
-    <uses-sdk android:minSdkVersion="11" />
+    <uses-sdk android:minSdkVersion="8" />
 
 </manifest>
