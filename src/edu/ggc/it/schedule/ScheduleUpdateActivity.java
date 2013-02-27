@@ -116,6 +116,8 @@ public class ScheduleUpdateActivity extends Activity {
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
 		database.createRow(database.createContentValues(className, startTime, endTime, days, buildingLocation, roomLocation));
+		
+		finish();
 	}
 	
 	@Override

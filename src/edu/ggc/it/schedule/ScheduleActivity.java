@@ -25,6 +25,7 @@ public class ScheduleActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
 		list = (ListView) findViewById(R.id.schedule_list_view);
+		scheduleContext = this;
 
 		// open new database
 		database = new ScheduleDatabase(scheduleContext);
@@ -38,7 +39,6 @@ public class ScheduleActivity extends Activity {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	private void populateList() {
 		Cursor cursor = database.queryAll();
 		startManagingCursor(cursor);
@@ -49,7 +49,7 @@ public class ScheduleActivity extends Activity {
 				cursor, from, to);
 
 		list.setAdapter(cursorAdapter);
-		registerForContextMenu(list.getEmptyView());
+		registerForContextMenu(list.getRootView());
 	}
 
 	private boolean classesExist() {
