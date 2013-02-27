@@ -1,30 +1,32 @@
 package edu.ggc.it.schedule;
 
-import edu.ggc.it.Credits;
-import edu.ggc.it.Main;
-import edu.ggc.it.News;
 import edu.ggc.it.R;
-import edu.ggc.it.todo.ToDoListActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class ScheduleActivity extends Activity {
 
 	private Context scheduleContext;
 	private ScheduleDatabase database;
+	private SimpleCursorAdapter cursorAdapter;
+	private ListView list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
-		scheduleContext = this;
+		
+		list = (ListView) findViewById(R.id.schedule_list_view);
 
 		// open new database
 		database = new ScheduleDatabase(scheduleContext);
@@ -32,14 +34,23 @@ public class ScheduleActivity extends Activity {
 
 		if (!classesExist()) {
 			showAddScheduleItemDialog();
+		} else {
+			populateList();
 		}
 
-		populateList();
 	}
 
 	private void populateList() {
-		// TODO Populate the list from the database
+		Cursor cursor = database.queryAll();
+		startManagingCursor(cursor);
 
+		String[] from = new String[] { ScheduleDatabase.KEY_NAME, ScheduleDatabase.KEY_BUILDING_LOCATION };
+		int[] to = new int[] { R.id.class_name, R.id.building_location };
+		cursorAdapter = new SimpleCursorAdapter(this, R.layout.schedule_list_row,
+				cursor, from, to);
+
+		list.setAdapter(cursorAdapter);
+		registerForContextMenu(list.getEmptyView());
 	}
 
 	private boolean classesExist() {
@@ -87,6 +98,14 @@ public class ScheduleActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	public void updateDatabase(long rowId, boolean create) {
+		Intent intent = new Intent(this, ScheduleUpdateActivity.class);
+		if (!create) {
+			intent.putExtra("rowID", rowId);
+		}
+		startActivity(intent);
 	}
 	
 	@Override
