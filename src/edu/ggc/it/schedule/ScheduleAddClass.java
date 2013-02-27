@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.app.Activity;
-import android.content.Context;
 
 public class ScheduleAddClass extends Activity {
 	
-	private Context scheduleContext;
-	
 	private Button btnCancel;
+	private Button btnAddClass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_add_class);
-		scheduleContext = this;
 		
 		btnCancel = (Button) findViewById(R.id.btn_schedule_add_cancel);
 		btnCancel.setOnClickListener(new scheduleAddListener());
+		
+		btnAddClass = (Button) findViewById(R.id.btn_schedule_add_submit);
+		btnAddClass.setOnClickListener(new scheduleAddListener());
 	}
 	
 	public class scheduleAddListener implements OnClickListener {
