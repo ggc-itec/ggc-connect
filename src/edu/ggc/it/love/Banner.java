@@ -46,6 +46,10 @@ import android.util.Log;
 public class Banner {
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
+	// for class data
+	private static final String DATE_RANGE = "Date Range";
+	private static final String TIME = "Time";
+	private static final String DAYS = "Days";
 	/*private final BannerForm P_GetCrse =
 			new BannerForm("/pls/B400/bwskfcls.P_GetCrse", true,
 					new NameValuePair[]{
@@ -146,18 +150,60 @@ public class Banner {
 		return sections;
 	}
 	
-	private List<Map<String, String>> scrapeTable(String html, String...matches){
+	public Course getCourse(String subject, String course, String crn){
+		final String sectionSummary = "This layout table is used to present the sections found";
 		final String summary = "This table lists the scheduled meeting times and assigned instructors for this class..";
+		final String separator = " - ";
 		
+		Course result = null;
+		
+		p_disp_listcrse.set("subj_in", subject);
+		p_disp_listcrse.set("crse_in", course);
+		String response = p_disp_listcrse.request();
+		// filter for just this section
+		List<String> sectionTables = scrapeInner(response, "TABLE", sectionSummary);
+		String sectionTable = null;
+		for (String table: sectionTables){
+			if (table.indexOf(crn) != -1){
+				sectionTable = table;
+				break;
+			}
+		}
+		
+		List<Map<String, String>> courseData = scrapeTable(sectionTable, summary);
+		Map<String, List<Course.TimeRange>> classTimes = new HashMap<String, List<Course.TimeRange>>();
+		
+		for (Map<String, String> meeting: courseData){
+			String dateRange = meeting.get(DATE_RANGE);
+			String[] dates = dateRange.split(separator);
+		}
+		
+		return result;
+	}
+	
+	private List<Map<String, String>> scrapeTable(String html, String... matches){
 		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 		List<String> headers = null;
 		
 		// TODO: this method assumes uppercase tag names. This is what Banner uses,
 		// but it could change in the future
-		String tableData = scrapeInner(html, "TABLE", summary).get(0);
+		String tableData = scrapeInner(html, "TABLE", matches).get(0);
 		headers = scrapeInner(tableData, "TH");
 		
 		Map<String, String> tableValues = new HashMap<String, String>(headers.size());
+		List<String> data = scrapeInner(tableData, "TD");
+		
+		for (int i = 0; i < data.size(); i++){
+			int headerIndex = i % tableValues.size();
+			if (headerIndex == 0 && i != 0){
+				results.add(tableValues);
+				tableValues = new HashMap<String, String>(headers.size());
+			}
+			
+			tableValues.put(headers.get(headerIndex), data.get(i));
+		}
+		
+		results.add(tableValues);
 		
 		return results;
 	}
@@ -168,7 +214,6 @@ public class Banner {
 		int begin = 0, end = -1;
 		boolean inTag = false;
 		
-		// TODO: this will skip multiple matching tags on the same line
 		searchHTML:
 		do{
 			begin = html.indexOf("<" + tag, begin);
@@ -193,63 +238,6 @@ public class Banner {
 				}
 			}
 		} while (begin != -1);
-		/*try{
-			searchHTML:
-			while ((line = html.readLine()) != null){
-				if (matched == null){
-					begin = line.indexOf("<" + tag);
-					if (begin != -1){
-						end = line.indexOf(">", begin);
-						if (end != -1)
-							matched = line.substring(begin, end);
-						else
-							matched = line.substring(begin);
-					}
-				} else{
-					if (inTag)
-						end = line.indexOf("</" + tag);
-					else
-						end = line.indexOf(">");
-					if (end == -1){
-						matched += line;
-					} else{
-						matched += line.substring(0, end);
-						if (inTag){
-							inTag = false;
-							results.add(matched);
-							matched = null;
-							end = -1;
-						}
-					}
-				}
-				
-				if (begin != -1 && end != -1){
-					// we found a complete tag
-					for (String match: matches){
-						if (matched.indexOf(match) == -1){
-							matched = null;
-							continue searchHTML;
-						}
-					}
-					
-					// it matched the requirements; grab the inner HTML
-					inTag = true;
-					matched = line.substring(end+1);
-					end = matched.indexOf("</" + tag);
-					if (end != -1){
-						matched = matched.substring(0, end);
-						inTag = false;
-						results.add(matched);
-						matched = null;
-						end = -1;
-					}
-					begin = -1;
-				}
-			}
-		} catch (IOException ioe){
-			Log.e(TAG, "Failed to read response stream", ioe);
-			return null;
-		}*/
 		
 		return results;
 	}
@@ -332,56 +320,6 @@ public class Banner {
 		}
 		
 		return results;
-	}*/
-	
-	// Android doesn't trust Banner's certificate, so to do a request, we have to implement
-	// our own client class. This code essentially copied from:
-	// http://blog.crazybob.org/2010/02/android-trusting-ssl-certificates.html
-	// Android >=2.3.3 does appear to trust the Banner cert
-	/*private static class BannerHttpClient extends DefaultHttpClient{
-		private final Context context;
-		private static final String STORE_PASS = "i23rFJ@Qf0#";
-		
-		public BannerHttpClient(Context context){
-			this.context = context;
-		}
-		
-		@Override
-		protected ClientConnectionManager createClientConnectionManager(){
-			SchemeRegistry registry = new SchemeRegistry();
-			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-			registry.register(new Scheme("https", newSslSocketFactory(), 443));
-			return new SingleClientConnManager(getParams(), registry);
-		}
-
-		private SocketFactory newSslSocketFactory() {
-			try{
-				KeyStore trusted = KeyStore.getInstance("BKS");
-				InputStream in = context.getResources().openRawResource(R.raw.banner);
-				try{
-					trusted.load(in, STORE_PASS.toCharArray());
-					return new SSLSocketFactory(trusted);
-				} catch (CertificateException ce){
-					Log.e(TAG, "Problem with keystore certificate", ce);
-				} catch (NoSuchAlgorithmException nsae) {
-					Log.e(TAG, "Algorithm exception", nsae);
-				} catch (IOException ioe) {
-					Log.e(TAG, "Error reading keystore file", ioe);
-				} catch (KeyManagementException kme) {
-					Log.e(TAG, "Key management exception", kme);
-				} catch (UnrecoverableKeyException uke) {
-					Log.e(TAG, "Keystore corrupted", uke);
-				} finally{
-					in.close();
-				}
-			} catch (KeyStoreException kse){
-				Log.e(TAG, "Failed to create KeyStore", kse);
-			} catch (IOException ioe){
-				Log.e(TAG, "Failed to close keystore input stream", ioe);
-			}
-			
-			return null;
-		}
 	}*/
 	
 	private class BannerForm{
