@@ -88,5 +88,11 @@ public class ScheduleActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		database.close();
+	}
 
 }
