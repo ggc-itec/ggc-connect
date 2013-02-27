@@ -1,7 +1,11 @@
 package edu.ggc.it.schedule;
 
+import android.animation.TimeAnimator;
+import android.animation.TimeAnimator.TimeListener;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -84,10 +88,26 @@ public class ScheduleUpdateActivity extends Activity {
 				finish();
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
+			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
+				//TODO: Show time picker dialog
+				showDialog(R.id.schedule_start_time_picker);
+			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
+				showDialog(R.id.schedule_end_time_picker);
 			}
 		}
 	}
-
+	
+	/*@Override
+	protected Dialog onCreateDialog(int id) {
+	    switch (id) {
+	        case R.id.schedule_start_time_picker:
+	            return new TimePickerDialog(this,StartTimeSetListener, hour, minute, false);
+	        case R.id.schedule_end_time_picker:
+	            return new TimePickerDialog(this,TimeSetListener,hour, minute, false);                
+	    }
+	    return null;
+	}*/
+	
 	/**
 	 * This method adds a class to the schedule
 	 */
