@@ -28,7 +28,9 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="add_schedule_button_text">Add class</string>
     <string name="dating_label">Social</string>
-
+    <string name="instruction">Instruction</string>
+    <string name="thai_ggc_map">GGC map</string>
+    
     <string-array name="parent_directories">
         <item>Admissions</item>
         <item>Business</item>
@@ -175,3 +177,4 @@
 	</string-array>
 
 </resources>
+
