@@ -105,8 +105,8 @@ public class DirectionActivity extends Activity {
 			longitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
 		}
 		//Test with a specific location without real device has GPS
-		latitude = 33.98474;
-		longitude =  -84.00265;
+		//latitude = 33.98474;
+		//longitude =  -84.00265;
 	}
 	
 	private void buildAlertMessageNoGps() {
