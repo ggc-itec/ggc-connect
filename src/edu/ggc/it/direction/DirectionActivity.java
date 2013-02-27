@@ -101,12 +101,12 @@ public class DirectionActivity extends Activity {
 			buildAlertMessageNoGps();
 		}else{
 			lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-			latitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-			longitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+			latitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude();
+			longitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude();
 		}
 		//Test with a specific location without real device has GPS
-		//latitude = 33.98474;
-		//longitude =  -84.00265;
+		latitude = 33.98095;
+		longitude = -84.00526;
 	}
 	
 	private void buildAlertMessageNoGps() {
@@ -169,7 +169,7 @@ public class DirectionActivity extends Activity {
 				//Set the current position of user on Map
 				img2.setVisibility(View.INVISIBLE);
 				//Display instruction to the textview 
-				instructionText.setText(spin_val);
+				instructionText.setText(spin_val+latitude+longitude);
 			}
 			else{//Run these lines when users click on any item on the list of spinner
 				img2.setVisibility(View.VISIBLE);
