@@ -56,7 +56,7 @@ public class MapActivity extends Activity {
 	float oldDistance = 1f;
 	double oldXVal;
 	double oldYVal;
-	double[] backGroundImageScaleAndValArray;
+	double[] matrixDataOfBackground;
 	double[] gpsLocation;
 	float[] redDotArray;
 	float[] imageButtonABuildingArray;
@@ -92,7 +92,7 @@ public class MapActivity extends Activity {
 		oldXScale=1;
 		oldXScale=1;
 		firstRun =true;
-		backGroundImageScaleAndValArray = new double[4];
+		matrixDataOfBackground = new double[4];
 		gpsLocation = new double[2];
 		gpsLocation[0] = 0.0;
 		gpsLocation[1] = 0.0;
@@ -152,7 +152,7 @@ public class MapActivity extends Activity {
 		imageButtonStudentCenter = (ImageButton) findViewById(R.id.imageButtonStudentCenter);
 		//imageButtonStudentCenter.setBackgroundColor(Color.TRANSPARENT);	
 		imageButtonStudentCenter.setOnClickListener(ggcOnClickListener);
-	}
+	}// TODO Go back and have all of the setBackgroundColor s in an method so they can turn on and off.
 	
 	private float spaceBetweenTwoFingers(MotionEvent event) {
 		float x = event.getX(0) - event.getX(1);
@@ -222,12 +222,15 @@ public class MapActivity extends Activity {
 			String lon = longitude+"";
 			lon = lon.substring(0,7);
 			gpsLocation[1] = Double.parseDouble(lon);
+			/*
 			if (Double.parseDouble(lat) == 33.98 && Double.parseDouble(lon) == -84.00  ) {
 				redDot.setX(50);
 				redDot.setY(50);
 			}
+			*/
 			Toast.makeText(context, "GPS lati " +gpsLocation[0]+" long "+ gpsLocation[1] , Toast.LENGTH_LONG).show();
-			Log.d("GPS Data", "GPS lati " +lat+" long "+lon+ " X = "+imageViewBackGround.getWidth()+" Y = "+ imageViewBackGround.getHeight());
+			
+			Log.d("GPS Data", "GPS latitude=" +latitude+ " longitude="+longitude+" latSubstring="+lat+" lonSubstring="+lon+ " X = "+imageViewBackGround.getWidth()+" Y = "+ imageViewBackGround.getHeight());
 		}
 		
 		// So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
@@ -292,7 +295,7 @@ public class MapActivity extends Activity {
 			view.setImageMatrix(matrix);
 			String s = matrix.toShortString();
 			String[] strMatrix = s.split("[\\[ \\] , ]"); 
-			backGroundImageScaleAndVal(backGroundImageScaleAndValArray,strMatrix);
+			backGroundImageScaleAndVal(matrixDataOfBackground,strMatrix);
 			if(firstRun == true){
 				redDotArray = firstRunDataLog(redDot);
 				imageButtonABuildingArray = firstRunDataLog(imageButtonABuilding);
@@ -303,39 +306,39 @@ public class MapActivity extends Activity {
 				imageButtonLBuildingArray = firstRunDataLog(imageButtonLBuilding);
 				imageButtonStudentCenterArray = firstRunDataLog(imageButtonStudentCenter);
 				
-				oldXVal = backGroundImageScaleAndValArray[1];///
-				oldYVal = backGroundImageScaleAndValArray[3];
+				oldXVal = matrixDataOfBackground[1];// current x val
+				oldYVal = matrixDataOfBackground[3];// current y val
 				firstRun = false;
 			}
-			viewsAutoScaleAndGroup(imageViewBackGround, redDot, redDotArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonABuilding, imageButtonABuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonBBuilding, imageButtonBBuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonCBuilding, imageButtonCBuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonDBuilding, imageButtonDBuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonFBuilding, imageButtonFBuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonLBuilding, imageButtonLBuildingArray);
-			viewsAutoScaleAndGroup(imageViewBackGround, imageButtonStudentCenter, imageButtonStudentCenterArray);
+			viewsAutoScaleAndGroup( redDot, redDotArray);
+			viewsAutoScaleAndGroup( imageButtonABuilding, imageButtonABuildingArray);
+			viewsAutoScaleAndGroup( imageButtonBBuilding, imageButtonBBuildingArray);
+			viewsAutoScaleAndGroup( imageButtonCBuilding, imageButtonCBuildingArray);
+			viewsAutoScaleAndGroup( imageButtonDBuilding, imageButtonDBuildingArray);
+			viewsAutoScaleAndGroup( imageButtonFBuilding, imageButtonFBuildingArray);
+			viewsAutoScaleAndGroup( imageButtonLBuilding, imageButtonLBuildingArray);
+			viewsAutoScaleAndGroup( imageButtonStudentCenter, imageButtonStudentCenterArray);
 
 			/*
 			Log.d("H/W view", view.getWidth()+"=W - H="+view.getHeight());
 			Log.d("Height/Width", height +"=W - H="+width);
 			Log.d("xScale/yScal", backGroundImageScaleAndValArray[1]+"=W - H="+backGroundImageScaleAndValArray[3]);
 			*/
-			oldXScale = backGroundImageScaleAndValArray[0];
-			oldYScale = backGroundImageScaleAndValArray[2];
-			oldXVal = backGroundImageScaleAndValArray[1];
-			oldYVal = backGroundImageScaleAndValArray[3];
+			oldXScale = matrixDataOfBackground[0];
+			oldYScale = matrixDataOfBackground[2];
+			oldXVal = matrixDataOfBackground[1];
+			oldYVal = matrixDataOfBackground[3];
 			return true;
 		}
-		private void viewsAutoScaleAndGroup( View backGroundView,View childView, float[] viewArray) {
-			double changeInX = backGroundImageScaleAndValArray[1] -oldXVal; 
-			double changeInY = backGroundImageScaleAndValArray[3] -oldYVal;
-			double width = imageViewBackGround.getWidth()*backGroundImageScaleAndValArray[0];
-			double height = imageViewBackGround.getHeight()*backGroundImageScaleAndValArray[2];
+		private void viewsAutoScaleAndGroup( View childView, float[] viewArray) {
+			double changeInX = matrixDataOfBackground[1] -oldXVal; // baseImage + baseImage Martix[] = scale groups
+			double changeInY = matrixDataOfBackground[3] -oldYVal;
+			double width = imageViewBackGround.getWidth()*matrixDataOfBackground[0];
+			double height = imageViewBackGround.getHeight()*matrixDataOfBackground[2];
 			
 			//this is where the GPS data needs to enter-face with the view.
 			if(childView.equals(redDot)){
-				
+				Log.d("childView", childView.toString() + " "+ childView.getId() + " "+childView );
 				// xOffSet viewArray[0] =
 				// yOffSet viewArray[1] =
 				// x)Offset = view.getX()/backGround.getWidth(); 
@@ -343,31 +346,31 @@ public class MapActivity extends Activity {
 				
 				double pixPerSecLon = 44.6973;
 				double pixPerSecLat = 44.6961;
-				double pixPerMeterLon = 1.4456;
-				double pixPerMeterLat = 1.4483;
-				double xOfCBuilding = 505; // of 924
-				double yOfCBuilding = 422; // of 1162
-				double cBuildingLat = 33.980;
-				double cBuildingLon = -84.006;
-				double locationX = ((gpsLocation[0] - cBuildingLat)*10000)* pixPerMeterLat;// answer in Pix 
-				double locationY = ((gpsLocation[1] - cBuildingLon)*10000)* pixPerMeterLon;// answer in Pix 
-
-				double xPixVal = locationX + xOfCBuilding;
-				double yPixVal = locationY + yOfCBuilding;
+				double pixPerMeterLon = imageViewBackGround.getWidth()/1000; //p/m
+				double pixPerMeterLat = imageViewBackGround.getHeight()/1700;// p/m
+				double xOfCBuildingPix = imageViewBackGround.getWidth()*0.54342; 
+				double yOfCBuildingPix = imageViewBackGround.getHeight()*0.36336;
+				double cBuildingLat = 33.980; // lat = x
+				double cBuildingLon = -84.006;// lon = y
+				double locationX = xOfCBuildingPix+(((gpsLocation[0] - cBuildingLat)*10000)* pixPerMeterLat);// answer in Pix 
+				double locationY = yOfCBuildingPix+(((gpsLocation[1] - cBuildingLon)*10000)* pixPerMeterLon);// answer in Pix 
+									//cBuilding				 GPS                       M		 Pix
+				double xPixVal = locationX;
+				double yPixVal = locationY;
 				
 				Log.d("Test", "locationX="+ locationX + " locationY="+locationY +" xPixVal="+xPixVal +" yPixVal="+yPixVal);
 
-				viewArray[0] = (float) (xPixVal/imageViewBackGround.getWidth());
+				viewArray[0] = (float) (xPixVal/imageViewBackGround.getWidth()); // Scale conversion may taken out after testing 
 				viewArray[1] = (float) (yPixVal/imageViewBackGround.getHeight());
 			}
 			
-			if(oldXScale != backGroundImageScaleAndValArray[0] || oldYScale != backGroundImageScaleAndValArray[2]){//0 = viewXOffSet //1 = viewYOffSet // 2 = oldX // 3 = oldY
-				childView.setX((float) (backGroundImageScaleAndValArray[1]+(viewArray[0]*width)) );
-				childView.setY((float) (backGroundImageScaleAndValArray[3]+(viewArray[1]*height)) );
-				childView.setX((float) (childView.getX()+(((childView.getWidth()*backGroundImageScaleAndValArray[0])-childView.getWidth())/2)));
-				childView.setY((float) (childView.getY()+(((childView.getWidth()*backGroundImageScaleAndValArray[2])-childView.getHeight())/2)));
-				childView.setScaleX((float) backGroundImageScaleAndValArray[0]);
-				childView.setScaleY((float) backGroundImageScaleAndValArray[2]);
+			if(oldXScale != matrixDataOfBackground[0] || oldYScale != matrixDataOfBackground[2]){//0 = viewXOffSet //1 = viewYOffSet // 2 = oldX // 3 = oldY
+				childView.setX((float) (matrixDataOfBackground[1]+(viewArray[0]*width)) );
+				childView.setY((float) (matrixDataOfBackground[3]+(viewArray[1]*height)) );
+				childView.setX((float) (childView.getX()+(((childView.getWidth()*matrixDataOfBackground[0])-childView.getWidth())/2)));
+				childView.setY((float) (childView.getY()+(((childView.getWidth()*matrixDataOfBackground[2])-childView.getHeight())/2)));
+				childView.setScaleX((float) matrixDataOfBackground[0]);
+				childView.setScaleY((float) matrixDataOfBackground[2]);
 			}else{
 				childView.setX((float) (childView.getX()+(changeInX)));
 				childView.setY((float) (childView.getY()+(changeInY)));
@@ -377,26 +380,26 @@ public class MapActivity extends Activity {
 			viewArray[3] = childView.getY();
 		}
 		/** backGroundImageScaleAndVal
-		 *  0 = xSale
+		 *  0 = xScale
 		 *  1 = xVale
 		 *  2 = yScale
 		 *  3 = yVale
 		 */
 		private void backGroundImageScaleAndVal(double[] backGroundImageScaleAndValArray, String[] strMatrix) {
-			backGroundImageScaleAndValArray[0] = Double.parseDouble(strMatrix[1]);
-			backGroundImageScaleAndValArray[1] = Double.parseDouble(strMatrix[5]);
-			backGroundImageScaleAndValArray[2] = Double.parseDouble(strMatrix[9]);
-			backGroundImageScaleAndValArray[3] = Double.parseDouble(strMatrix[11]);
+			backGroundImageScaleAndValArray[0] = Double.parseDouble(strMatrix[1]); // 0 = xScale
+			backGroundImageScaleAndValArray[1] = Double.parseDouble(strMatrix[5]); // 1 = xVale
+			backGroundImageScaleAndValArray[2] = Double.parseDouble(strMatrix[9]); // 2 = yScale
+			backGroundImageScaleAndValArray[3] = Double.parseDouble(strMatrix[11]);// 3 = yVale
 		}
 
 		public float[] firstRunDataLog(View view){
-			float[] viewArray = new float[6];//0 = viewXOffSet //1 = viewYOffSet // 2 = X // 3 = Y // 4 = oldX // 5 = oldY
-			viewArray[0] = view.getX()/imageViewBackGround.getWidth();
-			viewArray[1] = view.getY()/imageViewBackGround.getHeight();	// this is what you need	
-			viewArray[2] = view.getX();
-			viewArray[3] = view.getY();
-			viewArray[4] = view.getX();
-			viewArray[5] = view.getY();
+			float[] viewArray = new float[6];
+			viewArray[0] = view.getX()/imageViewBackGround.getWidth(); //0 = viewXOffSet 
+			viewArray[1] = view.getY()/imageViewBackGround.getHeight(); //1 = viewYOffSet 
+			viewArray[2] = view.getX();// 2 = X 	
+			viewArray[3] = view.getY();// 3 = Y 
+			viewArray[4] = view.getX();// 4 = oldX 
+			viewArray[5] = view.getY();// 5 = oldY
 			
 			return viewArray;
 		}
