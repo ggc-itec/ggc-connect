@@ -37,14 +37,14 @@ public class ScheduleDatabase {
 
 	private Context context;
 	private SQLiteDatabase database;
-	private StudentDatabaseHelper helper;
+	private ScheduleDatabaseHelper helper;
 
 	public ScheduleDatabase(Context context) {
 		this.context = context;
 	}
 
 	public void open() throws SQLException {
-		helper = new StudentDatabaseHelper(context);
+		helper = new ScheduleDatabaseHelper(context);
 		database = helper.getWritableDatabase();
 	}
 
@@ -92,7 +92,7 @@ public class ScheduleDatabase {
 		return values;
 	}
 
-	private static class StudentDatabaseHelper extends SQLiteOpenHelper {
+	private static class ScheduleDatabaseHelper extends SQLiteOpenHelper {
 
 		private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "
 				+ DATABASE_TABLE + " (" + ScheduleDatabase.KEY_ROWID
@@ -105,7 +105,7 @@ public class ScheduleDatabase {
 				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL "
 				+ ");";
 
-		public StudentDatabaseHelper(Context context) {
+		public ScheduleDatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
