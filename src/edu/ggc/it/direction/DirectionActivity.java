@@ -4,10 +4,12 @@ import edu.ggc.it.R;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -42,7 +44,7 @@ public class DirectionActivity extends Activity {
 	//Create a imageview for the place position on map
 	private ImageView img2;
 	//Create new context for activity
-	//private Context myContext;
+	private Context myContext;
 	//Create a textview to display instructions to users
 	private TextView instructionText;
 	//Create location manager 
@@ -55,8 +57,6 @@ public class DirectionActivity extends Activity {
 	private double latitudeDes;
 	//This will get the destination's longitude
 	private double longitudeDes;
-	//Create new location
-	private Location loc;
 	//Create a location list that holds list of places in GGC
 	private LocationList myLocationList;
 	//Create a new spinner to display list of places in GGC 
@@ -69,7 +69,9 @@ public class DirectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
-		//myContext = this;
+		myContext = this;
+		//Check if user's device GPS is enable or not. If not, let user to enable it
+		checkGPS();
 		//Init locationlist
 		myLocationList = new LocationList();
 		//Create new listenner for spinner
@@ -82,20 +84,48 @@ public class DirectionActivity extends Activity {
 		img1=(ImageView) findViewById(R.id.imageYou);
 		img2=(ImageView) findViewById(R.id.imageHere);
 		
-		//Require real device has GPS
-		//lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		//latitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude();
-		//longitude = lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude();
-		
-		//Test without real device has GPS
+		//Create ArrayAdapter for spinner
+		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(myContext, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
+	      // setting adapter to spinner
+	    spin.setAdapter(spin_adapter);       
+	}
+	
+	/**
+	 * This method is to check if the GPS on users' device is on or off. If it is off, allow users turn on
+	 */
+	public void checkGPS(){
+		//Create a new location manager
+		lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//Run these codes when testing on a real device has GPS
+		if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			buildAlertMessageNoGps();
+		}else{
+			lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+			latitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+			longitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+		}
+		//Test with a specific location without real device has GPS
 		latitude = 33.98474;
 		longitude =  -84.00265;
-		
-		//Create ArrayAdapter for spinner
-		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
-	      // setting adapter to spinner
-	    spin.setAdapter(spin_adapter);
 	}
+	
+	private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+               .setCancelable(false)
+               .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   public void onClick(final DialogInterface dialog, final int id) {
+                       startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                   }
+               })
+               .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                   public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                   }
+               });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,7 +135,7 @@ public class DirectionActivity extends Activity {
 	}
 	
 	/**
-	 * @Override
+	 * This method is a listenner for the spinner in order to get the position of item which is selected
 	 *
 	 */
 	public class myItemSelectedListenner implements OnItemSelectedListener{
@@ -194,6 +224,5 @@ public class DirectionActivity extends Activity {
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub	
 		}
-		
 	}
 }

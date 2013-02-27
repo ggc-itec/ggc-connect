@@ -15,7 +15,7 @@ public class LocationList {
 	 */
 	public LocationList(){	
 		locationList = new ArrayList<Location>();
-		locationList.add(new Location("Please choose a place you are looking! ","","           Welcome to GGC! \n      Your position is the red point. \n Your target is the white point with red text.\n"));
+		locationList.add(new Location("Please choose a place you are looking! ","","                         Welcome to GGC! \n              Your position is the red point. \n Your target is the white point with red text.\n"));
 		locationList.add(new Location("Food Court: Wow Cafe & Wingery, Quiznos Sandwich Restaurants, and Markerplace","A","On the main GGC map, you will see this building in L shape at right middle of the map."));
 		locationList.add(new Location("Food court: GGCity Cafe, Star Buck, Sandwich Store","B","On the main GGC map, you will see this building in C shape in center of the map."));
 		locationList.add(new Location("Campus Police","A","On the main GGC map, you will see this building in L shape at right middle of the map. Get in this building and go through all the hall way, you will see the room 1520."));
