@@ -38,6 +38,7 @@ public class ScheduleActivity extends Activity {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void populateList() {
 		Cursor cursor = database.queryAll();
 		startManagingCursor(cursor);
