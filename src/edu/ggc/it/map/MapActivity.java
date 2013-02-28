@@ -1,5 +1,8 @@
 package edu.ggc.it.map;
 
+import javax.crypto.spec.IvParameterSpec;
+import javax.xml.xpath.XPath;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -66,7 +70,11 @@ public class MapActivity extends Activity {
 	float[] imageButtonFBuildingArray;
 	float[] imageButtonLBuildingArray;
 	float[] imageButtonStudentCenterArray;
-	
+
+	double yPixVal;
+	double xPixVal;
+	double heightAtCurrentScale;
+	double widthAtCurrentScale;
 
 
 	double oldXScale;
@@ -83,7 +91,7 @@ public class MapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView( R.layout.map_activity);
-		redDot = (ImageView) findViewById(R.id.imageView_Red_Dot);
+		redDot = (ImageView) findViewById(R.id.imageView_redDot);
 		imageViewBackGround = (ImageView) findViewById(R.id.imageView_GGC_Full_Map_Small);
 		imageViewBackGround.setOnTouchListener(new TouchListener());
 		setUpGPS();
@@ -96,6 +104,8 @@ public class MapActivity extends Activity {
 		gpsLocation = new double[2];
 		gpsLocation[0] = 0.0;
 		gpsLocation[1] = 0.0;
+		//redDot.setScaleX(imageViewBackGround.getWidth()/32);
+		//redDot.setScaleY(imageViewBackGround.getWidth()/32);
 	}
 	
 	private void setImageButtonsLocation() {
@@ -116,6 +126,7 @@ public class MapActivity extends Activity {
 		redDot.setX(-15);
 		redDot.setY(-14);
 	}
+	
 
 	/**
 	 *  setUpImageButtons sets up all of the ImageButtons, sets their background color to TRANSPARENT, and adds and {@link GGCOnClickListener} to each
@@ -212,6 +223,7 @@ public class MapActivity extends Activity {
 
 	private class GGCLocationListener implements LocationListener{
 
+		
 		@Override
 		public void onLocationChanged(Location location) {
 			double latitude = location.getLatitude();
@@ -220,7 +232,7 @@ public class MapActivity extends Activity {
 			lat = lat.substring(0,7);
 			gpsLocation[0] = Double.parseDouble(lat);
 			String lon = longitude+"";
-			lon = lon.substring(0,7);
+			lon = lon.substring(0,8);
 			gpsLocation[1] = Double.parseDouble(lon);
 			/*
 			if (Double.parseDouble(lat) == 33.98 && Double.parseDouble(lon) == -84.00  ) {
@@ -229,13 +241,44 @@ public class MapActivity extends Activity {
 			}
 			*/
 			Toast.makeText(context, "GPS lati " +gpsLocation[0]+" long "+ gpsLocation[1] , Toast.LENGTH_LONG).show();
-			
-			Log.d("GPS Data", "GPS latitude=" +latitude+ " longitude="+longitude+" latSubstring="+lat+" lonSubstring="+lon+ " X = "+imageViewBackGround.getWidth()+" Y = "+ imageViewBackGround.getHeight());
+			// this part of the code is where the red dot is getting moved. 
+			double pixPerSecLon = 44.6973;
+			double pixPerSecLat = 44.6961;
+			double pixPerMeterLon = (widthAtCurrentScale) /1000; // p/m
+			double pixPerMeterLat = (heightAtCurrentScale)/1700;// p/m
+			double xOfCBuildingPix = (imageViewBackGround.getX())+(widthAtCurrentScale*0.54342); // percent meters across X back of cBuliding
+			double yOfCBuildingPix = (imageViewBackGround.getY())+(heightAtCurrentScale*0.36336);// percent meters across y back of cBuilding 
+			double cBuildingLat = 33.980; // lat = x  // check sigfigs
+			double cBuildingLon = -84.006;// lon = y
+			double GPSLatDif = gpsLocation[0] - cBuildingLat;
+			double GPSLonDif = gpsLocation[1] - cBuildingLon;
+			double locationX = xOfCBuildingPix+(((-1*(gpsLocation[0] - cBuildingLat))*30.86)* pixPerMeterLat);// answer in Pix 
+			double locationY = yOfCBuildingPix+(((-1*(gpsLocation[1] - cBuildingLon))*30.92)* pixPerMeterLon);// answer in Pix 
+									//cBuilding				 GPS                       M		 Pix
+			xPixVal = locationX;
+			yPixVal = locationY;
+			Log.d("Test", "locationX="+ locationX + " locationY="+locationY +" xPixVal="+xPixVal +" yPixVal="+yPixVal+" gpsLatDif="+GPSLatDif+" gpsLonDif="+GPSLonDif);
+				
+			redDot.setX((float) xPixVal);
+			redDot.setY((float) yPixVal);
+			//redDot.setX((float) (xPixVal+(((childView.getWidth()*matrixDataOfBackground[0])-childView.getWidth())/2)));
+			//redDot.setY((float) (yPixVal+(((childView.getWidth()*matrixDataOfBackground[0])-childView.getWidth())/2)));	
+			//viewArray[0] = (float) ((xPixVal-imageViewBackGround.getWidth()/64)/imageViewBackGround.getWidth()); // Scale conversion may taken out after testing 
+			//viewArray[1] = (float) ((yPixVal-imageViewBackGround.getWidth()/64)/imageViewBackGround.getHeight()); // widthAtCurrentScale/64 = half of redDot size
+
+			imageViewBackGround.invalidate();
+			redDot.invalidate();
+			//Log.d("GPS Data", "GPS latitude=" +latitude+ " longitude="+longitude+" latSubstring="+lat+" lonSubstring="+lon+ " X = "+imageViewBackGround.getWidth()+" Y = "+ imageViewBackGround.getHeight());
 		}
 		
 		// So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
 		// 1 second of longitude = 30.922 meters.
 		// C Building lati 33.98067802886346 long -84.0065738567545
+
+		private int height() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
@@ -321,7 +364,7 @@ public class MapActivity extends Activity {
 
 			/*
 			Log.d("H/W view", view.getWidth()+"=W - H="+view.getHeight());
-			Log.d("Height/Width", height +"=W - H="+width);
+			Log.d("Height/Width", heightAtCurrentScale +"=W - H="+widthAtCurrentScale);
 			Log.d("xScale/yScal", backGroundImageScaleAndValArray[1]+"=W - H="+backGroundImageScaleAndValArray[3]);
 			*/
 			oldXScale = matrixDataOfBackground[0];
@@ -331,51 +374,22 @@ public class MapActivity extends Activity {
 			return true;
 		}
 		private void viewsAutoScaleAndGroup( View childView, float[] viewArray) {
-			double changeInX = matrixDataOfBackground[1] -oldXVal; // baseImage + baseImage Martix[] = scale groups
+			double changeInX = matrixDataOfBackground[1] -oldXVal; // baseImage + baseImage Martix[] = scale groups // This is a note for latter about to scale groups of images. 
 			double changeInY = matrixDataOfBackground[3] -oldYVal;
-			double width = imageViewBackGround.getWidth()*matrixDataOfBackground[0];
-			double height = imageViewBackGround.getHeight()*matrixDataOfBackground[2];
+			widthAtCurrentScale = imageViewBackGround.getWidth()*matrixDataOfBackground[0];
+			heightAtCurrentScale = imageViewBackGround.getHeight()*matrixDataOfBackground[2];	
 			
-			//this is where the GPS data needs to enter-face with the view.
-			if(childView.equals(redDot)){
-				Log.d("childView", childView.toString() + " "+ childView.getId() + " "+childView );
-				// xOffSet viewArray[0] =
-				// yOffSet viewArray[1] =
-				// x)Offset = view.getX()/backGround.getWidth(); 
-				// view.getX() = 
-				
-				double pixPerSecLon = 44.6973;
-				double pixPerSecLat = 44.6961;
-				double pixPerMeterLon = imageViewBackGround.getWidth()/1000; //p/m
-				double pixPerMeterLat = imageViewBackGround.getHeight()/1700;// p/m
-				double xOfCBuildingPix = imageViewBackGround.getWidth()*0.54342; 
-				double yOfCBuildingPix = imageViewBackGround.getHeight()*0.36336;
-				double cBuildingLat = 33.980; // lat = x
-				double cBuildingLon = -84.006;// lon = y
-				double locationX = xOfCBuildingPix+(((gpsLocation[0] - cBuildingLat)*10000)* pixPerMeterLat);// answer in Pix 
-				double locationY = yOfCBuildingPix+(((gpsLocation[1] - cBuildingLon)*10000)* pixPerMeterLon);// answer in Pix 
-									//cBuilding				 GPS                       M		 Pix
-				double xPixVal = locationX;
-				double yPixVal = locationY;
-				
-				Log.d("Test", "locationX="+ locationX + " locationY="+locationY +" xPixVal="+xPixVal +" yPixVal="+yPixVal);
-
-				viewArray[0] = (float) (xPixVal/imageViewBackGround.getWidth()); // Scale conversion may taken out after testing 
-				viewArray[1] = (float) (yPixVal/imageViewBackGround.getHeight());
-			}
-			
-			if(oldXScale != matrixDataOfBackground[0] || oldYScale != matrixDataOfBackground[2]){//0 = viewXOffSet //1 = viewYOffSet // 2 = oldX // 3 = oldY
-				childView.setX((float) (matrixDataOfBackground[1]+(viewArray[0]*width)) );
-				childView.setY((float) (matrixDataOfBackground[3]+(viewArray[1]*height)) );
+			if(oldXScale != matrixDataOfBackground[0] || oldYScale != matrixDataOfBackground[2]){//0 = viewXOffSet //1 = viewYOffSet // 2 = oldX // 3 = oldY 	
+				childView.setX((float) (matrixDataOfBackground[1]+(viewArray[0]*widthAtCurrentScale)) ); // + . . . . )
+				childView.setY((float) (matrixDataOfBackground[3]+(viewArray[1]*heightAtCurrentScale)) );
 				childView.setX((float) (childView.getX()+(((childView.getWidth()*matrixDataOfBackground[0])-childView.getWidth())/2)));
 				childView.setY((float) (childView.getY()+(((childView.getWidth()*matrixDataOfBackground[2])-childView.getHeight())/2)));
 				childView.setScaleX((float) matrixDataOfBackground[0]);
-				childView.setScaleY((float) matrixDataOfBackground[2]);
+				childView.setScaleY((float) matrixDataOfBackground[2]);	
 			}else{
 				childView.setX((float) (childView.getX()+(changeInX)));
 				childView.setY((float) (childView.getY()+(changeInY)));
 			}	
-			
 			viewArray[2] = childView.getX();
 			viewArray[3] = childView.getY();
 		}
@@ -395,7 +409,7 @@ public class MapActivity extends Activity {
 		public float[] firstRunDataLog(View view){
 			float[] viewArray = new float[6];
 			viewArray[0] = view.getX()/imageViewBackGround.getWidth(); //0 = viewXOffSet 
-			viewArray[1] = view.getY()/imageViewBackGround.getHeight(); //1 = viewYOffSet 
+			viewArray[1] = view.getY()/imageViewBackGround.getHeight(); //1 = viewYOffSet // why is the width of this background image not adjusted for scale?1
 			viewArray[2] = view.getX();// 2 = X 	
 			viewArray[3] = view.getY();// 3 = Y 
 			viewArray[4] = view.getX();// 4 = oldX 

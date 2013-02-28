@@ -20,14 +20,6 @@
         android:layout_y="0dp"
         android:src="@drawable/clear" />
 
-    <ImageView
-        android:id="@+id/imageView_Red_Dot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="0dp"
-        android:layout_y="0dp"
-        android:src="@drawable/red_dot" />
-
     <ImageButton
         android:id="@+id/imageButtonBBuilding"
         android:layout_width="wrap_content"
@@ -75,5 +67,13 @@
         android:layout_x="0dp"
         android:layout_y="0dp"
         android:src="@drawable/clear" />
+
+    <ImageView
+        android:id="@+id/imageView_redDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="2dp"
+        android:layout_y="0dp"
+        android:src="@drawable/red_dot" />
 
 </AbsoluteLayout>
