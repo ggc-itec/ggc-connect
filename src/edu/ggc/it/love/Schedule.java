@@ -1,9 +1,10 @@
 package edu.ggc.it.love;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Schedule {
-	private ArrayList<Course> courses;
+	private List<Course> courses;
 	private static final int DEFAULT_COURSES = 4;
 	
 	public Schedule(){
