@@ -25,6 +25,7 @@ public class DirectoryActivity extends Activity {
 	private Intent intent;
 	private Intent intent2;
 	private ListView list;
+	private ListView recentSearches;
 	public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
 	public final static String lastName = "edu.ggc.it.directory.MESSAGE";
 	private Button clearSearch;
@@ -42,6 +43,10 @@ public class DirectoryActivity extends Activity {
 		       android.R.layout.simple_list_item_1, getResources()
 		         .getStringArray(R.array.parent_directories)));
 		list.setOnItemClickListener(new departmentOnClickListener());
+		recentSearches = (ListView)findViewById(R.id.listView1);
+		recentSearches.setAdapter(new ArrayAdapter<String>(this,
+			       android.R.layout.simple_list_item_1, getResources()
+			         .getStringArray(R.array.parent_directories)));
         tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec spec1 = tabHost.newTabSpec("First Tab");
