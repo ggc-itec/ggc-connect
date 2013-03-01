@@ -26,20 +26,8 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <ListView
-                        android:id="@+id/directory_listView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" >
-                    </ListView>
-                    
-                </LinearLayout>
+                
+                
 
                 <RelativeLayout
                     android:id="@+id/tab2"
@@ -109,9 +97,54 @@
                         android:ems="10"
                         android:hint="As much as you know"
                         android:inputType="textPersonName" />
-                    
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/textView2"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/clearSearchButton"
+                        android:layout_marginTop="64dp" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" >
+
+                            <ListView
+                                android:id="@+id/listView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="255dp" >
+                            </ListView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/scrollView1"
+                        android:layout_below="@+id/clearSearchButton"
+                        android:layout_marginTop="18dp"
+                        android:text="Recent Searches" />
                 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <ListView
+                        android:id="@+id/directory_listView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+                    </ListView>
+                    
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>
