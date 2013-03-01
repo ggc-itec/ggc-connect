@@ -5,18 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -28,17 +20,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.scheme.SocketFactory;
-import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
-
-import edu.ggc.it.R;
 
 import android.content.Context;
 import android.util.Log;
@@ -50,35 +33,6 @@ public class Banner {
 	private static final String DATE_RANGE = "Date Range";
 	private static final String TIME = "Time";
 	private static final String DAYS = "Days";
-	/*private final BannerForm P_GetCrse =
-			new BannerForm("/pls/B400/bwskfcls.P_GetCrse", true,
-					new NameValuePair[]{
-					new BasicNameValuePair("rsts", "dummy"),
-					new BasicNameValuePair("crn", "dummy"),
-					new BasicNameValuePair("term_in", "201302"),
-					new BasicNameValuePair("sel_subj", "dummy"),
-					new BasicNameValuePair("sel_day", "dummy"),
-					new BasicNameValuePair("sel_schd", "dummy"),
-					new BasicNameValuePair("sel_insm", "dummy"),
-					new BasicNameValuePair("sel_camp", "dummy"),
-					new BasicNameValuePair("sel_levl", "dummy"),
-					new BasicNameValuePair("sel_sess", "dummy"),
-					new BasicNameValuePair("sel_instr", "dummy"),
-					new BasicNameValuePair("sel_attr", "dummy"),
-					new BasicNameValuePair("sel_crse", ""),
-					new BasicNameValuePair("sel_title", ""),
-					new BasicNameValuePair("sel_from_cred", ""),
-					new BasicNameValuePair("sel_to_cred", ""),
-					new BasicNameValuePair("sel_ptrm", "%"),
-					new BasicNameValuePair("begin_hh", "0"),
-					new BasicNameValuePair("begin_mi", "0"),
-					new BasicNameValuePair("end_hh", "0"),
-					new BasicNameValuePair("end_mi", "0"),
-					new BasicNameValuePair("begin_ap", "x"),
-					new BasicNameValuePair("end_ap", "y"),
-					new BasicNameValuePair("path", "1"),
-					new BasicNameValuePair("SUB_BTN", "Course Search")
-			});*/
 	private final BannerForm p_display_courses =
 			new BannerForm("/pls/B400/bwckctlg.p_display_courses", false,
 					new NameValuePair[]{
@@ -100,8 +54,7 @@ public class Banner {
 					new BasicNameValuePair("term_in", "201302"),
 					new BasicNameValuePair("subj_in", ""),
 					new BasicNameValuePair("crse_in", ""),
-					new BasicNameValuePair("schd_in", ""),
-					new BasicNameValuePair("crn_in", "")
+					new BasicNameValuePair("schd_in", "")
 			});
 	private Context context;
 	
@@ -230,6 +183,8 @@ public class Banner {
 					
 					// this tag matches; grab the inner HTML
 					end = html.indexOf("</" + tag, begin);
+					if (end == -1) // tag not closed properly; just grab everything
+						end = html.length();
 					line = html.substring(begin, end);
 					results.add(line);
 					begin = end;
@@ -242,87 +197,7 @@ public class Banner {
 		return results;
 	}
 	
-	/*private List<String> scrapeAttr(String html, String tag, String attr,
-			String... matches){
-		List<String> results = new ArrayList<String>();
-		String matched = null, line = null;
-		int begin = -1, end = -1;
-		
-		// TODO: this will skip multiple matching tags on the same line
-		try{
-			searchHTML:
-			while ((line = html.readLine()) != null){
-				if (matched == null){
-					begin = line.indexOf("<" + tag);
-					if (begin != -1){
-						end = line.indexOf(">", begin);
-						if (end != -1)
-							matched = line.substring(begin, end);
-						else
-							matched = line.substring(begin);
-					}
-				} else{
-					end = line.indexOf(">");
-					if (end == -1)
-						matched += line;
-					else
-						matched += line.substring(0, end);
-				}
-				
-				if (begin != -1 && end != -1){
-					// we found a complete tag
-					begin = -1;
-					end = -1;
-					
-					for (String match: matches){
-						if (matched.indexOf(match) == -1){
-							matched = null;
-							continue searchHTML;
-						}
-					}
-					
-					// it matched the requirements; grab the attribute value
-					int attrLoc = matched.indexOf(attr);
-					if (attrLoc == -1){
-						matched = null;
-						continue;
-					}
-					int eqLoc = matched.indexOf("=", attrLoc);
-					if (eqLoc == -1){
-						matched = null;
-						Log.w(TAG, "Malformed attribute: " + matched);
-						continue;
-					}
-					// attributes can start with single quotes or double quotes, so search for both;
-					// whichever is first after the equals sign is the one they're using
-					int sqLoc = matched.indexOf("'", eqLoc);
-					int dqLoc = matched.indexOf("\"", eqLoc);
-					int valStart = 0;
-					
-					if (sqLoc < dqLoc && sqLoc != -1){
-						valStart = sqLoc+1;
-					} else if (dqLoc < sqLoc && dqLoc != -1){
-						valStart = dqLoc+1;
-					} else{
-						matched = null;
-						Log.w(TAG, "Malformed attribute: " + matched);
-						continue;
-					}
-					
-					int valEnd = matched.indexOf("'", valStart)-1;
-					String value = matched.substring(valStart, valEnd);
-					results.add(value);
-				}
-			}
-		} catch (IOException ioe){
-			Log.e(TAG, "Failed to read response stream", ioe);
-			return null;
-		}
-		
-		return results;
-	}*/
-	
-	private class BannerForm{
+	private static class BannerForm{
 		private String path;
 		private NameValuePair[] defaultParms;
 		private Map<String, String> currentParms;
@@ -352,7 +227,7 @@ public class Banner {
 		}
 		
 		public String request(){
-			HttpClient client = new DefaultHttpClient();//BannerHttpClient(context);
+			HttpClient client = new DefaultHttpClient();
 			HttpUriRequest request = null;
 			BufferedReader reader = null;
 			StringBuffer ret = new StringBuffer();
