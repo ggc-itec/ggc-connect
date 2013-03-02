@@ -55,7 +55,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="edu.ggc.it.DirectorySearchWebView"
+            android:name="edu.ggc.it.directory.DirectorySearchWebView"
             android:label="@string/title_activity_directory_search_web_view"
             android:parentActivityName="edu.ggc.it.directory.DirectoryActivity"
             android:screenOrientation="portrait" >

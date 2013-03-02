@@ -1,9 +1,11 @@
-package edu.ggc.it;
+package edu.ggc.it.directory;
 
 
-import edu.ggc.it.directory.DirectoryActivity;
+import edu.ggc.it.R;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -22,6 +24,5 @@ public class DirectorySearchWebView extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(message);
 	}
-
-
+	
 }
