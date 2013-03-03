@@ -1,7 +1,10 @@
 package edu.ggc.it.direction;
 
 import edu.ggc.it.R;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,6 +52,8 @@ public class DirectionActivity extends Activity {
 	private TextView instructionText;
 	//Create location manager 
 	private LocationManager lm;
+	//Create a location
+	MyLocationListener myLocationListener;
 	//This will get the user's latitude
 	private double latitude;
 	//This will get the user's longitude
@@ -101,14 +106,49 @@ public class DirectionActivity extends Activity {
 			buildAlertMessageNoGps();
 		}else{
 			lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-			latitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
-			longitude = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+			lm.getProvider(LocationManager.GPS_PROVIDER);
+			myLocationListener = new MyLocationListener();
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,10, myLocationListener);
 		}
-		//Test with a specific location without real device has GPS
-		//latitude = 33.98095;
-		//longitude = -84.00526;
 	}
 	
+	/**
+	 * This class to override LocationListener to get current location of users.
+	 *
+	 */
+	private class MyLocationListener implements LocationListener{
+
+		@Override
+		public void onLocationChanged(Location location) {
+			longitude= location.getLongitude();
+		    latitude= location.getLatitude();
+		    //Test with a specific location without real device has GPS
+			//latitude = 33.98095;
+			//longitude = -84.00526;
+		}
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+			
+		}	
+	}
+	
+	/**
+	 * This method is used to warn users when they click on Direction button if the GPS on their device is not enable
+	 * and allow them to enable it
+	 */
 	private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
@@ -169,7 +209,7 @@ public class DirectionActivity extends Activity {
 				//Set the current position of user on Map
 				img2.setVisibility(View.INVISIBLE);
 				//Display instruction to the textview 
-				instructionText.setText(spin_val+latitude+longitude);
+				instructionText.setText(spin_val);
 			}
 			else{//Run these lines when users click on any item on the list of spinner
 				img2.setVisibility(View.VISIBLE);
