@@ -7,6 +7,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * A sqlite database of ToDo tasks
+ * 
+ * @author crystalist
+ * 
+ */
 public class ToDoDatabase {
 
 	public static final int DATABASE_VERSION = 1;
@@ -54,7 +60,19 @@ public class ToDoDatabase {
 				+ rowId, null) > 0;
 	}
 
-	public Cursor queryAll() {
+	public Cursor queryAllByRowID() {
+		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
+				" ROWID");
+	}
+
+	/**
+	 * Queries all items from the database, results them in ascending order
+	 * 
+	 * @see <a
+	 *      href="http://www.sqlite.org/queryplanner.html">http://www.sqlite.org/queryplanner.html</a>
+	 * @return cursor with the results
+	 */
+	public Cursor queryAllByAscending() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
 				ToDoDatabase.KEY_TASK + " ASC");
 	}
