@@ -210,7 +210,7 @@ public class MapActivity extends Activity {
 		
 	}
 
-	private class GGCLocationListener implements LocationListener{
+	public class GGCLocationListener implements LocationListener{
 
 		@Override
 		public void onLocationChanged(Location location) {

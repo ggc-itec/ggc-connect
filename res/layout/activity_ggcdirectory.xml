@@ -66,27 +66,6 @@
                         android:text="Last Name (Optional)"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                    <Button
-                        android:id="@+id/clearSearchButton"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/SearchDirectoryButton"
-                        android:layout_alignBottom="@+id/SearchDirectoryButton"
-                        android:layout_alignLeft="@+id/textView2"
-                        android:layout_marginLeft="30dp"
-                        android:text="Clear" />
-
-                    <Button
-                        android:id="@+id/SearchDirectoryButton"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/lastNameText"
-                        android:layout_marginRight="19dp"
-                        android:layout_marginTop="54dp"
-                        android:onClick="searchName"
-                        android:text="Search" />
-
                     <EditText
                         android:id="@+id/lastNameText"
                         android:layout_width="wrap_content"
@@ -122,13 +101,42 @@
                     </ScrollView>
 
                     <TextView
-                        android:id="@+id/textView1"
+                        android:id="@+id/recentSearches"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/scrollView1"
                         android:layout_below="@+id/clearSearchButton"
                         android:layout_marginTop="18dp"
                         android:text="Recent Searches" />
+
+                    <Button
+                        android:id="@+id/clearSearchButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/SearchDirectoryButton"
+                        android:layout_alignBottom="@+id/SearchDirectoryButton"
+                        android:layout_alignParentLeft="true"
+                        android:text="Clear" />
+
+                    <Button
+                        android:id="@+id/SearchDirectoryButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/lastNameText"
+                        android:layout_marginTop="52dp"
+                        android:onClick="searchName"
+                        android:text="Search" />
+
+                    <Button
+                        android:id="@+id/saveSearchButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/SearchDirectoryButton"
+                        android:layout_centerHorizontal="true"
+                        android:text="Save Search" />
+
+                    
                 
                 </RelativeLayout>
 
