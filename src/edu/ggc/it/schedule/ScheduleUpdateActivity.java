@@ -1,27 +1,28 @@
 package edu.ggc.it.schedule;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TimePicker;
 import edu.ggc.it.R;
 
 public class ScheduleUpdateActivity extends Activity {
 
 	private ScheduleDatabase database;
 	private Long rowID;
-	
+
 	private Context scheduleContext;
 
 	/**
@@ -41,9 +42,6 @@ public class ScheduleUpdateActivity extends Activity {
 			chkFriday, chkSaturday;
 	private Spinner spnBuildingLocation;
 	private EditText txtRoomLocation;
-	
-	private int mHour;
-	private int mMinute;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class ScheduleUpdateActivity extends Activity {
 
 		btnEndTime = (Button) findViewById(R.id.btn_schedule_update_end_time);
 		btnEndTime.setOnClickListener(new ScheduleUpdateListener());
-		
+
 		// Initialize each form element
 		txtClass = (EditText) findViewById(R.id.edittext_schedule_update_name);
 		spnBuildingLocation = (Spinner) findViewById(R.id.spinner_schedule_update_building_location);
@@ -91,53 +89,11 @@ public class ScheduleUpdateActivity extends Activity {
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
-				showTimePicker();
-			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
-				showTimePicker();
+
 			}
 		}
 	}
-	
-	private void showTimePicker() {
-		/** Creating a bundle object to pass currently set time to the fragment */
-		Bundle b = new Bundle();
-		
-		/** Adding currently set hour to bundle object */
-		b.putInt("set_hour", mHour);
-		
-		/** Adding currently set minute to bundle object */
-		b.putInt("set_minute", mMinute);
-		
-		/** Instantiating TimePickerDialogFragment */
-		Fragment timePicker = new Fragment();
-		
-		/** Setting the bundle object on timepicker fragment */
-		timePicker.setArguments(b);				
-		
-		/** Getting fragment manger for this activity */
-		FragmentManager fm = getFragmentManager();				
-		
-		/** Starting a fragment transaction */
-		FragmentTransaction ft = fm.beginTransaction();
-		
-		/** Adding the fragment object to the fragment transaction */
-		ft.add(timePicker, "time_picker");
-		
-		/** Opening the TimePicker fragment */
-		ft.commit();
-	}
-	
-	/*@Override
-	protected Dialog onCreateDialog(int id) {
-	    switch (id) {
-	        case R.id.schedule_start_time_picker:
-	            return new TimePickerDialog(this,StartTimeSetListener, hour, minute, false);
-	        case R.id.schedule_end_time_picker:
-	            return new TimePickerDialog(this,TimeSetListener,hour, minute, false);                
-	    }
-	    return null;
-	}*/
-	
+
 	/**
 	 * This method adds a class to the schedule
 	 */
@@ -145,10 +101,11 @@ public class ScheduleUpdateActivity extends Activity {
 		String className = (String) txtClass.getText().toString();
 		String startTime = btnStartTime.getText().toString();
 		String endTime = btnEndTime.getText().toString();
-		String buildingLocation = spnBuildingLocation.getSelectedItem().toString();
+		String buildingLocation = spnBuildingLocation.getSelectedItem()
+				.toString();
 		String roomLocation = txtRoomLocation.getText().toString();
 		String days = "";
-		
+
 		if (chkMonday.isChecked()) {
 			days += "M";
 		} else if (chkTuesday.isChecked()) {
@@ -162,35 +119,37 @@ public class ScheduleUpdateActivity extends Activity {
 		} else if (chkSaturday.isChecked()) {
 			days += "S";
 		}
-		
+
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
-		database.createRow(database.createContentValues(className, startTime, endTime, days, buildingLocation, roomLocation));
-		
+		database.createRow(database.createContentValues(className, startTime,
+				endTime, days, buildingLocation, roomLocation));
+
 		finish();
 	}
 	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		database.close();
-	}
-	
-	public class ScheduleHandler extends Handler {
-		@Override
-        public void handleMessage(Message m){   
-        	/** Creating a bundle object to pass currently set Time to the fragment */
-        	Bundle b = m.getData();
-        	
-        	/** Getting the Hour of day from bundle */
-    		mHour = b.getInt("set_hour");
-    		
-    		/** Getting the Minute of the hour from bundle */
-    		mMinute = b.getInt("set_minute");
-    		
-    		/** Displaying a short time message containing time set by Time picker dialog fragment */
-    		Toast.makeText(getBaseContext(), b.getString("set_time"), Toast.LENGTH_SHORT).show();
-        }
+	public void showTimePickerDialog(View v) {
+	    DialogFragment newFragment = new TimePickerFragment();
+	    newFragment.show(getFragmentManager(), "timePicker");
 	}
 
+	public static class TimePickerFragment extends DialogFragment implements
+			TimePickerDialog.OnTimeSetListener {
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current time as the default values for the picker
+			final Calendar c = Calendar.getInstance();
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
+
+			// Create a new instance of TimePickerDialog and return it
+			return new TimePickerDialog(getActivity(), this, hour, minute,
+					DateFormat.is24HourFormat(getActivity()));
+		}
+
+		public void onTimeSet(TimePicker view, int hour, int minute) {
+			System.out.println("Time: " + hour + ":" + minute);
+		}
+	}
 }
