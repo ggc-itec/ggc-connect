@@ -103,7 +103,8 @@
         </activity>
         <activity
             android:name="edu.ggc.it.todo.ToDoUpdateActivity"
-            android:label="TODO Update" >
+            android:label="TODO Update" 
+            android:windowSoftInputMode="stateVisible" >
         </activity>
     </application>
 
