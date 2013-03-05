@@ -1,9 +1,11 @@
 package edu.ggc.it.directory;
 
 import edu.ggc.it.R;
+import edu.ggc.it.directory.SavedSearchDatabase.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,8 @@ public class DirectoryActivity extends Activity {
 	private EditText firstNameField;
 	private EditText lastNameField;
 	private Button saveSearch;
+	private SavedSearchDatabase database;
+	private SimpleCursorAdapter cursorAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class DirectoryActivity extends Activity {
 						.getStringArray(R.array.parent_directories)));
 		list.setOnItemClickListener(new departmentOnClickListener());
 		recentSearches = (ListView) findViewById(R.id.listView1);
+		SavedSearchDatabaseHelper.init(this);
 		//recentSearches.setAdapter(new ArrayAdapter<String>(this,
 				//android.R.layout.simple_list_item_1, getResources()
 						//.getStringArray(R.array.parent_directories)));
@@ -59,6 +64,8 @@ public class DirectoryActivity extends Activity {
 		clearSearch.setOnClickListener(new clearSearchListener());
 		saveSearch = (Button)findViewById(R.id.saveSearchButton);
         saveSearch.setOnClickListener(new saveSearchListener());
+        database = new SavedSearchDatabase(this);
+		database.open();
 		
 
 	}
@@ -132,11 +139,7 @@ public class DirectoryActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// TODO create method to save first name and last name and corresponding url in db
-			//insert firstNameField and lastNameField into recentSearchDatabase and populate
-			//the list view with saved search
-			firstNameField.setText("");
-			lastNameField.setText("");
+			//updateDatabase(0, true);
 		}
 	}
 
