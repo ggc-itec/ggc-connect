@@ -18,6 +18,12 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import edu.ggc.it.R;
 
+/**
+ * 
+ * @author Raj Ramsaroop
+ * 
+ *
+ */
 public class ScheduleUpdateActivity extends Activity {
 
 	private ScheduleDatabase database;
@@ -89,7 +95,9 @@ public class ScheduleUpdateActivity extends Activity {
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
-
+				showTimePickerDialog();
+			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
+				showTimePickerDialog();
 			}
 		}
 	}
@@ -128,7 +136,7 @@ public class ScheduleUpdateActivity extends Activity {
 		finish();
 	}
 	
-	public void showTimePickerDialog(View v) {
+	public void showTimePickerDialog() {
 	    DialogFragment newFragment = new TimePickerFragment();
 	    newFragment.show(getFragmentManager(), "timePicker");
 	}
@@ -149,7 +157,7 @@ public class ScheduleUpdateActivity extends Activity {
 		}
 
 		public void onTimeSet(TimePicker view, int hour, int minute) {
-			System.out.println("Time: " + hour + ":" + minute);
+			
 		}
 	}
 }

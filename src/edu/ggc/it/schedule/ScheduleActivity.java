@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
 
@@ -37,7 +38,10 @@ public class ScheduleActivity extends Activity {
 		database.open();
 
 		if (!classesExist()) {
-			showAddScheduleItemDialog();
+			CharSequence text = "No courses found on your schedule. Use the menu to add a course.";
+			int duration = Toast.LENGTH_LONG;
+			Toast toast = Toast.makeText(scheduleContext, text, duration);
+			toast.show();;
 		} else {
 			populateList();
 		}

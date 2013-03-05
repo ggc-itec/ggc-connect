@@ -57,7 +57,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="showTimePickerDialog"
                 android:text="@string/btn_schedule_update_start_time" />
 
         </TableRow>
