@@ -1,24 +1,34 @@
 package edu.ggc.it.schedule;
 
+import java.util.Calendar;
+
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import edu.ggc.it.R;
 
+/**
+ * 
+ * @author Raj Ramsaroop
+ * 
+ *
+ */
 public class ScheduleUpdateActivity extends Activity {
 
 	private ScheduleDatabase database;
 	private Long rowID;
-	
+
 	private Context scheduleContext;
 
 	/**
@@ -57,7 +67,7 @@ public class ScheduleUpdateActivity extends Activity {
 
 		btnEndTime = (Button) findViewById(R.id.btn_schedule_update_end_time);
 		btnEndTime.setOnClickListener(new ScheduleUpdateListener());
-		
+
 		// Initialize each form element
 		txtClass = (EditText) findViewById(R.id.edittext_schedule_update_name);
 		spnBuildingLocation = (Spinner) findViewById(R.id.spinner_schedule_update_building_location);
@@ -84,6 +94,10 @@ public class ScheduleUpdateActivity extends Activity {
 				finish();
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
+			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
+				showTimePickerDialog();
+			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
+				showTimePickerDialog();
 			}
 		}
 	}
@@ -95,10 +109,11 @@ public class ScheduleUpdateActivity extends Activity {
 		String className = (String) txtClass.getText().toString();
 		String startTime = btnStartTime.getText().toString();
 		String endTime = btnEndTime.getText().toString();
-		String buildingLocation = spnBuildingLocation.getSelectedItem().toString();
+		String buildingLocation = spnBuildingLocation.getSelectedItem()
+				.toString();
 		String roomLocation = txtRoomLocation.getText().toString();
 		String days = "";
-		
+
 		if (chkMonday.isChecked()) {
 			days += "M";
 		} else if (chkTuesday.isChecked()) {
@@ -112,18 +127,37 @@ public class ScheduleUpdateActivity extends Activity {
 		} else if (chkSaturday.isChecked()) {
 			days += "S";
 		}
-		
+
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
-		database.createRow(database.createContentValues(className, startTime, endTime, days, buildingLocation, roomLocation));
-		
+		database.createRow(database.createContentValues(className, startTime,
+				endTime, days, buildingLocation, roomLocation));
+
 		finish();
 	}
 	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		database.close();
+	public void showTimePickerDialog() {
+	    DialogFragment newFragment = new TimePickerFragment();
+	    newFragment.show(getFragmentManager(), "timePicker");
 	}
 
+	public static class TimePickerFragment extends DialogFragment implements
+			TimePickerDialog.OnTimeSetListener {
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current time as the default values for the picker
+			final Calendar c = Calendar.getInstance();
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
+
+			// Create a new instance of TimePickerDialog and return it
+			return new TimePickerDialog(getActivity(), this, hour, minute,
+					DateFormat.is24HourFormat(getActivity()));
+		}
+
+		public void onTimeSet(TimePicker view, int hour, int minute) {
+			
+		}
+	}
 }

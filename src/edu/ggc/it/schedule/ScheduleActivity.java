@@ -11,7 +11,11 @@ import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
 
@@ -24,15 +28,20 @@ public class ScheduleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
-		list = (ListView) findViewById(R.id.schedule_list_view);
 		scheduleContext = this;
+		
+		list = (ListView) findViewById(R.id.schedule_list_view);
+		list.setOnItemClickListener(new ScheduleActivityListListener());
 
 		// open new database
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
 
 		if (!classesExist()) {
-			showAddScheduleItemDialog();
+			CharSequence text = "No courses found on your schedule. Use the menu to add a course.";
+			int duration = Toast.LENGTH_LONG;
+			Toast toast = Toast.makeText(scheduleContext, text, duration);
+			toast.show();;
 		} else {
 			populateList();
 		}
@@ -62,7 +71,7 @@ public class ScheduleActivity extends Activity {
 	}
 
 	private void showAddScheduleItemDialog() {
-		new AlertDialog.Builder(this)
+		new AlertDialog.Builder(scheduleContext)
 				.setTitle("No Classes Found")
 				.setMessage(R.string.schedule_no_classes_popup)
 				.setPositiveButton("Yes",
@@ -100,11 +109,20 @@ public class ScheduleActivity extends Activity {
 	}
 	
 	public void updateDatabase(long rowId, boolean create) {
-		Intent intent = new Intent(this, ScheduleUpdateActivity.class);
+		Intent intent = new Intent(scheduleContext, ScheduleUpdateActivity.class);
 		if (!create) {
 			intent.putExtra("rowID", rowId);
 		}
 		startActivity(intent);
+	}
+	
+	public class ScheduleActivityListListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> list, View view, int position, long rowId) {
+			updateDatabase(rowId, false);
+		}
+		
 	}
 	
 	@Override
