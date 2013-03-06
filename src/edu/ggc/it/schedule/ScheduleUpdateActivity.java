@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,7 +22,9 @@ import edu.ggc.it.R;
 /**
  * 
  * @author Raj Ramsaroop
- * 
+ * The update class handles processing of the add/edit form. This class handles
+ * adding classes as well as editing the individual course item. This is because
+ * the add/edit form is the same layout.
  *
  */
 public class ScheduleUpdateActivity extends Activity {
@@ -48,6 +51,11 @@ public class ScheduleUpdateActivity extends Activity {
 			chkFriday, chkSaturday;
 	private Spinner spnBuildingLocation;
 	private EditText txtRoomLocation;
+	
+	private int startTimeHour;
+	private int startTimeMinute;
+	private int endTimeHour;
+	private int endTimeMinute;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +103,9 @@ public class ScheduleUpdateActivity extends Activity {
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
-				showTimePickerDialog();
+				showTimePickerDialog(view);
 			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
-				showTimePickerDialog();
+				showTimePickerDialog(view);
 			}
 		}
 	}
@@ -136,13 +144,17 @@ public class ScheduleUpdateActivity extends Activity {
 		finish();
 	}
 	
-	public void showTimePickerDialog() {
-	    DialogFragment newFragment = new TimePickerFragment();
-	    newFragment.show(getFragmentManager(), "timePicker");
+	private void showTimePickerDialog(View view) {
+	    DialogFragment t = new TimePickerFragment();
+	    Bundle args = new Bundle();
+	    args.putInt("buttonSource", view.getId());
+	    t.setArguments(args);
+	    t.show(getFragmentManager(), "timePicker");
 	}
 
 	public static class TimePickerFragment extends DialogFragment implements
 			TimePickerDialog.OnTimeSetListener {
+		
 		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -157,7 +169,16 @@ public class ScheduleUpdateActivity extends Activity {
 		}
 
 		public void onTimeSet(TimePicker view, int hour, int minute) {
-			
+			Bundle args = this.getArguments();
+			int buttonSource = args.getInt("buttonSource");
+			String time = "";
+			if (hour > 12) {
+				hour = hour-12;
+				time = hour + ":" + minute + " PM";
+			} else {
+				time = hour + ":" + minute + " AM";
+			}
+			((Button)getActivity().findViewById(buttonSource)).setText(time);
 		}
 	}
 }
