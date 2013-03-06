@@ -24,13 +24,14 @@ import edu.ggc.it.R;
 
 /**
  * 
- * @author Raj Ramsaroop
- * The update class handles processing of the add/edit form. This class handles
- * adding classes as well as editing the individual course item. This is because
- * the add/edit form is the same layout.
- *
+ * @author Raj Ramsaroop The update class handles processing of the add/edit
+ *         form. This class handles adding classes as well as editing the
+ *         individual course item. This is because the add/edit form is the same
+ *         layout.
+ * 
  */
-public class ScheduleUpdateActivity extends Activity implements TimePickerFragment.OnTimeSetListener {
+public class ScheduleUpdateActivity extends Activity implements
+		TimePickerFragment.OnTimeSetListener {
 
 	private ScheduleDatabase database;
 	private Long rowID;
@@ -54,13 +55,11 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 			chkFriday, chkSaturday;
 	private Spinner spnBuildingLocation;
 	private EditText txtRoomLocation;
-	
+
 	private int startTimeHour = 24;
 	private int startTimeMinute = 60;
 	private int endTimeHour = 24;
 	private int endTimeMinute = 60;
-	
-	private boolean validData = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +115,15 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	}
 
 	/**
-	 * This method adds a class to the schedule
+	 * This method processes the form contents and once validated, adds it as a
+	 * new record in the database.
 	 */
 	private void addClass() {
-		validData = true;
-		
+
+		// Reset form processing flag
+		boolean validData = true;
+
+		// Get data from form to be put into the database.
 		String className = (String) txtClass.getText().toString().trim();
 		String startTime = startTimeHour + ":" + startTimeMinute;
 		String endTime = endTimeHour + ":" + endTimeMinute;
@@ -133,53 +136,73 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		int thursday = (chkThursday.isChecked()) ? 1 : 0;
 		int friday = (chkFriday.isChecked()) ? 1 : 0;
 		int saturday = (chkSaturday.isChecked()) ? 1 : 0;
-		
-		Log.i("timepicker", "start Time hour: " + startTimeHour + " min: " + startTimeMinute);
-		
+
+		// Validate data
 		if (className.isEmpty()) {
 			validData = false;
-			showMessageDialog("You need to enter a name for the course.", "Empty Class Name");
+			showMessageDialog("You need to enter a name for the course.",
+					"Empty Class Name");
 		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
 			validData = false;
-			showMessageDialog("Please set the start time for the class.", "No Start Time Set");
+			showMessageDialog("Please set the start time for the class.",
+					"No Start Time Set");
 		} else if (!isValidTime(endTimeHour, endTimeMinute)) {
 			validData = false;
-			showMessageDialog("Please set the end time for the class.", "No End Time Set");
+			showMessageDialog("Please set the end time for the class.",
+					"No End Time Set");
+		} else if (endTimeHour <= startTimeHour) {
+			if (((endTimeHour == startTimeHour) && (endTimeMinute < startTimeMinute))
+					|| (endTimeHour < startTimeHour)) {
+				validData = false;
+				showMessageDialog(
+						"Please choose an end time that is after the start time.",
+						"Start/End Time Conflict");
+			}
 		} else if (roomLocation.isEmpty()) {
 			validData = false;
-			showMessageDialog("Please enter a room location.", "No Room Number Entered");
-		} else if (!validateDays(monday, tuesday, wednesday, thursday, friday, saturday)) {
+			showMessageDialog("Please enter a room location.",
+					"No Room Number Entered");
+		} else if (!validateDays(monday, tuesday, wednesday, thursday, friday,
+				saturday)) {
 			validData = false;
-			showMessageDialog("Please select at least one day.", "No Day Selected");
+			showMessageDialog("Please select at least one day.",
+					"No Day Selected");
 		}
-		
+
 		if (validData) {
 			database = new ScheduleDatabase(scheduleContext);
 			database.open();
-			database.createRow(database.createContentValues(className, startTime,
-					endTime, monday, tuesday, wednesday, thursday, friday,
-					saturday, buildingLocation, roomLocation));
+			database.createRow(database.createContentValues(className,
+					startTime, endTime, monday, tuesday, wednesday, thursday,
+					friday, saturday, buildingLocation, roomLocation));
 			finish();
-		} 
+		}
 	}
-	
+
+	/**
+	 * This is to show a simple message dialog with an OK button. This is to be
+	 * used when something stronger than a Toast is needed to get the user's
+	 * attention.
+	 * 
+	 * @param message
+	 *            The message to display to the user.
+	 * @param title
+	 *            The title of the pop up.
+	 */
 	private void showMessageDialog(String message, String title) {
-		new AlertDialog.Builder(this)
-	    .setTitle(title)
-	    .setMessage(message)
-	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	            // continue with delete
-	        }
-	     })
-	     .show();
+		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// continue with delete
+					}
+				}).show();
 	}
 
 	private boolean validateDays(int monday, int tuesday, int wednesday,
 			int thursday, int friday, int saturday) {
 		int[] days = { monday, tuesday, wednesday, thursday, friday, saturday };
 		boolean dayChecked = false;
-		for (int i=0;i<days.length;i++) {
+		for (int i = 0; i < days.length; i++) {
 			if (days[i] == 1) {
 				dayChecked = true;
 			}
@@ -192,13 +215,13 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	}
 
 	private void showTimePickerDialog(View view, int hour, int minute) {
-	    DialogFragment t = new TimePickerFragment();
-	    Bundle args = new Bundle();
-	    args.putInt("buttonSource", view.getId());
-	    args.putInt("hour", hour);
-	    args.putInt("minute", minute);
-	    t.setArguments(args);
-	    t.show(getFragmentManager(), "timePicker");
+		DialogFragment t = new TimePickerFragment();
+		Bundle args = new Bundle();
+		args.putInt("buttonSource", view.getId());
+		args.putInt("hour", hour);
+		args.putInt("minute", minute);
+		t.setArguments(args);
+		t.show(getFragmentManager(), "timePicker");
 	}
 
 	/**
@@ -207,14 +230,14 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	@Override
 	public void onTimeSet(int buttonSource, int hour, int minute) {
 		String time = formattedTimeString(hour, minute);
-		
+
 		if (buttonSource == R.id.btn_schedule_update_start_time) {
 			startTimeHour = hour;
 			startTimeMinute = minute;
 			btnStartTime.setText(time);
 		} else if (buttonSource == R.id.btn_schedule_update_end_time) {
-			startTimeHour = hour;
-			startTimeMinute = minute;
+			endTimeHour = hour;
+			endTimeMinute = minute;
 			btnEndTime.setText(time);
 		}
 	}
@@ -225,8 +248,8 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		Object hourText = "";
 		String ampm = (hour < 12) ? "AM" : "PM";
 		if (hour > 12) {
-			hourText = (hour-12);
-		} else if (hour == 0){
+			hourText = (hour - 12);
+		} else if (hour == 0) {
 			hourText = "1";
 		} else {
 			hourText = hour;
@@ -235,5 +258,4 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		return time;
 	}
 
-	
 }
