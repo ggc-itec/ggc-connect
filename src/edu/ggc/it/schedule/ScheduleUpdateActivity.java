@@ -3,12 +3,15 @@ package edu.ggc.it.schedule;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,10 +55,10 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	private Spinner spnBuildingLocation;
 	private EditText txtRoomLocation;
 	
-	private int startTimeHour;
-	private int startTimeMinute;
-	private int endTimeHour;
-	private int endTimeMinute;
+	private int startTimeHour = 24;
+	private int startTimeMinute = 60;
+	private int endTimeHour = 24;
+	private int endTimeMinute = 60;
 	
 	private boolean validData = true;
 
@@ -116,12 +119,14 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	 * This method adds a class to the schedule
 	 */
 	private void addClass() {
-		String className = (String) txtClass.getText().toString();
+		validData = true;
+		
+		String className = (String) txtClass.getText().toString().trim();
 		String startTime = startTimeHour + ":" + startTimeMinute;
 		String endTime = endTimeHour + ":" + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
-				.toString();
-		String roomLocation = txtRoomLocation.getText().toString();
+				.toString().trim();
+		String roomLocation = txtRoomLocation.getText().toString().trim();
 		int monday = (chkMonday.isChecked()) ? 1 : 0;
 		int tuesday = (chkTuesday.isChecked()) ? 1 : 0;
 		int wednesday = (chkWednesday.isChecked()) ? 1 : 0;
@@ -129,16 +134,23 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		int friday = (chkFriday.isChecked()) ? 1 : 0;
 		int saturday = (chkSaturday.isChecked()) ? 1 : 0;
 		
-		if (!validateClassName(className)) {
+		Log.i("timepicker", "start Time hour: " + startTimeHour + " min: " + startTimeMinute);
+		
+		if (className.isEmpty()) {
 			validData = false;
-		} else if (!validateStartTime(startTime)) {
+			showMessageDialog("You need to enter a name for the course.", "Empty Class Name");
+		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
 			validData = false;
-		} else if (!validateEndTime(endTime)) {
+			showMessageDialog("Please set the start time for the class.", "No Start Time Set");
+		} else if (!isValidTime(endTimeHour, endTimeMinute)) {
 			validData = false;
-		} else if (!validateRoomLocation(roomLocation)) {
+			showMessageDialog("Please set the end time for the class.", "No End Time Set");
+		} else if (roomLocation.isEmpty()) {
 			validData = false;
+			showMessageDialog("Please enter a room location.", "No Room Number Entered");
 		} else if (!validateDays(monday, tuesday, wednesday, thursday, friday, saturday)) {
 			validData = false;
+			showMessageDialog("Please select at least one day.", "No Day Selected");
 		}
 		
 		if (validData) {
@@ -151,6 +163,18 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		} 
 	}
 	
+	private void showMessageDialog(String message, String title) {
+		new AlertDialog.Builder(this)
+	    .setTitle(title)
+	    .setMessage(message)
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue with delete
+	        }
+	     })
+	     .show();
+	}
+
 	private boolean validateDays(int monday, int tuesday, int wednesday,
 			int thursday, int friday, int saturday) {
 		int[] days = { monday, tuesday, wednesday, thursday, friday, saturday };
@@ -163,20 +187,8 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		return dayChecked;
 	}
 
-	private boolean validateRoomLocation(String roomLocation) {
-		return !roomLocation.isEmpty();
-	}
-
-	private boolean validateEndTime(String endTime) {
-		return !endTime.equals("Set End Time");
-	}
-
-	private boolean validateStartTime(String startTime) {
-		return !startTime.equals("Set Start Time");
-	}
-
-	private boolean validateClassName(String className) {
-		return !className.isEmpty();
+	private boolean isValidTime(int hour, int minute) {
+		return (hour < 24) && (hour >= 0) && (minute < 60) && (minute >= 0);
 	}
 
 	private void showTimePickerDialog(View view) {
@@ -192,13 +204,8 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	 */
 	@Override
 	public void onTimeSet(int buttonSource, int hour, int minute) {
-		String time = "";
-		String strMinute = (String) ((minute < 10) ? "0" + minute : minute);
-		if (hour > 12) {
-			time = (hour-12) + ":" + strMinute + " PM";
-		} else {
-			time = hour + ":" + strMinute + " AM";
-		}
+		String time = formattedTimeString(hour, minute);
+		
 		if (buttonSource == R.id.btn_schedule_update_start_time) {
 			startTimeHour = hour;
 			startTimeMinute = minute;
@@ -208,6 +215,22 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 			startTimeMinute = minute;
 			btnEndTime.setText(time);
 		}
+	}
+
+	private String formattedTimeString(int hour, int minute) {
+		String time = "";
+		Object minuteText = (minute < 10) ? "0" + minute : minute;
+		Object hourText = "";
+		String ampm = (hour < 12) ? "AM" : "PM";
+		if (hour > 12) {
+			hourText = (hour-12);
+		} else if (hour == 0){
+			hourText = "1";
+		} else {
+			hourText = hour;
+		}
+		time = hourText + ":" + minuteText + " " + ampm;
+		return time;
 	}
 
 	
