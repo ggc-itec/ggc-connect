@@ -120,26 +120,18 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
 				.toString();
 		String roomLocation = txtRoomLocation.getText().toString();
-		String days = "";
-
-		if (chkMonday.isChecked()) {
-			days += "M";
-		} else if (chkTuesday.isChecked()) {
-			days += "T";
-		} else if (chkWednesday.isChecked()) {
-			days += "W";
-		} else if (chkThursday.isChecked()) {
-			days += "R";
-		} else if (chkFriday.isChecked()) {
-			days += "F";
-		} else if (chkSaturday.isChecked()) {
-			days += "S";
-		}
+		int monday = (chkMonday.isChecked()) ? 1 : 0;
+		int tuesday = (chkTuesday.isChecked()) ? 1 : 0;
+		int wednesday = (chkWednesday.isChecked()) ? 1 : 0;
+		int thursday = (chkThursday.isChecked()) ? 1 : 0;
+		int friday = (chkFriday.isChecked()) ? 1 : 0;
+		int saturday = (chkSaturday.isChecked()) ? 1 : 0;
 
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
 		database.createRow(database.createContentValues(className, startTime,
-				endTime, days, buildingLocation, roomLocation));
+				endTime, monday, tuesday, wednesday, thursday, friday,
+				saturday, buildingLocation, roomLocation));
 
 		finish();
 	}
