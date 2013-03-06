@@ -56,6 +56,8 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 	private int startTimeMinute;
 	private int endTimeHour;
 	private int endTimeMinute;
+	
+	private boolean validData = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,16 +128,57 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		int thursday = (chkThursday.isChecked()) ? 1 : 0;
 		int friday = (chkFriday.isChecked()) ? 1 : 0;
 		int saturday = (chkSaturday.isChecked()) ? 1 : 0;
-
-		database = new ScheduleDatabase(scheduleContext);
-		database.open();
-		database.createRow(database.createContentValues(className, startTime,
-				endTime, monday, tuesday, wednesday, thursday, friday,
-				saturday, buildingLocation, roomLocation));
-
-		finish();
+		
+		if (!validateClassName(className)) {
+			validData = false;
+		} else if (!validateStartTime(startTime)) {
+			validData = false;
+		} else if (!validateEndTime(endTime)) {
+			validData = false;
+		} else if (!validateRoomLocation(roomLocation)) {
+			validData = false;
+		} else if (!validateDays(monday, tuesday, wednesday, thursday, friday, saturday)) {
+			validData = false;
+		}
+		
+		if (validData) {
+			database = new ScheduleDatabase(scheduleContext);
+			database.open();
+			database.createRow(database.createContentValues(className, startTime,
+					endTime, monday, tuesday, wednesday, thursday, friday,
+					saturday, buildingLocation, roomLocation));
+			finish();
+		} 
 	}
 	
+	private boolean validateDays(int monday, int tuesday, int wednesday,
+			int thursday, int friday, int saturday) {
+		int[] days = { monday, tuesday, wednesday, thursday, friday, saturday };
+		boolean dayChecked = false;
+		for (int i=0;i<days.length;i++) {
+			if (days[i] == 1) {
+				dayChecked = true;
+			}
+		}
+		return dayChecked;
+	}
+
+	private boolean validateRoomLocation(String roomLocation) {
+		return !roomLocation.isEmpty();
+	}
+
+	private boolean validateEndTime(String endTime) {
+		return !endTime.equals("Set End Time");
+	}
+
+	private boolean validateStartTime(String startTime) {
+		return !startTime.equals("Set Start Time");
+	}
+
+	private boolean validateClassName(String className) {
+		return !className.isEmpty();
+	}
+
 	private void showTimePickerDialog(View view) {
 	    DialogFragment t = new TimePickerFragment();
 	    Bundle args = new Bundle();
