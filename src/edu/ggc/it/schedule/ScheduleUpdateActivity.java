@@ -27,7 +27,7 @@ import edu.ggc.it.R;
  * the add/edit form is the same layout.
  *
  */
-public class ScheduleUpdateActivity extends Activity {
+public class ScheduleUpdateActivity extends Activity implements TimePickerFragment.OnTimeSetListener {
 
 	private ScheduleDatabase database;
 	private Long rowID;
@@ -115,8 +115,8 @@ public class ScheduleUpdateActivity extends Activity {
 	 */
 	private void addClass() {
 		String className = (String) txtClass.getText().toString();
-		String startTime = btnStartTime.getText().toString();
-		String endTime = btnEndTime.getText().toString();
+		String startTime = startTimeHour + ":" + startTimeMinute;
+		String endTime = endTimeHour + ":" + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
 				.toString();
 		String roomLocation = txtRoomLocation.getText().toString();
@@ -152,33 +152,28 @@ public class ScheduleUpdateActivity extends Activity {
 	    t.show(getFragmentManager(), "timePicker");
 	}
 
-	public static class TimePickerFragment extends DialogFragment implements
-			TimePickerDialog.OnTimeSetListener {
-		
-		
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Use the current time as the default values for the picker
-			final Calendar c = Calendar.getInstance();
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			int minute = c.get(Calendar.MINUTE);
-
-			// Create a new instance of TimePickerDialog and return it
-			return new TimePickerDialog(getActivity(), this, hour, minute,
-					DateFormat.is24HourFormat(getActivity()));
+	/**
+	 * This is called when the user picks a time through the time picker pop up.
+	 */
+	@Override
+	public void onTimeSet(int buttonSource, int hour, int minute) {
+		String time = "";
+		String strMinute = (String) ((minute < 10) ? "0" + minute : minute);
+		if (hour > 12) {
+			time = (hour-12) + ":" + strMinute + " PM";
+		} else {
+			time = hour + ":" + strMinute + " AM";
 		}
-
-		public void onTimeSet(TimePicker view, int hour, int minute) {
-			Bundle args = this.getArguments();
-			int buttonSource = args.getInt("buttonSource");
-			String time = "";
-			if (hour > 12) {
-				hour = hour-12;
-				time = hour + ":" + minute + " PM";
-			} else {
-				time = hour + ":" + minute + " AM";
-			}
-			((Button)getActivity().findViewById(buttonSource)).setText(time);
+		if (buttonSource == R.id.btn_schedule_update_start_time) {
+			startTimeHour = hour;
+			startTimeMinute = minute;
+			btnStartTime.setText(time);
+		} else if (buttonSource == R.id.btn_schedule_update_end_time) {
+			startTimeHour = hour;
+			startTimeMinute = minute;
+			btnEndTime.setText(time);
 		}
 	}
+
+	
 }
