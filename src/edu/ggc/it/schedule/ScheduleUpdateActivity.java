@@ -108,9 +108,9 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
-				showTimePickerDialog(view);
+				showTimePickerDialog(view, startTimeHour, startTimeMinute);
 			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
-				showTimePickerDialog(view);
+				showTimePickerDialog(view, endTimeHour, endTimeMinute);
 			}
 		}
 	}
@@ -191,10 +191,12 @@ public class ScheduleUpdateActivity extends Activity implements TimePickerFragme
 		return (hour < 24) && (hour >= 0) && (minute < 60) && (minute >= 0);
 	}
 
-	private void showTimePickerDialog(View view) {
+	private void showTimePickerDialog(View view, int hour, int minute) {
 	    DialogFragment t = new TimePickerFragment();
 	    Bundle args = new Bundle();
 	    args.putInt("buttonSource", view.getId());
+	    args.putInt("hour", hour);
+	    args.putInt("minute", minute);
 	    t.setArguments(args);
 	    t.show(getFragmentManager(), "timePicker");
 	}
