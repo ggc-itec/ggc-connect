@@ -3,12 +3,16 @@ package edu.ggc.it.schedule;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,11 +24,14 @@ import edu.ggc.it.R;
 
 /**
  * 
- * @author Raj Ramsaroop
+ * @author Raj Ramsaroop The update class handles processing of the add/edit
+ *         form. This class handles adding classes as well as editing the
+ *         individual course item. This is because the add/edit form is the same
+ *         layout.
  * 
- *
  */
-public class ScheduleUpdateActivity extends Activity {
+public class ScheduleUpdateActivity extends Activity implements
+		TimePickerFragment.OnTimeSetListener {
 
 	private ScheduleDatabase database;
 	private Long rowID;
@@ -48,6 +55,11 @@ public class ScheduleUpdateActivity extends Activity {
 			chkFriday, chkSaturday;
 	private Spinner spnBuildingLocation;
 	private EditText txtRoomLocation;
+
+	private int startTimeHour = 24;
+	private int startTimeMinute = 60;
+	private int endTimeHour = 24;
+	private int endTimeMinute = 60;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,69 +107,155 @@ public class ScheduleUpdateActivity extends Activity {
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
 				addClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
-				showTimePickerDialog();
+				showTimePickerDialog(view, startTimeHour, startTimeMinute);
 			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
-				showTimePickerDialog();
+				showTimePickerDialog(view, endTimeHour, endTimeMinute);
 			}
 		}
 	}
 
 	/**
-	 * This method adds a class to the schedule
+	 * This method processes the form contents and once validated, adds it as a
+	 * new record in the database.
 	 */
 	private void addClass() {
-		String className = (String) txtClass.getText().toString();
-		String startTime = btnStartTime.getText().toString();
-		String endTime = btnEndTime.getText().toString();
+
+		// Reset form processing flag
+		boolean validData = true;
+
+		// Get data from form to be put into the database.
+		String className = (String) txtClass.getText().toString().trim();
+		String startTime = startTimeHour + ":" + startTimeMinute;
+		String endTime = endTimeHour + ":" + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
-				.toString();
-		String roomLocation = txtRoomLocation.getText().toString();
-		String days = "";
+				.toString().trim();
+		String roomLocation = txtRoomLocation.getText().toString().trim();
+		int monday = (chkMonday.isChecked()) ? 1 : 0;
+		int tuesday = (chkTuesday.isChecked()) ? 1 : 0;
+		int wednesday = (chkWednesday.isChecked()) ? 1 : 0;
+		int thursday = (chkThursday.isChecked()) ? 1 : 0;
+		int friday = (chkFriday.isChecked()) ? 1 : 0;
+		int saturday = (chkSaturday.isChecked()) ? 1 : 0;
 
-		if (chkMonday.isChecked()) {
-			days += "M";
-		} else if (chkTuesday.isChecked()) {
-			days += "T";
-		} else if (chkWednesday.isChecked()) {
-			days += "W";
-		} else if (chkThursday.isChecked()) {
-			days += "R";
-		} else if (chkFriday.isChecked()) {
-			days += "F";
-		} else if (chkSaturday.isChecked()) {
-			days += "S";
+		// Validate data
+		if (className.isEmpty()) {
+			validData = false;
+			showMessageDialog("You need to enter a name for the course.",
+					"Empty Class Name");
+		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
+			validData = false;
+			showMessageDialog("Please set the start time for the class.",
+					"No Start Time Set");
+		} else if (!isValidTime(endTimeHour, endTimeMinute)) {
+			validData = false;
+			showMessageDialog("Please set the end time for the class.",
+					"No End Time Set");
+		} else if (endTimeHour <= startTimeHour) {
+			if (((endTimeHour == startTimeHour) && (endTimeMinute < startTimeMinute))
+					|| (endTimeHour < startTimeHour)) {
+				validData = false;
+				showMessageDialog(
+						"Please choose an end time that is after the start time.",
+						"Start/End Time Conflict");
+			}
+		} else if (roomLocation.isEmpty()) {
+			validData = false;
+			showMessageDialog("Please enter a room location.",
+					"No Room Number Entered");
+		} else if (!validateDays(monday, tuesday, wednesday, thursday, friday,
+				saturday)) {
+			validData = false;
+			showMessageDialog("Please select at least one day.",
+					"No Day Selected");
 		}
 
-		database = new ScheduleDatabase(scheduleContext);
-		database.open();
-		database.createRow(database.createContentValues(className, startTime,
-				endTime, days, buildingLocation, roomLocation));
-
-		finish();
-	}
-	
-	public void showTimePickerDialog() {
-	    DialogFragment newFragment = new TimePickerFragment();
-	    newFragment.show(getFragmentManager(), "timePicker");
-	}
-
-	public static class TimePickerFragment extends DialogFragment implements
-			TimePickerDialog.OnTimeSetListener {
-		
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Use the current time as the default values for the picker
-			final Calendar c = Calendar.getInstance();
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			int minute = c.get(Calendar.MINUTE);
-
-			// Create a new instance of TimePickerDialog and return it
-			return new TimePickerDialog(getActivity(), this, hour, minute,
-					DateFormat.is24HourFormat(getActivity()));
-		}
-
-		public void onTimeSet(TimePicker view, int hour, int minute) {
-			
+		if (validData) {
+			database = new ScheduleDatabase(scheduleContext);
+			database.open();
+			database.createRow(database.createContentValues(className,
+					startTime, endTime, monday, tuesday, wednesday, thursday,
+					friday, saturday, buildingLocation, roomLocation));
+			finish();
 		}
 	}
+
+	/**
+	 * This is to show a simple message dialog with an OK button. This is to be
+	 * used when something stronger than a Toast is needed to get the user's
+	 * attention.
+	 * 
+	 * @param message
+	 *            The message to display to the user.
+	 * @param title
+	 *            The title of the pop up.
+	 */
+	private void showMessageDialog(String message, String title) {
+		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// continue with delete
+					}
+				}).show();
+	}
+
+	private boolean validateDays(int monday, int tuesday, int wednesday,
+			int thursday, int friday, int saturday) {
+		int[] days = { monday, tuesday, wednesday, thursday, friday, saturday };
+		boolean dayChecked = false;
+		for (int i = 0; i < days.length; i++) {
+			if (days[i] == 1) {
+				dayChecked = true;
+			}
+		}
+		return dayChecked;
+	}
+
+	private boolean isValidTime(int hour, int minute) {
+		return (hour < 24) && (hour >= 0) && (minute < 60) && (minute >= 0);
+	}
+
+	private void showTimePickerDialog(View view, int hour, int minute) {
+		DialogFragment t = new TimePickerFragment();
+		Bundle args = new Bundle();
+		args.putInt("buttonSource", view.getId());
+		args.putInt("hour", hour);
+		args.putInt("minute", minute);
+		t.setArguments(args);
+		t.show(getFragmentManager(), "timePicker");
+	}
+
+	/**
+	 * This is called when the user picks a time through the time picker pop up.
+	 */
+	@Override
+	public void onTimeSet(int buttonSource, int hour, int minute) {
+		String time = formattedTimeString(hour, minute);
+
+		if (buttonSource == R.id.btn_schedule_update_start_time) {
+			startTimeHour = hour;
+			startTimeMinute = minute;
+			btnStartTime.setText(time);
+		} else if (buttonSource == R.id.btn_schedule_update_end_time) {
+			endTimeHour = hour;
+			endTimeMinute = minute;
+			btnEndTime.setText(time);
+		}
+	}
+
+	private String formattedTimeString(int hour, int minute) {
+		String time = "";
+		Object minuteText = (minute < 10) ? "0" + minute : minute;
+		Object hourText = "";
+		String ampm = (hour < 12) ? "AM" : "PM";
+		if (hour > 12) {
+			hourText = (hour - 12);
+		} else if (hour == 0) {
+			hourText = "1";
+		} else {
+			hourText = hour;
+		}
+		time = hourText + ":" + minuteText + " " + ampm;
+		return time;
+	}
+
 }

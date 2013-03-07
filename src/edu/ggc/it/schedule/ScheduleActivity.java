@@ -3,9 +3,7 @@ package edu.ggc.it.schedule;
 import edu.ggc.it.R;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -68,25 +66,6 @@ public class ScheduleActivity extends Activity {
 		} else {
 			return false;
 		}
-	}
-
-	private void showAddScheduleItemDialog() {
-		new AlertDialog.Builder(scheduleContext)
-				.setTitle("No Classes Found")
-				.setMessage(R.string.schedule_no_classes_popup)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								startActivity(new Intent(scheduleContext,
-										ScheduleUpdateActivity.class));
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						finish();
-					}
-				}).show();
 	}
 
 	@Override
