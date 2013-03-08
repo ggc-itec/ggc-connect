@@ -1,175 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ds_setup_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ggc_green" >
+    android:fillViewport="true" >
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dip" >
+        android:background="@color/ggc_green" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ds_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingBottom="10dip" >
 
-        <EditText
-            android:id="@+id/ds_name_input"
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/ds_name_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" >
+            android:paddingBottom="10dip" >
 
-            <requestFocus />
-        </EditText>
-    </TableRow>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_bday_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dip" >
+            <EditText
+                android:id="@+id/ds_bday_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/textView2"
+        <TableRow
+            android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ds_bday_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingBottom="10dip" >
 
-        <EditText
-            android:id="@+id/ds_bday_input"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_gender_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ToggleButton
+                android:id="@+id/ds_gender_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Male"
+                android:textOn="Female" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ds_class_list_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date" />
-    </TableRow>
+            android:visibility="gone" >
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dip" >
+            <ListView
+                android:id="@+id/ds_class_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                tools:listitem="@android:layout/simple_list_item_1" >
+            </ListView>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/textView3"
+        <TableRow
+            android:id="@+id/ds_subject_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ds_gender_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingBottom="10dip"
+            android:visibility="gone" >
 
-        <ToggleButton
-            android:id="@+id/ds_gender_toggle"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_subject_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/ds_subject_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/ds_subject_names"
+                tools:listitem="@android:layout/simple_spinner_item" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ds_course_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="Male"
-            android:textOn="Female" />
-    </TableRow>
+            android:visibility="gone" >
 
-    <TableRow
-        android:id="@+id/ds_subject_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dip"
-        android:visibility="gone" >
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_course_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/textView4"
+            <Spinner
+                android:id="@+id/ds_course_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:listitem="@android:layout/simple_spinner_item" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ds_search_by_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ds_subject_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingBottom="10dip"
+            android:visibility="gone" >
 
-        <Spinner
-            android:id="@+id/ds_subject_input"
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_search_by_label"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ToggleButton
+                android:id="@+id/ds_search_by_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Name"
+                android:textOn="Number" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ds_section_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/ds_subject_names"
-            tools:listitem="@android:layout/simple_spinner_item" />
+            android:paddingBottom="10dip"
+            android:visibility="gone" >
 
-    </TableRow>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_section_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TableRow
-        android:id="@+id/ds_course_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" >
+            <Spinner
+                android:id="@+id/ds_section_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:listitem="@android:layout/simple_spinner_item" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/textView5"
+        <TableRow
+            android:id="@+id/ds_class_row"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ds_course_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_height="wrap_content" >
 
-        <Spinner
-            android:id="@+id/ds_course_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:listitem="@android:layout/simple_spinner_item" />
+            <Button
+                android:id="@+id/ds_class_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ds_add_class_label" />
+        </TableRow>
+    </TableLayout>
 
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/ds_search_by_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dip"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ds_search_by_label"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <ToggleButton
-            android:id="@+id/ds_search_by_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="Name"
-            android:textOn="Number" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/ds_section_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dip"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ds_section_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <Spinner
-            android:id="@+id/ds_section_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:listitem="@android:layout/simple_spinner_item" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/ds_class_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/ds_class_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ds_add_class_label" />
-    </TableRow>
-
-</TableLayout>
+</ScrollView>
