@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.ggc.it.R;
+import edu.ggc.it.banner.Banner;
+import edu.ggc.it.banner.Schedule;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +40,6 @@ public class SetupActivity extends Activity{
 	private TableRow sectionRow;
 	private Spinner sectionInput;
 	private String[] subjectIds;
-	private Banner banner;
 	private Map<String, Map<String, String>> courseMap;
 	private Map<String, Map<String, String>> sectionMap;
 	private boolean showCourseNumber;
@@ -46,8 +47,6 @@ public class SetupActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.love_setup);
-		
-		banner = new Banner(this);
 		
 		courseMap = new HashMap<String, Map<String, String>>();
 		sectionMap = new HashMap<String, Map<String, String>>();
@@ -120,7 +119,7 @@ public class SetupActivity extends Activity{
 					if (courseMap.containsKey(code)){
 						courses = courseMap.get(code);
 					} else{
-						courses = banner.getCourseNumbers(code);
+						courses = Banner.getCourseNumbers(code);
 						courseMap.put(code, courses);
 					}
 					
@@ -162,7 +161,7 @@ public class SetupActivity extends Activity{
 					if (sectionMap.containsKey(courseCode)){
 						sections = sectionMap.get(courseCode);
 					} else{
-						sections = banner.getSections(subject, course);
+						sections = Banner.getSections(subject, course);
 						sectionMap.put(courseCode, sections);
 					}
 					

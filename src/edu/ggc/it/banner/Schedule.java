@@ -1,4 +1,4 @@
-package edu.ggc.it.love;
+package edu.ggc.it.banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,5 +13,9 @@ public class Schedule {
 	
 	public void addCourse(Course course){
 		courses.add(course);
+	}
+	
+	public List<Course> getCourses(){
+		return new ArrayList<Course>(courses);
 	}
 }
