@@ -138,6 +138,8 @@ public class Banner {
 	 * Refer to the Course documentation for a description of the information contained
 	 * therein.
 	 * 
+	 * This method is currently broken for sections other than the first.
+	 * 
 	 * @see Course
 	 * 
 	 * @param subject	the 3-4 letter subject code of the course (e.g. "ITEC")
@@ -242,7 +244,7 @@ public class Banner {
 			}
 		}
 		
-		result = new Course(subject, courseName, Integer.parseInt(course), sectionNumber,
+		result = new Course(subject, courseName, course, sectionNumber,
 				Integer.parseInt(crn), meetingTimes);
 		
 		return result;
@@ -278,7 +280,7 @@ public class Banner {
 		List<String> data = scrapeInner(tableData, "TD");
 		
 		for (int i = 0; i < data.size(); i++){
-			int headerIndex = i % tableValues.size();
+			int headerIndex = i % headers.size();
 			if (headerIndex == 0 && i != 0){
 				results.add(tableValues);
 				tableValues = new HashMap<String, String>(headers.size());

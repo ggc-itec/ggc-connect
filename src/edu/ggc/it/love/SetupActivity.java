@@ -8,6 +8,7 @@ import java.util.Map;
 
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Banner;
+import edu.ggc.it.banner.Course;
 import edu.ggc.it.banner.Schedule;
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -16,9 +17,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 /**
@@ -39,6 +40,8 @@ public class SetupActivity extends Activity{
 	private ToggleButton searchByToggle;
 	private TableRow sectionRow;
 	private Spinner sectionInput;
+	private TableRow listRow;
+	private ListView classList;
 	private String[] subjectIds;
 	private Map<String, Map<String, String>> courseMap;
 	private Map<String, Map<String, String>> sectionMap;
@@ -50,6 +53,7 @@ public class SetupActivity extends Activity{
 		
 		courseMap = new HashMap<String, Map<String, String>>();
 		sectionMap = new HashMap<String, Map<String, String>>();
+		schedule = new Schedule();
 		showCourseNumber = false;
 		
 		// find views
@@ -61,6 +65,8 @@ public class SetupActivity extends Activity{
 		searchByToggle = (ToggleButton)findViewById(R.id.ds_search_by_toggle);
 		sectionRow = (TableRow)findViewById(R.id.ds_section_row);
 		sectionInput = (Spinner)findViewById(R.id.ds_section_input);
+		listRow = (TableRow)findViewById(R.id.ds_class_list_row);
+		classList = (ListView)findViewById(R.id.ds_class_list);
 		subjectIds = getResources().getStringArray(R.array.ds_subject_codes);
 		
 		// listen for buttons to be clicked
@@ -200,15 +206,55 @@ public class SetupActivity extends Activity{
 		}
 		
 		private void addCourse(){
-			Toast toast = Toast.makeText(SetupActivity.this, "not totally implemented",
-					Toast.LENGTH_SHORT);
-			toast.show();
+			AsyncTask<String, Void, Course> task = new AsyncTask<String, Void, Course>(){
+				protected Course doInBackground(String... args){
+					String subject = args[0];
+					String course = args[1];
+					String crn = args[2];
+					
+					return Banner.getCourse(subject, course, crn);
+				}
+				
+				protected void onPostExecute(Course course){
+					schedule.addCourse(course);
+					
+					List<Course> courses = schedule.getCourses();
+					List<String> courseStrings = new ArrayList<String>(courses.size());
+					
+					for (Course c: courses)
+						courseStrings.add(c.toString());
+					
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
+							android.R.layout.simple_list_item_1, courseStrings);
+					classList.setAdapter(adapter);
+					listRow.setVisibility(View.VISIBLE);
+					
+					subjectRow.setVisibility(View.GONE);
+					courseRow.setVisibility(View.GONE);
+					searchByRow.setVisibility(View.GONE);
+					sectionRow.setVisibility(View.GONE);
+					classButton.setText(R.string.ds_add_class_label);
+				}
+			};
 			
-			subjectRow.setVisibility(View.GONE);
-			courseRow.setVisibility(View.GONE);
-			searchByRow.setVisibility(View.GONE);
-			sectionRow.setVisibility(View.GONE);
-			classButton.setText(R.string.ds_add_class_label);
+			int selected = subjectInput.getSelectedItemPosition();
+			String subject = subjectIds[selected];
+			String course = (String)courseInput.getSelectedItem();
+			if (!showCourseNumber){
+				// we need the number, but this is the name
+				// TODO: this does not handle the user changing the subject after the course
+				// has been selected
+				for (Map.Entry<String, String> entry: courseMap.get(subject).entrySet()){
+					if (entry.getValue().equals(course)){
+						course = entry.getKey();
+						break;
+					}
+				}
+			}
+			Map<String, String> sections = sectionMap.get(subject + course);
+			String crn = sections.get((String)sectionInput.getSelectedItem());
+			
+			task.execute(subject, course, crn);
 		}
 		
 	}

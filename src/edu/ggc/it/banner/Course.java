@@ -9,12 +9,13 @@ import java.util.Map;
 public class Course {
 	private String subject;
 	private String courseName;
-	private int courseId;
+	private String courseId;
 	private int section;
 	private int crn;
 	private Map<String, List<Meeting>> meetings;
 	
-	public Course(String subject, String courseName, int courseId, int section, int crn, Map<String, List<Meeting>> meetings){
+	public Course(String subject, String courseName, String courseId, int section, int crn,
+			Map<String, List<Meeting>> meetings){
 		this.subject = subject;
 		this.courseName = courseName;
 		this.courseId = courseId;
@@ -24,6 +25,6 @@ public class Course {
 	}
 	
 	public String toString(){
-		return String.format("%s - %d - %s %d - %02d", courseName, crn, subject, courseId, section);
+		return String.format("%s - %d - %s %s - %02d", courseName, crn, subject, courseId, section);
 	}
 }
