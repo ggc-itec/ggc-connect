@@ -8,16 +8,18 @@
 
     	<Spinner
     	    android:id="@+id/spinnerText"
+    	    android:background="@color/thai_spinner_color"
     	    android:layout_width="match_parent"
-    	    android:layout_height="60dp"
+    	    android:layout_height="60dip"
+
     	    android:layout_alignParentLeft="true"
     	    android:layout_alignParentRight="true" >
-    	    
+
     	</Spinner>
     	
     	<TextView android:id="@+id/instruction_text"
 		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
+		android:layout_height="120dip"
 		android:layout_below="@+id/spinnerText"
 		android:layout_centerHorizontal="true"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
