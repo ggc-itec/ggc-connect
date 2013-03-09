@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -100,6 +101,12 @@ public class Main extends Activity {
 		case R.id.todo:
 			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
 			Main.this.startActivity(myIntent3);
+			return true;
+		case R.id.feedback:
+			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(feedbackURL));
+			Main.this.startActivity(browserIntent);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
