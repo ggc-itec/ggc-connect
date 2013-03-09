@@ -1,18 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="top"
-    tools:context=".ScheduleActivity" >
-
-    <ListView
-        android:id="@+id/schedule_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        tools:listitem="@android:layout/simple_list_item_single_choice" >
-
-    </ListView>
-
-</RelativeLayout>
+<!-- list_complex -->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:paddingTop="10dip"
+	android:paddingBottom="10dip"
+	android:paddingLeft="15dip"
+	>
+	<TextView
+		android:id="@+id/list_complex_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		/>
+	<TextView
+		android:id="@+id/list_complex_caption"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		/>
+</LinearLayout>
