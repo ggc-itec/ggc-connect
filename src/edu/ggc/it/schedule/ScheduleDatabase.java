@@ -40,15 +40,11 @@ public class ScheduleDatabase {
 	public static final int INDEX_LOCATION_ROOM = 12;
 
 	public static final String[] KEYS_ALL = { ScheduleDatabase.KEY_ROWID,
-			ScheduleDatabase.KEY_NAME,
-			ScheduleDatabase.KEY_SECTION,
-			ScheduleDatabase.KEY_START_TIME,
-			ScheduleDatabase.KEY_END_TIME,
-			ScheduleDatabase.KEY_ON_MONDAY,
-			ScheduleDatabase.KEY_ON_TUESDAY,
+			ScheduleDatabase.KEY_NAME, ScheduleDatabase.KEY_SECTION,
+			ScheduleDatabase.KEY_START_TIME, ScheduleDatabase.KEY_END_TIME,
+			ScheduleDatabase.KEY_ON_MONDAY, ScheduleDatabase.KEY_ON_TUESDAY,
 			ScheduleDatabase.KEY_ON_WEDNESDAY,
-			ScheduleDatabase.KEY_ON_THURSDAY,
-			ScheduleDatabase.KEY_ON_FRIDAY,
+			ScheduleDatabase.KEY_ON_THURSDAY, ScheduleDatabase.KEY_ON_FRIDAY,
 			ScheduleDatabase.KEY_ON_SATURDAY,
 			ScheduleDatabase.KEY_BUILDING_LOCATION,
 			ScheduleDatabase.KEY_ROOM_LOCATION };
@@ -88,7 +84,13 @@ public class ScheduleDatabase {
 
 	public Cursor queryAll() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
-				ScheduleDatabase.KEY_NAME + " ASC");
+				KEY_NAME + " ASC");
+	}
+
+	public Cursor queryByDay(String day) {
+		String selection = day + "=" + "1";
+		return database.query(DATABASE_TABLE, KEYS_ALL, selection, null, null,
+				null, KEY_START_TIME + " ASC");
 	}
 
 	public Cursor query(long rowId) throws SQLException {
@@ -98,9 +100,10 @@ public class ScheduleDatabase {
 		return cursor;
 	}
 
-	public ContentValues createContentValues(String name, String section, String startTime,
-			String endTime, int monday, int tuesday, int wednesday, int thursday,
-			int friday, int saturday, String buildingLocation, String roomLocation) {
+	public ContentValues createContentValues(String name, String section,
+			String startTime, String endTime, int monday, int tuesday,
+			int wednesday, int thursday, int friday, int saturday,
+			String buildingLocation, String roomLocation) {
 		ContentValues values = new ContentValues();
 		values.put(ScheduleDatabase.KEY_NAME, name);
 		values.put(ScheduleDatabase.KEY_SECTION, section);
@@ -120,21 +123,33 @@ public class ScheduleDatabase {
 	private static class ScheduleDatabaseHelper extends SQLiteOpenHelper {
 
 		private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "
-				+ DATABASE_TABLE + " (" + ScheduleDatabase.KEY_ROWID
+				+ DATABASE_TABLE
+				+ " ("
+				+ ScheduleDatabase.KEY_ROWID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ ScheduleDatabase.KEY_NAME + " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_SECTION + " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_START_TIME + " TEXT NOT NULL, " 
-				+ ScheduleDatabase.KEY_END_TIME + " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_MONDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_TUESDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_WEDNESDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_THURSDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_FRIDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_SATURDAY + " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_BUILDING_LOCATION + " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL "
-				+ ");";
+				+ ScheduleDatabase.KEY_NAME
+				+ " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_SECTION
+				+ " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_START_TIME
+				+ " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_END_TIME
+				+ " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_MONDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_TUESDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_WEDNESDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_THURSDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_FRIDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_ON_SATURDAY
+				+ " INTEGER NOT NULL, "
+				+ ScheduleDatabase.KEY_BUILDING_LOCATION
+				+ " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL " + ");";
 
 		public ScheduleDatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);

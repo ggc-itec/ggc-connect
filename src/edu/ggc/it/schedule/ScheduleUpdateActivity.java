@@ -173,6 +173,7 @@ public class ScheduleUpdateActivity extends Activity implements
 			database.createRow(database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation));
+			//TODO: Need to tell the schedule activity to update list
 			finish();
 		}
 	}

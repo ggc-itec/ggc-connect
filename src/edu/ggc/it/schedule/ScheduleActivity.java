@@ -26,7 +26,6 @@ public class ScheduleActivity extends Activity {
 
 	private Context scheduleContext;
 	private ScheduleDatabase database;
-	private SimpleCursorAdapter cursorAdapter;
 	/**
 	 * This is the XML value for the text of each list item
 	 */
@@ -44,7 +43,7 @@ public class ScheduleActivity extends Activity {
 	 * @param title
 	 *            The main text for the item
 	 * @param caption
-	 *            A short description of the ite,
+	 *            A short description of the item
 	 * @return A HashMap with the item title and caption
 	 */
 	public Map<String, ?> createItem(String title, String caption) {
@@ -68,25 +67,20 @@ public class ScheduleActivity extends Activity {
 			int duration = Toast.LENGTH_LONG;
 			Toast toast = Toast.makeText(scheduleContext, text, duration);
 			toast.show();
-			// call populate list for testing purposes for now
-			populateList();
 		} else {
 			populateList();
 		}
 
 	}
 
-	private void populateList() {
+	public void populateList() {
 		// A LinkedList for each day that holds the classes that are on that day
-		List<Map<String, ?>> monday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> tuesday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> wednesday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> thursday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> friday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> saturday = new LinkedList<Map<String, ?>>();
-
-		// TODO: Database needs to pull info here to populate lists
-		monday.add(createItem("Class Name", "Start/End time, location etc"));
+		List<Map<String, ?>> monday = getClassListByDay(ScheduleDatabase.KEY_ON_MONDAY);
+		List<Map<String, ?>> tuesday = getClassListByDay(ScheduleDatabase.KEY_ON_TUESDAY);
+		List<Map<String, ?>> wednesday = getClassListByDay(ScheduleDatabase.KEY_ON_WEDNESDAY);
+		List<Map<String, ?>> thursday = getClassListByDay(ScheduleDatabase.KEY_ON_THURSDAY);
+		List<Map<String, ?>> friday = getClassListByDay(ScheduleDatabase.KEY_ON_FRIDAY);
+		List<Map<String, ?>> saturday = getClassListByDay(ScheduleDatabase.KEY_ON_SATURDAY);
 
 		// Create header sections and add populated lists
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this);
@@ -101,19 +95,18 @@ public class ScheduleActivity extends Activity {
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
 		this.setContentView(list);
+	}
 
-		/*
-		 * Cursor cursor = database.queryAll(); startManagingCursor(cursor);
-		 * 
-		 * String[] from = new String[] { ScheduleDatabase.KEY_NAME,
-		 * ScheduleDatabase.KEY_BUILDING_LOCATION }; int[] to = new int[] {
-		 * R.id.class_name, R.id.building_location }; cursorAdapter = new
-		 * SimpleCursorAdapter(this, R.layout.schedule_list_row, cursor, from,
-		 * to);
-		 * 
-		 * list.setAdapter(cursorAdapter);
-		 * registerForContextMenu(list.getRootView());
-		 */
+	private List<Map<String, ?>> getClassListByDay(String dayIndex) {
+		List<Map<String, ?>> day = new LinkedList<Map<String, ?>>();
+		Cursor cursor = database.queryByDay(dayIndex);
+		if (cursor.moveToFirst()) {
+	        do {
+	        	String className = cursor.getString(ScheduleDatabase.INDEX_NAME);
+	        	day.add(createItem(className, "Start/End time, location etc"));
+	        } while (cursor.moveToNext());
+	    }
+		return day;
 	}
 
 	/**
