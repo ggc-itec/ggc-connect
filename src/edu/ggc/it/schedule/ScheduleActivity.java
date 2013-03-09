@@ -166,6 +166,9 @@ public class ScheduleActivity extends Activity {
 			startActivity(new Intent(scheduleContext,
 					ScheduleUpdateActivity.class));
 			return true;
+		case R.id.refresh_schedule:
+			populateList();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
