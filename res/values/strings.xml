@@ -25,7 +25,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_direction">DirectionActivity</string>
-    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="title_activity_schedule">My Schedule</string>
     <string name="add_schedule_button_text">Add class</string>
     <string name="dating_label">Social</string>
     <string name="instruction">Instruction</string>

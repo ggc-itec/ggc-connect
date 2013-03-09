@@ -1,5 +1,6 @@
 package edu.ggc.it.schedule;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -27,9 +27,15 @@ public class ScheduleActivity extends Activity {
 	private Context scheduleContext;
 	private ScheduleDatabase database;
 	private SimpleCursorAdapter cursorAdapter;
-	private ListView list;
-
+	/**
+	 * This is the XML value for the text of each list item
+	 */
 	public final static String ITEM_TITLE = "title";
+
+	/**
+	 * This is the XML value for an optional caption or description of each list
+	 * item
+	 */
 	public final static String ITEM_CAPTION = "caption";
 
 	/**
@@ -65,7 +71,7 @@ public class ScheduleActivity extends Activity {
 			// call populate list for testing purposes for now
 			populateList();
 		} else {
-			//populateList();
+			// populateList();
 		}
 
 	}
@@ -78,19 +84,19 @@ public class ScheduleActivity extends Activity {
 		List<Map<String, ?>> thursday = new LinkedList<Map<String, ?>>();
 		List<Map<String, ?>> friday = new LinkedList<Map<String, ?>>();
 		List<Map<String, ?>> saturday = new LinkedList<Map<String, ?>>();
-		
-		//TODO: Database needs to pull info here to populate lists
+
+		// TODO: Database needs to pull info here to populate lists
 		monday.add(createItem("Class Name", "Start/End time, location etc"));
 
 		// Create header sections and add populated lists
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this);
-		createListSection(adapter, "Monday", monday);
-		createListSection(adapter, "Tuesday", tuesday);
-		createListSection(adapter, "Wednesday", wednesday);
-		createListSection(adapter, "Thursday", thursday);
-		createListSection(adapter, "Friday", friday);
-		createListSection(adapter, "Saturday", saturday);
-		
+		createListSection(adapter, createDayHeader("Monday"), monday);
+		createListSection(adapter, createDayHeader("Tuesday"), tuesday);
+		createListSection(adapter, createDayHeader("Wednesday"), wednesday);
+		createListSection(adapter, createDayHeader("Thursday"), thursday);
+		createListSection(adapter, createDayHeader("Friday"), friday);
+		createListSection(adapter, createDayHeader("Saturday"), saturday);
+
 		// Display the list
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
@@ -108,6 +114,32 @@ public class ScheduleActivity extends Activity {
 		 * list.setAdapter(cursorAdapter);
 		 * registerForContextMenu(list.getRootView());
 		 */
+	}
+
+	/**
+	 * This creates the section header for the list view using the day
+	 * 
+	 * @param day
+	 *            the day of the week
+	 * @return the day and if that day is today, an indication in parenthesis
+	 *         (e.g. Monday (today))
+	 */
+	private String createDayHeader(String day) {
+		Calendar c = Calendar.getInstance();
+		int today = c.get(Calendar.DAY_OF_WEEK);
+		String header = day;
+		String[] daysListString = { "Monday", "Tuesday", "Wednesday",
+				"Thursday", "Friday", "Saturday" };
+		int[] daysListInt = { Calendar.MONDAY, Calendar.TUESDAY,
+				Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY,
+				Calendar.SATURDAY };
+		for (int i = 0; i < daysListString.length; i++) {
+			if (day.equalsIgnoreCase(daysListString[i])
+					&& today == daysListInt[i]) {
+				header += " (today)";
+			}
+		}
+		return header;
 	}
 
 	private void createListSection(SeparatedListAdapter adapter,
