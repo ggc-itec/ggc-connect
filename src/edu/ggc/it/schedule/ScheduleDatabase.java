@@ -101,7 +101,7 @@ public class ScheduleDatabase {
 	}
 
 	public ContentValues createContentValues(String name, String section,
-			String startTime, String endTime, int monday, int tuesday,
+			int startTime, int endTime, int monday, int tuesday,
 			int wednesday, int thursday, int friday, int saturday,
 			String buildingLocation, String roomLocation) {
 		ContentValues values = new ContentValues();
@@ -132,9 +132,9 @@ public class ScheduleDatabase {
 				+ ScheduleDatabase.KEY_SECTION
 				+ " TEXT NOT NULL, "
 				+ ScheduleDatabase.KEY_START_TIME
-				+ " TEXT NOT NULL, "
+				+ " INTEGER NOT NULL, "
 				+ ScheduleDatabase.KEY_END_TIME
-				+ " TEXT NOT NULL, "
+				+ " INTEGER NOT NULL, "
 				+ ScheduleDatabase.KEY_ON_MONDAY
 				+ " INTEGER NOT NULL, "
 				+ ScheduleDatabase.KEY_ON_TUESDAY

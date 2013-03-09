@@ -84,13 +84,25 @@ public class ScheduleActivity extends Activity {
 
 		// Create header sections and add populated lists
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this);
-		createListSection(adapter, createDayHeader("Monday"), monday);
-		createListSection(adapter, createDayHeader("Tuesday"), tuesday);
-		createListSection(adapter, createDayHeader("Wednesday"), wednesday);
-		createListSection(adapter, createDayHeader("Thursday"), thursday);
-		createListSection(adapter, createDayHeader("Friday"), friday);
-		createListSection(adapter, createDayHeader("Saturday"), saturday);
-
+		if (!monday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Monday"), monday);
+		}
+		if (!tuesday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Tuesday"), tuesday);
+		}
+		if (!wednesday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Wednesday"), wednesday);
+		}
+		if (!thursday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Thursday"), thursday);
+		}
+		if (!friday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Friday"), friday);
+		}
+		if (!saturday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Saturday"), saturday);
+		}
+		
 		// Display the list
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
@@ -103,10 +115,61 @@ public class ScheduleActivity extends Activity {
 		if (cursor.moveToFirst()) {
 	        do {
 	        	String className = cursor.getString(ScheduleDatabase.INDEX_NAME);
-	        	day.add(createItem(className, "Start/End time, location etc"));
+	        	String section = cursor.getString(ScheduleDatabase.INDEX_SECTION);
+	        	int startTime = cursor.getInt(ScheduleDatabase.INDEX_START_TIME);
+	        	int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
+	        	String building = cursor.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
+	        	String room = cursor.getString(ScheduleDatabase.INDEX_LOCATION_ROOM);
+	        	
+	        	String caption = getScheduleItemCaption(section, startTime, endTime, building, room);
+	        	day.add(createItem(className, caption));
 	        } while (cursor.moveToNext());
 	    }
 		return day;
+	}
+
+	private String getScheduleItemCaption(String section, int startTime,
+			int endTime, String building, String room) {
+		int startTimeHour = startTime / 60;
+    	int startTimeMinute = startTime % 60;
+    	int endTimeHour = endTime / 60;
+    	int endTimeMinute = endTime % 60;
+    	String startTimeFormatted = ScheduleUpdateActivity.formattedTimeString(startTimeHour, startTimeMinute);
+    	String endTimeFormatted = ScheduleUpdateActivity.formattedTimeString(endTimeHour, endTimeMinute);
+    	String duration = getFormattedTimeDuration(startTime, endTime);
+    	
+    	String caption = startTimeFormatted + " - " + endTimeFormatted + " (" + duration + ").\n"
+    			+ "Section: " + section + "\n"
+    			+ "Location: " + building + " (Room: " + room + ").";
+    	
+		return caption;
+	}
+
+	private String getFormattedTimeDuration(int start, int end) {
+		String duration = "";
+		int durationInt = end - start;
+		if (durationInt == 1) {
+			duration = "1 minute";
+		} else if (durationInt < 60) {
+			duration = durationInt + " minutes";
+		} else {
+			int hours = durationInt / 60;
+			int minutes = durationInt % 60;
+			if (hours == 1) {
+				if (minutes == 1) {
+					duration = "1 hour, 1 minute";
+				} else {
+					duration = "1 hour, " + minutes + " minutes";
+				}
+			} else {
+				if (minutes == 1) {
+					duration = hours + " hours, 1 minute";
+				} else {
+					duration = hours + " hours, " + minutes + " minutes";
+				}
+			}
+		}
+		return duration;
 	}
 
 	/**

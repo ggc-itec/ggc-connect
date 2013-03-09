@@ -120,8 +120,9 @@ public class ScheduleUpdateActivity extends Activity implements
 		// Get data from form to be put into the database.
 		String className = (String) txtClass.getText().toString().trim();
 		String section = (String) txtSection.getText().toString().trim();
-		String startTime = startTimeHour + ":" + startTimeMinute;
-		String endTime = endTimeHour + ":" + endTimeMinute;
+		//TODO: startTime and endTime need to be total minutes?
+		int startTime = (startTimeHour * 60) + startTimeMinute;
+		int endTime = (endTimeHour * 60) + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
 				.toString().trim();
 		String roomLocation = txtRoomLocation.getText().toString().trim();
@@ -241,7 +242,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 	}
 
-	private String formattedTimeString(int hour, int minute) {
+	public static String formattedTimeString(int hour, int minute) {
 		String time = "";
 		Object minuteText = (minute < 10) ? "0" + minute : minute;
 		Object hourText = "";
