@@ -16,18 +16,20 @@ public class ScheduleDatabase {
 	public static final int INDEX_ROWID = 0;
 	public static final String KEY_NAME = "name";
 	public static final int INDEX_NAME = 1;
+	public static final String KEY_SECTION = "section";
+	public static final int INDEX_SECTION = 2;
 	public static final String KEY_START_TIME = "start_time";
-	public static final int INDEX_START_TIME = 2;
+	public static final int INDEX_START_TIME = 3;
 	public static final String KEY_END_TIME = "end_time";
-	public static final int INDEX_END_TIME = 3;
+	public static final int INDEX_END_TIME = 4;
 	public static final String KEY_ON_MONDAY = "on_monday";
-	public static final int INDEX_ON_MONDAY = 4;
+	public static final int INDEX_ON_MONDAY = 5;
 	public static final String KEY_ON_TUESDAY = "on_tuesday";
-	public static final int INDEX_ON_TUESDAY = 5;
+	public static final int INDEX_ON_TUESDAY = 6;
 	public static final String KEY_ON_WEDNESDAY = "on_wednesday";
-	public static final int INDEX_ON_WEDNESDAY = 6;
+	public static final int INDEX_ON_WEDNESDAY = 7;
 	public static final String KEY_ON_THURSDAY = "on_thursday";
-	public static final int INDEX_ON_THURSDAY = 7;
+	public static final int INDEX_ON_THURSDAY = 8;
 	public static final String KEY_ON_FRIDAY = "on_friday";
 	public static final int INDEX_ON_FRIDAY = 9;
 	public static final String KEY_ON_SATURDAY = "on_saturday";
@@ -38,7 +40,8 @@ public class ScheduleDatabase {
 	public static final int INDEX_LOCATION_ROOM = 12;
 
 	public static final String[] KEYS_ALL = { ScheduleDatabase.KEY_ROWID,
-			ScheduleDatabase.KEY_NAME, 
+			ScheduleDatabase.KEY_NAME,
+			ScheduleDatabase.KEY_SECTION,
 			ScheduleDatabase.KEY_START_TIME,
 			ScheduleDatabase.KEY_END_TIME,
 			ScheduleDatabase.KEY_ON_MONDAY,
@@ -95,11 +98,12 @@ public class ScheduleDatabase {
 		return cursor;
 	}
 
-	public ContentValues createContentValues(String name, String startTime,
+	public ContentValues createContentValues(String name, String section, String startTime,
 			String endTime, int monday, int tuesday, int wednesday, int thursday,
 			int friday, int saturday, String buildingLocation, String roomLocation) {
 		ContentValues values = new ContentValues();
 		values.put(ScheduleDatabase.KEY_NAME, name);
+		values.put(ScheduleDatabase.KEY_SECTION, section);
 		values.put(ScheduleDatabase.KEY_START_TIME, startTime);
 		values.put(ScheduleDatabase.KEY_END_TIME, endTime);
 		values.put(KEY_ON_MONDAY, monday);
@@ -119,6 +123,7 @@ public class ScheduleDatabase {
 				+ DATABASE_TABLE + " (" + ScheduleDatabase.KEY_ROWID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ScheduleDatabase.KEY_NAME + " TEXT NOT NULL, "
+				+ ScheduleDatabase.KEY_SECTION + " TEXT NOT NULL, "
 				+ ScheduleDatabase.KEY_START_TIME + " TEXT NOT NULL, " 
 				+ ScheduleDatabase.KEY_END_TIME + " TEXT NOT NULL, "
 				+ ScheduleDatabase.KEY_ON_MONDAY + " INTEGER NOT NULL, "

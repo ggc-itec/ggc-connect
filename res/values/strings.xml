@@ -178,4 +178,6 @@
 
     <string name="title_activity_saved_search_database">Saved Search Database</string>
 
+    <string name="schedule_update_section">Section:</string>
+
 </resources>

@@ -6,13 +6,13 @@
     android:background="@color/ggc_green" >
 
     <TableRow
-        android:id="@+id/tableRow1"
+        android:id="@+id/section_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dip" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textview_schedule_update_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ds_name_label"

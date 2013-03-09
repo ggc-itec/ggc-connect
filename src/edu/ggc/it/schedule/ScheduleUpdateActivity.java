@@ -41,6 +41,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	private Button btnUpdateClass;
 
 	private EditText txtClass;
+	private EditText txtSection;
 	private Button btnStartTime;
 	private Button btnEndTime;
 	private CheckBox chkMonday, chkTuesday, chkWednesday, chkThursday,
@@ -74,6 +75,7 @@ public class ScheduleUpdateActivity extends Activity implements
 
 		// Initialize each form element
 		txtClass = (EditText) findViewById(R.id.edittext_schedule_update_name);
+		txtSection = (EditText) findViewById(R.id.edittext_schedule_update_section);
 		spnBuildingLocation = (Spinner) findViewById(R.id.spinner_schedule_update_building_location);
 		txtRoomLocation = (EditText) findViewById(R.id.edittext_schedule_update_room_location);
 		chkMonday = (CheckBox) findViewById(R.id.chk_schedule_update_monday);
@@ -117,6 +119,7 @@ public class ScheduleUpdateActivity extends Activity implements
 
 		// Get data from form to be put into the database.
 		String className = (String) txtClass.getText().toString().trim();
+		String section = (String) txtSection.getText().toString().trim();
 		String startTime = startTimeHour + ":" + startTimeMinute;
 		String endTime = endTimeHour + ":" + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
@@ -134,6 +137,9 @@ public class ScheduleUpdateActivity extends Activity implements
 			validData = false;
 			showMessageDialog("You need to enter a name for the course.",
 					"Empty Class Name");
+		} else if (section.isEmpty()) {
+			// It's ok if the user doesn't know the section, just use 00 as default
+			section = "00";
 		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
 			validData = false;
 			showMessageDialog("Please set the start time for the class.",
@@ -164,7 +170,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		if (validData) {
 			database = new ScheduleDatabase(scheduleContext);
 			database.open();
-			database.createRow(database.createContentValues(className,
+			database.createRow(database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation));
 			finish();
