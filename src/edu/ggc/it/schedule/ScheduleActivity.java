@@ -71,7 +71,7 @@ public class ScheduleActivity extends Activity {
 			// call populate list for testing purposes for now
 			populateList();
 		} else {
-			// populateList();
+			populateList();
 		}
 
 	}
