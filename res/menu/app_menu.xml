@@ -9,6 +9,8 @@
         android:id="@+id/credits"
         android:icon="@android:drawable/ic_menu_help"
         android:title="@string/credits"/>
+    <item android:id="@+id/rss"
+        android:title="News" />
     <item
         android:id="@+id/links"
         android:icon="@android:drawable/ic_menu_share"
