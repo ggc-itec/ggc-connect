@@ -106,6 +106,10 @@
             android:label="TODO Update" 
             android:windowSoftInputMode="stateVisible" >
         </activity>
+        <activity
+            android:name="edu.ggc.it.rss.RSSActivity"
+            android:label="GGC News" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />
