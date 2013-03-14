@@ -216,6 +216,7 @@ public class DirectionActivity extends Activity {
 					imgPadding = (imgViewWidth - imgWidth)/2;
 					//Update the left for the image
 					imgLeft = imgLeft + imgPadding;
+					instructionText.setVisibility(View.GONE);
 				}
 			//Set the x for the current user's position on Map(-84.01209 to -83.99772)
 			img1.setX((float) (imgLeft+((longitude + 84.01209)*100000*imgWidth/1437)));

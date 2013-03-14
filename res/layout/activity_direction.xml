@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/ggc_green"
+    android:background="@color/thai_white_color"
     android:padding="10dp"
     tools:context=".DirectionActivity" >
 
@@ -17,13 +17,18 @@
 
     	</Spinner>
     	
-    	<TextView android:id="@+id/instruction_text"
-		android:layout_width="wrap_content" 
-		android:layout_height="120dip"
-		android:layout_below="@+id/spinnerText"
-		android:layout_centerHorizontal="true"
-		android:textAppearance="?android:attr/textAppearanceMedium" 
-		android:text="@string/instruction" />
+    	<TextView
+    	    android:id="@+id/instruction_text"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="120dip"
+    	    android:layout_below="@+id/spinnerText"
+    	    android:layout_centerHorizontal="true"
+    	    android:background="@color/thai_white_color"
+    	    android:text="@string/instruction"
+    	    android:textAppearance="?android:attr/textAppearanceMedium"
+    	    android:textColor="@color/thai_spinner_color"
+    	    android:textStyle="italic"
+    	    android:typeface="serif" />
     	
     	<ImageView
 		    android:id="@+id/imageMap"
