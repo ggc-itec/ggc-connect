@@ -30,7 +30,7 @@
     	    android:textStyle="italic"
     	    android:typeface="serif" />
     	
-    	<ImageView
+    	<edu.ggc.it.direction.TouchImageView
 		    android:id="@+id/imageMap"
 		    android:contentDescription="@string/thai_ggc_map"
 		    android:layout_width="wrap_content"

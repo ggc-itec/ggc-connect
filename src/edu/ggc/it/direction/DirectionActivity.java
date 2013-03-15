@@ -1,7 +1,5 @@
 package edu.ggc.it.direction;
 
-import java.util.Random;
-
 import edu.ggc.it.R;
 import android.location.Location;
 import android.location.LocationListener;
@@ -43,7 +41,8 @@ public class DirectionActivity extends Activity {
 	//This aims to get the space between the top of View and top of image
 	private int imgPadding;
 	//Create a imageview for the GGC map
-	private ImageView img;
+	//private ImageView img;
+	private TouchImageView img;
 	//Create a imageview for the current position on map
 	private static ImageView img1;
 	//Create a imageview for the place position on map
@@ -88,9 +87,14 @@ public class DirectionActivity extends Activity {
 		spin.setOnItemSelectedListener(mySelectedListenner);
 		
 		instructionText = (TextView) findViewById(R.id.instruction_text);
-		img = (ImageView) findViewById(R.id.imageMap);
+		img = (TouchImageView) findViewById(R.id.imageMap);
+		//img = (ImageView) findViewById(R.id.imageMap);
+        img.setMaxZoom(4f);
+
 		img1=(ImageView) findViewById(R.id.imageYou);
+		//img1.setOnTouchListener(new TouchListener());
 		img2=(ImageView) findViewById(R.id.imageHere);
+		//img2.setOnTouchListener(new TouchListener());
 		//Create ArrayAdapter for spinner
 		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(myContext, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
 		// setting adapter to spinner
