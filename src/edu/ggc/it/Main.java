@@ -19,6 +19,8 @@ import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
+import edu.ggc.it.rss.EventsRSSActivity;
+import edu.ggc.it.rss.NewsRSSActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.todo.ToDoListActivity;
 
@@ -89,6 +91,14 @@ public class Main extends Activity {
 
 								}
 							}).show();
+			return true;
+		case R.id.news_rss:
+			Intent newsRssIntent = new Intent(Main.this, NewsRSSActivity.class);
+			Main.this.startActivity(newsRssIntent);
+			return true;
+		case R.id.events_rss:
+			Intent eventsRssIntent = new Intent(Main.this, EventsRSSActivity.class);
+			Main.this.startActivity(eventsRssIntent);
 			return true;
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
