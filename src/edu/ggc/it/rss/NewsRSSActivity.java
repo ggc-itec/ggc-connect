@@ -28,7 +28,7 @@ import edu.ggc.it.R;
  * @author crystalist
  *
  */
-public class RSSActivity extends ListActivity {
+public class NewsRSSActivity extends ListActivity {
 
 	private List<String> titles;
 	private List<String> links;

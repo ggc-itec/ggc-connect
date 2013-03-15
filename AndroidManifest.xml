@@ -41,7 +41,7 @@
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
             android:label="@string/title_activity_schedule" >
-          <meta-data
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.Main" />
         </activity>
@@ -103,12 +103,16 @@
         </activity>
         <activity
             android:name="edu.ggc.it.todo.ToDoUpdateActivity"
-            android:label="TODO Update" 
+            android:label="TODO Update"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
-            android:name="edu.ggc.it.rss.RSSActivity"
+            android:name="edu.ggc.it.rss.NewsRSSActivity"
             android:label="GGC News" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.rss.EventsRSSActivity"
+            android:label="GGC Events" >
         </activity>
     </application>
 
