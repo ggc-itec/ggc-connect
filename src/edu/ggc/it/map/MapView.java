@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Toast;
 import edu.ggc.it.R;
 
 public class MapView extends View {
@@ -29,13 +28,15 @@ public class MapView extends View {
 	private Bitmap fBuilding;
 	private Bitmap lBuilding;
 	private Bitmap sBuilding;
-	
+	private Bitmap redDot;
 	private ArrayList<Float> canvasX;
 	private ArrayList<Float> canvasY;
 	private float newX, newY;
 	private float mScaleFactor = 0.25f; //1.f
 	private float scaledHeight;
 	private float scaledWidth;
+	private float redDotX = (float)(scaledWidth*(700/1400.0));
+	private float redDotY = (float)(scaledHeight*(560/1120.0)) ;
 	private boolean firstRun = true;
 
 
@@ -87,6 +88,22 @@ public class MapView extends View {
 		return ySum;
 	}
 	
+	public void setRedDotXY(float metersLatiOffSet, float metersLongOffSet){
+		redDot = null;
+		redDot = BitmapFactory.decodeResource(getResources(), R.drawable.red_dot);
+		
+		float pixPerMLati = scaledWidth/1700;
+		float pixPerMLon = scaledHeight/1000;
+		
+		redDotX = (pixPerMLati*metersLatiOffSet)+(scaledWidth*(510/1400));
+		redDotY = (pixPerMLon*metersLongOffSet)+(scaledHeight*(513/1120));
+		
+		scaleReferenceHashMap.remove("redDot_X");
+		scaleReferenceHashMap.remove("redDot_Y");
+		makeRedDot();
+		invalidate();
+	}
+	
 	private void makeScaleReferenceHashMap(){
 		scaleReferenceHashMap = new HashMap<String,Float>();
 		
@@ -110,6 +127,12 @@ public class MapView extends View {
 		
 		scaleReferenceHashMap.put("S_BUILDING_X",(float) ( (scaledWidth*(567/1400.0)) -(sBuilding.getWidth()/2)));
 		scaleReferenceHashMap.put("S_BUILDING_Y",(float) ( (scaledHeight*(640/1120.0)) -(sBuilding.getHeight()/2)));
+		
+	}
+	
+	private void makeRedDot(){// needs to be cleared from the HashMap
+		scaleReferenceHashMap.put("redDot_X",(float) ((redDotX) -(redDot.getWidth()/2)));
+		scaleReferenceHashMap.put("redDot_Y",(float) ((redDotY) -(redDot.getHeight()/2)));
 	}
 
 	@Override
@@ -144,8 +167,9 @@ public class MapView extends View {
 				   
 		   if(touchX >= aBuildingXMin && touchX <= aBuildingXMax){   
 			   if(touchY >= aBuildingYMin && touchY <= aBuildingYMax){
-				   Toast.makeText(context,"aBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchABuildingActivity.class);
+				   context.startActivity(i);		
 			   }
 		   }
 		   ///B
@@ -157,8 +181,9 @@ public class MapView extends View {
 				   
 		   if(touchX >= bBuildingXMin && touchX <= bBuildingXMax){   
 			   if(touchY >= bBuildingYMin && touchY <= bBuildingYMax){
-				   Toast.makeText(context,"bBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchBBuildingActivity.class);
+				   context.startActivity(i);
 			   }
 		   }	
 		   ///C
@@ -170,8 +195,9 @@ public class MapView extends View {
 				   
 		   if(touchX >= cBuildingXMin && touchX <= cBuildingXMax){   
 			   if(touchY >= cBuildingYMin && touchY <= cBuildingYMax){
-				   Toast.makeText(context,"cBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchCBuildingActivity.class);
+				   context.startActivity(i);
 			   }
 		   }
 		   ///D
@@ -183,8 +209,9 @@ public class MapView extends View {
 				   
 		   if(touchX >= dBuildingXMin && touchX <= dBuildingXMax){   
 			   if(touchY >= dBuildingYMin && touchY <= dBuildingYMax){
-				   Toast.makeText(context,"dBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchDBuildingActivity.class);
+				   context.startActivity(i);
 			   }
 		   }
 		   ///F
@@ -196,8 +223,9 @@ public class MapView extends View {
 				   
 		   if(touchX >= fBuildingXMin && touchX <= fBuildingXMax){   
 			   if(touchY >= fBuildingYMin && touchY <= fBuildingYMax){
-				   Toast.makeText(context,"fBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchFBuildingActivity.class);
+				   context.startActivity(i);
 			   }
 		   }
 		   ///L
@@ -209,9 +237,10 @@ public class MapView extends View {
 				   
 		   if(touchX >= lBuildingXMin && touchX <= lBuildingXMax){   
 			   if(touchY >= lBuildingYMin && touchY <= lBuildingYMax){
-				   Toast.makeText(context,"lBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
-			   }
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchLBuildingActivity.class);
+				   context.startActivity(i);
+				}
 		   }
 		   ///S
 		   float sBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("S_BUILDING_X")*mScaleFactor);
@@ -222,9 +251,10 @@ public class MapView extends View {
 				   
 		   if(touchX >= sBuildingXMin && touchX <= sBuildingXMax){   
 			   if(touchY >= sBuildingYMin && touchY <= sBuildingYMax){
-				   Toast.makeText(context,"sBuilding", 750).show();
-				   //Toast.makeText(context, touchX+" "+touchY+"\n"+ bBuildingXMin+"~~"+bBuildingYMin, 1000).show();
-			   }
+				   Context context = getContext();
+				   Intent i = new Intent(context, ImageTouchStudentCenterActivity.class);
+				   context.startActivity(i);
+				}
 		   }
 		   
 	}
@@ -251,11 +281,14 @@ public class MapView extends View {
 		}
 		canvas.drawBitmap(aBuilding,scaleReferenceHashMap.get("A_BUILDING_X"),scaleReferenceHashMap.get("A_BUILDING_Y"),null);
 		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("B_BUILDING_X"),scaleReferenceHashMap.get("B_BUILDING_Y"),null);
-		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("C_BUILDING_X"),scaleReferenceHashMap.get("C_BUILDING_Y"),null);
-		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("D_BUILDING_X"),scaleReferenceHashMap.get("D_BUILDING_Y"),null);
-		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("F_BUILDING_X"),scaleReferenceHashMap.get("F_BUILDING_Y"),null);
-		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("L_BUILDING_X"),scaleReferenceHashMap.get("L_BUILDING_Y"),null);
-		canvas.drawBitmap(bBuilding,scaleReferenceHashMap.get("S_BUILDING_X"),scaleReferenceHashMap.get("S_BUILDING_Y"),null);
+		canvas.drawBitmap(cBuilding,scaleReferenceHashMap.get("C_BUILDING_X"),scaleReferenceHashMap.get("C_BUILDING_Y"),null);
+		canvas.drawBitmap(dBuilding,scaleReferenceHashMap.get("D_BUILDING_X"),scaleReferenceHashMap.get("D_BUILDING_Y"),null);
+		canvas.drawBitmap(fBuilding,scaleReferenceHashMap.get("F_BUILDING_X"),scaleReferenceHashMap.get("F_BUILDING_Y"),null);
+		canvas.drawBitmap(lBuilding,scaleReferenceHashMap.get("L_BUILDING_X"),scaleReferenceHashMap.get("L_BUILDING_Y"),null);
+		canvas.drawBitmap(sBuilding,scaleReferenceHashMap.get("S_BUILDING_X"),scaleReferenceHashMap.get("S_BUILDING_Y"),null);
+		if (redDot != null){
+			canvas.drawBitmap(redDot,scaleReferenceHashMap.get("redDot_X"),scaleReferenceHashMap.get("redDot_Y"),null);
+		}
 		canvas.restore();
 	}
 	

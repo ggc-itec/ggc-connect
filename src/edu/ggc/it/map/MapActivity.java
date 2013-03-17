@@ -37,6 +37,7 @@ public class MapActivity extends Activity {
 	private Context context = this;
 	private LocationManager locationManager;
 	private GGCLocationListener ggcLocactionListener;
+	private MapView mapView;
 	
 	/**
 	 *  MapActivity has an image of GGC that helps users know where they are. 
@@ -44,7 +45,8 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView( new MapView(context));
+		mapView = new MapView(context);
+		setContentView( mapView);
 		setUpGPS();
 	}
 
@@ -88,6 +90,7 @@ public class MapActivity extends Activity {
 			double latitude = location.getLatitude();
 			double longitude = location.getLongitude();
 			Toast.makeText(context, "GPS lati " +latitude+" long "+ longitude , Toast.LENGTH_LONG).show();
+			mapView.setRedDotXY(1, 1);
 		}
 		// So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
 		// 1 second of longitude = 30.922 meters.
