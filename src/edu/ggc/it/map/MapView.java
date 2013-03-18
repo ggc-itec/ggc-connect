@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -92,11 +93,12 @@ public class MapView extends View {
 		redDot = null;
 		redDot = BitmapFactory.decodeResource(getResources(), R.drawable.red_dot);
 		
-		float pixPerMLati = scaledWidth/1700;
-		float pixPerMLon = scaledHeight/1000;
+		float pixPerMLati = (float) (scaledWidth/1700.0);
+		float pixPerMLon = (float) (scaledHeight/1000.0);
 		
-		redDotX = (pixPerMLati*metersLatiOffSet)+(scaledWidth*(510/1400));
-		redDotY = (pixPerMLon*metersLongOffSet)+(scaledHeight*(513/1120));
+		redDotX = (float) ((pixPerMLati*metersLatiOffSet)+(scaledWidth*(510/1400.0)));//X
+		redDotY = (float) ((pixPerMLon*metersLongOffSet)+(scaledHeight*(513/1120.0)));
+		Log.d("MapView", "mLatOff "+ metersLatiOffSet+" mLongOff "+ metersLongOffSet+ "pixPerMLati "+ pixPerMLati+" pixPerMLong "+ pixPerMLon);
 		
 		scaleReferenceHashMap.remove("redDot_X");
 		scaleReferenceHashMap.remove("redDot_Y");

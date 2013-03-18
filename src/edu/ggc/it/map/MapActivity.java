@@ -87,10 +87,23 @@ public class MapActivity extends Activity {
 		
 		@Override
 		public void onLocationChanged(Location location) {
-			double latitude = location.getLatitude();
-			double longitude = location.getLongitude();
-			Toast.makeText(context, "GPS lati " +latitude+" long "+ longitude , Toast.LENGTH_LONG).show();
-			mapView.setRedDotXY(1, 1);
+			float lat = (float)location.getLatitude();
+			float lonLong = (float)location.getLongitude();
+			Log.d("GPS","lat "+lat + " long "+lonLong);
+			Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
+			int lati = (int)(lat*1000000);
+			int lon = (int)(lonLong*1000000);
+			float latitude =(float)(lati/1000000.0);
+			float longitude =(float)(lon/1000000.0);
+			float latiOffSet = (float) (latitude - 33.981)*-1; //33.981
+			float longOffSet = (float) (84.006 + longitude);
+			float metersLatiOffSet = (float) (latiOffSet*350600);//4.70 // 30.860
+			float metersLonOffSet = (float) (longOffSet*17000);// 1.409// 30.920
+			/*
+			//30.92 // I mover all the decimal places over 3 spaces to the right
+			Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
+			mapView.setRedDotXY(metersLatiOffSet, metersLonOffSet);
+			*/
 		}
 		// So 1 second of latitude = 30.86 meters, or in feet = 101.2 ft.
 		// 1 second of longitude = 30.922 meters.
