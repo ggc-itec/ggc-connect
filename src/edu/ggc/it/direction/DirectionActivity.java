@@ -41,12 +41,11 @@ public class DirectionActivity extends Activity {
 	//This aims to get the space between the top of View and top of image
 	private int imgPadding;
 	//Create a imageview for the GGC map
-	//private ImageView img;
 	private TouchImageView img;
 	//Create a imageview for the current position on map
 	private static ImageView img1;
 	//Create a imageview for the place position on map
-	private ImageView img2;
+	private static ImageView img2;
 	//Create new context for activity
 	private Context myContext;
 	//Create a textview to display instructions to users
@@ -88,13 +87,10 @@ public class DirectionActivity extends Activity {
 		
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (TouchImageView) findViewById(R.id.imageMap);
-		//img = (ImageView) findViewById(R.id.imageMap);
         img.setMaxZoom(4f);
 
 		img1=(ImageView) findViewById(R.id.imageYou);
-		//img1.setOnTouchListener(new TouchListener());
 		img2=(ImageView) findViewById(R.id.imageHere);
-		//img2.setOnTouchListener(new TouchListener());
 		//Create ArrayAdapter for spinner
 		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(myContext, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
 		// setting adapter to spinner
@@ -108,6 +104,11 @@ public class DirectionActivity extends Activity {
 		img1.setY((float) (imgViewTop-30+((33.98565 - latitude)*100000*imgHeight/913)));
 		img1.setImageResource(R.drawable.you);
 		img1.invalidate();
+	}
+	
+	public static void hideLocation(){
+		img1.setVisibility(View.INVISIBLE);
+		img2.setVisibility(View.INVISIBLE);
 	}
 	
 	/**
@@ -137,8 +138,6 @@ public class DirectionActivity extends Activity {
 		public void onLocationChanged(Location location) {
 			longitude= location.getLongitude();
 		    latitude= location.getLatitude();
-		    //testing on live GPS
-		    //img1.invalidate();
 		    DirectionActivity.updateLocation();
 		}
 		@Override

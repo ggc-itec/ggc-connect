@@ -102,7 +102,7 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                
+                DirectionActivity.hideLocation();
                 setImageMatrix(matrix);
                 invalidate();
                 return true; // indicate event was handled
