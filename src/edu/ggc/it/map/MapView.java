@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 import edu.ggc.it.R;
 
 public class MapView extends View {
@@ -54,15 +55,33 @@ public class MapView extends View {
 		fBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
 		lBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
 		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-
 		scaleGestureDetector = new ScaleGestureDetector(context,new ScaleListener());
 		gestureDetector = new GestureDetector(context, new GestureListener());
 		newX = 0;
 		newY = 0;
 		canvasX = new ArrayList<Float>();
 		canvasY = new ArrayList<Float>();
-		setCanvasXY(newX, newY);
+		setCanvasXY(newX, newY);	
 	}
+	
+	/* this is for testing.
+	private void fakeGPSData(double d, double e) {
+		float lonLong = (float)e;
+		float lat = (float) d;
+		Log.d("GPS","lat "+lat + " long "+lonLong);
+		Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
+		int lon = (int)(lonLong*1000000);
+		int lati = (int)(lat*1000000);
+		float longitude =(float)(lon/1000000.0);
+		float latitude =(float)(lati/1000000.0);
+		float longOffSet = (float) (84.002993 + longitude);
+		float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
+		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920
+		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 
+		Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
+		setRedDotXY(metersLonOffSet,metersLatiOffSet);
+	}
+	*/
 	/*
 	 * The setCanvasXY and getCanvasX/ getCanvasY where made to help keep track of where
 	 * start of background image is.
@@ -89,19 +108,21 @@ public class MapView extends View {
 		return ySum;
 	}
 	
-	public void setRedDotXY(float metersLatiOffSet, float metersLongOffSet){
+	public void setRedDotXY(float metersLongOffSet, float  metersLatiOffSet){
 		redDot = null;
 		redDot = BitmapFactory.decodeResource(getResources(), R.drawable.red_dot);
+	
+		float pixPerMLon = (float) (scaledWidth/1700.0);
+		float pixPerMLati = (float) (scaledHeight/1000.0);
 		
-		float pixPerMLati = (float) (scaledWidth/1700.0);
-		float pixPerMLon = (float) (scaledHeight/1000.0);
-		
-		redDotX = (float) ((pixPerMLati*metersLatiOffSet)+(scaledWidth*(510/1400.0)));//X
-		redDotY = (float) ((pixPerMLon*metersLongOffSet)+(scaledHeight*(513/1120.0)));
+		redDotX = (float)   ((pixPerMLon*metersLongOffSet)+(scaledWidth*(796.5/1400.0)));//X
+		redDotY = (float)   ((pixPerMLati*metersLatiOffSet)+(scaledHeight*(580.5/1120.0)));
 		Log.d("MapView", "mLatOff "+ metersLatiOffSet+" mLongOff "+ metersLongOffSet+ "pixPerMLati "+ pixPerMLati+" pixPerMLong "+ pixPerMLon);
 		
-		scaleReferenceHashMap.remove("redDot_X");
-		scaleReferenceHashMap.remove("redDot_Y");
+		if (scaleReferenceHashMap.containsKey("redDot_X")){
+			scaleReferenceHashMap.remove("redDot_X");
+			scaleReferenceHashMap.remove("redDot_Y");
+		}
 		makeRedDot();
 		invalidate();
 	}
@@ -279,6 +300,7 @@ public class MapView extends View {
 		
 		if(firstRun == true){
 			makeScaleReferenceHashMap();
+			//fakeGPSData(33.979784,-84.002078); this is for testing
 			firstRun = false;
 		}
 		canvas.drawBitmap(aBuilding,scaleReferenceHashMap.get("A_BUILDING_X"),scaleReferenceHashMap.get("A_BUILDING_Y"),null);
