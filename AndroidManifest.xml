@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -41,8 +41,6 @@
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
             android:label="@string/title_activity_schedule" >
-
-            <!-- android:parentActivityName="edu.ggc.it.Main"> -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.Main" />
@@ -57,7 +55,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="edu.ggc.it.DirectorySearchWebView"
+            android:name="edu.ggc.it.directory.DirectorySearchWebView"
             android:label="@string/title_activity_directory_search_web_view"
             android:parentActivityName="edu.ggc.it.directory.DirectoryActivity"
             android:screenOrientation="portrait" >
@@ -66,7 +64,15 @@
                 android:value="edu.ggc.it.directory.DirectoryActivity" />
         </activity>
         <activity
-            android:name="edu.ggc.it.gym.GymMainActivity" 
+            android:name="edu.ggc.it.schedule.ScheduleUpdateActivity"
+            android:label="@string/title_activity_schedule_update_class"
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.schedule.ScheduleActivity" />
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gym.GymMainActivity"
             android:label="@string/gym_label" >
         </activity>
         <activity
@@ -77,14 +83,37 @@
             android:name="edu.ggc.it.gym.GroupsActivity"
             android:label="@string/gym_label" >
         </activity>
-
-        <activity android:name=".map.ImageTouchABuildingActivity"></activity><activity android:name=".map.ImageTouchBBuildingActivity"></activity>
-        <activity android:name=".map.ImageTouchCBuildingActivity"></activity>
-        <activity android:name=".map.ImageTouchDBuildingActivity"></activity>
-        <activity android:name=".map.ImageTouchFBuildingActivity"></activity>
-        <activity android:name=".map.ImageTouchLBuildingActivity"></activity>
-        <activity android:name=".map.ImageTouchStudentCenterActivity"></activity>
-        
+        <activity android:name=".map.ImageTouchABuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchBBuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchCBuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchDBuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchFBuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchLBuildingActivity" >
+        </activity>
+        <activity android:name=".map.ImageTouchStudentCenterActivity" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoListActivity"
+            android:label="TODO List" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.todo.ToDoUpdateActivity"
+            android:label="TODO Update"
+            android:windowSoftInputMode="stateVisible" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.rss.NewsRSSActivity"
+            android:label="GGC News" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.rss.EventsRSSActivity"
+            android:label="GGC Events" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,8 @@ import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
+import edu.ggc.it.rss.EventsRSSActivity;
+import edu.ggc.it.rss.NewsRSSActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.todo.ToDoListActivity;
 
@@ -89,6 +92,14 @@ public class Main extends Activity {
 								}
 							}).show();
 			return true;
+		case R.id.news_rss:
+			Intent newsRssIntent = new Intent(Main.this, NewsRSSActivity.class);
+			Main.this.startActivity(newsRssIntent);
+			return true;
+		case R.id.events_rss:
+			Intent eventsRssIntent = new Intent(Main.this, EventsRSSActivity.class);
+			Main.this.startActivity(eventsRssIntent);
+			return true;
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
 			Main.this.startActivity(myIntent);
@@ -100,6 +111,12 @@ public class Main extends Activity {
 		case R.id.todo:
 			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
 			Main.this.startActivity(myIntent3);
+			return true;
+		case R.id.feedback:
+			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(feedbackURL));
+			Main.this.startActivity(browserIntent);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
