@@ -118,6 +118,7 @@ public class ScheduleActivity extends Activity {
 		Cursor cursor = database.queryByDay(dayIndex);
 		if (cursor.moveToFirst()) {
 			do {
+				long rowID = cursor.getLong(ScheduleDatabase.INDEX_ROWID);
 				String className = cursor
 						.getString(ScheduleDatabase.INDEX_NAME);
 				String section = cursor
@@ -282,7 +283,6 @@ public class ScheduleActivity extends Activity {
 	private void showDeleteConfirmDialog(final long rowID) {
 		// get class name
 		Cursor cursor = database.query(rowID);
-		Log.d("schedule", "rowID: " + rowID);
 		//String name = cursor.getString(ScheduleDatabase.INDEX_NAME);
 		String name = "";
 		new AlertDialog.Builder(scheduleContext)
@@ -314,6 +314,8 @@ public class ScheduleActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> list, View view, int position,
 				final long rowID) {
+			String d = "position: " + position + " row: " + rowID;
+			Log.d("schedule", d);
 			new AlertDialog.Builder(scheduleContext)
 					.setTitle("Choose Action")
 					.setItems(R.array.schedule_item_options,

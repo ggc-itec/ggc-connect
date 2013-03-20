@@ -108,6 +108,7 @@ public class SeparatedListAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
+		//TODO: this needs to be the rowID from the database
 		return position;
 	}
 
