@@ -11,12 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -36,22 +38,6 @@ public class ScheduleActivity extends Activity {
 	 * item
 	 */
 	public final static String ITEM_CAPTION = "caption";
-
-	/**
-	 * This creates a list item in the separated list view for the activity
-	 * 
-	 * @param title
-	 *            The main text for the item
-	 * @param caption
-	 *            A short description of the item
-	 * @return A HashMap with the item title and caption
-	 */
-	public Map<String, ?> createItem(String title, String caption) {
-		Map<String, String> item = new HashMap<String, String>();
-		item.put(ITEM_TITLE, title);
-		item.put(ITEM_CAPTION, caption);
-		return item;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +92,25 @@ public class ScheduleActivity extends Activity {
 		// Display the list
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
+		list.setOnItemSelectedListener(new ScheduleActivityListener());
 		this.setContentView(list);
+		
+	}
+	
+	/**
+	 * This creates a list item in the separated list view for the activity
+	 * 
+	 * @param title
+	 *            The main text for the item
+	 * @param caption
+	 *            A short description of the item
+	 * @return A HashMap with the item title and caption
+	 */
+	public Map<String, ?> createItem(String title, String caption) {
+		Map<String, String> item = new HashMap<String, String>();
+		item.put(ITEM_TITLE, title);
+		item.put(ITEM_CAPTION, caption);
+		return item;
 	}
 
 	private List<Map<String, ?>> getClassListByDay(String dayIndex) {
@@ -245,21 +249,27 @@ public class ScheduleActivity extends Activity {
 		}
 		startActivity(intent);
 	}
-
-	public class ScheduleActivityListListener implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> list, View view, int position,
-				long rowId) {
-			updateDatabase(rowId, false);
-		}
-
-	}
-
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		database.close();
 	}
 
+	public class ScheduleActivityListener implements OnItemSelectedListener {
+
+		@Override
+		public void onItemSelected(AdapterView<?> list, View view, int position,
+				long rowID) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
 }
