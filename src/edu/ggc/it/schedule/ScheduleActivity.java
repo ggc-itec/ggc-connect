@@ -245,9 +245,7 @@ public class ScheduleActivity extends Activity {
 			populateList();
 			return true;
 		case R.id.clear_schedule:
-			if (showConfirmClearSchedule()) {
-				clearSchedule();
-			}
+			showConfirmClearSchedule();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -255,22 +253,38 @@ public class ScheduleActivity extends Activity {
 	}
 
 	private void clearSchedule() {
-		// TODO Auto-generated method stub
-
+		database.deleteTable();
+		populateList();
 	}
 
-	private boolean showConfirmClearSchedule() {
-		// TODO Auto-generated method stub
-		return false;
+	private void showConfirmClearSchedule() {
+		new AlertDialog.Builder(scheduleContext)
+		.setTitle("Confirm Clear Schedule")
+		.setMessage("WARNING: This will remove all classes from your schedule and cannot be undone, are you sure you wish to continue?")
+		.setIcon(android.R.drawable.stat_sys_warning)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				clearSchedule();
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.show();
 	}
 
-	public void updateDatabase(long rowId, boolean create) {
+	private void updateDatabase(long rowId) {
 		Intent intent = new Intent(scheduleContext,
 				ScheduleUpdateActivity.class);
-		if (!create) {
-			intent.putExtra("rowID", rowId);
-		}
+		intent.putExtra("rowID", rowId);
 		startActivity(intent);
+	}
+
+	private void showDeleteConfirmDialog(long rowID) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -283,17 +297,20 @@ public class ScheduleActivity extends Activity {
 
 		@Override
 		public void onItemClick(AdapterView<?> list, View view, int position,
-				long rowID) {
+				final long rowID) {
 			new AlertDialog.Builder(scheduleContext)
-			.setTitle("Choose Action")
-			.setItems(R.array.schedule_item_options,
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int which) {
-									Log.d("listener", "which: " + which);
+					.setTitle("Choose Action")
+					.setItems(R.array.schedule_item_options,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (which == 0) {
+										updateDatabase(rowID);
+									} else if (which == 1) {
+										showDeleteConfirmDialog(rowID);
+									}
 								}
-					})
-			.show();
+							}).show();
 		}
 
 	}

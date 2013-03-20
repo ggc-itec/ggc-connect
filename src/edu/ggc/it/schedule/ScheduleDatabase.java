@@ -119,6 +119,10 @@ public class ScheduleDatabase {
 		values.put(ScheduleDatabase.KEY_ROOM_LOCATION, roomLocation);
 		return values;
 	}
+	
+	public void deleteTable() {
+		database.delete(DATABASE_TABLE, null, null);
+	}
 
 	private static class ScheduleDatabaseHelper extends SQLiteOpenHelper {
 

@@ -84,6 +84,18 @@ public class ScheduleUpdateActivity extends Activity implements
 		chkThursday = (CheckBox) findViewById(R.id.chk_schedule_update_thursday);
 		chkFriday = (CheckBox) findViewById(R.id.chk_schedule_update_friday);
 		chkSaturday = (CheckBox) findViewById(R.id.chk_schedule_update_saturday);
+		
+		// check if updating a class
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    rowID = extras.getLong("rowID");
+		    fillForm();
+		}
+	}
+
+	private void fillForm() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -120,7 +132,6 @@ public class ScheduleUpdateActivity extends Activity implements
 		// Get data from form to be put into the database.
 		String className = (String) txtClass.getText().toString().trim();
 		String section = (String) txtSection.getText().toString().trim();
-		//TODO: startTime and endTime need to be total minutes?
 		int startTime = (startTimeHour * 60) + startTimeMinute;
 		int endTime = (endTimeHour * 60) + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
@@ -256,6 +267,11 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 		time = hourText + ":" + minuteText + " " + ampm;
 		return time;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO: If list updated, refresh?
 	}
 
 }
