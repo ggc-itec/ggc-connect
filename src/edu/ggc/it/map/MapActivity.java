@@ -97,11 +97,11 @@ public class MapActivity extends Activity {
 			float longitude =(float)(lon/1000000.0);
 			float latitude =(float)(lati/1000000.0);
 			float longOffSet = (float) (84.002993 + longitude);
-			float latiOffSet = (float) (latitude - 33.979813)*-1;
-			float metersLonOffSet = (float) (longOffSet*92406.653);
-			float metersLatiOffSet = (float) (latiOffSet*110921.999);
-			Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
-			mapView.setRedDotXY(metersLatiOffSet, metersLonOffSet);
+			float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
+			float metersLonOffSet = (float) (longOffSet*98000);// 1.409// 30.920 // 92406.653
+			float metersLatiOffSet = (float) (latiOffSet*87000);//4.70 // 30.860 // 110921.999
+			//Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
+			mapView.setRedDotXY(metersLonOffSet,metersLatiOffSet);
 
 		}
 
