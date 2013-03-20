@@ -186,6 +186,7 @@ public class ScheduleUpdateActivity extends Activity implements
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation));
 			//TODO: Need to tell the schedule activity to update list
+			//FIXME: app crashes after adding!!!
 			finish();
 		}
 	}
@@ -271,7 +272,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	
 	@Override
 	protected void onDestroy() {
-		// TODO: If list updated, refresh?
+		super.onDestroy();
 	}
 
 }

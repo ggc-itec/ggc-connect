@@ -268,11 +268,7 @@ public class ScheduleActivity extends Activity {
 				clearSchedule();
 			}
 		})
-		.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		})
+		.setNegativeButton("No", null)
 		.show();
 	}
 
@@ -283,8 +279,28 @@ public class ScheduleActivity extends Activity {
 		startActivity(intent);
 	}
 
-	private void showDeleteConfirmDialog(long rowID) {
-		// TODO Auto-generated method stub
+	private void showDeleteConfirmDialog(final long rowID) {
+		// get class name
+		Cursor cursor = database.query(rowID);
+		Log.d("schedule", "rowID: " + rowID);
+		//String name = cursor.getString(ScheduleDatabase.INDEX_NAME);
+		String name = "";
+		new AlertDialog.Builder(scheduleContext)
+		.setTitle("Confirm Class Delete")
+		.setMessage("Are you sure you want to delete the class " + name + "? This cannot be undone.")
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				deleteClass(rowID);
+			}
+		})
+		.setNegativeButton("No", null)
+		.show();
+	}
+	
+	private void deleteClass(long rowID) {
+		database.deleteRow(rowID);
+		populateList();
 	}
 
 	@Override
