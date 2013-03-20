@@ -55,8 +55,8 @@ public class DirectoryActivity extends Activity {
 		spec2.setIndicator("Name Search");
 		spec2.setContent(R.id.tab2);
 
-		tabHost.addTab(spec1);
 		tabHost.addTab(spec2);
+		tabHost.addTab(spec1);
 
 		clearSearch = (Button) findViewById(R.id.clearSearchButton);
 		firstNameField = (EditText) findViewById(R.id.firstNameText);
