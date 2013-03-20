@@ -7,18 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -88,15 +88,15 @@ public class ScheduleActivity extends Activity {
 		if (!saturday.isEmpty()) {
 			createListSection(adapter, createDayHeader("Saturday"), saturday);
 		}
-		
+
 		// Display the list
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
-		list.setOnItemSelectedListener(new ScheduleActivityListener());
+		list.setOnItemClickListener(new ScheduleActivityListener());
 		this.setContentView(list);
-		
+
 	}
-	
+
 	/**
 	 * This creates a list item in the separated list view for the activity
 	 * 
@@ -117,35 +117,43 @@ public class ScheduleActivity extends Activity {
 		List<Map<String, ?>> day = new LinkedList<Map<String, ?>>();
 		Cursor cursor = database.queryByDay(dayIndex);
 		if (cursor.moveToFirst()) {
-	        do {
-	        	String className = cursor.getString(ScheduleDatabase.INDEX_NAME);
-	        	String section = cursor.getString(ScheduleDatabase.INDEX_SECTION);
-	        	int startTime = cursor.getInt(ScheduleDatabase.INDEX_START_TIME);
-	        	int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
-	        	String building = cursor.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
-	        	String room = cursor.getString(ScheduleDatabase.INDEX_LOCATION_ROOM);
-	        	
-	        	String caption = getScheduleItemCaption(section, startTime, endTime, building, room);
-	        	day.add(createItem(className, caption));
-	        } while (cursor.moveToNext());
-	    }
+			do {
+				String className = cursor
+						.getString(ScheduleDatabase.INDEX_NAME);
+				String section = cursor
+						.getString(ScheduleDatabase.INDEX_SECTION);
+				int startTime = cursor
+						.getInt(ScheduleDatabase.INDEX_START_TIME);
+				int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
+				String building = cursor
+						.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
+				String room = cursor
+						.getString(ScheduleDatabase.INDEX_LOCATION_ROOM);
+
+				String caption = getScheduleItemCaption(section, startTime,
+						endTime, building, room);
+				day.add(createItem(className, caption));
+			} while (cursor.moveToNext());
+		}
 		return day;
 	}
 
 	private String getScheduleItemCaption(String section, int startTime,
 			int endTime, String building, String room) {
 		int startTimeHour = startTime / 60;
-    	int startTimeMinute = startTime % 60;
-    	int endTimeHour = endTime / 60;
-    	int endTimeMinute = endTime % 60;
-    	String startTimeFormatted = ScheduleUpdateActivity.formattedTimeString(startTimeHour, startTimeMinute);
-    	String endTimeFormatted = ScheduleUpdateActivity.formattedTimeString(endTimeHour, endTimeMinute);
-    	String duration = getFormattedTimeDuration(startTime, endTime);
-    	
-    	String caption = startTimeFormatted + " - " + endTimeFormatted + " (" + duration + ").\n"
-    			+ "Section: " + section + "\n"
-    			+ "Location: " + building + " (Room: " + room + ").";
-    	
+		int startTimeMinute = startTime % 60;
+		int endTimeHour = endTime / 60;
+		int endTimeMinute = endTime % 60;
+		String startTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+				startTimeHour, startTimeMinute);
+		String endTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+				endTimeHour, endTimeMinute);
+		String duration = getFormattedTimeDuration(startTime, endTime);
+
+		String caption = startTimeFormatted + " - " + endTimeFormatted + " ("
+				+ duration + ").\n" + "Section: " + section + "\n"
+				+ "Location: " + building + " (Room: " + room + ").";
+
 		return caption;
 	}
 
@@ -236,9 +244,24 @@ public class ScheduleActivity extends Activity {
 		case R.id.refresh_schedule:
 			populateList();
 			return true;
+		case R.id.clear_schedule:
+			if (showConfirmClearSchedule()) {
+				clearSchedule();
+			}
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void clearSchedule() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private boolean showConfirmClearSchedule() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	public void updateDatabase(long rowId, boolean create) {
@@ -249,26 +272,28 @@ public class ScheduleActivity extends Activity {
 		}
 		startActivity(intent);
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		database.close();
 	}
 
-	public class ScheduleActivityListener implements OnItemSelectedListener {
+	public class ScheduleActivityListener implements OnItemClickListener {
 
 		@Override
-		public void onItemSelected(AdapterView<?> list, View view, int position,
+		public void onItemClick(AdapterView<?> list, View view, int position,
 				long rowID) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			
+			new AlertDialog.Builder(scheduleContext)
+			.setTitle("Choose Action")
+			.setItems(R.array.schedule_item_options,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int which) {
+									Log.d("listener", "which: " + which);
+								}
+					})
+			.show();
 		}
 
 	}
