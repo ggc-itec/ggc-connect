@@ -30,13 +30,34 @@
                 android:id="@+id/edittext_schedule_update_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:inputType="text"
                 android:layout_weight="1"
                 android:ems="10" >
 
                 <requestFocus />
             </EditText>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/section_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textview_schedule_update_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/schedule_update_section"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edittext_schedule_update_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_weight="1"
+                android:ems="10" />
 
         </TableRow>
 
