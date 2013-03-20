@@ -8,12 +8,23 @@
 	android:paddingBottom="10dip"
 	android:paddingLeft="15dip"
 	>
+
+    <!-- 
+    <CheckBox
+        android:id="@+id/list_complex_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+        -->
+
 	<TextView
 		android:id="@+id/list_complex_title"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		/>
+	/>
+	
 	<TextView
 		android:id="@+id/list_complex_caption"
 		android:layout_width="fill_parent"

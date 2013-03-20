@@ -41,6 +41,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	private Button btnUpdateClass;
 
 	private EditText txtClass;
+	private EditText txtSection;
 	private Button btnStartTime;
 	private Button btnEndTime;
 	private CheckBox chkMonday, chkTuesday, chkWednesday, chkThursday,
@@ -74,6 +75,7 @@ public class ScheduleUpdateActivity extends Activity implements
 
 		// Initialize each form element
 		txtClass = (EditText) findViewById(R.id.edittext_schedule_update_name);
+		txtSection = (EditText) findViewById(R.id.edittext_schedule_update_section);
 		spnBuildingLocation = (Spinner) findViewById(R.id.spinner_schedule_update_building_location);
 		txtRoomLocation = (EditText) findViewById(R.id.edittext_schedule_update_room_location);
 		chkMonday = (CheckBox) findViewById(R.id.chk_schedule_update_monday);
@@ -82,6 +84,18 @@ public class ScheduleUpdateActivity extends Activity implements
 		chkThursday = (CheckBox) findViewById(R.id.chk_schedule_update_thursday);
 		chkFriday = (CheckBox) findViewById(R.id.chk_schedule_update_friday);
 		chkSaturday = (CheckBox) findViewById(R.id.chk_schedule_update_saturday);
+		
+		// check if updating a class
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    rowID = extras.getLong("rowID");
+		    fillForm();
+		}
+	}
+
+	private void fillForm() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -117,8 +131,9 @@ public class ScheduleUpdateActivity extends Activity implements
 
 		// Get data from form to be put into the database.
 		String className = (String) txtClass.getText().toString().trim();
-		String startTime = startTimeHour + ":" + startTimeMinute;
-		String endTime = endTimeHour + ":" + endTimeMinute;
+		String section = (String) txtSection.getText().toString().trim();
+		int startTime = (startTimeHour * 60) + startTimeMinute;
+		int endTime = (endTimeHour * 60) + endTimeMinute;
 		String buildingLocation = spnBuildingLocation.getSelectedItem()
 				.toString().trim();
 		String roomLocation = txtRoomLocation.getText().toString().trim();
@@ -134,6 +149,9 @@ public class ScheduleUpdateActivity extends Activity implements
 			validData = false;
 			showMessageDialog("You need to enter a name for the course.",
 					"Empty Class Name");
+		} else if (section.isEmpty()) {
+			// It's ok if the user doesn't know the section, just use 00 as default
+			section = "00";
 		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
 			validData = false;
 			showMessageDialog("Please set the start time for the class.",
@@ -164,9 +182,11 @@ public class ScheduleUpdateActivity extends Activity implements
 		if (validData) {
 			database = new ScheduleDatabase(scheduleContext);
 			database.open();
-			database.createRow(database.createContentValues(className,
+			database.createRow(database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation));
+			//TODO: Need to tell the schedule activity to update list
+			//FIXME: app crashes after adding!!!
 			finish();
 		}
 	}
@@ -234,7 +254,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 	}
 
-	private String formattedTimeString(int hour, int minute) {
+	public static String formattedTimeString(int hour, int minute) {
 		String time = "";
 		Object minuteText = (minute < 10) ? "0" + minute : minute;
 		Object hourText = "";
@@ -248,6 +268,11 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 		time = hourText + ":" + minuteText + " " + ampm;
 		return time;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 	}
 
 }

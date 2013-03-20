@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,6 @@ public class ScheduleActivity extends Activity {
 
 	private Context scheduleContext;
 	private ScheduleDatabase database;
-	private SimpleCursorAdapter cursorAdapter;
 	/**
 	 * This is the XML value for the text of each list item
 	 */
@@ -37,22 +38,6 @@ public class ScheduleActivity extends Activity {
 	 * item
 	 */
 	public final static String ITEM_CAPTION = "caption";
-
-	/**
-	 * This creates a list item in the separated list view for the activity
-	 * 
-	 * @param title
-	 *            The main text for the item
-	 * @param caption
-	 *            A short description of the ite,
-	 * @return A HashMap with the item title and caption
-	 */
-	public Map<String, ?> createItem(String title, String caption) {
-		Map<String, String> item = new HashMap<String, String>();
-		item.put(ITEM_TITLE, title);
-		item.put(ITEM_CAPTION, caption);
-		return item;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,52 +53,135 @@ public class ScheduleActivity extends Activity {
 			int duration = Toast.LENGTH_LONG;
 			Toast toast = Toast.makeText(scheduleContext, text, duration);
 			toast.show();
-			// call populate list for testing purposes for now
-			populateList();
 		} else {
 			populateList();
 		}
 
 	}
 
-	private void populateList() {
+	public void populateList() {
 		// A LinkedList for each day that holds the classes that are on that day
-		List<Map<String, ?>> monday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> tuesday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> wednesday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> thursday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> friday = new LinkedList<Map<String, ?>>();
-		List<Map<String, ?>> saturday = new LinkedList<Map<String, ?>>();
-
-		// TODO: Database needs to pull info here to populate lists
-		monday.add(createItem("Class Name", "Start/End time, location etc"));
+		List<Map<String, ?>> monday = getClassListByDay(ScheduleDatabase.KEY_ON_MONDAY);
+		List<Map<String, ?>> tuesday = getClassListByDay(ScheduleDatabase.KEY_ON_TUESDAY);
+		List<Map<String, ?>> wednesday = getClassListByDay(ScheduleDatabase.KEY_ON_WEDNESDAY);
+		List<Map<String, ?>> thursday = getClassListByDay(ScheduleDatabase.KEY_ON_THURSDAY);
+		List<Map<String, ?>> friday = getClassListByDay(ScheduleDatabase.KEY_ON_FRIDAY);
+		List<Map<String, ?>> saturday = getClassListByDay(ScheduleDatabase.KEY_ON_SATURDAY);
 
 		// Create header sections and add populated lists
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this);
-		createListSection(adapter, createDayHeader("Monday"), monday);
-		createListSection(adapter, createDayHeader("Tuesday"), tuesday);
-		createListSection(adapter, createDayHeader("Wednesday"), wednesday);
-		createListSection(adapter, createDayHeader("Thursday"), thursday);
-		createListSection(adapter, createDayHeader("Friday"), friday);
-		createListSection(adapter, createDayHeader("Saturday"), saturday);
+		if (!monday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Monday"), monday);
+		}
+		if (!tuesday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Tuesday"), tuesday);
+		}
+		if (!wednesday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Wednesday"), wednesday);
+		}
+		if (!thursday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Thursday"), thursday);
+		}
+		if (!friday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Friday"), friday);
+		}
+		if (!saturday.isEmpty()) {
+			createListSection(adapter, createDayHeader("Saturday"), saturday);
+		}
 
 		// Display the list
 		ListView list = new ListView(this);
 		list.setAdapter(adapter);
+		list.setOnItemClickListener(new ScheduleActivityListener());
 		this.setContentView(list);
 
-		/*
-		 * Cursor cursor = database.queryAll(); startManagingCursor(cursor);
-		 * 
-		 * String[] from = new String[] { ScheduleDatabase.KEY_NAME,
-		 * ScheduleDatabase.KEY_BUILDING_LOCATION }; int[] to = new int[] {
-		 * R.id.class_name, R.id.building_location }; cursorAdapter = new
-		 * SimpleCursorAdapter(this, R.layout.schedule_list_row, cursor, from,
-		 * to);
-		 * 
-		 * list.setAdapter(cursorAdapter);
-		 * registerForContextMenu(list.getRootView());
-		 */
+	}
+
+	/**
+	 * This creates a list item in the separated list view for the activity
+	 * 
+	 * @param title
+	 *            The main text for the item
+	 * @param caption
+	 *            A short description of the item
+	 * @return A HashMap with the item title and caption
+	 */
+	public Map<String, ?> createItem(String title, String caption) {
+		Map<String, String> item = new HashMap<String, String>();
+		item.put(ITEM_TITLE, title);
+		item.put(ITEM_CAPTION, caption);
+		return item;
+	}
+
+	private List<Map<String, ?>> getClassListByDay(String dayIndex) {
+		List<Map<String, ?>> day = new LinkedList<Map<String, ?>>();
+		Cursor cursor = database.queryByDay(dayIndex);
+		if (cursor.moveToFirst()) {
+			do {
+				String className = cursor
+						.getString(ScheduleDatabase.INDEX_NAME);
+				String section = cursor
+						.getString(ScheduleDatabase.INDEX_SECTION);
+				int startTime = cursor
+						.getInt(ScheduleDatabase.INDEX_START_TIME);
+				int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
+				String building = cursor
+						.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
+				String room = cursor
+						.getString(ScheduleDatabase.INDEX_LOCATION_ROOM);
+
+				String caption = getScheduleItemCaption(section, startTime,
+						endTime, building, room);
+				day.add(createItem(className, caption));
+			} while (cursor.moveToNext());
+		}
+		return day;
+	}
+
+	private String getScheduleItemCaption(String section, int startTime,
+			int endTime, String building, String room) {
+		int startTimeHour = startTime / 60;
+		int startTimeMinute = startTime % 60;
+		int endTimeHour = endTime / 60;
+		int endTimeMinute = endTime % 60;
+		String startTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+				startTimeHour, startTimeMinute);
+		String endTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+				endTimeHour, endTimeMinute);
+		String duration = getFormattedTimeDuration(startTime, endTime);
+
+		String caption = startTimeFormatted + " - " + endTimeFormatted + " ("
+				+ duration + ").\n" + "Section: " + section + "\n"
+				+ "Location: " + building + " (Room: " + room + ").";
+
+		return caption;
+	}
+
+	private String getFormattedTimeDuration(int start, int end) {
+		String duration = "";
+		int durationInt = end - start;
+		if (durationInt == 1) {
+			duration = "1 minute";
+		} else if (durationInt < 60) {
+			duration = durationInt + " minutes";
+		} else {
+			int hours = durationInt / 60;
+			int minutes = durationInt % 60;
+			if (hours == 1) {
+				if (minutes == 1) {
+					duration = "1 hour, 1 minute";
+				} else {
+					duration = "1 hour, " + minutes + " minutes";
+				}
+			} else {
+				if (minutes == 1) {
+					duration = hours + " hours, 1 minute";
+				} else {
+					duration = hours + " hours, " + minutes + " minutes";
+				}
+			}
+		}
+		return duration;
 	}
 
 	/**
@@ -173,28 +241,66 @@ public class ScheduleActivity extends Activity {
 			startActivity(new Intent(scheduleContext,
 					ScheduleUpdateActivity.class));
 			return true;
+		case R.id.refresh_schedule:
+			populateList();
+			return true;
+		case R.id.clear_schedule:
+			showConfirmClearSchedule();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	public void updateDatabase(long rowId, boolean create) {
+	private void clearSchedule() {
+		database.deleteTable();
+		populateList();
+	}
+
+	private void showConfirmClearSchedule() {
+		new AlertDialog.Builder(scheduleContext)
+		.setTitle("Confirm Clear Schedule")
+		.setMessage("WARNING: This will remove all classes from your schedule and cannot be undone, are you sure you wish to continue?")
+		.setIcon(android.R.drawable.stat_sys_warning)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				clearSchedule();
+			}
+		})
+		.setNegativeButton("No", null)
+		.show();
+	}
+
+	private void updateDatabase(long rowId) {
 		Intent intent = new Intent(scheduleContext,
 				ScheduleUpdateActivity.class);
-		if (!create) {
-			intent.putExtra("rowID", rowId);
-		}
+		intent.putExtra("rowID", rowId);
 		startActivity(intent);
 	}
 
-	public class ScheduleActivityListListener implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> list, View view, int position,
-				long rowId) {
-			updateDatabase(rowId, false);
-		}
-
+	private void showDeleteConfirmDialog(final long rowID) {
+		// get class name
+		Cursor cursor = database.query(rowID);
+		Log.d("schedule", "rowID: " + rowID);
+		//String name = cursor.getString(ScheduleDatabase.INDEX_NAME);
+		String name = "";
+		new AlertDialog.Builder(scheduleContext)
+		.setTitle("Confirm Class Delete")
+		.setMessage("Are you sure you want to delete the class " + name + "? This cannot be undone.")
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				deleteClass(rowID);
+			}
+		})
+		.setNegativeButton("No", null)
+		.show();
+	}
+	
+	private void deleteClass(long rowID) {
+		database.deleteRow(rowID);
+		populateList();
 	}
 
 	@Override
@@ -203,4 +309,25 @@ public class ScheduleActivity extends Activity {
 		database.close();
 	}
 
+	public class ScheduleActivityListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> list, View view, int position,
+				final long rowID) {
+			new AlertDialog.Builder(scheduleContext)
+					.setTitle("Choose Action")
+					.setItems(R.array.schedule_item_options,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (which == 0) {
+										updateDatabase(rowID);
+									} else if (which == 1) {
+										showDeleteConfirmDialog(rowID);
+									}
+								}
+							}).show();
+		}
+
+	}
 }
