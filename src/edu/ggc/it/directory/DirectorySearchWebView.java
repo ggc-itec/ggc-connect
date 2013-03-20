@@ -2,6 +2,7 @@ package edu.ggc.it.directory;
 
 
 import edu.ggc.it.R;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,10 +27,32 @@ public class DirectorySearchWebView extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url){
-                // do your handling codes here, which url is the requested url
-                // probably you need to open that url rather than redirect:
-                view.loadUrl(url);
-                return false; // then it is not handled by default action
+            	//Filter telephone number clicks to open telephone
+            	if (url.substring(0, 3).equals("tel")) {
+            		Intent intent = new Intent(Intent.ACTION_DIAL);
+            		intent.setData(Uri.parse(url));
+            		startActivity(intent);
+            	    return true;
+                }
+            	
+            	//Filter email address clicks to open email client
+            	else if (url.substring(0,6).equals("mailto")) {
+            		Intent intent = new Intent(Intent.ACTION_SEND);
+            		intent.setType("message/rfc822");
+            		//adds email address to intent
+            		intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { url.substring(7) });
+            		//adds tag at end of email
+            		intent.putExtra(Intent.EXTRA_TEXT, "\n" + "\n" + "\n" + "Sent from GGC Connect");
+            		//lets user choose their email client
+            		startActivity(Intent.createChooser(intent, "Send Email Via"));
+            		return true;
+            	}
+            	
+            	else {
+                //else handles all other clicks to load in webview
+            	view.loadUrl(url);
+                return true; 
+            	}
            }
             
             
