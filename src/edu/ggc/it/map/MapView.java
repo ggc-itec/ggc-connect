@@ -63,8 +63,7 @@ public class MapView extends View {
 		canvasY = new ArrayList<Float>();
 		setCanvasXY(newX, newY);	
 	}
-	
-	/* this is for testing.
+	/*
 	private void fakeGPSData(double d, double e) {
 		float lonLong = (float)e;
 		float lat = (float) d;
@@ -76,8 +75,8 @@ public class MapView extends View {
 		float latitude =(float)(lati/1000000.0);
 		float longOffSet = (float) (84.002993 + longitude);
 		float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
-		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920
-		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 
+		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920 // 92406.653
+		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 // 110921.999
 		Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
 		setRedDotXY(metersLonOffSet,metersLatiOffSet);
 	}
@@ -300,7 +299,7 @@ public class MapView extends View {
 		
 		if(firstRun == true){
 			makeScaleReferenceHashMap();
-			//fakeGPSData(33.979784,-84.002078); this is for testing
+			//fakeGPSData( 33.978156,-84.011145); //this is for testing
 			firstRun = false;
 		}
 		canvas.drawBitmap(aBuilding,scaleReferenceHashMap.get("A_BUILDING_X"),scaleReferenceHashMap.get("A_BUILDING_Y"),null);
