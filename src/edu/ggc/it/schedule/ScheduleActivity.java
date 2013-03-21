@@ -24,6 +24,11 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
 
+/**
+ * This is the main activity for the class schedule feature of ggc-connect.
+ * @author Raj Ramsaroop
+ *
+ */
 public class ScheduleActivity extends Activity {
 
 	private Context scheduleContext;
@@ -59,7 +64,11 @@ public class ScheduleActivity extends Activity {
 
 	}
 
-	public void populateList() {
+	/**
+	 * Pulls the information from the database and sorts it under each
+	 * appropriate header.
+	 */
+	private void populateList() {
 		// A LinkedList for each day that holds the classes that are on that day
 		List<Map<String, ?>> monday = getClassListByDay(ScheduleDatabase.KEY_ON_MONDAY);
 		List<Map<String, ?>> tuesday = getClassListByDay(ScheduleDatabase.KEY_ON_TUESDAY);
@@ -113,6 +122,11 @@ public class ScheduleActivity extends Activity {
 		return item;
 	}
 
+	/**
+	 * Returns a list of mappings for each class and information for that class
+	 * @param dayIndex the day to query the database by
+	 * @return LinkedList of mappings for each class for the specified day
+	 */
 	private List<Map<String, ?>> getClassListByDay(String dayIndex) {
 		List<Map<String, ?>> day = new LinkedList<Map<String, ?>>();
 		Cursor cursor = database.queryByDay(dayIndex);
@@ -139,6 +153,15 @@ public class ScheduleActivity extends Activity {
 		return day;
 	}
 
+	/**
+	 * This creates the text beneath the class name in the list.
+	 * @param section the class section
+	 * @param startTime start time minutes
+	 * @param endTime end time minutes
+	 * @param building building location
+	 * @param room the room location
+	 * @return A formatted string/paragraph based on input information
+	 */
 	private String getScheduleItemCaption(String section, int startTime,
 			int endTime, String building, String room) {
 		int startTimeHour = startTime / 60;
@@ -158,6 +181,13 @@ public class ScheduleActivity extends Activity {
 		return caption;
 	}
 
+	/**
+	 * Calculates the duration of the class and returns a formatted user-friendly
+	 * String version.
+	 * @param start the start time minutes
+	 * @param end the end time minutes
+	 * @return a formatted String
+	 */
 	private String getFormattedTimeDuration(int start, int end) {
 		String duration = "";
 		int durationInt = end - start;
@@ -211,6 +241,12 @@ public class ScheduleActivity extends Activity {
 		return header;
 	}
 
+	/**
+	 * This creates each list item section
+	 * @param adapter the adapter to use
+	 * @param sectionHeader which section to add to
+	 * @param list the list of classes and descriptions
+	 */
 	private void createListSection(SeparatedListAdapter adapter,
 			String sectionHeader, List<Map<String, ?>> list) {
 		adapter.addSection(sectionHeader, new SimpleAdapter(this, list,
@@ -219,6 +255,10 @@ public class ScheduleActivity extends Activity {
 						R.id.list_complex_caption }));
 	}
 
+	/**
+	 * Checks if classes are added to the schedule
+	 * @return true if classes are in the database
+	 */
 	private boolean classesExist() {
 		Cursor c = database.queryAll();
 		if (c.getCount() > 0) {
@@ -253,11 +293,17 @@ public class ScheduleActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Deletes the table from the database
+	 */
 	private void clearSchedule() {
 		database.deleteTable();
 		populateList();
 	}
 
+	/**
+	 * Shows a dialog popup asking the user to confirm clearing the schedule
+	 */
 	private void showConfirmClearSchedule() {
 		new AlertDialog.Builder(scheduleContext)
 		.setTitle("Confirm Clear Schedule")
@@ -273,6 +319,11 @@ public class ScheduleActivity extends Activity {
 		.show();
 	}
 
+	/**
+	 * This will start the update activity that will allow the user
+	 * to edit the selected class.
+	 * @param rowId the rowID of the class that corresponds to the database rowID
+	 */
 	private void updateDatabase(long rowId) {
 		Intent intent = new Intent(scheduleContext,
 				ScheduleUpdateActivity.class);
@@ -280,6 +331,11 @@ public class ScheduleActivity extends Activity {
 		startActivity(intent);
 	}
 
+	/**
+	 * Shows a confirmation alert dialog asking the user to confirm deleting a class
+	 * from their schedule.
+	 * @param rowID The corresponding rowID of the class in the database
+	 */
 	private void showDeleteConfirmDialog(final long rowID) {
 		// get class name
 		Cursor cursor = database.query(rowID);
@@ -298,6 +354,10 @@ public class ScheduleActivity extends Activity {
 		.show();
 	}
 	
+	/**
+	 * Delete a class from the database
+	 * @param rowID the correspinding rowID of the class in the database
+	 */
 	private void deleteClass(long rowID) {
 		database.deleteRow(rowID);
 		populateList();
@@ -309,6 +369,11 @@ public class ScheduleActivity extends Activity {
 		database.close();
 	}
 
+	/**
+	 * This listener handles what happens when a list item is clicked.
+	 * @author Raj Ramsaroop
+	 *
+	 */
 	public class ScheduleActivityListener implements OnItemClickListener {
 
 		@Override

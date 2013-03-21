@@ -3,6 +3,7 @@ package edu.ggc.it.schedule;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -18,11 +19,12 @@ import edu.ggc.it.R;
 import edu.ggc.it.banner.Schedule;
 
 /**
+ * The update class handles processing of the add/edit form. This class handles
+ * adding classes as well as editing the individual course item. This is because
+ * the add/edit form is the same layout.
  * 
- * @author Raj Ramsaroop The update class handles processing of the add/edit
- *         form. This class handles adding classes as well as editing the
- *         individual course item. This is because the add/edit form is the same
- *         layout.
+ * @author Raj Ramsaroop
+ * 
  * 
  */
 public class ScheduleUpdateActivity extends Activity implements
@@ -87,80 +89,87 @@ public class ScheduleUpdateActivity extends Activity implements
 		chkThursday = (CheckBox) findViewById(R.id.chk_schedule_update_thursday);
 		chkFriday = (CheckBox) findViewById(R.id.chk_schedule_update_friday);
 		chkSaturday = (CheckBox) findViewById(R.id.chk_schedule_update_saturday);
-		
+
 		// check if updating a class
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-		    rowID = extras.getLong("rowID");
-		    fillForm();
+			rowID = extras.getLong("rowID");
+			fillForm();
 		}
 	}
 
+	/**
+	 * Gets the class data based on rowID and fills the form with the
+	 * information from the database
+	 */
 	private void fillForm() {
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
 		txtSection.setText(cursor.getString(ScheduleDatabase.INDEX_SECTION));
-		
+
 		Resources res = getResources();
-		
+
 		String[] buildingLocations = res.getStringArray(R.array.buildings);
-		String buildingLocation = cursor.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
-		for (int i=0;i<buildingLocations.length;i++) {
+		String buildingLocation = cursor
+				.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
+		for (int i = 0; i < buildingLocations.length; i++) {
 			if (buildingLocation.equals(buildingLocations[i])) {
 				spnBuildingLocation.setSelection(i);
 			}
 		}
-		
-		txtRoomLocation.setText(cursor.getString(ScheduleDatabase.INDEX_LOCATION_ROOM));
-		
+
+		txtRoomLocation.setText(cursor
+				.getString(ScheduleDatabase.INDEX_LOCATION_ROOM));
+
 		int monday = cursor.getInt(ScheduleDatabase.INDEX_ON_MONDAY);
-		if (monday==1) {
+		if (monday == 1) {
 			chkMonday.setChecked(true);
 		}
-		
+
 		int tuesday = cursor.getInt(ScheduleDatabase.INDEX_ON_TUESDAY);
-		if (tuesday==1) {
+		if (tuesday == 1) {
 			chkTuesday.setChecked(true);
 		}
-		
+
 		int wednesday = cursor.getInt(ScheduleDatabase.INDEX_ON_WEDNESDAY);
-		if (wednesday==1) {
+		if (wednesday == 1) {
 			chkWednesday.setChecked(true);
 		}
-		
+
 		int thursday = cursor.getInt(ScheduleDatabase.INDEX_ON_THURSDAY);
-		if (thursday==1) {
+		if (thursday == 1) {
 			chkThursday.setChecked(true);
 		}
-		
+
 		int friday = cursor.getInt(ScheduleDatabase.INDEX_ON_FRIDAY);
-		if (friday==1) {
+		if (friday == 1) {
 			chkFriday.setChecked(true);
 		}
-		
+
 		int saturday = cursor.getInt(ScheduleDatabase.INDEX_ON_SATURDAY);
-		if (saturday==1) {
+		if (saturday == 1) {
 			chkSaturday.setChecked(true);
 		}
-		
+
 		int startTime = cursor.getInt(ScheduleDatabase.INDEX_START_TIME);
 		startTimeHour = getHour(startTime);
 		startTimeMinute = getMinute(startTime);
-		btnStartTime.setText(getFormattedTimeString(startTimeHour, startTimeMinute));
-		
+		btnStartTime.setText(getFormattedTimeString(startTimeHour,
+				startTimeMinute));
+
 		int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
 		endTimeHour = getHour(endTime);
 		endTimeMinute = getMinute(endTime);
 		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
-		
+
 		btnUpdateClass.setText("Update Class");
-		
+
 	}
 
 	/**
 	 * Listener inner class for the add/update class activity.
 	 * 
-	 * @author Raj
+	 * @author Raj Ramsaroop
 	 * 
 	 */
 	public class ScheduleUpdateListener implements OnClickListener {
@@ -170,7 +179,7 @@ public class ScheduleUpdateActivity extends Activity implements
 			if (view.getId() == R.id.btn_schedule_update_cancel) {
 				finish();
 			} else if (view.getId() == R.id.btn_schedule_update_submit) {
-				addClass();
+				updateClass();
 			} else if (view.getId() == R.id.btn_schedule_update_start_time) {
 				showTimePickerDialog(view, startTimeHour, startTimeMinute);
 			} else if (view.getId() == R.id.btn_schedule_update_end_time) {
@@ -180,10 +189,10 @@ public class ScheduleUpdateActivity extends Activity implements
 	}
 
 	/**
-	 * This method processes the form contents and once validated, adds it as a
-	 * new record in the database.
+	 * This method processes the form contents and once validated, adds or
+	 * updates the record in the database
 	 */
-	private void addClass() {
+	private void updateClass() {
 
 		// Reset form processing flag
 		boolean validData = true;
@@ -209,7 +218,8 @@ public class ScheduleUpdateActivity extends Activity implements
 			showMessageDialog("You need to enter a name for the course.",
 					"Empty Class Name");
 		} else if (section.isEmpty()) {
-			// It's ok if the user doesn't know the section, just use 00 as default
+			// It's ok if the user doesn't know the section, just use 00 as
+			// default
 			section = "00";
 		} else if (!isValidTime(startTimeHour, startTimeMinute)) {
 			validData = false;
@@ -241,11 +251,15 @@ public class ScheduleUpdateActivity extends Activity implements
 		if (validData) {
 			database = new ScheduleDatabase(scheduleContext);
 			database.open();
-			database.createRow(database.createContentValues(className, section,
+			ContentValues values = database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
-					friday, saturday, buildingLocation, roomLocation));
-			//TODO: Need to tell the schedule activity to update list
-			//FIXME: app crashes after adding!!!
+					friday, saturday, buildingLocation, roomLocation);
+			if (rowID >= 0) {
+				database.updateRow(rowID, values);
+			} else {
+				database.createRow(values);
+			}
+			// TODO: Need to tell the schedule activity to update list
 			finish();
 		}
 	}
@@ -328,15 +342,15 @@ public class ScheduleUpdateActivity extends Activity implements
 		time = hourText + ":" + minuteText + " " + ampm;
 		return time;
 	}
-	
+
 	private int getHour(int minutes) {
-		return minutes/60;
+		return minutes / 60;
 	}
-	
+
 	private int getMinute(int minutes) {
-		return minutes%60;
+		return minutes % 60;
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
