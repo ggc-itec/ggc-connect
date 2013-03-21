@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import edu.ggc.it.R;
+import edu.ggc.it.banner.Schedule;
 
 /**
  * 
@@ -94,12 +97,68 @@ public class ScheduleUpdateActivity extends Activity implements
 	}
 
 	private void fillForm() {
-		// TODO Auto-generated method stub
+		Cursor cursor = database.query(rowID);
+		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
+		txtSection.setText(cursor.getString(ScheduleDatabase.INDEX_SECTION));
+		
+		Resources res = getResources();
+		
+		String[] buildingLocations = res.getStringArray(R.array.buildings);
+		String buildingLocation = cursor.getString(ScheduleDatabase.INDEX_LOCATION_BUILDING);
+		for (int i=0;i<buildingLocations.length;i++) {
+			if (buildingLocation.equals(buildingLocations[i])) {
+				spnBuildingLocation.setSelection(i);
+			}
+		}
+		
+		txtRoomLocation.setText(cursor.getString(ScheduleDatabase.INDEX_LOCATION_ROOM));
+		
+		int monday = cursor.getInt(ScheduleDatabase.INDEX_ON_MONDAY);
+		if (monday==1) {
+			chkMonday.setChecked(true);
+		}
+		
+		int tuesday = cursor.getInt(ScheduleDatabase.INDEX_ON_TUESDAY);
+		if (tuesday==1) {
+			chkTuesday.setChecked(true);
+		}
+		
+		int wednesday = cursor.getInt(ScheduleDatabase.INDEX_ON_WEDNESDAY);
+		if (wednesday==1) {
+			chkWednesday.setChecked(true);
+		}
+		
+		int thursday = cursor.getInt(ScheduleDatabase.INDEX_ON_THURSDAY);
+		if (thursday==1) {
+			chkThursday.setChecked(true);
+		}
+		
+		int friday = cursor.getInt(ScheduleDatabase.INDEX_ON_FRIDAY);
+		if (friday==1) {
+			chkFriday.setChecked(true);
+		}
+		
+		int saturday = cursor.getInt(ScheduleDatabase.INDEX_ON_SATURDAY);
+		if (saturday==1) {
+			chkSaturday.setChecked(true);
+		}
+		
+		int startTime = cursor.getInt(ScheduleDatabase.INDEX_START_TIME);
+		startTimeHour = getHour(startTime);
+		startTimeMinute = getMinute(startTime);
+		btnStartTime.setText(getFormattedTimeString(startTimeHour, startTimeMinute));
+		
+		int endTime = cursor.getInt(ScheduleDatabase.INDEX_END_TIME);
+		endTimeHour = getHour(endTime);
+		endTimeMinute = getMinute(endTime);
+		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
+		
+		btnUpdateClass.setText("Update Class");
 		
 	}
 
 	/**
-	 * Listener inner class for the add class activity.
+	 * Listener inner class for the add/update class activity.
 	 * 
 	 * @author Raj
 	 * 
@@ -241,7 +300,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	 */
 	@Override
 	public void onTimeSet(int buttonSource, int hour, int minute) {
-		String time = formattedTimeString(hour, minute);
+		String time = getFormattedTimeString(hour, minute);
 
 		if (buttonSource == R.id.btn_schedule_update_start_time) {
 			startTimeHour = hour;
@@ -254,7 +313,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 	}
 
-	public static String formattedTimeString(int hour, int minute) {
+	public static String getFormattedTimeString(int hour, int minute) {
 		String time = "";
 		Object minuteText = (minute < 10) ? "0" + minute : minute;
 		Object hourText = "";
@@ -268,6 +327,14 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 		time = hourText + ":" + minuteText + " " + ampm;
 		return time;
+	}
+	
+	private int getHour(int minutes) {
+		return minutes/60;
+	}
+	
+	private int getMinute(int minutes) {
+		return minutes%60;
 	}
 	
 	@Override

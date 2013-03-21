@@ -145,9 +145,9 @@ public class ScheduleActivity extends Activity {
 		int startTimeMinute = startTime % 60;
 		int endTimeHour = endTime / 60;
 		int endTimeMinute = endTime % 60;
-		String startTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+		String startTimeFormatted = ScheduleUpdateActivity.getFormattedTimeString(
 				startTimeHour, startTimeMinute);
-		String endTimeFormatted = ScheduleUpdateActivity.formattedTimeString(
+		String endTimeFormatted = ScheduleUpdateActivity.getFormattedTimeString(
 				endTimeHour, endTimeMinute);
 		String duration = getFormattedTimeDuration(startTime, endTime);
 
