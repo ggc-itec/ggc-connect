@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
+/**
+ * This dialog fragment is used to create a timepicker popup
+ * @author Raj Ramsaroop
+ *
+ */
 public class TimePickerFragment extends DialogFragment implements
 		TimePickerDialog.OnTimeSetListener {
 
@@ -31,16 +36,28 @@ public class TimePickerFragment extends DialogFragment implements
 				DateFormat.is24HourFormat(getActivity()));
 	}
 
+	/**
+	 * Determines what to do when the time is set
+	 */
 	public void onTimeSet(TimePicker view, int hour, int minute) {
 		int buttonSource = args.getInt("buttonSource");
 		mListener.onTimeSet(buttonSource, hour, minute);
 	}
 
+	/**
+	 * An abstract interface that any class/activity that uses the dialog fragment
+	 * must implement so that they can choose what happens when the time is set
+	 * @author Raj Ramsaroop
+	 *
+	 */
 	public static interface OnTimeSetListener {
 		public abstract void onTimeSet(int buttonSource, int hour, int minute);
 	}
 
-	// make sure the Activity implemented it
+	/**
+	 * This method makes sure the OnTimeSetListener is attached when the use
+	 * the dialog fragment.
+	 */
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
