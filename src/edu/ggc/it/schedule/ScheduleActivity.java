@@ -283,9 +283,6 @@ public class ScheduleActivity extends Activity {
 			startActivity(new Intent(scheduleContext,
 					ScheduleUpdateActivity.class));
 			return true;
-		case R.id.refresh_schedule:
-			refreshList();
-			return true;
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
 			return true;

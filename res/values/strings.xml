@@ -179,8 +179,6 @@
     <string name="title_activity_saved_search_database">Saved Search Database</string>
 
     <string name="schedule_update_section">Section:</string>
-
-    <string name="schedule_menu_refresh">Refresh List</string>
     
     <string-array name="schedule_item_options">
         <item>Edit</item>
