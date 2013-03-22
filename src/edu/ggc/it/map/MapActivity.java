@@ -91,7 +91,7 @@ public class MapActivity extends Activity {
 			float lonLong = (float)location.getLongitude();;
 			float lat = (float) (float)location.getLatitude();
 			Log.d("GPS","lat "+lat + " long "+lonLong);
-			Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
+			//Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
 			int lon = (int)(lonLong*1000000);
 			int lati = (int)(lat*1000000);
 			float longitude =(float)(lon/1000000.0);
