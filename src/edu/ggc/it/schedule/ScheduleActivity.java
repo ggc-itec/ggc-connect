@@ -56,15 +56,6 @@ public class ScheduleActivity extends Activity {
 		database = new ScheduleDatabase(scheduleContext);
 		database.open();
 
-		if (!classesExist()) {
-			CharSequence text = "No courses found on your schedule. Use the menu to add a course.";
-			int duration = Toast.LENGTH_LONG;
-			Toast toast = Toast.makeText(scheduleContext, text, duration);
-			toast.show();
-		} else {
-			populateList();
-		}
-
 	}
 
 	/**
@@ -376,6 +367,19 @@ public class ScheduleActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		database.close();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!classesExist()) {
+			CharSequence text = "No courses found on your schedule. Use the menu to add a course.";
+			int duration = Toast.LENGTH_LONG;
+			Toast toast = Toast.makeText(scheduleContext, text, duration);
+			toast.show();
+		} else {
+			refreshList();
+		}
 	}
 	
 	private void refreshList() {
