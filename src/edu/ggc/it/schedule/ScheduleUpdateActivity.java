@@ -32,6 +32,7 @@ public class ScheduleUpdateActivity extends Activity implements
 
 	private ScheduleDatabase database;
 	private Long rowID;
+	private boolean editingClass = false;
 
 	private Context scheduleContext;
 
@@ -95,6 +96,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		if (extras != null) {
 			rowID = extras.getLong("rowID");
 			fillForm();
+			editingClass = true;
 		}
 	}
 
@@ -254,7 +256,7 @@ public class ScheduleUpdateActivity extends Activity implements
 			ContentValues values = database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation);
-			if (rowID >= 0) {
+			if (editingClass) {
 				database.updateRow(rowID, values);
 			} else {
 				database.createRow(values);

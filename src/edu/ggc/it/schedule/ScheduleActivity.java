@@ -1,5 +1,6 @@
 package edu.ggc.it.schedule;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,6 +34,8 @@ public class ScheduleActivity extends Activity {
 
 	private Context scheduleContext;
 	private ScheduleDatabase database;
+	private ArrayList<Long> listRowID = new ArrayList<Long>();
+	
 	/**
 	 * This is the XML value for the text of each list item
 	 */
@@ -130,9 +133,16 @@ public class ScheduleActivity extends Activity {
 	private List<Map<String, ?>> getClassListByDay(String dayIndex) {
 		List<Map<String, ?>> day = new LinkedList<Map<String, ?>>();
 		Cursor cursor = database.queryByDay(dayIndex);
+		if (cursor.getCount() > 0) {
+			// set to unreasonable amount to account for header
+			listRowID.add(Long.MIN_VALUE);
+		}
+		
 		if (cursor.moveToFirst()) {
 			do {
+				// rowID for the position of this list item
 				long rowID = cursor.getLong(ScheduleDatabase.INDEX_ROWID);
+				listRowID.add(rowID);
 				String className = cursor
 						.getString(ScheduleDatabase.INDEX_NAME);
 				String section = cursor
@@ -283,7 +293,7 @@ public class ScheduleActivity extends Activity {
 					ScheduleUpdateActivity.class));
 			return true;
 		case R.id.refresh_schedule:
-			populateList();
+			refreshList();
 			return true;
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
@@ -298,7 +308,7 @@ public class ScheduleActivity extends Activity {
 	 */
 	private void clearSchedule() {
 		database.deleteTable();
-		populateList();
+		refreshList();
 	}
 
 	/**
@@ -339,8 +349,7 @@ public class ScheduleActivity extends Activity {
 	private void showDeleteConfirmDialog(final long rowID) {
 		// get class name
 		Cursor cursor = database.query(rowID);
-		//String name = cursor.getString(ScheduleDatabase.INDEX_NAME);
-		String name = "";
+		String name = cursor.getString(ScheduleDatabase.INDEX_NAME);
 		new AlertDialog.Builder(scheduleContext)
 		.setTitle("Confirm Class Delete")
 		.setMessage("Are you sure you want to delete the class " + name + "? This cannot be undone.")
@@ -356,17 +365,22 @@ public class ScheduleActivity extends Activity {
 	
 	/**
 	 * Delete a class from the database
-	 * @param rowID the correspinding rowID of the class in the database
+	 * @param rowID the corresponding rowID of the class in the database
 	 */
 	private void deleteClass(long rowID) {
 		database.deleteRow(rowID);
-		populateList();
+		refreshList();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		database.close();
+	}
+	
+	private void refreshList() {
+		listRowID.clear();
+		populateList();
 	}
 
 	/**
@@ -377,10 +391,10 @@ public class ScheduleActivity extends Activity {
 	public class ScheduleActivityListener implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> list, View view, int position,
-				final long rowID) {
-			String d = "position: " + position + " row: " + rowID;
-			Log.d("schedule", d);
+		public void onItemClick(AdapterView<?> list, View view, int position, long rowID) {
+			// get the correct rowID that corresponds with the database
+			final long databaseRowID = listRowID.get(position);
+			Log.d("schedule", "db rowID: " + databaseRowID + " | pos: " + position);
 			new AlertDialog.Builder(scheduleContext)
 					.setTitle("Choose Action")
 					.setItems(R.array.schedule_item_options,
@@ -388,9 +402,9 @@ public class ScheduleActivity extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									if (which == 0) {
-										updateDatabase(rowID);
+										updateDatabase(databaseRowID);
 									} else if (which == 1) {
-										showDeleteConfirmDialog(rowID);
+										showDeleteConfirmDialog(databaseRowID);
 									}
 								}
 							}).show();
