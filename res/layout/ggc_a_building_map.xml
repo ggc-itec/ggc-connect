@@ -8,12 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:src="@drawable/ggc_building_a_map" />
+        android:src="@drawable/map_a_building" />
 
-    <ImageView
-        android:id="@+id/imageView_red_dot2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/red_dot" />
+
 
 </FrameLayout>

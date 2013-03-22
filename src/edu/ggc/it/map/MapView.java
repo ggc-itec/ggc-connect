@@ -48,13 +48,13 @@ public class MapView extends View {
 		this.context = context;
 		setDrawingCacheEnabled(true);
 		pic = BitmapFactory.decodeResource(getResources(),R.drawable.ggc_map);
-		aBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		bBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		cBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		dBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		fBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		lBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
-		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.ggc_scale_gray_button);
+		aBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_a_button);
+		bBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_b_button);
+		cBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_c_button);
+		dBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_d_button);
+		fBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_f_button);
+		lBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_l_button);
+		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_student_center_button);
 		scaleGestureDetector = new ScaleGestureDetector(context,new ScaleListener());
 		gestureDetector = new GestureDetector(context, new GestureListener());
 		newX = 0;
@@ -63,8 +63,7 @@ public class MapView extends View {
 		canvasY = new ArrayList<Float>();
 		setCanvasXY(newX, newY);	
 	}
-	
-	/* this is for testing.
+	/*
 	private void fakeGPSData(double d, double e) {
 		float lonLong = (float)e;
 		float lat = (float) d;
@@ -76,8 +75,8 @@ public class MapView extends View {
 		float latitude =(float)(lati/1000000.0);
 		float longOffSet = (float) (84.002993 + longitude);
 		float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
-		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920
-		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 
+		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920 // 92406.653
+		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 // 110921.999
 		Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
 		setRedDotXY(metersLonOffSet,metersLatiOffSet);
 	}
@@ -300,7 +299,7 @@ public class MapView extends View {
 		
 		if(firstRun == true){
 			makeScaleReferenceHashMap();
-			//fakeGPSData(33.979784,-84.002078); this is for testing
+			//fakeGPSData( 33.978156,-84.011145); //this is for testing
 			firstRun = false;
 		}
 		canvas.drawBitmap(aBuilding,scaleReferenceHashMap.get("A_BUILDING_X"),scaleReferenceHashMap.get("A_BUILDING_Y"),null);
