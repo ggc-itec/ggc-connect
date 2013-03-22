@@ -38,8 +38,6 @@ import edu.ggc.it.R;
 			setContentView(R.layout.ggc_a_building_map);
 			ImageView view = (ImageView) findViewById(R.id.imageView_ggc_a_Building_map);
 			view.setOnTouchListener(new TouchListener());
-			redDot = (ImageView)findViewById(R.id.imageView_red_dot2);
-
 		}
 
 		public class TouchListener implements OnTouchListener {
@@ -84,8 +82,6 @@ import edu.ggc.it.R;
 				double xVal = Double.parseDouble(strMatrix[5]);
 				double yScale = Double.parseDouble(strMatrix[9]);
 				double yVal = Double.parseDouble(strMatrix[11]);
-				redDot.setX((float) xVal);
-				redDot.setY((float) yVal);
 				return true;
 			}
 
