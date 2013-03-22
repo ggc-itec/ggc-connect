@@ -398,7 +398,6 @@ public class ScheduleActivity extends Activity {
 		public void onItemClick(AdapterView<?> list, View view, int position, long rowID) {
 			// get the correct rowID that corresponds with the database
 			final long databaseRowID = listRowID.get(position);
-			Log.d("schedule", "db rowID: " + databaseRowID + " | pos: " + position);
 			new AlertDialog.Builder(scheduleContext)
 					.setTitle("Choose Action")
 					.setItems(R.array.schedule_item_options,
