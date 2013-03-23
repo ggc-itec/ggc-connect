@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,7 +32,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		TimePickerFragment.OnTimeSetListener {
 
 	private ScheduleDatabase database;
-	private Long rowID;
+	private long rowID;
 	private boolean editingClass = false;
 
 	private Context scheduleContext;
@@ -65,6 +66,8 @@ public class ScheduleUpdateActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_update_class);
 		scheduleContext = this;
+		database = new ScheduleDatabase(scheduleContext);
+		database.open();
 
 		// Create listeners for each button
 		btnCancel = (Button) findViewById(R.id.btn_schedule_update_cancel);
@@ -105,6 +108,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	 * information from the database
 	 */
 	private void fillForm() {
+		
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
 		txtSection.setText(cursor.getString(ScheduleDatabase.INDEX_SECTION));
@@ -251,8 +255,6 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 
 		if (validData) {
-			database = new ScheduleDatabase(scheduleContext);
-			database.open();
 			ContentValues values = database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation);
@@ -261,7 +263,6 @@ public class ScheduleUpdateActivity extends Activity implements
 			} else {
 				database.createRow(values);
 			}
-			// TODO: Need to tell the schedule activity to update list
 			finish();
 		}
 	}
