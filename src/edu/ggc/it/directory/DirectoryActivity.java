@@ -3,6 +3,7 @@ package edu.ggc.it.directory;
 import edu.ggc.it.R;
 import edu.ggc.it.directory.SavedSearchDatabase.*;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -14,6 +15,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+
+/**
+ * Activity to Search for current staff
+ * 
+ * @author Jesse Perkins
+ * 
+ */
 
 public class DirectoryActivity extends Activity {
 
@@ -27,8 +35,8 @@ public class DirectoryActivity extends Activity {
 	private EditText firstNameField;
 	private EditText lastNameField;
 	private Button saveSearch;
-	private SavedSearchDatabase database;
 	private SimpleCursorAdapter cursorAdapter;
+	private SavedSearchDatabase searchDatabase;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +50,9 @@ public class DirectoryActivity extends Activity {
 		list.setOnItemClickListener(new departmentOnClickListener());
 		recentSearches = (ListView) findViewById(R.id.listView1);
 		SavedSearchDatabaseHelper.init(this);
-		//recentSearches.setAdapter(new ArrayAdapter<String>(this,
-				//android.R.layout.simple_list_item_1, getResources()
-						//.getStringArray(R.array.parent_directories)));
+		// recentSearches.setAdapter(new ArrayAdapter<String>(this,
+		// android.R.layout.simple_list_item_1, getResources()
+		// .getStringArray(R.array.parent_directories)));
 		tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec spec1 = tabHost.newTabSpec("First Tab");
@@ -62,13 +70,16 @@ public class DirectoryActivity extends Activity {
 		firstNameField = (EditText) findViewById(R.id.firstNameText);
 		lastNameField = (EditText) findViewById(R.id.lastNameText);
 		clearSearch.setOnClickListener(new clearSearchListener());
-		saveSearch = (Button)findViewById(R.id.saveSearchButton);
-        saveSearch.setOnClickListener(new saveSearchListener());
-        database = new SavedSearchDatabase(this);
-		database.open();
-		
+		saveSearch = (Button) findViewById(R.id.saveSearchButton);
+		saveSearch.setOnClickListener(new saveSearchListener());
+		searchDatabase = new SavedSearchDatabase(this);
+		searchDatabase.open();
 
 	}
+
+	/**
+	 * @method for taking input and searching GGC directory
+	 */
 
 	public void searchName(View view) {
 		Intent intent = new Intent(this, DirectorySearchWebView.class);
@@ -139,8 +150,26 @@ public class DirectoryActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			//updateDatabase(0, true);
+			updateDatabase();
 		}
+	}
+
+	/**
+	 * @Method for saving searches
+	 */
+	
+	public void updateDatabase() {
+		//TODO: check for searches already saved
+		String first = firstNameField.getText().toString().trim();
+		String last = lastNameField.getText().toString().trim();
+		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
+				+ first + "&firstname_modifier=like&lastname=" + last
+				+ "&lastname_modifier=like&search=Search";
+		ContentValues values = searchDatabase.createContentValues(first, last,
+				url);
+		searchDatabase.createRow(values);
+		firstNameField.setText("");
+		lastNameField.setText("");
 	}
 
 }
