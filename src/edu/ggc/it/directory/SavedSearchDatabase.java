@@ -78,9 +78,11 @@ public class SavedSearchDatabase {
 		return cursor;
 	}
 	
-	public ContentValues createContentValues(String task) {
+	public ContentValues createContentValues(String first, String last, String url) {
 		ContentValues values = new ContentValues();
-		values.put(SavedSearchDatabase.KEY_URL, task);
+		values.put(SavedSearchDatabase.KEY_FIRSTNAME, first);
+		values.put(SavedSearchDatabase.KEY_LASTNAME, last);
+		values.put(SavedSearchDatabase.KEY_URL, url);
 		return values;
 	}
 	
@@ -116,5 +118,8 @@ public class SavedSearchDatabase {
 		}
 
 	}
+
+
+
 
 }
