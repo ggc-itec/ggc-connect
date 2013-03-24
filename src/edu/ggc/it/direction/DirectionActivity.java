@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 /**
  * This class is an activity class
  * @author Thai Pham
@@ -95,6 +96,19 @@ public class DirectionActivity extends Activity {
 		ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(myContext, android.R.layout.simple_spinner_dropdown_item, myLocationList.getNameList());
 		// setting adapter to spinner
 	    spin.setAdapter(spin_adapter);    
+	}
+	
+	public void onBackPressed (){
+		Toast.makeText(myContext, "Thanks for using this app, have a nice day!", 1000).show();
+		
+		img = null;
+		img1 = null;
+		img2 = null;
+		//Set Location manager to null to turn GPS off
+		lm.removeUpdates(myLocationListener);
+		lm = null;
+		super.onBackPressed();
+		return;
 	}
 	
 	public static void updateLocation(){
