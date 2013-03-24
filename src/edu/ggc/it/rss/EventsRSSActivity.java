@@ -32,6 +32,7 @@ public class EventsRSSActivity extends ListActivity {
 
 	private List<String> titles;
 	private List<String> links;
+	private List<String> publishedDates;
 	private List<String> descriptions;
 	private Context context;
 
@@ -47,6 +48,7 @@ public class EventsRSSActivity extends ListActivity {
 
 		titles = new ArrayList<String>();
 		links = new ArrayList<String>();
+		publishedDates = new ArrayList<String>();
 		descriptions = new ArrayList<String>();
 		context = this;
 		new RSSTask().execute();
@@ -89,6 +91,9 @@ public class EventsRSSActivity extends ListActivity {
 								"description")) {
 							if (insideItem)
 								descriptions.add(parser.nextText());
+						} else if (parser.getName().equalsIgnoreCase("pubDate")) {
+							if (insideItem)
+								publishedDates.add(parser.nextText());
 						}
 					} else if (eventType == XmlPullParser.END_TAG
 							&& parser.getName().equalsIgnoreCase("item")) {
@@ -109,8 +114,7 @@ public class EventsRSSActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-					android.R.layout.simple_list_item_1, titles);
+			NewsAdapter adapter = new NewsAdapter(context,titles,publishedDates, descriptions);
 			setListAdapter(adapter);
 		}
 	}

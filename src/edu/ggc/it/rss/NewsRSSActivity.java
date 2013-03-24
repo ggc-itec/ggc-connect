@@ -26,13 +26,14 @@ import edu.ggc.it.R;
  * Activity responsible for displaying RSS news feed from ggc.edu
  * 
  * @author crystalist
- *
+ * 
  */
 public class NewsRSSActivity extends ListActivity {
 
 	private List<String> titles;
 	private List<String> links;
 	private List<String> descriptions;
+	private List<String> publishedDates;
 	private Context context;
 
 	/**
@@ -48,18 +49,20 @@ public class NewsRSSActivity extends ListActivity {
 		titles = new ArrayList<String>();
 		links = new ArrayList<String>();
 		descriptions = new ArrayList<String>();
+		publishedDates = new ArrayList<String>();
 		context = this;
 		new RSSTask().execute();
 	}
-	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-	   Uri uri = Uri.parse(links.get(position));
-	   Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-	   startActivity(intent);
+		Uri uri = Uri.parse(links.get(position));
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		startActivity(intent);
 	}
 
-	// Types for Params, Progress and Result are all void since the task is very simple
+	// Types for Params, Progress and Result are all void since the task is very
+	// simple
 	private class RSSTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
@@ -89,6 +92,9 @@ public class NewsRSSActivity extends ListActivity {
 								"description")) {
 							if (insideItem)
 								descriptions.add(parser.nextText());
+						} else if (parser.getName().equalsIgnoreCase("pubDate")) {
+							if (insideItem)
+								publishedDates.add(parser.nextText());
 						}
 					} else if (eventType == XmlPullParser.END_TAG
 							&& parser.getName().equalsIgnoreCase("item")) {
@@ -97,11 +103,11 @@ public class NewsRSSActivity extends ListActivity {
 					eventType = parser.next();
 				}
 			} catch (MalformedURLException e) {
-			    Log.e("GGC-CONNECT", "MalformedURL", e);
+				Log.e("GGC-CONNECT", "MalformedURL", e);
 			} catch (XmlPullParserException e) {
-				Log.e("GGC-CONNECT","XmlPULLParser", e);
+				Log.e("GGC-CONNECT", "XmlPULLParser", e);
 			} catch (IOException e) {
-				Log.e("GGC-CONNECT","IO",e);
+				Log.e("GGC-CONNECT", "IO", e);
 			}
 			return null;
 		}
@@ -109,8 +115,7 @@ public class NewsRSSActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-					android.R.layout.simple_list_item_1, titles);
+			NewsAdapter adapter = new NewsAdapter(context,titles,publishedDates, descriptions);
 			setListAdapter(adapter);
 		}
 	}
