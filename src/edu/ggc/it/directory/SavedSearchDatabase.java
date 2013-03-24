@@ -68,7 +68,7 @@ public class SavedSearchDatabase {
 	
 	public Cursor queryAllByAscending() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
-				SavedSearchDatabase.KEY_FIRSTNAME + " ASC");
+				SavedSearchDatabase.KEY_LASTNAME + " ASC");
 	}
 	
 	public Cursor query(long rowId) throws SQLException {
