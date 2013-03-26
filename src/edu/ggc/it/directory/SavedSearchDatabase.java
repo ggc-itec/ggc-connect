@@ -30,78 +30,99 @@ public class SavedSearchDatabase {
 	private SQLiteDatabase database;
 	private SavedSearchDatabaseHelper helper;
 	private static SavedSearchDatabase instance = null;
-	
+
 	public SavedSearchDatabase(Context context) {
 		this.context = context;
 	}
 
-	
 	public void open() throws SQLException {
 		helper = new SavedSearchDatabaseHelper(context);
 		database = helper.getWritableDatabase();
 	}
-	
+
 	public void close() {
 		helper.close();
 		helper = null;
 		database = null;
 	}
-	
+
 	public long createRow(ContentValues values) {
 		return database.insert(DATABASE_TABLE, null, values);
 	}
-	
+
 	public boolean updateRow(long rowId, ContentValues values) {
 		return database.update(DATABASE_TABLE, values,
 				SavedSearchDatabase.KEY_ROWID + "=" + rowId, null) > 0;
 	}
-	
+
 	public boolean deleteRow(long rowId) {
-		return database.delete(DATABASE_TABLE, SavedSearchDatabase.KEY_ROWID + "="
-				+ rowId, null) > 0;
+		return database.delete(DATABASE_TABLE, SavedSearchDatabase.KEY_ROWID
+				+ "=" + rowId, null) > 0;
 	}
 
 	public Cursor queryAllByRowID() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
 				" ROWID");
 	}
-	
+
 	public Cursor queryAllByAscending() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
 				SavedSearchDatabase.KEY_LASTNAME + " ASC");
 	}
-	
+
 	public Cursor query(long rowId) throws SQLException {
 		Cursor cursor = database.query(true, DATABASE_TABLE, KEYS_ALL,
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		cursor.moveToFirst();
 		return cursor;
 	}
-	
-	public ContentValues createContentValues(String first, String last, String url) {
+
+	public Cursor queryUrlByRowId(int rowId) throws SQLException {
+		Cursor cursor = database.query(true, DATABASE_TABLE, KEYS_ALL,
+				KEY_ROWID + "=" + rowId, null, null, null, null, null);
+		cursor.moveToFirst();
+		return cursor;
+	}
+
+	//@Method to return url when passed in a rowId
+	public String getName(long rowId) {
+		String[] columns = new String[] { KEY_URL };
+		String name = null;
+		Cursor c = database.query(true, DATABASE_TABLE, columns, KEY_ROWID + "=" + rowId, null, null, null,
+				null, null);
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			
+			name = c.getString(c.getColumnIndex(KEY_URL));
+			c.moveToNext();
+		}
+		c.close();
+		return name;
+	}
+
+	public ContentValues createContentValues(String first, String last,
+			String url) {
 		ContentValues values = new ContentValues();
 		values.put(SavedSearchDatabase.KEY_FIRSTNAME, first);
 		values.put(SavedSearchDatabase.KEY_LASTNAME, last);
 		values.put(SavedSearchDatabase.KEY_URL, url);
 		return values;
 	}
-	
-	
+
 	public static class SavedSearchDatabaseHelper extends SQLiteOpenHelper {
 
 		public static void init(Context context) {
-		    if (null == instance) {
-		        instance = new SavedSearchDatabase(context);
-		    }
+			if (null == instance) {
+				instance = new SavedSearchDatabase(context);
+			}
 		}
-		
+
 		private static final String DATABASE_CREATE = "create table "
 				+ DATABASE_TABLE + " (" + SavedSearchDatabase.KEY_ROWID
 				+ " integer primary key autoincrement, "
 				+ SavedSearchDatabase.KEY_FIRSTNAME + " text not null, "
-						+ SavedSearchDatabase.KEY_LASTNAME + " text not null, "
-						+ SavedSearchDatabase.KEY_URL + " text not null " 
-				        + ");";
+				+ SavedSearchDatabase.KEY_LASTNAME + " text not null, "
+				+ SavedSearchDatabase.KEY_URL + " text not null " + ");";
 
 		public SavedSearchDatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -118,8 +139,5 @@ public class SavedSearchDatabase {
 		}
 
 	}
-
-
-
 
 }
