@@ -47,14 +47,20 @@ public class MapView extends View {
 		super(context);
 		this.context = context;
 		setDrawingCacheEnabled(true);
-		pic = BitmapFactory.decodeResource(getResources(),R.drawable.ggc_map);
-		aBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_a_button);
-		bBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_b_button);
-		cBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_c_button);
-		dBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_d_button);
-		fBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_f_button);
-		lBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_l_button);
-		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_student_center_button);
+		
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inPurgeable = true;
+		options.inInputShareable = true;
+		options.inScaled = false;
+
+		pic = BitmapFactory.decodeResource(getResources(),R.drawable.map_map, options);
+		aBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_a_button, options);
+		bBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_b_button, options);
+		cBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_c_button, options);
+		dBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_d_button, options);
+		fBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_f_button, options);
+		lBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_l_button, options);
+		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_student_center_button, options);
 		scaleGestureDetector = new ScaleGestureDetector(context,new ScaleListener());
 		gestureDetector = new GestureDetector(context, new GestureListener());
 		newX = 0;
@@ -129,23 +135,23 @@ public class MapView extends View {
 	private void makeScaleReferenceHashMap(){
 		scaleReferenceHashMap = new HashMap<String,Float>();
 		
-		scaleReferenceHashMap.put("A_BUILDING_X",(float) ( (scaledWidth*(952/1400.0)) -(aBuilding.getWidth()/2)));
-		scaleReferenceHashMap.put("A_BUILDING_Y",(float) ( (scaledHeight*(568/1120.0)) -(aBuilding.getHeight()/2)));
+		scaleReferenceHashMap.put("A_BUILDING_X",(float) ( (scaledWidth*(951/1400.0)) -(aBuilding.getWidth()/2)));
+		scaleReferenceHashMap.put("A_BUILDING_Y",(float) ( (scaledHeight*(560/1120.0)) -(aBuilding.getHeight()/2)));
 		
-		scaleReferenceHashMap.put("B_BUILDING_X",(float)(((pic.getWidth()/2)-bBuilding.getWidth()/2)-(pic.getWidth()/14)));
-		scaleReferenceHashMap.put("B_BUILDING_Y",(float)(((pic.getHeight()/2)-bBuilding.getHeight()/2)-(pic.getHeight()/14)));
+		scaleReferenceHashMap.put("B_BUILDING_X",(float) ( (scaledWidth*(586/1400.0)) -(aBuilding.getWidth()/2)));
+		scaleReferenceHashMap.put("B_BUILDING_Y",(float) ( (scaledHeight*(480/1120.0)) -(aBuilding.getHeight()/2)));
 		
 		scaleReferenceHashMap.put("C_BUILDING_X",(float) ( (scaledWidth*(510/1400.0)) -(cBuilding.getWidth()/2)));
-		scaleReferenceHashMap.put("C_BUILDING_Y",(float) ( (scaledHeight*(550/1120.0)) -(cBuilding.getHeight()/2)));
+		scaleReferenceHashMap.put("C_BUILDING_Y",(float) ( (scaledHeight*(540/1120.0)) -(cBuilding.getHeight()/2)));
 		
-		scaleReferenceHashMap.put("D_BUILDING_X",(float) ( (scaledWidth*(1165/1400.0)) -(dBuilding.getWidth()/2)));
-		scaleReferenceHashMap.put("D_BUILDING_Y",(float) ( (scaledHeight*(611/1120.0)) -(dBuilding.getHeight()/2)));
+		scaleReferenceHashMap.put("D_BUILDING_X",(float) ( (scaledWidth*(1150/1400.0)) -(dBuilding.getWidth()/2)));
+		scaleReferenceHashMap.put("D_BUILDING_Y",(float) ( (scaledHeight*(600/1120.0)) -(dBuilding.getHeight()/2)));
 		
 		scaleReferenceHashMap.put("F_BUILDING_X",(float) ( (scaledWidth*(1094/1400.0)) -(fBuilding.getWidth()/2)));
 		scaleReferenceHashMap.put("F_BUILDING_Y",(float) ( (scaledHeight*(536/1120.0)) -(fBuilding.getHeight()/2)));
 		
 		scaleReferenceHashMap.put("L_BUILDING_X",(float) ( (scaledWidth*(670/1400.0)) -(lBuilding.getWidth()/2)));
-		scaleReferenceHashMap.put("L_BUILDING_Y",(float) ( (scaledHeight*(623/1120.0)) -(lBuilding.getHeight()/2)));
+		scaleReferenceHashMap.put("L_BUILDING_Y",(float) ( (scaledHeight*(613/1120.0)) -(lBuilding.getHeight()/2)));
 		
 		scaleReferenceHashMap.put("S_BUILDING_X",(float) ( (scaledWidth*(567/1400.0)) -(sBuilding.getWidth()/2)));
 		scaleReferenceHashMap.put("S_BUILDING_Y",(float) ( (scaledHeight*(640/1120.0)) -(sBuilding.getHeight()/2)));
