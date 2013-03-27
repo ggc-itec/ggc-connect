@@ -57,10 +57,6 @@ public class DirectoryActivity extends Activity {
 		list.setOnItemClickListener(new departmentOnClickListener());
 		recentSearches = (ListView) findViewById(R.id.listView1);
 		SavedSearchDatabaseHelper.init(this);
-
-		// recentSearches.setAdapter(new ArrayAdapter<String>(this,
-		// android.R.layout.simple_list_item_1, getResources()
-		// .getStringArray(R.array.parent_directories)));
 		tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec spec1 = tabHost.newTabSpec("First Tab");
@@ -91,7 +87,7 @@ public class DirectoryActivity extends Activity {
 				cursor, from, to);
 
 		recentSearches.setAdapter(cursorAdapter);
-		//registerForContextMenu(getListView());
+		recentSearches.setOnItemClickListener(new savedSearchListener());
 
 	}
 
@@ -211,6 +207,20 @@ public class DirectoryActivity extends Activity {
 	private void refreshList() {
 		listRowID.clear();
 		populateList();
+	}
+	
+	public class savedSearchListener implements
+	android.widget.AdapterView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View v, int position,
+				long rowId) {
+			String url = searchDatabase.getName(rowId);
+			intent2.putExtra(EXTRA_MESSAGE, url);
+			startActivity(intent2);
+			
+		}
+		
 	}
 
 	private void populateList() {
