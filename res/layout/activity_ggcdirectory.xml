@@ -94,7 +94,7 @@
                             <ListView
                                 android:id="@+id/listView1"
                                 android:layout_width="match_parent"
-                                android:layout_height="255dp" >
+                                android:layout_height="505dp" >
                             </ListView>
 
                         </LinearLayout>
@@ -107,7 +107,7 @@
                         android:layout_alignLeft="@+id/scrollView1"
                         android:layout_below="@+id/clearSearchButton"
                         android:layout_marginTop="18dp"
-                        android:text="Recent Searches" />
+                        android:text="Saved Searches" />
 
                     <Button
                         android:id="@+id/clearSearchButton"

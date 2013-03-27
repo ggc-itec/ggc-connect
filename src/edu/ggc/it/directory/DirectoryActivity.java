@@ -1,9 +1,16 @@
 package edu.ggc.it.directory;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import edu.ggc.it.R;
 import edu.ggc.it.directory.SavedSearchDatabase.*;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
@@ -14,6 +21,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+
+/**
+ * Activity to Search for current staff
+ * 
+ * @author Jesse Perkins
+ * 
+ */
 
 public class DirectoryActivity extends Activity {
 
@@ -27,8 +41,9 @@ public class DirectoryActivity extends Activity {
 	private EditText firstNameField;
 	private EditText lastNameField;
 	private Button saveSearch;
-	private SavedSearchDatabase database;
 	private SimpleCursorAdapter cursorAdapter;
+	private SavedSearchDatabase searchDatabase;
+	private ArrayList<Long> listRowID = new ArrayList<Long>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +57,6 @@ public class DirectoryActivity extends Activity {
 		list.setOnItemClickListener(new departmentOnClickListener());
 		recentSearches = (ListView) findViewById(R.id.listView1);
 		SavedSearchDatabaseHelper.init(this);
-		//recentSearches.setAdapter(new ArrayAdapter<String>(this,
-				//android.R.layout.simple_list_item_1, getResources()
-						//.getStringArray(R.array.parent_directories)));
 		tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec spec1 = tabHost.newTabSpec("First Tab");
@@ -62,13 +74,26 @@ public class DirectoryActivity extends Activity {
 		firstNameField = (EditText) findViewById(R.id.firstNameText);
 		lastNameField = (EditText) findViewById(R.id.lastNameText);
 		clearSearch.setOnClickListener(new clearSearchListener());
-		saveSearch = (Button)findViewById(R.id.saveSearchButton);
-        saveSearch.setOnClickListener(new saveSearchListener());
-        database = new SavedSearchDatabase(this);
-		database.open();
+		saveSearch = (Button) findViewById(R.id.saveSearchButton);
+		saveSearch.setOnClickListener(new saveSearchListener());
+		searchDatabase = new SavedSearchDatabase(this);
+		searchDatabase.open();
 		
+		Cursor cursor = searchDatabase.queryAllByAscending();
+		startManagingCursor(cursor);
+		String[] from = new String[] {searchDatabase.KEY_LASTNAME , searchDatabase.KEY_FIRSTNAME};
+		int[] to = new int[] { R.id.taskEntry, R.id.listView1 };
+		cursorAdapter = new SimpleCursorAdapter(this, R.layout.list_row,
+				cursor, from, to);
+
+		recentSearches.setAdapter(cursorAdapter);
+		recentSearches.setOnItemClickListener(new savedSearchListener());
 
 	}
+
+	/**
+	 * @method for taking input and searching GGC directory
+	 */
 
 	public void searchName(View view) {
 		Intent intent = new Intent(this, DirectorySearchWebView.class);
@@ -139,8 +164,67 @@ public class DirectoryActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			//updateDatabase(0, true);
+			updateDatabase();
 		}
+	}
+
+	private List<Map<String, ?>> getSearchByLastName() {
+		List<Map<String, ?>> savedSearch = new LinkedList<Map<String, ?>>();
+		Cursor cursor = searchDatabase.queryAllByAscending();
+		if (cursor.getCount() > 0) {
+			// set to unreasonable amount to account for header
+			listRowID.add(Long.MIN_VALUE);
+		}
+
+		if (cursor.moveToFirst()) {
+			do {
+				// rowID for the position of this list item
+				long rowID = cursor.getLong(searchDatabase.INDEX_ROWID);
+				String lastName = cursor.getString(searchDatabase.INDEX_LASTNAME);
+				String firstName = cursor.getString(searchDatabase.INDEX_FIRSTNAME);
+			} while (cursor.moveToNext());
+		} return savedSearch;
+	}
+
+	/**
+	 * @Method for saving searches
+	 */
+
+	public void updateDatabase() {
+		// TODO: check for searches already saved
+		String first = firstNameField.getText().toString().trim();
+		String last = lastNameField.getText().toString().trim();
+		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
+				+ first + "&firstname_modifier=like&lastname=" + last
+				+ "&lastname_modifier=like&search=Search";
+		ContentValues values = searchDatabase.createContentValues(first, last,
+				url);
+		searchDatabase.createRow(values);
+		firstNameField.setText("");
+		lastNameField.setText("");
+	}
+
+	private void refreshList() {
+		listRowID.clear();
+		populateList();
+	}
+	
+	public class savedSearchListener implements
+	android.widget.AdapterView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View v, int position,
+				long rowId) {
+			String url = searchDatabase.getName(rowId);
+			intent2.putExtra(EXTRA_MESSAGE, url);
+			startActivity(intent2);
+			
+		}
+		
+	}
+
+	private void populateList() {
+
 	}
 
 }
