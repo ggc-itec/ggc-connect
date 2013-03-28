@@ -79,14 +79,7 @@ public class DirectoryActivity extends Activity {
 		searchDatabase = new SavedSearchDatabase(this);
 		searchDatabase.open();
 		
-		Cursor cursor = searchDatabase.queryAllByAscending();
-		startManagingCursor(cursor);
-		String[] from = new String[] {searchDatabase.KEY_LASTNAME , searchDatabase.KEY_FIRSTNAME};
-		int[] to = new int[] { R.id.taskEntry, R.id.listView1 };
-		cursorAdapter = new SimpleCursorAdapter(this, R.layout.list_row,
-				cursor, from, to);
-
-		recentSearches.setAdapter(cursorAdapter);
+		populateList();
 		recentSearches.setOnItemClickListener(new savedSearchListener());
 
 	}
@@ -202,11 +195,17 @@ public class DirectoryActivity extends Activity {
 		searchDatabase.createRow(values);
 		firstNameField.setText("");
 		lastNameField.setText("");
+		refreshList();
 	}
 
 	private void refreshList() {
 		listRowID.clear();
 		populateList();
+	}
+	
+	protected void onResume() {
+		super.onResume();
+		refreshList();
 	}
 	
 	public class savedSearchListener implements
@@ -222,9 +221,18 @@ public class DirectoryActivity extends Activity {
 		}
 		
 	}
-
+	
+	/**
+	 * @method to populate listview with searches saved in the database
+	 */
 	private void populateList() {
-
+		Cursor cursor = searchDatabase.queryAllByAscending();
+		startManagingCursor(cursor);
+		String[] from = new String[] {searchDatabase.KEY_LASTNAME , searchDatabase.KEY_FIRSTNAME};
+		int[] to = new int[] { R.id.taskEntry, R.id.listView1 };
+		cursorAdapter = new SimpleCursorAdapter(this, R.layout.list_row,
+				cursor, from, to);
+		recentSearches.setAdapter(cursorAdapter);
 	}
 
 }
