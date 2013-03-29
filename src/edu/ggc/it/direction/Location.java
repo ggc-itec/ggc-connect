@@ -13,6 +13,10 @@ public class Location {
 	private String building;
 	//Instruction to find the location
 	private String instruction;
+	//Longitude of a location
+	private double longitude;
+	//Latitude of a location
+	private double latitude;
 	
 	/**
 	 * Constructor to create a new location
@@ -20,10 +24,12 @@ public class Location {
 	 * @param bld: to get the building name
 	 * @param instr: to get the instruction
 	 */
-	public Location(String n, String bld, String instr){
+	public Location(String n, String bld,double lat, double lon, String instr){
 		name = n;
 		building = bld;
 		instruction = instr;
+		longitude = lon;
+		latitude = lat;
 	}
 	
 	/**
@@ -48,5 +54,21 @@ public class Location {
 	 */
 	public String getInstruction(){
 		return instruction;
+	}
+	
+	/**
+	 * This method is to get the longitude of a location on the map
+	 * @return instruction in double
+	 */
+	public double getLongitude(){
+		return longitude;
+	}
+	
+	/**
+	 * This method is to get the latitude of a location on the map
+	 * @return instruction in double
+	 */
+	public double getLatitude(){
+		return latitude;
 	}
 }

@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
 /**
  * This class is an activity class
  * @author Thai Pham
@@ -89,7 +88,6 @@ public class DirectionActivity extends Activity {
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (TouchImageView) findViewById(R.id.imageMap);
         img.setMaxZoom(4f);
-
 		img1=(ImageView) findViewById(R.id.imageYou);
 		img2=(ImageView) findViewById(R.id.imageHere);
 		//Create ArrayAdapter for spinner
@@ -99,8 +97,6 @@ public class DirectionActivity extends Activity {
 	}
 	
 	public void onBackPressed (){
-		Toast.makeText(myContext, "Thanks for using this app, have a nice day!", 1000).show();
-		
 		img = null;
 		img1 = null;
 		img2 = null;
@@ -156,20 +152,17 @@ public class DirectionActivity extends Activity {
 		}
 		@Override
 		public void onProviderDisabled(String provider) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}	
 	}
 	
@@ -233,7 +226,7 @@ public class DirectionActivity extends Activity {
 					imgPadding = (imgViewWidth - imgWidth)/2;
 					//Update the left for the image
 					imgLeft = imgLeft + imgPadding;
-					instructionText.setVisibility(View.GONE);
+					//instructionText.setVisibility(View.GONE);
 				}
 			//Set the x for the current user's position on Map(-84.01209 to -83.99772)
 			img1.setX((float) (imgLeft+((longitude + 84.01209)*100000*imgWidth/1437)));
@@ -242,56 +235,24 @@ public class DirectionActivity extends Activity {
 			
 			//Check and run these lines when user click nothing or the first row in the place's list
 			if(bld.length()==0){
-				instructionText.setText(spin_val);//moved from the end of this part
+				instructionText.setText(spin_val);
 				img.setImageResource(R.drawable.thai_ggc_map);	
 				img2.setVisibility(View.INVISIBLE);
-				
 				img1.setImageResource(R.drawable.you);
-				
 			}
 			else{//Run these lines when users click on any item on the list of spinner
 				img2.setVisibility(View.VISIBLE);
+				if(bld.length()==1){
 				instructionText.setText("It is located on building "+ bld
 						+ "\nInstruction: \n"+"    "+spin_val);
+				}
+				else{
+					instructionText.setText("\nInstruction: \n"+"    "+spin_val);
+				}
 			}
 			//Depend on building where the instruction points to, these lines will show the appropriate map
-			if (bld.equals("A")){
-				latitudeDes = 33.97999;
-				longitudeDes = -84.00096;
-			}else if(bld.equals("B")){
-				latitudeDes = 33.98095;
-				longitudeDes =  -84.00526;
-			}else if(bld.equals("C")){
-				latitudeDes = 33.98040;
-				longitudeDes =  -84.00622;
-			}else if(bld.equals("D")){
-				latitudeDes = 33.97970; 
-				longitudeDes = -83.99837;
-			}else if(bld.equals("E")){
-				latitudeDes = 33.97939; 
-				longitudeDes = -84.00553;
-			}else if(bld.equals("R")){
-				latitudeDes = 33.98032; 
-				longitudeDes = -84.00914;
-			}else if(bld.equals("S")){
-				latitudeDes = 33.97884; 
-				longitudeDes = -84.00848;
-			}else if(bld.equals("F")){
-				latitudeDes = 33.97756; 
-				longitudeDes = -83.99980;
-			}else if(bld.equals("L")){
-				latitudeDes = 33.97959;
-				longitudeDes =  -84.00454;
-			}else if(bld.equals("BB")){
-				latitudeDes = 33.98402;
-				longitudeDes =  -84.00212;
-			}else if(bld.equals("PD")){
-				latitudeDes = 33.98162;
-				longitudeDes = -83.99993;
-			}else if(bld.equals("P")){
-				latitudeDes = 33.97860;
-				longitudeDes = -84.01110;
-			}
+			latitudeDes = myLocationList.getLatitude(position);
+			longitudeDes = myLocationList.getLongitude(position);
 			//Set the x for the current destination's position on Map(-84.01209 to -83.99772)
 			img2.setX((float) (imgLeft+((longitudeDes + 84.01209)*100000*imgWidth/1437)));
 			//Set the y for the current destination's position on Map(33.98565 to 33.97652)

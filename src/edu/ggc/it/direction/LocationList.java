@@ -15,23 +15,23 @@ public class LocationList {
 	 */
 	public LocationList(){	
 		locationList = new ArrayList<Location>();
-		locationList.add(new Location("Please choose a place you are looking! ","","                         Welcome to GGC! \n              Your position is the red point. \n Your target is the white point with red text.\n"));
-		locationList.add(new Location("Academic Enhancement Center(AEC)","L","In the middle of GGC map, you will see a beautiful glass building. Go to the second floor of this building, it is on your right."));
-		locationList.add(new Location("AEC: Writing Lab and Math Lab","B","On the main GGC map, you will see this building in C shape in center of the map. Go to the second floor, turn left and find the room 2450."));
-		locationList.add(new Location("Baseball Field","BB","It is on the top of the GGC map, beside the soccer field."));
-		locationList.add(new Location("Book Store","E","It is on middle of the GGC map, next to the Library. Go to the second floor, it is on your right."));
-		locationList.add(new Location("Campus Police","A","On the main GGC map, you will see this building in L shape at right middle of the map. Get in this building and go through all the hall way, you will see the room 1520."));
-		locationList.add(new Location("Cisco Auditorium","C", "This building is next to the B building which is in C shape in center of GGC map. Go to right door and you will see it at room 1260"));
-		locationList.add(new Location("Financial Aid","D","It is on the most right middle of the GGC map. "));
-		locationList.add(new Location("Food Court: Wow Cafe & Wingery, Quiznos","A","On the main GGC map, you will see this building in L shape at right middle of the map."));
-		locationList.add(new Location("Food court: GGCity Cafe, Star Buck","B","On the main GGC map, you will see this building in C shape in center of the map."));
-		locationList.add(new Location("Georgia Gwinnett College ROTC","R","It is on middle left of the GGC map, beside the soccerfields, and building C. It is named Dorm on the map."));
-		locationList.add(new Location("Jazzman's Cafe & Bakery","L","In the middle of GGC map, you will see a beautiful glass building. Go to this building, you will see it at right the front door on your right."));
-		locationList.add(new Location("Parking Decal","A","On the main GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance, you will see it on your left."));
-		locationList.add(new Location("Soccer Fields","S","It is on the bottom left of the GGC map, beside the Dorm, and next to the student's parking."));
-		locationList.add(new Location("Student Parking Deck","PD","It is on the middle right of the GGC map, it is named Parking Deck on the map."));
-		locationList.add(new Location("Student Parking","P","It is on the most left of the GGC map, next to the soccer field."));
-		locationList.add(new Location("Testing Center","A","On the main GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance of this building, you will see it."));
+		locationList.add(new Location("Please choose a place you are looking! ","",0.0,0.0,"                         Welcome to GGC! \n              Your position is the red point. \n Your target is the white point with red text.\n"));
+		locationList.add(new Location("Academic Enhancement Center(AEC)","L",33.97959,-84.00454,"In the middle of GGC map, you will see a beautiful glass building. Go to the second floor of this building, it is on your right."));
+		locationList.add(new Location("AEC: Writing Lab and Math Lab","B",33.98095,-84.00526,"On the main GGC map, you will see this building in C shape in center of the map. Go to the second floor, turn left and find the room 2450."));
+		locationList.add(new Location("Baseball Field","BB",33.98402,-84.00212,"It is on the top of the GGC map, beside the soccer field."));
+		locationList.add(new Location("Book Store","E",33.97939,-84.00553,"It is on middle of the GGC map, next to the Library. Go to the second floor, it is on your right."));
+		locationList.add(new Location("Campus Police","A",33.97999,-84.00096,"On the main GGC map, you will see this building in L shape at right middle of the map. Get in this building and go through all the hall way, you will see the room 1520."));
+		locationList.add(new Location("Cisco Auditorium","C",33.98040,-84.00622, "This building is next to the B building which is in C shape in center of GGC map. Go to right door and you will see it at room 1260"));
+		locationList.add(new Location("Financial Aid","D",33.97970,-83.99837,"It is on the most right middle of the GGC map. "));
+		locationList.add(new Location("Food Court: Wow Cafe & Wingery, Quiznos","A",33.97999,-84.00096,"On the main GGC map, you will see this building in L shape at right middle of the map."));
+		locationList.add(new Location("Food court: GGCity Cafe, Star Buck","B",33.98095,-84.00526,"On the main GGC map, you will see this building in C shape in center of the map."));
+		locationList.add(new Location("Georgia Gwinnett College ROTC","ROTC",33.98032,-84.00914,"It is on middle left of the GGC map, beside the soccerfields, and building C. It is named Dorm on the map."));
+		locationList.add(new Location("Jazzman's Cafe & Bakery","L",33.97959,-84.00454,"In the middle of GGC map, you will see a beautiful glass building. Go to this building, you will see it at right the front door on your right."));
+		locationList.add(new Location("Parking Decal","A",33.97999,-84.00096,"On the main GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance, you will see it on your left."));
+		locationList.add(new Location("Soccer Fields","SF",33.97884,-84.00848,"It is on the bottom left of the GGC map, beside the Dorm, and next to the student's parking."));
+		locationList.add(new Location("Student Parking Deck","PD",33.98162,-83.99993,"It is on the middle right of the GGC map, it is named Parking Deck on the map."));
+		locationList.add(new Location("Student Parking","PK",33.97860,-84.01110,"It is on the most left of the GGC map, next to the soccer field."));
+		locationList.add(new Location("Testing Center","A",33.97999,-84.00096,"On the main GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance of this building, you will see it."));
 		//Add some more here...
 	}
 	
@@ -80,5 +80,23 @@ public class LocationList {
 	 */
 	public String getInstruction(int i){
 		return locationList.get(i).getInstruction();
+	}
+	
+	/**
+	 * This method is to get the latitude of a place on map
+	 * @param i: position of the location in location list
+	 * @return latitude of the place which has position is i
+	 */
+	public double getLatitude(int i){
+		return locationList.get(i).getLatitude();
+	}
+	
+	/**
+	 * This method is to get the latitude of a place on map
+	 * @param i: position of the location in location list
+	 * @return latitude of the place which has position is i
+	 */
+	public double getLongitude(int i){
+		return locationList.get(i).getLongitude();
 	}
 }
