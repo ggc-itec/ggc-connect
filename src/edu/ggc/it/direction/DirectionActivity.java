@@ -99,7 +99,7 @@ public class DirectionActivity extends Activity {
 	}
 	
 	public void onBackPressed (){
-		Toast.makeText(myContext, "Thanks for using this app, have a nice day!", 1000).show();
+		//Toast.makeText(myContext, "Thanks for using this app, have a nice day!", 1000).show();
 		
 		img = null;
 		img1 = null;

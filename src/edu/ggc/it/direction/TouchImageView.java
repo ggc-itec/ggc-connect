@@ -1,9 +1,9 @@
-/*
+package edu.ggc.it.direction;
+
+/**
  * TouchImageView.java
  * Extends Android ImageView to include pinch zooming and panning.
  */
-
-package edu.ggc.it.direction;
 
 import android.content.Context;
 import android.graphics.Matrix;
@@ -102,7 +102,7 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                DirectionActivity.hideLocation();
+                //DirectionActivity.hideLocation();
                 setImageMatrix(matrix);
                 invalidate();
                 return true; // indicate event was handled

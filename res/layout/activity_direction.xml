@@ -20,7 +20,7 @@
     	<TextView
     	    android:id="@+id/instruction_text"
     	    android:layout_width="wrap_content"
-    	    android:layout_height="120dip"
+    	    android:layout_height="wrap_content"
     	    android:layout_below="@+id/spinnerText"
     	    android:layout_centerHorizontal="true"
     	    android:background="@color/thai_white_color"
