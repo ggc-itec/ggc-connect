@@ -35,6 +35,12 @@ public class ImageTouchStudentCenterActivity extends Activity{
 		ImageView view = (ImageView) findViewById(R.id.imageView_ggc_student_center_map);
 		view.setOnTouchListener(new TouchListener());
 	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		onDestroy();
+	}
 
 	public class TouchListener implements OnTouchListener {
 

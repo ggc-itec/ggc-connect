@@ -36,6 +36,12 @@ public class ImageTouchCBuildingActivity extends Activity{
 		view.setOnTouchListener(new TouchListener());
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		onDestroy();
+	}
+	
 	public class TouchListener implements OnTouchListener {
 
 		@Override
