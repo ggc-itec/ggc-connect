@@ -1,30 +1,37 @@
 package edu.ggc.it.banner;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 public class Course {
 	private String subject;
 	private String courseName;
 	private String courseId;
-	private int section;
-	private int crn;
-	private Map<String, List<Meeting>> meetings;
+	private String description;
+	private double hours;
 	
-	public Course(String subject, String courseName, String courseId, int section, int crn,
-			Map<String, List<Meeting>> meetings){
-		this.subject = subject;
-		this.courseName = courseName;
-		this.courseId = courseId;
-		this.section = section;
-		this.crn = crn;
-		this.meetings = meetings;
+	public Course(String subj, String name, String id, String desc, double hours){
+		subject = subj;
+		courseName = name;
+		courseId = id;
+		description = desc;
+		this.hours = hours;
+	}
+	
+	public String getSubject(){
+		return subject;
+	}
+	
+	public String getName(){
+		return courseName;
+	}
+	
+	public String getId(){
+		return courseId;
+	}
+	
+	public String getDescription(){
+		return description;
 	}
 	
 	public String toString(){
-		return String.format("%s - %d - %s %s - %02d", courseName, crn, subject, courseId, section);
+		return String.format("%s %s - %s", subject, courseId, courseName);
 	}
 }

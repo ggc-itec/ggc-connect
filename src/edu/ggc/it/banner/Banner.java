@@ -72,6 +72,16 @@ public class Banner {
 					new BasicNameValuePair("crse_in", ""),
 					new BasicNameValuePair("schd_in", "")
 			});
+	private static final BannerForm p_disp_detail_sched =
+			new BannerForm("/pls/B400/bwckschd.p_disp_detail_sched", false,
+					new NameValuePair[]{
+					new BasicNameValuePair("term_in", "201302"),
+					new BasicNameValuePair("crn_in", "")
+			});
+	
+	private Banner(){
+		// cannot instantiate; static class
+	}
 	
 	/**
 	 * Retrieves a mapping of course number to course name for all courses offered under the
@@ -82,9 +92,11 @@ public class Banner {
 	 * @return a Map of course numbers to course names (e.g. {"3860": "Software Development I"})
 	 */
 	public static Map<String, String> getCourseNumbers(String subject){
-		// TODO: synchronization
-		p_display_courses.set("one_subj", subject);
-		String response = p_display_courses.request();
+		String response = "";
+		synchronized (p_display_courses){
+			p_display_courses.set("one_subj", subject);
+			response = p_display_courses.request();
+		}
 		Map<String, String> courses = new HashMap<String, String>();
 		List<String> titles = scrapeInner(response, "A", "/pls/B400/bwckctlg.p_disp_course_detail?");
 		
@@ -113,10 +125,12 @@ public class Banner {
 	public static Map<String, String> getSections(String subject, String course){
 		final String separator = " - ";
 		
-		// TODO: synchronization
-		p_disp_listcrse.set("subj_in", subject);
-		p_disp_listcrse.set("crse_in", course);
-		String response = p_disp_listcrse.request();
+		String response = "";
+		synchronized (p_disp_listcrse){
+			p_disp_listcrse.set("subj_in", subject);
+			p_disp_listcrse.set("crse_in", course);
+			response = p_disp_listcrse.request();
+		}
 		Map<String, String> sections = new HashMap<String, String>();
 		List<String> titles = scrapeInner(response, "A", "/pls/B400/bwckschd.p_disp_detail_sched?");
 		
@@ -134,20 +148,20 @@ public class Banner {
 	}
 	
 	/**
-	 * Retrieves a Course object containing schedule information about the given course.
-	 * Refer to the Course documentation for a description of the information contained
+	 * Retrieves a Section object containing schedule information about the given section.
+	 * Refer to the Section documentation for a description of the information contained
 	 * therein.
 	 * 
 	 * This method is currently broken for sections other than the first.
 	 * 
-	 * @see Course
+	 * @see Section
 	 * 
 	 * @param subject	the 3-4 letter subject code of the course (e.g. "ITEC")
 	 * @param course	the 4 digit course number (e.g. "3860")
 	 * @param crn		the CRN (e.g. "20709")
-	 * @return a Course object containing the course's schedule information
+	 * @return a Section object containing the section's schedule information
 	 */
-	public static Course getCourse(String subject, String course, String crn){
+	public static Section getSection(String subject, String course, String crn){
 		// TODO: find text less likely to change to identify the table to parse
 		final String sectionSummary = "This layout table is used to present the sections found";
 		final String nameHref = "/pls/B400/bwckschd.p_disp_detail_sched";
@@ -157,12 +171,14 @@ public class Banner {
 		final int namePos = 0; // position of the course name in the array of course name parts
 		final int sectionPos = 3; // position of the section number in the array of course name parts
 		
-		Course result = null;
+		Section result = null;
 		
-		// TODO: synchronization
-		p_disp_listcrse.set("subj_in", subject);
-		p_disp_listcrse.set("crse_in", course);
-		String response = p_disp_listcrse.request();
+		String response = "";
+		synchronized (p_disp_listcrse){
+			p_disp_listcrse.set("subj_in", subject);
+			p_disp_listcrse.set("crse_in", course);
+			response = p_disp_listcrse.request();
+		}
 		// filter for just this section
 		List<String> sectionTables = scrapeInner(response, "TABLE", sectionSummary);
 		String sectionTable = null;
@@ -244,8 +260,66 @@ public class Banner {
 			}
 		}
 		
-		result = new Course(subject, courseName, course, sectionNumber,
+		Course crs = new Course(subject, courseName, course, null, 0.0);
+		result = new Section(crs, "201302", sectionNumber,
 				Integer.parseInt(crn), meetingTimes);
+		
+		return result;
+	}
+	
+	/**
+	 * Retrieve a list of all courses for the given term and subject. Note that this is not the
+	 * same as all courses for which classes are offered that term; for that call getAllSections().
+	 * 
+	 * @param term		the semester to retrieve courses for in YYYYMM format. for
+	 * 					the month, Spring = 02, Summer = 05, and Fall = 08 (e.g. "201302")
+	 * @param subject	the 3-4 letter subject code (e.g. "ITEC")
+	 * @return a List of Course objects representing all possible courses for that term
+	 */
+	public static List<Course> getCourses(String term, String subject){
+		final String course_parm = "crse_numb_in=";
+		final String tag_close = "\">";
+		final String separator = " - ";
+		final String end_link = "</A>";
+		final String linebreak = "<BR>";
+		final String credit_label = "Credit hours";
+		
+		ArrayList<Course> result = new ArrayList<Course>();
+		
+		// get all courses for this subject
+		String response = "";
+		synchronized (p_display_courses){
+			p_display_courses.set("term_in", term);
+			p_display_courses.set("one_subj", subject);
+			response = p_display_courses.request();
+		}
+		
+		// get raw data
+		List<String> titles = scrapeInner(response, "TD", "nttitle");
+		List<String> details = scrapeInner(response, "TD", "ntdefault");
+		
+		for (int i = 0; i < titles.size(); i++){
+			String title = titles.get(i);
+			// get course number
+			int courseStart = title.indexOf(course_parm)+course_parm.length();
+			int courseEnd = title.indexOf(tag_close, courseStart);
+			String courseNumber = title.substring(courseStart, courseEnd);
+			// get course title
+			int titleStart = title.indexOf(separator)+separator.length();
+			int titleEnd = title.indexOf(end_link, titleStart);
+			String courseTitle = title.substring(titleStart, titleEnd);
+			// get long course description
+			String detail = details.get(i);
+			int descEnd = detail.indexOf(linebreak);
+			String desc = detail.substring(0, descEnd).trim();
+			// get credit hours
+			int creditBegin = descEnd + linebreak.length();
+			int creditEnd = detail.indexOf(credit_label, creditBegin);
+			String hours = detail.substring(creditBegin, creditEnd).trim();
+			// build course
+			Course course = new Course(subject, courseTitle, courseNumber, desc, Double.parseDouble(hours));
+			result.add(course);
+		}
 		
 		return result;
 	}

@@ -8,7 +8,7 @@ import java.util.Map;
 
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Banner;
-import edu.ggc.it.banner.Course;
+import edu.ggc.it.banner.Section;
 import edu.ggc.it.banner.Schedule;
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -206,22 +206,22 @@ public class SetupActivity extends Activity{
 		}
 		
 		private void addCourse(){
-			AsyncTask<String, Void, Course> task = new AsyncTask<String, Void, Course>(){
-				protected Course doInBackground(String... args){
+			AsyncTask<String, Void, Section> task = new AsyncTask<String, Void, Section>(){
+				protected Section doInBackground(String... args){
 					String subject = args[0];
 					String course = args[1];
 					String crn = args[2];
 					
-					return Banner.getCourse(subject, course, crn);
+					return Banner.getSection(subject, course, crn);
 				}
 				
-				protected void onPostExecute(Course course){
+				protected void onPostExecute(Section course){
 					schedule.addCourse(course);
 					
-					List<Course> courses = schedule.getCourses();
+					List<Section> courses = schedule.getCourses();
 					List<String> courseStrings = new ArrayList<String>(courses.size());
 					
-					for (Course c: courses)
+					for (Section c: courses)
 						courseStrings.add(c.toString());
 					
 					ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,

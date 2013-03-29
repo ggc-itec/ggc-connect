@@ -155,7 +155,6 @@
         <item>ITEC</item>
         <item>ISCI</item>
         <item>LEAD</item>
-        <item>LEAD</item>
         <item>MGMT</item>
         <item>MKTG</item>
         <item>MATH</item>
@@ -185,5 +184,24 @@
         <item>Delete</item>
     </string-array>
         <string name="schedule_menu_clear_schedule">Clear Schedule</string>
+        <string name="cs_term_label">Term</string>
+        <string name="cs_subject_label">Subject</string>
+        <string name="cs_course_number_label">Course Number</string>
+        <string name="cs_course_title_label">Course Title</string>
+        <string name="cs_credits_label">Min Credits</string>
+        <string name="cs_start_time_label">Start Time</string>
+        <string name="cs_end_time_label">End Time</string>
+        <string name="cs_days_label">Days</string>
+        <string name="cs_instructor_label">Instructor</string>
+        <string-array name="cs_days">
+            <item >Monday</item>
+            <item >Tuesday</item>
+            <item >Wednesday</item>
+            <item >Thursday</item>
+            <item >Friday</item>
+            <item >Saturday</item>
+            <item >Sunday</item>
+        </string-array>
+            <string name="cs_search_label">Search</string>
 
 </resources>
