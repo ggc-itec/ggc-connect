@@ -25,6 +25,8 @@ public class SavedSearchDatabase {
 	public static final String[] KEYS_ALL = { SavedSearchDatabase.KEY_ROWID,
 			SavedSearchDatabase.KEY_FIRSTNAME,
 			SavedSearchDatabase.KEY_LASTNAME, SavedSearchDatabase.KEY_URL };
+	public static final String[]KEYS_LNFN = { SavedSearchDatabase.KEY_ROWID,SavedSearchDatabase.KEY_LASTNAME,
+			SavedSearchDatabase.KEY_FIRSTNAME };
 
 	private Context context;
 	private SQLiteDatabase database;
@@ -69,6 +71,12 @@ public class SavedSearchDatabase {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
 				SavedSearchDatabase.KEY_LASTNAME + " ASC");
 	}
+	
+	public Cursor doubleColumns() {
+		return database.query(DATABASE_TABLE, KEYS_LNFN, null, null, null, null,
+				SavedSearchDatabase.KEY_LASTNAME + " ASC");
+		
+	}
 
 	public Cursor query(long rowId) throws SQLException {
 		Cursor cursor = database.query(true, DATABASE_TABLE, KEYS_ALL,
@@ -84,7 +92,11 @@ public class SavedSearchDatabase {
 		return cursor;
 	}
 
-	//@Method to return url when passed in a rowId
+	/**@Method to return url when passed in a rowId
+	 * 
+	 * @param rowId
+	 * @return name
+	 */
 	public String getName(long rowId) {
 		String[] columns = new String[] { KEY_URL };
 		String name = null;

@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name="edu.ggc.it.direction.DirectionActivity"
-            android:label="@string/title_activity_direction" >
+            android:label="@string/title_activity_direction"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name="edu.ggc.it.map.MapActivity" >
         </activity>
@@ -47,7 +48,8 @@
         </activity>
         <activity
             android:name="edu.ggc.it.love.SetupActivity"
-            android:label="@string/dating_label" >
+            android:label="@string/dating_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.directory.DirectoryActivity"
@@ -73,15 +75,18 @@
         </activity>
         <activity
             android:name="edu.ggc.it.gym.GymMainActivity"
-            android:label="@string/gym_label" >
+            android:label="@string/gym_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.gym.GymScheduleActivity"
-            android:label="@string/gym_label" >
+            android:label="@string/gym_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.gym.GroupsActivity"
-            android:label="@string/gym_label" >
+            android:label="@string/gym_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".map.ImageTouchABuildingActivity" >
         </activity>
