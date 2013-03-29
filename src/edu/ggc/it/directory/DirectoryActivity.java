@@ -8,13 +8,17 @@ import java.util.Map;
 import edu.ggc.it.R;
 import edu.ggc.it.directory.SavedSearchDatabase.*;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,10 +48,12 @@ public class DirectoryActivity extends Activity {
 	private SimpleCursorAdapter cursorAdapter;
 	private SavedSearchDatabase searchDatabase;
 	private ArrayList<Long> listRowID = new ArrayList<Long>();
+	private Context directoryContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		directoryContext = this;
 		setContentView(R.layout.activity_ggcdirectory);
 		intent2 = new Intent(this, DirectorySearchWebView.class);
 		list = (ListView) findViewById(R.id.directory_listView);
@@ -81,6 +87,7 @@ public class DirectoryActivity extends Activity {
 		
 		populateList();
 		recentSearches.setOnItemClickListener(new savedSearchListener());
+		recentSearches.setOnItemLongClickListener(new longPressDeleteListener());
 
 	}
 
@@ -222,14 +229,42 @@ public class DirectoryActivity extends Activity {
 		
 	}
 	
+	public class longPressDeleteListener implements OnItemLongClickListener {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View v,
+				int position, long rowId) {
+			// TODO Auto-generated method stub
+			showConfirmDeleteSavedSearch(rowId);
+			return false;
+		}
+		
+	}
+	
+	private void showConfirmDeleteSavedSearch(final long rowId) {
+		new AlertDialog.Builder(directoryContext)
+		.setTitle("Confirm Clear Saved Search")
+		.setMessage("WARNING: Are you sure you want to delete this search?")
+		.setIcon(android.R.drawable.stat_sys_warning)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				searchDatabase.deleteRow(rowId);
+				refreshList();
+			}
+		})
+		.setNegativeButton("No", null)
+		.show();
+	}
+	
 	/**
 	 * @method to populate listview with searches saved in the database
 	 */
 	private void populateList() {
-		Cursor cursor = searchDatabase.queryAllByAscending();
+		Cursor cursor = searchDatabase.doubleColumns();
 		startManagingCursor(cursor);
-		String[] from = new String[] {searchDatabase.KEY_LASTNAME , searchDatabase.KEY_FIRSTNAME};
-		int[] to = new int[] { R.id.taskEntry, R.id.listView1 };
+		String[] from = new String[] {searchDatabase.KEY_LASTNAME};
+		int[] to = new int[] { R.id.taskEntry};
 		cursorAdapter = new SimpleCursorAdapter(this, R.layout.list_row,
 				cursor, from, to);
 		recentSearches.setAdapter(cursorAdapter);

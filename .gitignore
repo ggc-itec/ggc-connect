@@ -30,3 +30,6 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+# secret project file
+secret.xml
