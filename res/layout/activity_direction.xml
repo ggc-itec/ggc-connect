@@ -26,7 +26,7 @@
     	    android:background="@color/thai_white_color"
     	    android:text="@string/instruction"
     	    android:textAppearance="?android:attr/textAppearanceMedium"
-    	    android:textColor="@color/thai_spinner_color"
+    	    android:textColor="@color/thai_black_color"
     	    android:textStyle="italic"
     	    android:typeface="serif" />
     	

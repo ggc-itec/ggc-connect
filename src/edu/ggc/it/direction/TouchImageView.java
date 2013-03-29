@@ -1,10 +1,5 @@
 package edu.ggc.it.direction;
 
-/**
- * TouchImageView.java
- * Extends Android ImageView to include pinch zooming and panning.
- */
-
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -15,11 +10,15 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
-
+/**
+ * This class is used to override the imageview to make it draggable and zoomable
+ * @author Thai Pham
+ * @version 1.0
+ *
+ */
 public class TouchImageView extends ImageView {
 
     Matrix matrix;
-
     // We can be in one of these 3 states
     static final int NONE = 0;
     static final int DRAG = 1;
@@ -33,28 +32,36 @@ public class TouchImageView extends ImageView {
     float maxScale = 3f;
     float[] m;
 
-
     int viewWidth, viewHeight;
     static final int CLICK = 3;
     float saveScale = 1f;
     protected float origWidth, origHeight;
     int oldMeasuredWidth, oldMeasuredHeight;
 
-
     ScaleGestureDetector mScaleDetector;
-
     Context context;
-
+    
+    /**
+     * Constructor to create a new touchimageview with given context
+     * @param context
+     */
     public TouchImageView(Context context) {
         super(context);
         sharedConstructing(context);
     }
-
+    
+    /**
+     * Constructor to create a new touchimageview with given context and attribute
+     * @param context
+     */
     public TouchImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         sharedConstructing(context);
     }
-    
+    /**
+     * Get and define the constructing of image
+     * @param context
+     */
     private void sharedConstructing(Context context) {
         super.setClickable(true);
         this.context = context;
@@ -63,10 +70,10 @@ public class TouchImageView extends ImageView {
         m = new float[9];
         setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
-
         setOnTouchListener(new OnTouchListener() {
-
-            @Override
+            /**
+             * @Override: to clarify actions of users
+             */
             public boolean onTouch(View v, MotionEvent event) {
                 mScaleDetector.onTouchEvent(event);
                 PointF curr = new PointF(event.getX(), event.getY());
@@ -107,14 +114,21 @@ public class TouchImageView extends ImageView {
                 invalidate();
                 return true; // indicate event was handled
             }
-
         });
     }
 
+    /**
+     * This rountine is used to set the maximum size of image that can be zoom in
+     * @param x
+     */
     public void setMaxZoom(float x) {
         maxScale = x;
     }
-
+    
+    /**
+     * Listener to get information when users do zoom in or out
+     *
+     */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
@@ -122,7 +136,9 @@ public class TouchImageView extends ImageView {
             return true;
         }
 
-        @Override
+        /**
+         * @Override
+         */
         public boolean onScale(ScaleGestureDetector detector) {
             float mScaleFactor = detector.getScaleFactor();
             float origScale = saveScale;
@@ -145,6 +161,9 @@ public class TouchImageView extends ImageView {
         }
     }
 
+    /**
+     * define the matrix to make sure the view does not move
+     */
     void fixTrans() {
         matrix.getValues(m);
         float transX = m[Matrix.MTRANS_X];
@@ -157,6 +176,13 @@ public class TouchImageView extends ImageView {
             matrix.postTranslate(fixTransX, fixTransY);
     }
 
+    /**
+     * fix the image inside a view
+     * @param trans
+     * @param viewSize
+     * @param contentSize
+     * @return
+     */
     float getFixTrans(float trans, float viewSize, float contentSize) {
         float minTrans, maxTrans;
 
@@ -175,6 +201,13 @@ public class TouchImageView extends ImageView {
         return 0;
     }
     
+    /**
+     * Fix if the view is move out of screen
+     * @param delta
+     * @param viewSize
+     * @param contentSize
+     * @return
+     */
     float getFixDragTrans(float delta, float viewSize, float contentSize) {
         if (contentSize <= viewSize) {
             return 0;
@@ -188,9 +221,7 @@ public class TouchImageView extends ImageView {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
         
-        //
         // Rescales image on rotation
-        //
         if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight
                 || viewWidth == 0 || viewHeight == 0)
             return;
