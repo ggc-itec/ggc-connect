@@ -294,7 +294,12 @@ public class DirectoryActivity extends Activity {
 						"WARNING: You must enter at minimum part of the first name or last name" +
 						" to be able to create a saved search")
 				.setIcon(android.R.drawable.stat_sys_warning)
-				.setPositiveButton("OK",null)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				    }
+				})
 				.show();
 	}
 
