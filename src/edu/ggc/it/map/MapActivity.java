@@ -1,36 +1,26 @@
 package edu.ggc.it.map;
 
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.renderscript.Matrix2f;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-import edu.ggc.it.R;
+/**
+ * @author Andrew F. Lynch
+ *
+ * This class is intended to show the location of the device on GGC Campus. 
+ * This class works by get the GPS data then passing it to a {@link MapActivity}
+ * that has a background image and current location redDot icon the show where the 
+ * phone is on campus. 
+ */
 
 public class MapActivity extends Activity {
 	
@@ -50,18 +40,32 @@ public class MapActivity extends Activity {
 		setUpGPS();
 	}
 
+	/**
+	 * This method is a helper method hand some of the math from MotionEvents. 
+	 * @param event
+	 * @return float 
+	 */
 	private float spaceBetweenTwoFingers(MotionEvent event) {
 		float x = event.getX(0) - event.getX(1);
 		float y = event.getY(0) - event.getY(1);
 		return (float) Math.sqrt(x * x + y * y);
 	}
-
+	/**
+	 * This method is a helper method hand some of the math from MotionEvents. 
+	 * @param event
+	 * @return float 
+	 */
 	private void midPointBetweenTwoFingers(PointF point, MotionEvent event) {
 		float x = event.getX(0) + event.getX(1);
 		float y = event.getY(0) + event.getY(1);
 		point.set(x / 2, y / 2);
 	}
 
+	/**
+	 * This method sets up the PGS objects and handles the case if the user has not yet turned on the GPS on the device.
+	 * @param void
+	 * @return void 
+	 */
 	protected void setUpGPS(){	
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	    final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -72,17 +76,31 @@ public class MapActivity extends Activity {
 		ggcLocactionListener = new GGCLocationListener();
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,10, ggcLocactionListener);	
 	}
-	
+	/**
+	 * This method is called when device dose not have the GPS enabled. It prompts the user to turn on the GPS
+	 * and opens up an activity that can turn on the GPS.
+	 * @param void
+	 * @return void 
+	 */
 	private void enableLocationSettings() {
 	    Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 	    startActivity(settingsIntent);
 	}
-	
+	/**
+	 * This method cancels the GPS update request.
+	 */
 	protected void onStop() {
 	    super.onStop();
 	    locationManager.removeUpdates(ggcLocactionListener);
 	}
 	
+	/**
+	 * This class implements {@link LocationListener} to be able to receive GPS data
+	 * it gathers the data then converts the data into meters off set from the center of GGC
+	 * it then passed this data to {@link MapView} so it can update the redDot location icon. 
+	 * @author andrew
+	 *
+	 */
 	private class GGCLocationListener implements LocationListener{
 		
 		@Override
@@ -91,7 +109,6 @@ public class MapActivity extends Activity {
 			float lonLong = (float)location.getLongitude();;
 			float lat = (float) (float)location.getLatitude();
 			Log.d("GPS","lat "+lat + " long "+lonLong);
-			//Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
 			int lon = (int)(lonLong*1000000);
 			int lati = (int)(lat*1000000);
 			float longitude =(float)(lon/1000000.0);
@@ -100,7 +117,6 @@ public class MapActivity extends Activity {
 			float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
 			float metersLonOffSet = (float) (longOffSet*98000);// 1.409// 30.920 // 92406.653
 			float metersLatiOffSet = (float) (latiOffSet*87000);//4.70 // 30.860 // 110921.999
-			//Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
 			mapView.setRedDotXY(metersLonOffSet,metersLatiOffSet);
 
 		}

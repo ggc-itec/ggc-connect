@@ -1,6 +1,5 @@
 package edu.ggc.it.map;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Toast;
 import edu.ggc.it.R;
 
 public class MapView extends View {
@@ -22,7 +20,7 @@ public class MapView extends View {
 	private ScaleGestureDetector scaleGestureDetector;
 	GestureDetector gestureDetector;
 	HashMap<String, Float> scaleReferenceHashMap;
-	private Bitmap pic;
+	private Bitmap backGroundImage;
 	private Bitmap aBuilding;
 	private Bitmap bBuilding;
 	private Bitmap cBuilding;
@@ -31,9 +29,7 @@ public class MapView extends View {
 	private Bitmap lBuilding;
 	private Bitmap sBuilding;
 	private Bitmap redDot;
-	private ArrayList<Float> canvasX;
-	private ArrayList<Float> canvasY;
-	private float newX, newY;
+	private float canvasX, canvasY;
 	private float mScaleFactor = 0.25f; //1.f
 	private float scaledHeight;
 	private float scaledWidth;
@@ -42,7 +38,15 @@ public class MapView extends View {
 	private boolean firstRun = true;
 
 
-
+/**
+ * MapView extends View and is a class that is intend to show a map background then when provided with GPS data, in the from of meters off set from the 
+ * center of the map, show the current location of the device. MapView also has custom buttons and is able to be scaled and scrolled with out changing the
+ * relative position of all of images/buttons. MapView is designed to be used in conjunction with {@link MapActivity} which provides the meters off set 
+ * that this class uses to draw the redDot location icon in the appropriate place. The drawing for this class is handle in the in onDraw method however there
+ * are other methods that are used to organize, maintain, and update the relative positions of the images/buttons.
+ * @author Andrew F. Lynch
+ * @param context
+ */
 	public MapView(Context context) {
 		super(context);
 		this.context = context;
@@ -52,8 +56,8 @@ public class MapView extends View {
 		options.inPurgeable = true;
 		options.inInputShareable = true;
 		options.inScaled = false;
-
-		pic = BitmapFactory.decodeResource(getResources(),R.drawable.map_map, options);
+		// set up all of the images with the exception of the redDot image. The redDot image gets initialized the first time setRedDotXY() is called.
+		backGroundImage = BitmapFactory.decodeResource(getResources(),R.drawable.map_map, options);
 		aBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_a_button, options);
 		bBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_b_button, options);
 		cBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_c_button, options);
@@ -63,56 +67,26 @@ public class MapView extends View {
 		sBuilding = BitmapFactory.decodeResource(getResources(), R.drawable.map_student_center_button, options);
 		scaleGestureDetector = new ScaleGestureDetector(context,new ScaleListener());
 		gestureDetector = new GestureDetector(context, new GestureListener());
-		newX = 0;
-		newY = 0;
-		canvasX = new ArrayList<Float>();
-		canvasY = new ArrayList<Float>();
-		setCanvasXY(newX, newY);	
+		// sets canvasX and canvasY to the starting point of the background image.
+		setCanvasXY(0, 0);	
 	}
 	/*
-	private void fakeGPSData(double d, double e) {
-		float lonLong = (float)e;
-		float lat = (float) d;
-		Log.d("GPS","lat "+lat + " long "+lonLong);
-		Toast.makeText(context, "GPS lati " +lat+" long "+ lonLong , Toast.LENGTH_LONG).show();
-		int lon = (int)(lonLong*1000000);
-		int lati = (int)(lat*1000000);
-		float longitude =(float)(lon/1000000.0);
-		float latitude =(float)(lati/1000000.0);
-		float longOffSet = (float) (84.002993 + longitude);
-		float latiOffSet = (float) (latitude - 33.979813)*-1; //33.981
-		float metersLonOffSet = (float) (longOffSet*92406.653);// 1.409// 30.920 // 92406.653
-		float metersLatiOffSet = (float) (latiOffSet*110921.999);//4.70 // 30.860 // 110921.999
-		Log.d("GPS DATA", "intLati"+lati+"intLong"+lon+"latitude "+latitude +" longitude "+longitude +" latiOffSet"+latiOffSet+" longOffSet "+longOffSet+" mLatiOffSet "+ metersLatiOffSet+" mLonOffSet "+ metersLonOffSet);
-		setRedDotXY(metersLonOffSet,metersLatiOffSet);
-	}
-	*/
-	/*
-	 * The setCanvasXY and getCanvasX/ getCanvasY where made to help keep track of where
+	 * The setCanvasXY and getCanvasX/getCanvasY where made to help keep track of where
 	 * start of background image is.
 	 * 
 	 */
+	
+	
 	private void setCanvasXY(float x, float y){
-		canvasX.add(x);
-		canvasY.add(y);	
+		canvasX = x;
+		canvasY = y;
 	}
 	
-	private float getCanvasX(){
-		float xSum = 0;
-		for(float f: canvasX){
-			xSum+=f;
-		}
-		return xSum;
-	}
-	
-	private float getCanvasY(){
-		float ySum = 0;
-		for(float f: canvasY){
-			ySum+=f;
-		}
-		return ySum;
-	}
-	
+	/**
+	 * This method changes the relative position of the redDot also the first this method is run it initializes redDot.
+	 * @param metersLongOffSet
+	 * @param metersLatiOffSet
+	 */
 	public void setRedDotXY(float metersLongOffSet, float  metersLatiOffSet){
 		redDot = null;
 		redDot = BitmapFactory.decodeResource(getResources(), R.drawable.red_dot);
@@ -172,9 +146,7 @@ public class MapView extends View {
 		if(ev.getAction() == MotionEvent.ACTION_DOWN){
 		   float touchX = ev.getX();
 		   float touchY = ev.getY();  
-		   float xOffSet = getCanvasX();
-		   float yOffSet = getCanvasY();
-		   methodBasedButtonActionListener(xOffSet,yOffSet, touchX, touchY);
+		   methodBasedButtonActionListener(canvasX,canvasY, touchX, touchY);
 		}
 
 		if (ev.getPointerCount() == 1) {
@@ -185,13 +157,13 @@ public class MapView extends View {
 		return true;
 	}
 
-	private void methodBasedButtonActionListener(float xOffSet, float yOffSet, float touchX, float touchY) {
+	private void methodBasedButtonActionListener(float newX, float newY, float touchX, float touchY) {
 		   ///A
-		   float aBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("A_BUILDING_X")*mScaleFactor);
-		   float aBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("A_BUILDING_X")+aBuilding.getWidth())*mScaleFactor);
+		   float aBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("A_BUILDING_X")*mScaleFactor);
+		   float aBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("A_BUILDING_X")+aBuilding.getWidth())*mScaleFactor);
 				   
-		   float aBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("A_BUILDING_Y")*mScaleFactor);
-		   float aBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("A_BUILDING_Y")+aBuilding.getWidth())*mScaleFactor);
+		   float aBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("A_BUILDING_Y")*mScaleFactor);
+		   float aBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("A_BUILDING_Y")+aBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= aBuildingXMin && touchX <= aBuildingXMax){   
 			   if(touchY >= aBuildingYMin && touchY <= aBuildingYMax){
@@ -201,11 +173,11 @@ public class MapView extends View {
 			   }
 		   }
 		   ///B
-		   float bBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("B_BUILDING_X")*mScaleFactor);
-		   float bBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("B_BUILDING_X")+bBuilding.getWidth())*mScaleFactor);
+		   float bBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("B_BUILDING_X")*mScaleFactor);
+		   float bBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("B_BUILDING_X")+bBuilding.getWidth())*mScaleFactor);
 				   
-		   float bBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("B_BUILDING_Y")*mScaleFactor);
-		   float bBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("B_BUILDING_Y")+bBuilding.getWidth())*mScaleFactor);
+		   float bBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("B_BUILDING_Y")*mScaleFactor);
+		   float bBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("B_BUILDING_Y")+bBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= bBuildingXMin && touchX <= bBuildingXMax){   
 			   if(touchY >= bBuildingYMin && touchY <= bBuildingYMax){
@@ -215,11 +187,11 @@ public class MapView extends View {
 			   }
 		   }	
 		   ///C
-		   float cBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("C_BUILDING_X")*mScaleFactor);
-		   float cBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("C_BUILDING_X")+cBuilding.getWidth())*mScaleFactor);
+		   float cBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("C_BUILDING_X")*mScaleFactor);
+		   float cBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("C_BUILDING_X")+cBuilding.getWidth())*mScaleFactor);
 				   
-		   float cBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("C_BUILDING_Y")*mScaleFactor);
-		   float cBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("C_BUILDING_Y")+cBuilding.getWidth())*mScaleFactor);
+		   float cBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("C_BUILDING_Y")*mScaleFactor);
+		   float cBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("C_BUILDING_Y")+cBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= cBuildingXMin && touchX <= cBuildingXMax){   
 			   if(touchY >= cBuildingYMin && touchY <= cBuildingYMax){
@@ -229,11 +201,11 @@ public class MapView extends View {
 			   }
 		   }
 		   ///D
-		   float dBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("D_BUILDING_X")*mScaleFactor);
-		   float dBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("D_BUILDING_X")+dBuilding.getWidth())*mScaleFactor);
+		   float dBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("D_BUILDING_X")*mScaleFactor);
+		   float dBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("D_BUILDING_X")+dBuilding.getWidth())*mScaleFactor);
 				   
-		   float dBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("D_BUILDING_Y")*mScaleFactor);
-		   float dBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("D_BUILDING_Y")+dBuilding.getWidth())*mScaleFactor);
+		   float dBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("D_BUILDING_Y")*mScaleFactor);
+		   float dBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("D_BUILDING_Y")+dBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= dBuildingXMin && touchX <= dBuildingXMax){   
 			   if(touchY >= dBuildingYMin && touchY <= dBuildingYMax){
@@ -243,11 +215,11 @@ public class MapView extends View {
 			   }
 		   }
 		   ///F
-		   float fBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("F_BUILDING_X")*mScaleFactor);
-		   float fBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("F_BUILDING_X")+fBuilding.getWidth())*mScaleFactor);
+		   float fBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("F_BUILDING_X")*mScaleFactor);
+		   float fBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("F_BUILDING_X")+fBuilding.getWidth())*mScaleFactor);
 				   
-		   float fBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("F_BUILDING_Y")*mScaleFactor);
-		   float fBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("F_BUILDING_Y")+fBuilding.getWidth())*mScaleFactor);
+		   float fBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("F_BUILDING_Y")*mScaleFactor);
+		   float fBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("F_BUILDING_Y")+fBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= fBuildingXMin && touchX <= fBuildingXMax){   
 			   if(touchY >= fBuildingYMin && touchY <= fBuildingYMax){
@@ -257,11 +229,11 @@ public class MapView extends View {
 			   }
 		   }
 		   ///L
-		   float lBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("L_BUILDING_X")*mScaleFactor);
-		   float lBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("L_BUILDING_X")+lBuilding.getWidth())*mScaleFactor);
+		   float lBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("L_BUILDING_X")*mScaleFactor);
+		   float lBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("L_BUILDING_X")+lBuilding.getWidth())*mScaleFactor);
 				   
-		   float lBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("L_BUILDING_Y")*mScaleFactor);
-		   float lBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("L_BUILDING_Y")+lBuilding.getWidth())*mScaleFactor);
+		   float lBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("L_BUILDING_Y")*mScaleFactor);
+		   float lBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("L_BUILDING_Y")+lBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= lBuildingXMin && touchX <= lBuildingXMax){   
 			   if(touchY >= lBuildingYMin && touchY <= lBuildingYMax){
@@ -271,11 +243,11 @@ public class MapView extends View {
 				}
 		   }
 		   ///S
-		   float sBuildingXMin = (xOffSet*mScaleFactor)+(scaleReferenceHashMap.get("S_BUILDING_X")*mScaleFactor);
-		   float sBuildingXMax = (xOffSet*mScaleFactor)+((scaleReferenceHashMap.get("S_BUILDING_X")+sBuilding.getWidth())*mScaleFactor);
+		   float sBuildingXMin = (newX*mScaleFactor)+(scaleReferenceHashMap.get("S_BUILDING_X")*mScaleFactor);
+		   float sBuildingXMax = (newX*mScaleFactor)+((scaleReferenceHashMap.get("S_BUILDING_X")+sBuilding.getWidth())*mScaleFactor);
 				   
-		   float sBuildingYMin = (yOffSet*mScaleFactor)+(scaleReferenceHashMap.get("S_BUILDING_Y")*mScaleFactor);
-		   float sBuildingYMax = (yOffSet*mScaleFactor)+((scaleReferenceHashMap.get("S_BUILDING_Y")+sBuilding.getWidth())*mScaleFactor);
+		   float sBuildingYMin = (newY*mScaleFactor)+(scaleReferenceHashMap.get("S_BUILDING_Y")*mScaleFactor);
+		   float sBuildingYMax = (newY*mScaleFactor)+((scaleReferenceHashMap.get("S_BUILDING_Y")+sBuilding.getWidth())*mScaleFactor);
 				   
 		   if(touchX >= sBuildingXMin && touchX <= sBuildingXMax){   
 			   if(touchY >= sBuildingYMin && touchY <= sBuildingYMax){
@@ -291,12 +263,12 @@ public class MapView extends View {
 		super.onDraw(canvas);
 		canvas.save();
 		canvas.scale(mScaleFactor, mScaleFactor);
-		canvas.translate(newX, newY);
-		canvas.drawBitmap(pic, 0, 0,null); 	
+		canvas.translate(canvasX, canvasY);
+		canvas.drawBitmap(backGroundImage, 0, 0,null); 	
 		
 		
-		scaledWidth = pic.getScaledWidth(canvas);
-		scaledHeight = pic.getScaledHeight(canvas);
+		scaledWidth = backGroundImage.getScaledWidth(canvas);
+		scaledHeight = backGroundImage.getScaledHeight(canvas);
 		
 		/*
 		scaledWidth = canvas.getWidth();
@@ -305,7 +277,6 @@ public class MapView extends View {
 		
 		if(firstRun == true){
 			makeScaleReferenceHashMap();
-			//fakeGPSData( 33.978156,-84.011145); //this is for testing
 			firstRun = false;
 		}
 		canvas.drawBitmap(aBuilding,scaleReferenceHashMap.get("A_BUILDING_X"),scaleReferenceHashMap.get("A_BUILDING_Y"),null);
@@ -326,9 +297,8 @@ public class MapView extends View {
 		
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-			newX = newX-distanceX;
-			newY = newY-distanceY;
-			setCanvasXY(-distanceX, -distanceY);// scrolling and zooming are throwing off canvasXY data
+			canvasX = canvasX-distanceX;
+			canvasY = canvasY-distanceY;
 			invalidate();
 			return super.onScroll(e1, e2, distanceX, distanceY);
 		};
