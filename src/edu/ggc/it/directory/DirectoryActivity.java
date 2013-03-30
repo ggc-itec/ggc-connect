@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
 /**
@@ -60,7 +61,7 @@ public class DirectoryActivity extends Activity {
 		list.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, getResources()
 						.getStringArray(R.array.parent_directories)));
-		list.setOnItemClickListener(new departmentOnClickListener());
+		list.setOnItemClickListener(new DepartmentOnClickListener());
 		recentSearches = (ListView) findViewById(R.id.listView1);
 		SavedSearchDatabaseHelper.init(this);
 		tabHost = (TabHost) findViewById(R.id.tabHost);
@@ -79,15 +80,16 @@ public class DirectoryActivity extends Activity {
 		clearSearch = (Button) findViewById(R.id.clearSearchButton);
 		firstNameField = (EditText) findViewById(R.id.firstNameText);
 		lastNameField = (EditText) findViewById(R.id.lastNameText);
-		clearSearch.setOnClickListener(new clearSearchListener());
+		clearSearch.setOnClickListener(new ClearSearchListener());
 		saveSearch = (Button) findViewById(R.id.saveSearchButton);
-		saveSearch.setOnClickListener(new saveSearchListener());
+		saveSearch.setOnClickListener(new SaveSearchListener());
 		searchDatabase = new SavedSearchDatabase(this);
 		searchDatabase.open();
-		
+
 		populateList();
-		recentSearches.setOnItemClickListener(new savedSearchListener());
-		recentSearches.setOnItemLongClickListener(new longPressDeleteListener());
+		recentSearches.setOnItemClickListener(new SavedSearchListener());
+		recentSearches
+				.setOnItemLongClickListener(new LongPressDeleteListener());
 
 	}
 
@@ -108,7 +110,7 @@ public class DirectoryActivity extends Activity {
 		startActivity(intent);
 	}
 
-	public class clearSearchListener implements
+	public class ClearSearchListener implements
 			android.view.View.OnClickListener {
 
 		@Override
@@ -122,7 +124,7 @@ public class DirectoryActivity extends Activity {
 
 	}
 
-	public class departmentOnClickListener implements
+	public class DepartmentOnClickListener implements
 			android.widget.AdapterView.OnItemClickListener {
 
 		@Override
@@ -159,64 +161,83 @@ public class DirectoryActivity extends Activity {
 
 	}
 
-	public class saveSearchListener implements
+	public class SaveSearchListener implements
 			android.view.View.OnClickListener {
 
 		@Override
 		public void onClick(View v) {
-			updateDatabase();
+			filterEmptySearchFields();
 		}
-	}
-
-	private List<Map<String, ?>> getSearchByLastName() {
-		List<Map<String, ?>> savedSearch = new LinkedList<Map<String, ?>>();
-		Cursor cursor = searchDatabase.queryAllByAscending();
-		if (cursor.getCount() > 0) {
-			// set to unreasonable amount to account for header
-			listRowID.add(Long.MIN_VALUE);
-		}
-
-		if (cursor.moveToFirst()) {
-			do {
-				// rowID for the position of this list item
-				long rowID = cursor.getLong(searchDatabase.INDEX_ROWID);
-				String lastName = cursor.getString(searchDatabase.INDEX_LASTNAME);
-				String firstName = cursor.getString(searchDatabase.INDEX_FIRSTNAME);
-			} while (cursor.moveToNext());
-		} return savedSearch;
 	}
 
 	/**
 	 * @Method for saving searches
+	 * @param last_first string created from text entered into the search text fields
+	 * @param url string created by injecting first and last name entries into the search url
+	 * from ggc website directory
 	 */
 
-	public void updateDatabase() {
+	public void updateDatabase(String last_first, String url) {
 		// TODO: check for searches already saved
-		String first = firstNameField.getText().toString().trim();
-		String last = lastNameField.getText().toString().trim();
-		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
-				+ first + "&firstname_modifier=like&lastname=" + last
-				+ "&lastname_modifier=like&search=Search";
-		ContentValues values = searchDatabase.createContentValues(first, last,
-				url);
+		
+		ContentValues values = searchDatabase.createContentValues(last_first, url);
 		searchDatabase.createRow(values);
+		Toast.makeText(this, "To delete a search touch and hold a Saved Search", Toast.LENGTH_LONG)
+		.show();
 		firstNameField.setText("");
 		lastNameField.setText("");
 		refreshList();
+	}
+	
+	/**
+	 * @method to filter empty search fields
+	 */
+	
+	private void filterEmptySearchFields() {
+		String first = firstNameField.getText().toString().trim();
+		String last = lastNameField.getText().toString().trim();
+		String last_first;
+		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
+				+ first + "&firstname_modifier=like&lastname=" + last
+				+ "&lastname_modifier=like&search=Search";
+		if ((first != null && !first.equalsIgnoreCase("")) && (last != null
+				&& !last.equalsIgnoreCase("")))
+		{
+			last_first = last + ", " + first;
+			updateDatabase(last_first, url);
+			
+		}
+		if ((first == null || first.equalsIgnoreCase("")) 
+				&& (last!=null && !last.equalsIgnoreCase(""))) {
+			last_first = last;
+			updateDatabase(last_first, url);
+		}
+		if ((last == null || last.equalsIgnoreCase("")) 
+				&& (first!=null && !first.equalsIgnoreCase(""))) {
+			last_first = first;
+			updateDatabase(last_first, url);
+			
+		}
+		if ((last == null || last.equalsIgnoreCase("")) 
+				&& (first==null || first.equalsIgnoreCase(""))) {
+			emptySavedSearchAlertDialog();
+			
+		}
+		
 	}
 
 	private void refreshList() {
 		listRowID.clear();
 		populateList();
 	}
-	
+
 	protected void onResume() {
 		super.onResume();
 		refreshList();
 	}
-	
-	public class savedSearchListener implements
-	android.widget.AdapterView.OnItemClickListener {
+
+	public class SavedSearchListener implements
+			android.widget.AdapterView.OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position,
@@ -224,12 +245,12 @@ public class DirectoryActivity extends Activity {
 			String url = searchDatabase.getName(rowId);
 			intent2.putExtra(EXTRA_MESSAGE, url);
 			startActivity(intent2);
-			
+
 		}
-		
+
 	}
-	
-	public class longPressDeleteListener implements OnItemLongClickListener {
+
+	public class LongPressDeleteListener implements OnItemLongClickListener {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View v,
@@ -238,33 +259,53 @@ public class DirectoryActivity extends Activity {
 			showConfirmDeleteSavedSearch(rowId);
 			return false;
 		}
-		
+
 	}
 	
+	/**
+	 * @method show AlertDialog when to confirm delete saved search
+	 * @param rowId
+	 */
 	private void showConfirmDeleteSavedSearch(final long rowId) {
 		new AlertDialog.Builder(directoryContext)
-		.setTitle("Confirm Clear Saved Search")
-		.setMessage("WARNING: Are you sure you want to delete this search?")
-		.setIcon(android.R.drawable.stat_sys_warning)
-		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				searchDatabase.deleteRow(rowId);
-				refreshList();
-			}
-		})
-		.setNegativeButton("No", null)
-		.show();
+				.setTitle("Confirm Clear Saved Search")
+				.setMessage(
+						"WARNING: Are you sure you want to delete this search?")
+				.setIcon(android.R.drawable.stat_sys_warning)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								searchDatabase.deleteRow(rowId);
+								refreshList();
+							}
+						}).setNegativeButton("No", null).show();
 	}
 	
+	/**
+	 * @method show AlertDialog when trying to saved an empty search
+	 * 
+	 */
+	private void emptySavedSearchAlertDialog() {
+		new AlertDialog.Builder(directoryContext)
+				.setTitle("Saved Search Fields Empty")
+				.setMessage(
+						"WARNING: You must enter at minimum part of the first name or last name" +
+						" to be able to create a saved search")
+				.setIcon(android.R.drawable.stat_sys_warning)
+				.setPositiveButton("OK",null)
+				.show();
+	}
+
 	/**
 	 * @method to populate listview with searches saved in the database
 	 */
 	private void populateList() {
-		Cursor cursor = searchDatabase.doubleColumns();
+		Cursor cursor = searchDatabase.queryAllByAscending();
 		startManagingCursor(cursor);
-		String[] from = new String[] {searchDatabase.KEY_LASTNAME};
-		int[] to = new int[] { R.id.taskEntry};
+		String[] from = new String[] { searchDatabase.KEY_LASTNAMEFIRSTNAME };
+		int[] to = new int[] { R.id.taskEntry };
 		cursorAdapter = new SimpleCursorAdapter(this, R.layout.list_row,
 				cursor, from, to);
 		recentSearches.setAdapter(cursorAdapter);
