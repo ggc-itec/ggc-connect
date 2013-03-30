@@ -15,18 +15,13 @@ public class SavedSearchDatabase {
 
 	public static final String KEY_ROWID = "_id";
 	public static final int INDEX_ROWID = 0;
-	public static final String KEY_FIRSTNAME = "firstname";
-	public static final int INDEX_FIRSTNAME = 1;
-	public static final String KEY_LASTNAME = "lastname";
-	public static final int INDEX_LASTNAME = 2;
+	public static final String KEY_LASTNAMEFIRSTNAME = "lastname_firstname";
+	public static final int INDEX_LASTNAMEFIRSTNAME = 1;
 	public static final String KEY_URL = "url";
-	public static final int INDEX_URL = 3;
+	public static final int INDEX_URL = 2;
 
 	public static final String[] KEYS_ALL = { SavedSearchDatabase.KEY_ROWID,
-			SavedSearchDatabase.KEY_FIRSTNAME,
-			SavedSearchDatabase.KEY_LASTNAME, SavedSearchDatabase.KEY_URL };
-	public static final String[]KEYS_LNFN = { SavedSearchDatabase.KEY_ROWID,SavedSearchDatabase.KEY_LASTNAME,
-			SavedSearchDatabase.KEY_FIRSTNAME };
+			SavedSearchDatabase.KEY_LASTNAMEFIRSTNAME, SavedSearchDatabase.KEY_URL };
 
 	private Context context;
 	private SQLiteDatabase database;
@@ -69,14 +64,10 @@ public class SavedSearchDatabase {
 
 	public Cursor queryAllByAscending() {
 		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
-				SavedSearchDatabase.KEY_LASTNAME + " ASC");
+				SavedSearchDatabase.KEY_LASTNAMEFIRSTNAME + " ASC");
 	}
 	
-	public Cursor doubleColumns() {
-		return database.query(DATABASE_TABLE, KEYS_LNFN, null, null, null, null,
-				SavedSearchDatabase.KEY_LASTNAME + " ASC");
 		
-	}
 
 	public Cursor query(long rowId) throws SQLException {
 		Cursor cursor = database.query(true, DATABASE_TABLE, KEYS_ALL,
@@ -112,11 +103,9 @@ public class SavedSearchDatabase {
 		return name;
 	}
 
-	public ContentValues createContentValues(String first, String last,
-			String url) {
+	public ContentValues createContentValues(String last_first, String url) {
 		ContentValues values = new ContentValues();
-		values.put(SavedSearchDatabase.KEY_FIRSTNAME, first);
-		values.put(SavedSearchDatabase.KEY_LASTNAME, last);
+		values.put(SavedSearchDatabase.KEY_LASTNAMEFIRSTNAME, last_first);
 		values.put(SavedSearchDatabase.KEY_URL, url);
 		return values;
 	}
@@ -132,8 +121,7 @@ public class SavedSearchDatabase {
 		private static final String DATABASE_CREATE = "create table "
 				+ DATABASE_TABLE + " (" + SavedSearchDatabase.KEY_ROWID
 				+ " integer primary key autoincrement, "
-				+ SavedSearchDatabase.KEY_FIRSTNAME + " text not null, "
-				+ SavedSearchDatabase.KEY_LASTNAME + " text not null, "
+				+ SavedSearchDatabase.KEY_LASTNAMEFIRSTNAME + " text not null, "
 				+ SavedSearchDatabase.KEY_URL + " text not null " + ");";
 
 		public SavedSearchDatabaseHelper(Context context) {
