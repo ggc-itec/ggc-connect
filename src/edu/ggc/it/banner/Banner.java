@@ -72,6 +72,14 @@ public class Banner {
 					new BasicNameValuePair("crse_in", ""),
 					new BasicNameValuePair("schd_in", "")
 			});
+	private static final BannerForm schd_p_disp_listcrse =
+			new BannerForm("/pls/B400/bwckschd.p_disp_listcrse", false,
+					new NameValuePair[]{
+					new BasicNameValuePair("term_in", "201302"),
+					new BasicNameValuePair("subj_in", ""),
+					new BasicNameValuePair("crse_in", ""),
+					new BasicNameValuePair("crn_in", "")
+			});
 	private static final BannerForm p_disp_detail_sched =
 			new BannerForm("/pls/B400/bwckschd.p_disp_detail_sched", false,
 					new NameValuePair[]{
@@ -122,7 +130,7 @@ public class Banner {
 	 * @param course	the 4 digit course number (e.g. "3860")
 	 * @return a Map of section numbers to CRNs (e.g. {"01": "20709"})
 	 */
-	public static Map<String, String> getSections(String subject, String course){
+	public static Map<String, String> getCourseSections(String subject, String course){
 		final String separator = " - ";
 		
 		String response = "";
@@ -165,7 +173,6 @@ public class Banner {
 		// TODO: find text less likely to change to identify the table to parse
 		final String sectionSummary = "This layout table is used to present the sections found";
 		final String nameHref = "/pls/B400/bwckschd.p_disp_detail_sched";
-		final String summary = "This table lists the scheduled meeting times and assigned instructors for this class..";
 		final String separator = " - ";
 		final String sepreg = Pattern.quote(separator);
 		final int namePos = 0; // position of the course name in the array of course name parts
@@ -198,67 +205,7 @@ public class Banner {
 		String courseName = nameParts[namePos];
 		int sectionNumber = Integer.parseInt(nameParts[sectionPos]);
 		
-		List<Map<String, String>> courseData = scrapeTable(sectionTable, summary);
-		Map<String, List<Meeting>> meetingTimes = new HashMap<String, List<Meeting>>();
-		
-		for (Map<String, String> meeting: courseData){
-			String dateRange = meeting.get(DATE_RANGE);
-			String[] dates = dateRange.split(sepreg);
-			
-			SimpleDateFormat bannerDate = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
-			Date beginDate = new Date();
-			Date endDate = new Date();
-			
-			try {
-				beginDate = bannerDate.parse(dates[0]);
-			} catch (ParseException pe) {
-				Log.e(TAG, "Bad date format " + dates[0], pe);
-			}
-			
-			try {
-				endDate = bannerDate.parse(dates[1]);
-			} catch (ParseException pe) {
-				Log.e(TAG, "Bad date format " + dates[1], pe);
-			}
-			
-			String timeRange = meeting.get(TIME);
-			String[] times = timeRange.split(sepreg);
-			
-			SimpleDateFormat bannerTime = new SimpleDateFormat("hh:mm a", Locale.US);
-			Date beginTime = new Date();
-			Date endTime = new Date();
-			
-			try {
-				beginTime = bannerTime.parse(times[0]);
-			} catch (ParseException pe) {
-				Log.e(TAG, "Bad time format " + times[0], pe);
-			}
-			
-			try {
-				endTime = bannerTime.parse(times[1]);
-			} catch (ParseException pe) {
-				Log.e(TAG, "Bad time format " + times[1], pe);
-			}
-			
-			String days = meeting.get(DAYS);
-			String location = meeting.get(WHERE);
-			String instructors = meeting.get(INSTRUCTORS);
-			List<Meeting> meetings;
-			Meeting meet = new Meeting(subject, instructors, beginDate, endDate, beginTime, endTime);
-			
-			for (int i = 0; i < days.length(); i++){
-				String day = days.substring(i, i+1);
-				
-				if (meetingTimes.containsKey(day)){
-					meetings = meetingTimes.get(day);
-				} else{
-					meetings = new ArrayList<Meeting>();
-					meetingTimes.put(day, meetings);
-				}
-				
-				meetings.add(meet);
-			}
-		}
+		Map<String, List<Meeting>> meetingTimes = getMeetings(sectionTable);
 		
 		Course crs = new Course(subject, courseName, course, null, 0.0);
 		result = new Section(crs, "201302", sectionNumber,
@@ -324,6 +271,202 @@ public class Banner {
 		return result;
 	}
 	
+	/**
+	 * Retrieves a list of all sections for all courses in the given subject offered this semester.
+	 * 
+	 * Due to limited information available through the Banner interface, the course information
+	 * present in the Section objects will be incomplete. You should use this in tandem with the
+	 * getCourses() method to retrieve complete course information.
+	 * 
+	 * @param term		the semester to retrieve courses for in YYYYMM format. for
+	 * 					the month, Spring = 02, Summer = 05, and Fall = 08 (e.g. "201302")
+	 * @param subj		the 3-4 letter subject code (e.g. "ITEC")
+	 * @return a List of Section objects containing all sections offered for the given subject
+	 * 	in the given term
+	 */
+	public static List<Section> getSubjectSections(String term, String subject){
+		// get all sections
+		String response = "";
+		synchronized (schd_p_disp_listcrse){
+			schd_p_disp_listcrse.set("term_in", term);
+			schd_p_disp_listcrse.set("subj_in", subject);
+			response = schd_p_disp_listcrse.request();
+		}
+		
+		List<Section> result = parseListCrse(term, response);
+		return result;
+	}
+	
+	/**
+	 * Helper method for getSection() and getSubjectSections() to parse the output of the
+	 * p_disp_listcrse form.
+	 * 
+	 * @param html		the HTML produced by the p_disp_listcrse form
+	 * @return a List of all Sections contained in the HTML
+	 */
+	private static List<Section> parseListCrse(String term, String html){
+		final String separator = " - ";
+		final String credits_title = "Credits";
+		final String credits_prefix = "<BR>";
+		
+		/*
+		 * The sections are in a large table with two rows per section. The first row is the section
+		 * header which contains the course name and number, the CRN, and the section number. The
+		 * second row is all the other data and contains a second table with the meeting information
+		 * (time, place, instructor, etc.).
+		 */
+		ArrayList<Section> result = new ArrayList<Section>();
+		
+		// get header rows
+		List<String> headers = scrapeInner(html, "TH", "ddtitle");
+		// get content rows
+		List<String> data = scrapeInner(html, "TD", "dddefault");
+		
+		for (int i = 0; i < headers.size(); i++){
+			String header = headers.get(i);
+			String content = data.get(i);
+			
+			// parse header row
+			// format: <A HREF="bla">Course Name - CRN - SUBJ 9999 - Section Number</A>
+			// we have to parse from the right because at least one course has a " - " separator in the name itself
+			int sectBegin = header.lastIndexOf(separator);
+			if (sectBegin == -1){
+				Log.w(TAG, "Bad section format: " + header);
+				continue; // the layout is not what we expect; skip it rather than guessing
+			}
+			sectBegin += separator.length();
+			int sectEnd = header.indexOf("</", sectBegin);
+			if (sectEnd == -1)
+				sectEnd = header.length();
+			String section = header.substring(sectBegin, sectEnd).trim();
+			// chop off the end and search for the next item
+			header = header.substring(0, sectBegin-separator.length());
+			
+			int idBegin = header.lastIndexOf(separator);
+			if (idBegin == -1){
+				Log.w(TAG, "Bad course ID format: " + header);
+				continue;
+			}
+			String[] idParts = header.substring(idBegin+separator.length()).split(" ");
+			String subject = idParts[0];
+			String courseNum = idParts[idParts.length-1];
+			header = header.substring(0, idBegin);
+			
+			int crnBegin = header.lastIndexOf(separator);
+			if (crnBegin == -1){
+				Log.w(TAG, "Bad CRN format: " + header);
+				continue;
+			}
+			String crn = header.substring(crnBegin+separator.length()).trim();
+			header = header.substring(0, crnBegin);
+			
+			int nameBegin = header.lastIndexOf(">");
+			if (nameBegin == -1){
+				Log.w(TAG, "Bad course name format: " + header);
+				continue;
+			}
+			String name = header.substring(nameBegin+1).trim();
+			
+			// parse course data
+			int creditsEnd = content.indexOf(credits_title);
+			if (creditsEnd == -1){
+				Log.w(TAG, "Bad credits format (suffix)");
+				continue;
+			}
+			int creditsBegin = content.substring(0, creditsEnd).lastIndexOf(credits_prefix);
+			if (creditsBegin == -1){
+				Log.w(TAG, "Bad credits format (prefix)");
+				continue;
+			}
+			creditsBegin += credits_prefix.length();
+			String credits = content.substring(creditsBegin, creditsEnd).trim();
+			
+			// get meeting times
+			Map<String, List<Meeting>> meetingTimes = getMeetings(content);
+			
+			// incomplete course data
+			Course course = new Course(subject, name, courseNum, null, Double.parseDouble(credits));
+			Section sect = new Section(course, term, Integer.parseInt(section), Integer.parseInt(crn), meetingTimes);
+			result.add(sect);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Helper method for parseListCrse to retrieve all the meeting times for a given section.
+	 * 
+	 * @param html		the HTML containing the meeting table to be parsed
+	 * @return a Map of days to meetings on that day
+	 */
+	private static Map<String, List<Meeting>> getMeetings(String html){
+		final String separator = " - ";
+		final String sepreg = Pattern.quote(separator);
+		final String summary = "This table lists the scheduled meeting times and assigned instructors for this class..";
+		
+		List<Map<String, String>> courseData = scrapeTable(html, summary);
+		Map<String, List<Meeting>> meetingTimes = new HashMap<String, List<Meeting>>();
+		for (Map<String, String> meeting: courseData){
+			String dateRange = meeting.get(DATE_RANGE);
+			String[] dates = dateRange.split(sepreg);
+			
+			SimpleDateFormat bannerDate = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+			Date beginDate = new Date();
+			Date endDate = new Date();
+			
+			try {
+				beginDate = bannerDate.parse(dates[0]);
+			} catch (ParseException pe) {
+				Log.w(TAG, "Bad date format " + dates[0], pe);
+			}
+			
+			try {
+				endDate = bannerDate.parse(dates[1]);
+			} catch (ParseException pe) {
+				Log.w(TAG, "Bad date format " + dates[1], pe);
+			}
+			
+			String timeRange = meeting.get(TIME);
+			String[] times = timeRange.split(sepreg);
+			
+			SimpleDateFormat bannerTime = new SimpleDateFormat("hh:mm a", Locale.US);
+			Date beginTime = new Date();
+			Date endTime = new Date();
+			
+			try {
+				beginTime = bannerTime.parse(times[0]);
+			} catch (ParseException pe) {
+				Log.w(TAG, "Bad time format " + times[0], pe);
+			}
+			
+			try {
+				endTime = bannerTime.parse(times[1]);
+			} catch (ParseException pe) {
+				Log.w(TAG, "Bad time format " + times[1], pe);
+			}
+			
+			String days = meeting.get(DAYS);
+			String location = meeting.get(WHERE);
+			String instructors = meeting.get(INSTRUCTORS);
+			List<Meeting> meetings;
+			Meeting meet = new Meeting(location, instructors, beginDate, endDate, beginTime, endTime);
+			
+			for (int j = 0; j < days.length(); j++){
+				String day = days.substring(j, j+1);
+				
+				if (meetingTimes.containsKey(day)){
+					meetings = meetingTimes.get(day);
+				} else{
+					meetings = new ArrayList<Meeting>();
+					meetingTimes.put(day, meetings);
+				}
+				
+				meetings.add(meet);
+			}
+		}
+		
+		return meetingTimes;
+	}
 	
 	/**
 	 * Searches a string containing HTML for a table tag matching the given matches.
@@ -382,7 +525,6 @@ public class Banner {
 		List<String> results = new ArrayList<String>();
 		String matched = null, line = null;
 		int begin = 0, end = -1;
-		boolean inTag = false;
 		
 		searchHTML:
 		do{
@@ -399,7 +541,34 @@ public class Banner {
 					}
 					
 					// this tag matches; grab the inner HTML
-					end = html.indexOf("</" + tag, begin);
+					// be careful to look for nested occurrences of the search tag to avoid
+					// detecting the end prematurely
+					int searchFrom = begin;
+					findClosingTag:
+					while (true){
+						end = html.indexOf("</" + tag, searchFrom);
+						if (end == -1)
+							break;
+						int nestCount = -1; // the last loop doesn't match, so the count is 1 less than the number of loops
+						for (int openPos = searchFrom; openPos < end && openPos != -1; nestCount++){
+							openPos = html.indexOf("<" + tag, openPos);
+							if (openPos != -1)
+								openPos += tag.length()+1;
+						}
+						if (nestCount == 0)
+							break; // this is the closing tag we're looking for
+						// otherwise, skip the closing tag for each nested occurrence
+						searchFrom = end;
+						while (nestCount-- > 0){
+							searchFrom = html.indexOf("</" + tag, searchFrom);
+							if (searchFrom == -1){
+								// tag not closed properly
+								end = -1;
+								break findClosingTag;
+							}
+							searchFrom += tag.length()+2;
+						}
+					}
 					if (end == -1) // tag not closed properly; just grab everything
 						end = html.length();
 					line = html.substring(begin, end);

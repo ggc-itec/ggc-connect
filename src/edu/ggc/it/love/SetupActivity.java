@@ -167,7 +167,7 @@ public class SetupActivity extends Activity{
 					if (sectionMap.containsKey(courseCode)){
 						sections = sectionMap.get(courseCode);
 					} else{
-						sections = Banner.getSections(subject, course);
+						sections = Banner.getCourseSections(subject, course);
 						sectionMap.put(courseCode, sections);
 					}
 					
