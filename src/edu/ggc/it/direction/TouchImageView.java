@@ -12,8 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 /**
  * This class is used to override the imageview to make it draggable and zoomable
- * @author Thai Pham
- * @version 1.0
+ * @author From the internet
  *
  */
 public class TouchImageView extends ImageView {
@@ -81,7 +80,7 @@ public class TouchImageView extends ImageView {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                     	last.set(curr);
-                        start.set(last);
+                        //start.set(last);
                         mode = DRAG;
                         break;
                         
@@ -112,6 +111,8 @@ public class TouchImageView extends ImageView {
                 //DirectionActivity.hideLocation();
                 setImageMatrix(matrix);
                 invalidate();
+                Log.d("New values: Width" + origWidth * saveScale, "Height"+origHeight * saveScale);
+                Log.d("New coordinators: X" + m[2], "   Y"+ m[5]);
                 return true; // indicate event was handled
             }
         });
@@ -123,6 +124,10 @@ public class TouchImageView extends ImageView {
      */
     public void setMaxZoom(float x) {
         maxScale = x;
+    }
+    
+    public void setOriginalSize() {
+    	saveScale = 1f;
     }
     
     /**

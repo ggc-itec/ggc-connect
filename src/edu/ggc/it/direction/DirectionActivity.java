@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,7 +54,7 @@ public class DirectionActivity extends Activity {
 	//Create location manager 
 	private LocationManager lm;
 	//Create a location
-	MyLocationListener myLocationListener;
+	UserLocationListener myLocationListener;
 	//This will get the user's latitude
 	private static double latitude;
 	//This will get the user's longitude
@@ -63,7 +64,7 @@ public class DirectionActivity extends Activity {
 	//This will get the destination's longitude
 	private double longitudeDes;
 	//Create a location list that holds list of places in GGC
-	private LocationList myLocationList;
+	private LocationArray myLocationList;
 	//Create a new spinner to display list of places in GGC 
 	private Spinner spin;
 	//This will get the item that users choose from place's list of spinner
@@ -79,9 +80,9 @@ public class DirectionActivity extends Activity {
 		//Check if user's device GPS is enable or not. If not, let user to enable it
 		checkGPS();
 		//Init locationlist
-		myLocationList = new LocationList();
+		myLocationList = new LocationArray();
 		//Create new listenner for spinner
-		myItemSelectedListenner mySelectedListenner = new myItemSelectedListenner();
+		MyItemSelectedListenner mySelectedListenner = new MyItemSelectedListenner();
 		spin = (Spinner) findViewById(R.id.spinnerText);
 		spin.setOnItemSelectedListener(mySelectedListenner);
 		
@@ -133,7 +134,7 @@ public class DirectionActivity extends Activity {
 		}else{
 			lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 			lm.getProvider(LocationManager.GPS_PROVIDER);
-			myLocationListener = new MyLocationListener();
+			myLocationListener = new UserLocationListener();
 			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,10, myLocationListener);
 		}
 	}
@@ -142,7 +143,7 @@ public class DirectionActivity extends Activity {
 	 * This class to override LocationListener to get current location of users.
 	 *
 	 */
-	private class MyLocationListener implements LocationListener{
+	private class UserLocationListener implements LocationListener{
 
 		@Override
 		public void onLocationChanged(Location location) {
@@ -199,7 +200,7 @@ public class DirectionActivity extends Activity {
 	 * This method is a listenner for the spinner in order to get the position of item which is selected
 	 *
 	 */
-	public class myItemSelectedListenner implements OnItemSelectedListener{
+	public class MyItemSelectedListenner implements OnItemSelectedListener{
 
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
 			Configuration config = getResources().getConfiguration();
@@ -257,6 +258,8 @@ public class DirectionActivity extends Activity {
 			img2.setX((float) (imgLeft+((longitudeDes + 84.01209)*100000*imgWidth/1437)));
 			//Set the y for the current destination's position on Map(33.98565 to 33.97652)
 			img2.setY((float) (imgViewTop-30+((33.98565 - latitudeDes)*100000*imgHeight/913)));
+			//img.setOriginalSize();
+			Log.d("New values: X" + img.getLeft(), "Y"+img.getTop());
 		}
 
 		@Override

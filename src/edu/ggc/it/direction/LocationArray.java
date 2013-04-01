@@ -7,13 +7,13 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class LocationList {
+public class LocationArray {
 	//Create a new arraylist
 	private ArrayList<Location> locationList;
 	/**
 	 * Constructor to create a new LocationList
 	 */
-	public LocationList(){	
+	public LocationArray(){	
 		locationList = new ArrayList<Location>();
 		locationList.add(new Location("Please choose a place you are looking! ","",0.0,0.0,"                         Welcome to GGC! \n              Your position is the red point. \n Your target is the white point with red text.\n"));
 		locationList.add(new Location("Academic Enhancement Center(AEC)","L",33.97959,-84.00454,"In the middle of GGC map, you will see a beautiful glass building. Go to the second floor of this building, it is on your right."));
