@@ -35,7 +35,12 @@ public class ImageTouchFBuildingActivity extends Activity{
 		ImageView view = (ImageView) findViewById(R.id.ggc_building_f_map);
 		view.setOnTouchListener(new TouchListener());
 	}
-
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		onDestroy();
+	}
 	public class TouchListener implements OnTouchListener {
 
 		@Override

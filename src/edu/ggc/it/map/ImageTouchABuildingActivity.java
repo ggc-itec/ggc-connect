@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -31,6 +32,13 @@ import edu.ggc.it.R;
 		private PointF start = new PointF();
 		private PointF middle = new PointF();
 		float oldDistance = 1f;
+		
+		
+		@Override
+		protected void onPause() {
+			super.onPause();
+			onDestroy();
+		}
 
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {

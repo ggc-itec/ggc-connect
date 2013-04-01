@@ -76,9 +76,7 @@ public class SavedSearchUpdateActivity extends Activity {
 		if (rowID != null) {
 			Cursor cursor = database.query(rowID);
 			editTextFirst.setText(cursor
-					.getString(SavedSearchDatabase.INDEX_FIRSTNAME));
-			editTextFirst.setText(cursor
-					.getString(SavedSearchDatabase.INDEX_LASTNAME));
+					.getString(SavedSearchDatabase.INDEX_LASTNAMEFIRSTNAME));
 			cursor.close();
 		}
 	}
@@ -92,14 +90,15 @@ public class SavedSearchUpdateActivity extends Activity {
 	private void save() {
 		String first = editTextFirst.getText().toString();
 		String last = editTextLast.getText().toString();
+		String last_first = last + ", " + first;
 		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
 				+ first + "&firstname_modifier=like&lastname=" + last
 				+ "&lastname_modifier=like&search=Search";
 		
 		if (rowID != null && !first.equals("")) {
-			database.updateRow(rowID, database.createContentValues(first, last, url));
+			database.updateRow(rowID, database.createContentValues(last_first, url));
 		} else if (!first.equals("")) {
-			rowID = database.createRow(database.createContentValues(first, last, url));
+			rowID = database.createRow(database.createContentValues(last_first, url));
 		}
 		finish();
 	}
