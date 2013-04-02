@@ -1,10 +1,6 @@
 package edu.ggc.it.directory;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import edu.ggc.it.R;
 import edu.ggc.it.directory.SavedSearchDatabase.*;
 import android.app.Activity;
@@ -17,6 +13,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
@@ -80,6 +77,8 @@ public class DirectoryActivity extends Activity {
 		clearSearch = (Button) findViewById(R.id.clearSearchButton);
 		firstNameField = (EditText) findViewById(R.id.firstNameText);
 		lastNameField = (EditText) findViewById(R.id.lastNameText);
+		firstNameField.clearFocus();
+		lastNameField.clearFocus();
 		clearSearch.setOnClickListener(new ClearSearchListener());
 		saveSearch = (Button) findViewById(R.id.saveSearchButton);
 		saveSearch.setOnClickListener(new SaveSearchListener());
@@ -172,27 +171,31 @@ public class DirectoryActivity extends Activity {
 
 	/**
 	 * @Method for saving searches
-	 * @param last_first string created from text entered into the search text fields
-	 * @param url string created by injecting first and last name entries into the search url
-	 * from ggc website directory
+	 * @param last_first
+	 *            string created from text entered into the search text fields
+	 * @param url
+	 *            string created by injecting first and last name entries into
+	 *            the search url from ggc website directory
 	 */
 
 	public void updateDatabase(String last_first, String url) {
 		// TODO: check for searches already saved
-		
-		ContentValues values = searchDatabase.createContentValues(last_first, url);
+
+		ContentValues values = searchDatabase.createContentValues(last_first,
+				url);
 		searchDatabase.createRow(values);
-		Toast.makeText(this, "To delete a search touch and hold a Saved Search", Toast.LENGTH_LONG)
-		.show();
+		Toast.makeText(this,
+				"To delete a search touch and hold a Saved Search",
+				Toast.LENGTH_LONG).show();
 		firstNameField.setText("");
 		lastNameField.setText("");
 		refreshList();
 	}
-	
+
 	/**
 	 * @method to filter empty search fields
 	 */
-	
+
 	private void filterEmptySearchFields() {
 		String first = firstNameField.getText().toString().trim();
 		String last = lastNameField.getText().toString().trim();
@@ -200,35 +203,44 @@ public class DirectoryActivity extends Activity {
 		String url = "http://www.ggc.edu/about-ggc/directory?firstname="
 				+ first + "&firstname_modifier=like&lastname=" + last
 				+ "&lastname_modifier=like&search=Search";
-		if ((first != null && !first.equalsIgnoreCase("")) && (last != null
-				&& !last.equalsIgnoreCase("")))
-		{
+		if ((first != null && !first.equalsIgnoreCase(""))
+				&& (last != null && !last.equalsIgnoreCase(""))) {
 			last_first = last + ", " + first;
 			updateDatabase(last_first, url);
-			
+
 		}
-		if ((first == null || first.equalsIgnoreCase("")) 
-				&& (last!=null && !last.equalsIgnoreCase(""))) {
+		if ((first == null || first.equalsIgnoreCase(""))
+				&& (last != null && !last.equalsIgnoreCase(""))) {
 			last_first = last;
 			updateDatabase(last_first, url);
 		}
-		if ((last == null || last.equalsIgnoreCase("")) 
-				&& (first!=null && !first.equalsIgnoreCase(""))) {
+		if ((last == null || last.equalsIgnoreCase(""))
+				&& (first != null && !first.equalsIgnoreCase(""))) {
 			last_first = first;
 			updateDatabase(last_first, url);
-			
-		}
-		if ((last == null || last.equalsIgnoreCase("")) 
-				&& (first==null || first.equalsIgnoreCase(""))) {
-			emptySavedSearchAlertDialog();
-			
-		}
-		
-	}
 
+		}
+		if ((last == null || last.equalsIgnoreCase(""))
+				&& (first == null || first.equalsIgnoreCase(""))) {
+			emptySavedSearchAlertDialog();
+
+		}
+
+	}
+	
+	/**
+	 * @method to refresh list upon updating database and clears focus and hides keyboard
+	 */
+	
 	private void refreshList() {
 		listRowID.clear();
 		populateList();
+		firstNameField.clearFocus();
+		lastNameField.clearFocus();
+		findViewById(R.id.linearLayout_focus).requestFocus();
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(firstNameField.getWindowToken(), 0);
+
 	}
 
 	protected void onResume() {
@@ -245,6 +257,7 @@ public class DirectoryActivity extends Activity {
 			String url = searchDatabase.getName(rowId);
 			intent2.putExtra(EXTRA_MESSAGE, url);
 			startActivity(intent2);
+			findViewById(R.id.linearLayout_focus).requestFocus();
 
 		}
 
@@ -255,13 +268,12 @@ public class DirectoryActivity extends Activity {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View v,
 				int position, long rowId) {
-			// TODO Auto-generated method stub
 			showConfirmDeleteSavedSearch(rowId);
 			return false;
 		}
 
 	}
-	
+
 	/**
 	 * @method show AlertDialog when to confirm delete saved search
 	 * @param rowId
@@ -282,7 +294,7 @@ public class DirectoryActivity extends Activity {
 							}
 						}).setNegativeButton("No", null).show();
 	}
-	
+
 	/**
 	 * @method show AlertDialog when trying to saved an empty search
 	 * 
@@ -291,16 +303,15 @@ public class DirectoryActivity extends Activity {
 		new AlertDialog.Builder(directoryContext)
 				.setTitle("Saved Search Fields Empty")
 				.setMessage(
-						"WARNING: You must enter at minimum part of the first name or last name" +
-						" to be able to create a saved search")
+						"WARNING: You must enter at minimum part of the first name or last name"
+								+ " to be able to create a saved search")
 				.setIcon(android.R.drawable.stat_sys_warning)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-				    @Override
-				    public void onClick(DialogInterface dialog, int which) {
-				    }
-				})
-				.show();
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				}).show();
 	}
 
 	/**
