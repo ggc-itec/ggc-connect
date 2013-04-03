@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+/**
+ * Sets up a list view of ToDo items
+ * 
+ * @author crystalist
+ * 
+ */
 public class ToDoListActivity extends ListActivity {
 
 	private ToDoDatabase database;
@@ -30,7 +36,7 @@ public class ToDoListActivity extends ListActivity {
 		database = new ToDoDatabase(this);
 		database.open();
 
-		Cursor cursor = database.queryAll();
+		Cursor cursor = database.queryAllByRowID();
 		startManagingCursor(cursor);
 
 		String[] from = new String[] { ToDoDatabase.KEY_TASK };
@@ -54,7 +60,8 @@ public class ToDoListActivity extends ListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(ListView list, View view, int position, long rowId) {
+	protected void onListItemClick(ListView list, View view, int position,
+			long rowId) {
 		super.onListItemClick(list, view, position, rowId);
 		updateDatabase(rowId, false);
 	}

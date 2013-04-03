@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -31,6 +32,13 @@ import edu.ggc.it.R;
 		private PointF start = new PointF();
 		private PointF middle = new PointF();
 		float oldDistance = 1f;
+		
+		
+		@Override
+		protected void onPause() {
+			super.onPause();
+			onDestroy();
+		}
 
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +46,6 @@ import edu.ggc.it.R;
 			setContentView(R.layout.ggc_a_building_map);
 			ImageView view = (ImageView) findViewById(R.id.imageView_ggc_a_Building_map);
 			view.setOnTouchListener(new TouchListener());
-			redDot = (ImageView)findViewById(R.id.imageView_red_dot2);
-
 		}
 
 		public class TouchListener implements OnTouchListener {
@@ -84,8 +90,6 @@ import edu.ggc.it.R;
 				double xVal = Double.parseDouble(strMatrix[5]);
 				double yScale = Double.parseDouble(strMatrix[9]);
 				double yVal = Double.parseDouble(strMatrix[11]);
-				redDot.setX((float) xVal);
-				redDot.setY((float) yVal);
 				return true;
 			}
 

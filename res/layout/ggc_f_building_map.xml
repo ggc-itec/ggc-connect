@@ -8,6 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:src="@drawable/ggc_building_f_map" />
+        android:src="@drawable/map_f_building" />
 
 </FrameLayout>

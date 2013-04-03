@@ -26,6 +26,119 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
+                
+                
+
+                <RelativeLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+
+                    <TextView
+                        android:id="@+id/textview_schedule_add_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First Name (Optional)"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <EditText
+                        android:id="@+id/firstNameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/textview_schedule_add_name"
+                        android:ems="10"
+                        android:hint="As much as you know"
+                        android:inputType="textPersonName" >
+
+                        <requestFocus />
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/textview_schedule_add_name"
+                        android:layout_below="@+id/firstNameText"
+                        android:layout_marginTop="21dp"
+                        android:text="Last Name (Optional)"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <EditText
+                        android:id="@+id/lastNameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/textView2"
+                        android:ems="10"
+                        android:hint="As much as you know"
+                        android:inputType="textPersonName" />
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/textView2"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/clearSearchButton"
+                        android:layout_marginTop="64dp" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" >
+
+                            <ListView
+                                android:id="@+id/listView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="505dp" >
+                            </ListView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                    <TextView
+                        android:id="@+id/recentSearches"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/scrollView1"
+                        android:layout_below="@+id/clearSearchButton"
+                        android:layout_marginTop="18dp"
+                        android:text="Saved Searches" />
+
+                    <Button
+                        android:id="@+id/clearSearchButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/SearchDirectoryButton"
+                        android:layout_alignBottom="@+id/SearchDirectoryButton"
+                        android:layout_alignParentLeft="true"
+                        android:text="Clear" />
+
+                    <Button
+                        android:id="@+id/SearchDirectoryButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/lastNameText"
+                        android:layout_marginTop="52dp"
+                        android:onClick="searchName"
+                        android:text="Search" />
+
+                    <Button
+                        android:id="@+id/saveSearchButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/SearchDirectoryButton"
+                        android:layout_centerHorizontal="true"
+                        android:text="Save Search" />
+
+                    
+                
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/tab1"
@@ -40,76 +153,6 @@
                     </ListView>
                     
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                    <EditText
-                        android:id="@+id/firstNameText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/textView1"
-                        android:ems="10"
-                        android:inputType="textPersonName" >
-
-                        <requestFocus />
-                    </EditText>
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignRight="@+id/textView1"
-                        android:layout_below="@+id/firstNameText"
-                        android:layout_marginTop="21dp"
-                        android:text="Last Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                    <Button
-                        android:id="@+id/clearSearchButton"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/SearchDirectoryButton"
-                        android:layout_alignBottom="@+id/SearchDirectoryButton"
-                        android:layout_alignLeft="@+id/textView2"
-                        android:layout_marginLeft="30dp"
-                        android:text="Clear" />
-
-                    <Button
-                        android:id="@+id/SearchDirectoryButton"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/lastNameText"
-                        android:layout_marginRight="19dp"
-                        android:layout_marginTop="54dp"
-                        android:onClick="searchName"
-                        android:text="Search" />
-
-                    <EditText
-                        android:id="@+id/lastNameText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/textView2"
-                        android:ems="10"
-                        android:inputType="textPersonName" />
-                    
-                
-                </RelativeLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

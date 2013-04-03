@@ -7,15 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import edu.ggc.it.R;
+import edu.ggc.it.banner.Banner;
+import edu.ggc.it.banner.Course;
+import edu.ggc.it.banner.Schedule;
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 /**
@@ -36,8 +40,9 @@ public class SetupActivity extends Activity{
 	private ToggleButton searchByToggle;
 	private TableRow sectionRow;
 	private Spinner sectionInput;
+	private TableRow listRow;
+	private ListView classList;
 	private String[] subjectIds;
-	private Banner banner;
 	private Map<String, Map<String, String>> courseMap;
 	private Map<String, Map<String, String>> sectionMap;
 	private boolean showCourseNumber;
@@ -46,10 +51,9 @@ public class SetupActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.love_setup);
 		
-		banner = new Banner(this);
-		
 		courseMap = new HashMap<String, Map<String, String>>();
 		sectionMap = new HashMap<String, Map<String, String>>();
+		schedule = new Schedule();
 		showCourseNumber = false;
 		
 		// find views
@@ -61,6 +65,8 @@ public class SetupActivity extends Activity{
 		searchByToggle = (ToggleButton)findViewById(R.id.ds_search_by_toggle);
 		sectionRow = (TableRow)findViewById(R.id.ds_section_row);
 		sectionInput = (Spinner)findViewById(R.id.ds_section_input);
+		listRow = (TableRow)findViewById(R.id.ds_class_list_row);
+		classList = (ListView)findViewById(R.id.ds_class_list);
 		subjectIds = getResources().getStringArray(R.array.ds_subject_codes);
 		
 		// listen for buttons to be clicked
@@ -111,33 +117,76 @@ public class SetupActivity extends Activity{
 		}
 		
 		private void showCourses(){
+			AsyncTask<String, Void, Map<String, String>> task =
+					new AsyncTask<String, Void, Map<String, String>>(){
+				protected Map<String, String> doInBackground(String... codes){
+					String code = codes[0]; // only one
+					Map<String, String> courses = null;
+					if (courseMap.containsKey(code)){
+						courses = courseMap.get(code);
+					} else{
+						courses = Banner.getCourseNumbers(code);
+						courseMap.put(code, courses);
+					}
+					
+					return courses;
+				}
+				
+				protected void onPostExecute(Map<String, String> courses){
+					List<String> displayValues = null;
+					if (showCourseNumber)
+						displayValues = new ArrayList<String>(courses.keySet());
+					else
+						displayValues = new ArrayList<String>(courses.values());
+					
+					Collections.sort(displayValues);
+					
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
+							android.R.layout.simple_spinner_item, displayValues);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					courseInput.setAdapter(adapter);
+					courseRow.setVisibility(View.VISIBLE);
+					searchByRow.setVisibility(View.VISIBLE);
+				}
+			};
+			
+			
 			int selected = subjectInput.getSelectedItemPosition();
 			String code = subjectIds[selected];
-			Map<String, String> courses = null;
-			if (courseMap.containsKey(code)){
-				courses = courseMap.get(code);
-			} else{
-				courses = banner.getCourseNumbers(code);
-				courseMap.put(code, courses);
-			}
-			
-			List<String> displayValues = null;
-			if (showCourseNumber)
-				displayValues = new ArrayList<String>(courses.keySet());
-			else
-				displayValues = new ArrayList<String>(courses.values());
-			
-			Collections.sort(displayValues);
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
-					android.R.layout.simple_spinner_item, displayValues);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			courseInput.setAdapter(adapter);
-			courseRow.setVisibility(View.VISIBLE);
-			searchByRow.setVisibility(View.VISIBLE);
+			task.execute(code);
 		}
 		
 		private void showSections(){
+			AsyncTask<String, Void, Map<String, String>> task =
+					new AsyncTask<String, Void, Map<String, String>>(){
+				protected Map<String, String> doInBackground(String... args){
+					String subject = args[0];
+					String course = args[1];
+					Map<String, String> sections = null;
+					String courseCode = subject + course;
+					if (sectionMap.containsKey(courseCode)){
+						sections = sectionMap.get(courseCode);
+					} else{
+						sections = Banner.getSections(subject, course);
+						sectionMap.put(courseCode, sections);
+					}
+					
+					return sections;
+				}
+				
+				protected void onPostExecute(Map<String, String> sections){
+					List<String> sectionNumbers = new ArrayList<String>(sections.keySet());
+					Collections.sort(sectionNumbers);
+					
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
+							android.R.layout.simple_spinner_item, sectionNumbers);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					sectionInput.setAdapter(adapter);
+					sectionRow.setVisibility(View.VISIBLE);
+					classButton.setText(R.string.ds_done_label);
+				}
+			};
+			
 			int selected = subjectInput.getSelectedItemPosition();
 			String subject = subjectIds[selected];
 			String course = (String)courseInput.getSelectedItem();
@@ -153,36 +202,59 @@ public class SetupActivity extends Activity{
 				}
 			}
 			
-			Map<String, String> sections = null;
-			String courseCode = subject + course;
-			if (sectionMap.containsKey(courseCode)){
-				sections = sectionMap.get(courseCode);
-			} else{
-				sections = banner.getSections(subject, course);
-				sectionMap.put(courseCode, sections);
-			}
-			
-			List<String> sectionNumbers = new ArrayList<String>(sections.keySet());
-			Collections.sort(sectionNumbers);
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
-					android.R.layout.simple_spinner_item, sectionNumbers);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			sectionInput.setAdapter(adapter);
-			sectionRow.setVisibility(View.VISIBLE);
-			classButton.setText(R.string.ds_done_label);
+			task.execute(subject, course);
 		}
 		
 		private void addCourse(){
-			Toast toast = Toast.makeText(SetupActivity.this, "not totally implemented",
-					Toast.LENGTH_SHORT);
-			toast.show();
+			AsyncTask<String, Void, Course> task = new AsyncTask<String, Void, Course>(){
+				protected Course doInBackground(String... args){
+					String subject = args[0];
+					String course = args[1];
+					String crn = args[2];
+					
+					return Banner.getCourse(subject, course, crn);
+				}
+				
+				protected void onPostExecute(Course course){
+					schedule.addCourse(course);
+					
+					List<Course> courses = schedule.getCourses();
+					List<String> courseStrings = new ArrayList<String>(courses.size());
+					
+					for (Course c: courses)
+						courseStrings.add(c.toString());
+					
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetupActivity.this,
+							android.R.layout.simple_list_item_1, courseStrings);
+					classList.setAdapter(adapter);
+					listRow.setVisibility(View.VISIBLE);
+					
+					subjectRow.setVisibility(View.GONE);
+					courseRow.setVisibility(View.GONE);
+					searchByRow.setVisibility(View.GONE);
+					sectionRow.setVisibility(View.GONE);
+					classButton.setText(R.string.ds_add_class_label);
+				}
+			};
 			
-			subjectRow.setVisibility(View.GONE);
-			courseRow.setVisibility(View.GONE);
-			searchByRow.setVisibility(View.GONE);
-			sectionRow.setVisibility(View.GONE);
-			classButton.setText(R.string.ds_add_class_label);
+			int selected = subjectInput.getSelectedItemPosition();
+			String subject = subjectIds[selected];
+			String course = (String)courseInput.getSelectedItem();
+			if (!showCourseNumber){
+				// we need the number, but this is the name
+				// TODO: this does not handle the user changing the subject after the course
+				// has been selected
+				for (Map.Entry<String, String> entry: courseMap.get(subject).entrySet()){
+					if (entry.getValue().equals(course)){
+						course = entry.getKey();
+						break;
+					}
+				}
+			}
+			Map<String, String> sections = sectionMap.get(subject + course);
+			String crn = sections.get((String)sectionInput.getSelectedItem());
+			
+			task.execute(subject, course, crn);
 		}
 		
 	}

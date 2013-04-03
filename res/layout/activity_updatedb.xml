@@ -4,21 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
     <EditText
         android:id="@+id/editTextTask"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text=""
-        android:textSize="60dp" >
+        android:textSize="30dp" >
     </EditText>
 
-    <Button
-        android:id="@+id/buttonSaveDB"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Update" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonSaveToDoDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/buttonDeleteToDoDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Delete" />
+    </LinearLayout>
 
 </LinearLayout>

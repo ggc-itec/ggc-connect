@@ -1,17 +1,34 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="top"
-    tools:context=".ScheduleActivity" >
+<!-- list_complex -->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:paddingTop="10dip"
+	android:paddingBottom="10dip"
+	android:paddingLeft="15dip"
+	>
 
-    <ListView
-        android:id="@+id/ScheduleItemsListView"
-        android:layout_width="match_parent"
+    <!-- 
+    <CheckBox
+        android:id="@+id/list_complex_title"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+        -->
 
-    </ListView>
-
-</RelativeLayout>
+	<TextView
+		android:id="@+id/list_complex_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+	/>
+	
+	<TextView
+		android:id="@+id/list_complex_caption"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		/>
+</LinearLayout>
