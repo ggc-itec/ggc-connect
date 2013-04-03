@@ -31,6 +31,10 @@ public class Course {
 		return description;
 	}
 	
+	public double getCredits(){
+		return hours;
+	}
+	
 	public String toString(){
 		return String.format("%s %s - %s", subject, courseId, courseName);
 	}

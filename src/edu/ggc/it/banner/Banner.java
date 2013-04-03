@@ -44,6 +44,7 @@ public class Banner {
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
 	// for class data
+	private static final String TYPE = "Type";
 	private static final String DATE_RANGE = "Date Range";
 	private static final String TIME = "Time";
 	private static final String DAYS = "Days";
@@ -170,14 +171,6 @@ public class Banner {
 	 * @return a Section object containing the section's schedule information
 	 */
 	public static Section getSection(String subject, String course, String crn){
-		// TODO: find text less likely to change to identify the table to parse
-		final String sectionSummary = "This layout table is used to present the sections found";
-		final String nameHref = "/pls/B400/bwckschd.p_disp_detail_sched";
-		final String separator = " - ";
-		final String sepreg = Pattern.quote(separator);
-		final int namePos = 0; // position of the course name in the array of course name parts
-		final int sectionPos = 3; // position of the section number in the array of course name parts
-		
 		Section result = null;
 		
 		String response = "";
@@ -187,29 +180,15 @@ public class Banner {
 			response = p_disp_listcrse.request();
 		}
 		// filter for just this section
-		List<String> sectionTables = scrapeInner(response, "TABLE", sectionSummary);
-		String sectionTable = null;
-		for (String table: sectionTables){
-			if (table.indexOf(crn) != -1){
-				sectionTable = table;
+		List<Section> sections = parseListCrse("201302", response);
+		
+		int icrn = Integer.parseInt(crn);
+		for (Section section: sections){
+			if (section.getCRN() == icrn){
+				result = section;
 				break;
 			}
 		}
-		
-		// we were only passed the CRN, so get the section number from the HTML
-		String title = scrapeInner(sectionTable, "A", nameHref).get(0);
-		// String.split wants a regex, so Pattern.quote escapes our string so
-		// that we're matching on the actual characters and they're not interpreted
-		// as special regex characters.
-		String[] nameParts = title.split(sepreg);
-		String courseName = nameParts[namePos];
-		int sectionNumber = Integer.parseInt(nameParts[sectionPos]);
-		
-		Map<String, List<Meeting>> meetingTimes = getMeetings(sectionTable);
-		
-		Course crs = new Course(subject, courseName, course, null, 0.0);
-		result = new Section(crs, "201302", sectionNumber,
-				Integer.parseInt(crn), meetingTimes);
 		
 		return result;
 	}
@@ -382,7 +361,7 @@ public class Banner {
 			String credits = content.substring(creditsBegin, creditsEnd).trim();
 			
 			// get meeting times
-			Map<String, List<Meeting>> meetingTimes = getMeetings(content);
+			List<Meeting> meetingTimes = getMeetings(content);
 			
 			// incomplete course data
 			Course course = new Course(subject, name, courseNum, null, Double.parseDouble(credits));
@@ -399,13 +378,13 @@ public class Banner {
 	 * @param html		the HTML containing the meeting table to be parsed
 	 * @return a Map of days to meetings on that day
 	 */
-	private static Map<String, List<Meeting>> getMeetings(String html){
+	private static List<Meeting> getMeetings(String html){
 		final String separator = " - ";
 		final String sepreg = Pattern.quote(separator);
 		final String summary = "This table lists the scheduled meeting times and assigned instructors for this class..";
 		
 		List<Map<String, String>> courseData = scrapeTable(html, summary);
-		Map<String, List<Meeting>> meetingTimes = new HashMap<String, List<Meeting>>();
+		List<Meeting> meetingTimes = new ArrayList<Meeting>();
 		for (Map<String, String> meeting: courseData){
 			String dateRange = meeting.get(DATE_RANGE);
 			String[] dates = dateRange.split(sepreg);
@@ -446,26 +425,42 @@ public class Banner {
 			}
 			
 			String days = meeting.get(DAYS);
+			String type = meeting.get(TYPE);
 			String location = meeting.get(WHERE);
 			String instructors = meeting.get(INSTRUCTORS);
-			List<Meeting> meetings;
-			Meeting meet = new Meeting(location, instructors, beginDate, endDate, beginTime, endTime);
-			
-			for (int j = 0; j < days.length(); j++){
-				String day = days.substring(j, j+1);
-				
-				if (meetingTimes.containsKey(day)){
-					meetings = meetingTimes.get(day);
-				} else{
-					meetings = new ArrayList<Meeting>();
-					meetingTimes.put(day, meetings);
-				}
-				
-				meetings.add(meet);
-			}
+			Instructor instructor = parseInstructor(instructors);
+			Meeting meet = new Meeting(location, days, type, instructor, beginDate, endDate, beginTime, endTime);
+			meetingTimes.add(meet);
 		}
 		
 		return meetingTimes;
+	}
+	
+	/**
+	 * Helper method for getting instructor name and email from a Banner link.
+	 * 
+	 * @param instructor	instructor String from p_disp_listcrse
+	 * @return an Instructor object or null if the instructor was TBA
+	 */
+	private static Instructor parseInstructor(String instructor){
+		final String tba = "TBA";
+		final String mailto = "mailto:";
+		final String mailsuffix = "\"";
+		final String namePrefix = "target=\"";
+		final String nameSuffix = "\"";
+		
+		if (instructor.indexOf(tba) != -1)
+			return null;
+		
+		int mailBegin = instructor.indexOf(mailto)+mailto.length();
+		int mailEnd = instructor.indexOf(mailsuffix, mailBegin);
+		String mail = instructor.substring(mailBegin, mailEnd);
+		
+		int nameBegin = instructor.indexOf(namePrefix)+namePrefix.length();
+		int nameEnd = instructor.indexOf(nameSuffix, nameBegin);
+		String name = instructor.substring(nameBegin, nameEnd);
+		
+		return new Instructor(name, mail);
 	}
 	
 	/**

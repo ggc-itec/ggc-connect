@@ -203,5 +203,6 @@
             <item >Sunday</item>
         </string-array>
             <string name="cs_search_label">Search</string>
+            <string name="cs_main_label">Class Search</string>
 
 </resources>

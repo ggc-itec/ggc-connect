@@ -42,6 +42,7 @@
             android:id="@+id/cs_subject_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/cs_selector"
             android:choiceMode="multipleChoice"
             android:entries="@array/ds_subject_names"
             tools:listitem="@android:layout/simple_list_item_1" >
@@ -148,6 +149,7 @@
             android:id="@+id/cs_days_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/cs_selector"
             android:choiceMode="multipleChoice"
             android:entries="@array/cs_days"
             tools:listitem="@android:layout/simple_list_item_1" >

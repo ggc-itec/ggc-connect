@@ -39,7 +39,9 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String COL_TITLE = "title";
 		public static final String COL_DESC = "desc";
 		public static final String COL_HOURS = "hours";
+		public static final String QUAL_ID = TABLE + "." + COL_ID;
 		public static final String INDEX_COURSE = "crsidx";
+		public static final int NUM_COLUMNS = 5; // excludes rowid; for ContentValues
 		
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +
@@ -67,8 +69,10 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String COL_TERM = "term";
 		public static final String COL_CRN = "crn";
 		public static final String COL_SECT = "section";
+		public static final String QUAL_ID = TABLE + "." + COL_ID;
 		public static final String INDEX_CRN = "crnidx";
 		public static final String INDEX_SECT = "sectidx";
+		public static final int NUM_COLUMNS = 4;
 		
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +
@@ -97,7 +101,9 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String COL_ID = "_id";
 		public static final String COL_NAME = "name";
 		public static final String COL_EMAIL = "email";
+		public static final String QUAL_ID = TABLE + "." + COL_ID;
 		public static final String INDEX_EMAIL = "emlidx";
+		public static final int NUM_COLUMNS = 2;
 		
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +
@@ -119,11 +125,17 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String TABLE = "classtypes";
 		public static final String COL_ID = "_id";
 		public static final String COL_DESC = "desc";
+		public static final String QUAL_ID = TABLE + "." + COL_ID;
+		public static final String INDEX_DESC = "descidx";
+		public static final int NUM_COLUMNS = 1;
 		
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +
 					COL_ID + " integer primary key," +
 					COL_DESC + " text not null," +
+					")");
+			db.execSQL("create unique index " + INDEX_DESC +
+					" on " + TABLE + "(" + COL_DESC +
 					")");
 		}
 		
@@ -144,7 +156,9 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String COL_END_TIME = "endtime";
 		public static final String COL_DAYS = "days";
 		public static final String COL_TYPE = "typeid";
+		public static final String QUAL_ID = TABLE + "." + COL_ID;
 		public static final String INDEX_INSTRUCTOR = "instidx";
+		public static final int NUM_COLUMNS = 9;
 		
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +

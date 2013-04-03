@@ -11,15 +11,34 @@ public class Section {
 	private String term;
 	private int section;
 	private int crn;
-	private Map<String, List<Meeting>> meetings;
+	private List<Meeting> meetings;
 	
-	public Section(Course course, String term, int section, int crn,
-			Map<String, List<Meeting>> meetings){
+	public Section(Course course, String term, int section, int crn, List<Meeting> meetings){
 		this.course = course;
 		this.term = term;
 		this.section = section;
 		this.crn = crn;
 		this.meetings = meetings;
+	}
+	
+	public Course getCourse(){
+		return course;
+	}
+	
+	public String getTerm(){
+		return term;
+	}
+	
+	public int getCRN(){
+		return crn;
+	}
+	
+	public int getSection(){
+		return section;
+	}
+	
+	public List<Meeting> getMeetings(){
+		return meetings;
 	}
 	
 	public String toString(){
