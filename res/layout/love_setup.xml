@@ -11,7 +11,7 @@
         android:background="@color/ggc_green" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/cs_term_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dip" >
@@ -35,7 +35,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow2"
+            android:id="@+id/cs_subject_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dip" >
@@ -56,7 +56,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow3"
+            android:id="@+id/cs_course_number_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dip" >

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.direction.DirectionActivity;
 import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
@@ -37,6 +38,7 @@ public class Main extends Activity {
 	private Button gymButton;
 	private Button scheduleButton;
 	private Button loveButton;
+	private Button classSearchButton;
 	private Context myContext;
 
 	/** Called when the activity is first created. */
@@ -63,6 +65,9 @@ public class Main extends Activity {
 
 		loveButton = (Button) findViewById(R.id.love_button);
 		loveButton.setOnClickListener(myListener);
+		
+		classSearchButton = (Button)findViewById(R.id.search_button);
+		classSearchButton.setOnClickListener(myListener);
 
 	}
 
@@ -138,6 +143,8 @@ public class Main extends Activity {
 				
 			} else if (view.getId() == R.id.love_button) {
 				startActivity(new Intent(myContext, SetupActivity.class));
+			} else if (view.getId() == R.id.search_button){
+				startActivity(new Intent(myContext, ClassSearchActivity.class));
 			}
 
 		}

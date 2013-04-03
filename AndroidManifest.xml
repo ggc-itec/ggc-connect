@@ -123,6 +123,7 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
+        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"></activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />
