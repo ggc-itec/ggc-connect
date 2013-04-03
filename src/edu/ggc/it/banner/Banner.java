@@ -231,19 +231,36 @@ public class Banner {
 			// get course number
 			int courseStart = title.indexOf(course_parm)+course_parm.length();
 			int courseEnd = title.indexOf(tag_close, courseStart);
+			if (courseStart == -1 || courseEnd == -1){
+				Log.w(TAG, "Could not locate course number: " + title);
+				continue;
+			}
 			String courseNumber = title.substring(courseStart, courseEnd);
 			// get course title
 			int titleStart = title.indexOf(separator)+separator.length();
 			int titleEnd = title.indexOf(end_link, titleStart);
+			if (titleStart == -1 || titleEnd == -1){
+				Log.w(TAG, "Could not locate course title: " + title);
+				continue;
+			}
 			String courseTitle = title.substring(titleStart, titleEnd);
-			// get long course description
-			String detail = details.get(i);
-			int descEnd = detail.indexOf(linebreak);
-			String desc = detail.substring(0, descEnd).trim();
 			// get credit hours
-			int creditBegin = descEnd + linebreak.length();
-			int creditEnd = detail.indexOf(credit_label, creditBegin);
-			String hours = detail.substring(creditBegin, creditEnd).trim();
+			String detail = details.get(i);
+			int creditEnd = detail.indexOf(credit_label);
+			int creditBegin = detail.substring(0, creditEnd).lastIndexOf(linebreak);
+			if (creditEnd == -1 || creditBegin == -1){
+				Log.w(TAG, "Could not locate credit hours: " + detail);
+				continue;
+			}
+			String hours = detail.substring(creditBegin+linebreak.length(), creditEnd).trim();
+			// get long course description
+			int descEnd = creditBegin;
+			int descBegin = detail.substring(0, descEnd).lastIndexOf(linebreak);
+			if (descBegin == -1){
+				Log.w(TAG, "Could not locate long description: " + detail);
+				continue;
+			}
+			String desc = detail.substring(descBegin, descEnd).trim();
 			// build course
 			Course course = new Course(subject, courseTitle, courseNumber, desc, Double.parseDouble(hours));
 			result.add(course);
