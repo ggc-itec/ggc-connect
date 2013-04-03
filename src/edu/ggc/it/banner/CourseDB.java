@@ -50,7 +50,7 @@ class CourseDB extends SQLiteOpenHelper {
 					COL_CODE + " text not null," +
 					COL_TITLE + " text not null," +
 					COL_DESC + " text not null," +
-					COL_HOURS + " real not null," +
+					COL_HOURS + " real not null" +
 					")");
 			db.execSQL("create unique index " + INDEX_COURSE +
 					" on " + TABLE + "(" + COL_SUBJ + "," + COL_CODE +
@@ -109,7 +109,7 @@ class CourseDB extends SQLiteOpenHelper {
 			db.execSQL("create table " + TABLE + " (" +
 					COL_ID + " integer primary key," +
 					COL_NAME + " text not null," +
-					COL_EMAIL + " text not null," +
+					COL_EMAIL + " text not null" +
 					")");
 			db.execSQL("create unique index " + INDEX_EMAIL +
 					" on " + TABLE + "(" + COL_EMAIL +
@@ -132,7 +132,7 @@ class CourseDB extends SQLiteOpenHelper {
 		public static void onCreate(SQLiteDatabase db){
 			db.execSQL("create table " + TABLE + " (" +
 					COL_ID + " integer primary key," +
-					COL_DESC + " text not null," +
+					COL_DESC + " text not null" +
 					")");
 			db.execSQL("create unique index " + INDEX_DESC +
 					" on " + TABLE + "(" + COL_DESC +

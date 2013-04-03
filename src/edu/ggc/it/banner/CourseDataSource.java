@@ -116,11 +116,11 @@ public class CourseDataSource {
 				" where " + CourseDB.Schedule.COL_TERM + " = ?" +
 				" and " + CourseDB.Schedule.COL_CRN + " = ?";
 		
+		String[] id = new String[1];
 		String lastCourse = "";
 		long crsId = 0;
 		for (Section section: sections){
 			Cursor cursor = db.rawQuery(existsQuery, new String[]{section.getTerm(), Integer.toString(section.getCRN())});
-			String[] id = new String[1];
 			id[0] = "";
 			boolean exists = false;
 			if (exists = (cursor.getCount() > 0 && cursor.moveToFirst()))
@@ -130,8 +130,10 @@ public class CourseDataSource {
 			// get course ID
 			Course course = section.getCourse();
 			String courseCode = course.getSubject() + course.getId();
-			if (courseCode != lastCourse)
+			if (courseCode != lastCourse){
 				crsId = getCourseId(course);
+				lastCourse = courseCode;
+			}
 			
 			// build content values
 			ContentValues values = new ContentValues(CourseDB.Schedule.NUM_COLUMNS);
@@ -141,16 +143,13 @@ public class CourseDataSource {
 			values.put(CourseDB.Schedule.COL_SECT, section.getSection());
 			
 			// update or insert
-			long schdid = 0;
 			if (exists){
 				db.update(CourseDB.Schedule.TABLE, values, CourseDB.Schedule.COL_ID + " = ?", id);
-				schdid = Long.parseLong(id[0]);
 			} else{
-				schdid = db.insert(CourseDB.Schedule.TABLE, null, values);
+				long schdid = db.insert(CourseDB.Schedule.TABLE, null, values);
+				for (Meeting meeting: section.getMeetings())
+					addMeeting(schdid, meeting);
 			}
-			
-			for (Meeting meeting: section.getMeetings())
-				addMeeting(schdid, meeting);
 		}
 	}
 	
@@ -226,7 +225,7 @@ public class CourseDataSource {
 	
 	public List<Course> getSubjectCourses(String term, String subject){
 		List<Course> result = new ArrayList<Course>();
-		String[] args = new String[]{term, subject};
+		String[] args = new String[]{subject, term};
 		
 		Cursor crscsr = db.query(CourseDB.Catalog.TABLE, COURSE_COLUMNS,
 				CourseDB.Catalog.COL_SUBJ + " = ?" +

@@ -42,9 +42,9 @@
             android:id="@+id/cs_subject_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/cs_selector"
             android:choiceMode="multipleChoice"
             android:entries="@array/ds_subject_names"
+            android:listSelector="@drawable/cs_row_selector"
             tools:listitem="@android:layout/simple_list_item_1" >
 
         </ListView>
@@ -53,7 +53,8 @@
     <TableRow
         android:id="@+id/cs_course_number_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView3"
@@ -75,7 +76,8 @@
     <TableRow
         android:id="@+id/cs_credits_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView4"
@@ -95,7 +97,8 @@
     <TableRow
         android:id="@+id/cs_start_time_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView5"
@@ -115,7 +118,8 @@
     <TableRow
         android:id="@+id/cs_end_time_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView6"
@@ -136,7 +140,8 @@
         android:id="@+id/cs_days_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView7"
@@ -149,9 +154,9 @@
             android:id="@+id/cs_days_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/cs_selector"
             android:choiceMode="multipleChoice"
             android:entries="@array/cs_days"
+            android:listSelector="@drawable/cs_row_selector"
             tools:listitem="@android:layout/simple_list_item_1" >
 
         </ListView>
@@ -160,7 +165,8 @@
     <TableRow
         android:id="@+id/cs_instructor_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/textView8"
@@ -180,7 +186,8 @@
     <TableRow
         android:id="@+id/cs_search_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
 
         <Button
             android:id="@+id/cs_search_button"

@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +43,8 @@ public class Banner {
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
 	// for class data
+	private static final SimpleDateFormat BANNER_DATE = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+	private static final SimpleDateFormat BANNER_TIME = new SimpleDateFormat("hh:mm a", Locale.US);
 	private static final String TYPE = "Type";
 	private static final String DATE_RANGE = "Date Range";
 	private static final String TIME = "Time";
@@ -208,6 +209,7 @@ public class Banner {
 		final String separator = " - ";
 		final String end_link = "</A>";
 		final String linebreak = "<BR>";
+		final String boundary = "<TR>";
 		final String credit_label = "Credit hours";
 		
 		ArrayList<Course> result = new ArrayList<Course>();
@@ -222,7 +224,7 @@ public class Banner {
 		
 		// get raw data
 		List<String> titles = scrapeInner(response, "TD", "nttitle");
-		List<String> details = scrapeInner(response, "TD", "ntdefault");
+		List<String> details = scrapeBoundary(response, "TD", boundary, "ntdefault");
 		
 		for (int i = 0; i < titles.size(); i++){
 			String title = titles.get(i);
@@ -389,18 +391,17 @@ public class Banner {
 			String dateRange = meeting.get(DATE_RANGE);
 			String[] dates = dateRange.split(sepreg);
 			
-			SimpleDateFormat bannerDate = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
 			Date beginDate = new Date();
 			Date endDate = new Date();
 			
 			try {
-				beginDate = bannerDate.parse(dates[0]);
+				beginDate = BANNER_DATE.parse(dates[0]);
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad date format " + dates[0], pe);
 			}
 			
 			try {
-				endDate = bannerDate.parse(dates[1]);
+				endDate = BANNER_DATE.parse(dates[1]);
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad date format " + dates[1], pe);
 			}
@@ -408,18 +409,17 @@ public class Banner {
 			String timeRange = meeting.get(TIME);
 			String[] times = timeRange.split(sepreg);
 			
-			SimpleDateFormat bannerTime = new SimpleDateFormat("hh:mm a", Locale.US);
 			Date beginTime = new Date();
 			Date endTime = new Date();
 			
 			try {
-				beginTime = bannerTime.parse(times[0]);
+				beginTime = BANNER_TIME.parse(times[0]);
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad time format " + times[0], pe);
 			}
 			
 			try {
-				endTime = bannerTime.parse(times[1]);
+				endTime = BANNER_TIME.parse(times[1]);
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad time format " + times[1], pe);
 			}
@@ -565,6 +565,55 @@ public class Banner {
 						}
 					}
 					if (end == -1) // tag not closed properly; just grab everything
+						end = html.length();
+					line = html.substring(begin, end);
+					results.add(line);
+					begin = end;
+				} else{
+					begin++;
+				}
+			}
+		} while (begin != -1);
+		
+		return results;
+	}
+	
+	/**
+	 * Retrieves the inner HTML (the text between the opening and closing tags) for
+	 * each tag with the specified tag name in an HTML string. Unlike scrapeInner,
+	 * which retrieves the text from the opening tag to the closing tag, this method
+	 * retrieves the text from the opening tag until the first occurrence of the given
+	 * boundary string. This method is necessary because HTML does not require certain
+	 * tags (specifically to Banner, td and tr tags) to be explicitly closed.
+	 * 
+	 * @param html		the HTML string to be searched
+	 * @param tag		the name of the tag to retrieve the inner HTML of
+	 * @param boundary	a string marking the end of the section to grab
+	 * @param matches	an array of strings that the open tag must contain
+	 * @return a list of strings containing the inner HTML of each matching tag terminated by the boundary
+	 */
+	private static List<String> scrapeBoundary(String html, String tag, String boundary, String... matches){
+		List<String> results = new ArrayList<String>();
+		String matched = null, line = null;
+		int begin = 0, end = -1;
+		
+		searchHTML:
+		do{
+			begin = html.indexOf("<" + tag, begin);
+			if (begin != -1){
+				end = html.indexOf(">", begin);
+				if (end != -1){
+					matched = html.substring(begin, end);
+					begin = end+1;
+					
+					for (String match: matches){
+						if (matched.indexOf(match) == -1)
+							continue searchHTML;
+					}
+					
+					// this tag matches; grab the inner HTML
+					end = html.indexOf(boundary, begin);
+					if (end == -1) // no boundary; just grab everything
 						end = html.length();
 					line = html.substring(begin, end);
 					results.add(line);

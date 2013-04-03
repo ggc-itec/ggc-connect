@@ -97,6 +97,9 @@ public class ClassSearchActivity extends Activity {
 		courseAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
 		instructorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
 		
+		courseNumberInput.setAdapter(courseAdapter);
+		instructorInput.setAdapter(instructorAdapter);
+		
 		// populate spinner
 		getTerms();
 		
@@ -117,6 +120,7 @@ public class ClassSearchActivity extends Activity {
 	
 	@Override
 	protected void onDestroy(){
+		super.onDestroy();
 		courseDS.close();
 	}
 	
@@ -255,8 +259,10 @@ public class ClassSearchActivity extends Activity {
 							// set adapters for the auto-complete views
 							courseAdapter.clear();
 							courseAdapter.addAll(courseNumbers);
+							courseAdapter.notifyDataSetChanged();
 							instructorAdapter.clear();
 							instructorAdapter.addAll(instructorNames);
+							instructorAdapter.notifyDataSetChanged();
 							
 							showOptions();
 						} else{
