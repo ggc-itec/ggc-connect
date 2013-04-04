@@ -14,32 +14,29 @@ import android.widget.TextView;
 
 public class GymScheduleActivity extends Activity {
 
+	
 	private TextView Phone;
 	private TextView email;
 	@Override
+	/**
+	 * This method creates all of the Text Views in the activity
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gym_schedule);
 
 		Phone = (TextView) findViewById(R.id.phoneNumber);
-		//Phone.setOnClickListener(textViewListener());
-
 		email = (TextView) findViewById(R.id.email);
-		//email.setOnClickListener(textViewListener());
-
-
-
-
 
 		TextView Phone = (TextView) findViewById(R.id.phoneNumber);
 		Phone.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
-				Intent ii = new Intent(Intent.ACTION_DIAL);
-				ii.setData(Uri.parse("tel:6784075970"));
 
+				Intent ii = new Intent(Intent.ACTION_DIAL);
+				//Sets the phone number that is going to appear in the dialog screen
+				ii.setData(Uri.parse("tel:6784075970"));
 				startActivity(ii);
 
 			}
@@ -61,13 +58,11 @@ public class GymScheduleActivity extends Activity {
 				intent.putExtra(Intent.EXTRA_TEXT, "\n" + "\n" + "\n" + "Sent from GGC Connect");
 				//lets user choose their email client
 				//startActivity(Intent.createChooser(intent, "Send Email Via"));
-				
+
 				startActivity(intent);
 			}
 		});
 	}
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
