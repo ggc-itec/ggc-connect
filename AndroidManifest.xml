@@ -88,19 +88,19 @@
             android:label="@string/gym_label"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".map.ImageTouchABuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchABuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchBBuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchBBuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchCBuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchCBuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchDBuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchDBuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchFBuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchFBuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchLBuildingActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchLBuildingActivity" >
         </activity>
-        <activity android:name=".map.ImageTouchStudentCenterActivity" >
+        <activity android:name="edu.ggc.it.map.ImageTouchStudentCenterActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.todo.ToDoListActivity"
@@ -123,7 +123,12 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"></activity>
+        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.MagazineWebView"
+            android:label="@string/title_activity_magazine_web_view" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />

@@ -1,16 +1,26 @@
 package edu.ggc.it.gym;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import edu.ggc.it.Main;
 import edu.ggc.it.R;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GymMainActivity extends Activity {
@@ -19,10 +29,10 @@ public class GymMainActivity extends Activity {
 		private Button contract;
 		private Button schedule;
 		private Button groups;
-		private Button buddiesButton;
 		private Button magazine;
 		private Button HomeButton;
 		private Context myContext;
+		private TextView quote;
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -38,15 +48,37 @@ public class GymMainActivity extends Activity {
 			groups = (Button) findViewById(R.id.Group);
 			groups.setOnClickListener(new ButtonListener());
 			
-			buddiesButton = (Button) findViewById(R.id.buddies);
-			buddiesButton.setOnClickListener(new ButtonListener());
-			
 			magazine = (Button) findViewById(R.id.healthMagazine);
 			magazine.setOnClickListener(new ButtonListener());
 			
 			HomeButton = (Button) findViewById(R.id.homeButton);
 			HomeButton.setOnClickListener(new ButtonListener());
 			
+			quote = (TextView) findViewById(R.id.quoteTextView);
+			
+			try {
+				// insert text file in the assets folder
+				// you can't write to the assests folder, it is read-only
+
+				AssetManager am = myContext.getAssets();
+				InputStream in = am.open("quotes.txt");			
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(in));
+				String str;
+				ArrayList <String> quotes = new ArrayList<String>();
+				while ((str = reader.readLine()) != null) {
+					quotes.add(str);
+					Collections.shuffle(quotes);
+				}
+				in.close();
+				
+				quote.setText(quotes.get(0).toString());
+				//in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+		
 		}
 
 		@Override
@@ -70,16 +102,15 @@ public class GymMainActivity extends Activity {
 				else if (groups.isPressed()){
 					startActivity( new Intent ( myContext, GroupsActivity.class));
 				}
-				else if (view.getId() == R.id.buddies){
-					//startActivity(new Intent (myContext, WorkoutBuddies.class));
-			Toast.makeText(myContext, "What a cute cat!", Toast.LENGTH_LONG)
-					.show();
-				}
+				
 				else if (magazine.isPressed()){
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+							Uri.parse("http://readsh101.com/ggc.html"));
+					startActivity(browserIntent);
 					
 				}
 				else if (view.getId() == R.id.homeButton) {
-					startActivity(new Intent (myContext, Main.class));
+					finish();
 				}
 			}
 
