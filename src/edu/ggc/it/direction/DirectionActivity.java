@@ -1,25 +1,24 @@
 package edu.ggc.it.direction;
 
-import edu.ggc.it.R;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.util.Log;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import edu.ggc.it.R;
 /**
  * This class is an activity class
  * @author Thai Pham
@@ -32,7 +31,7 @@ public class DirectionActivity extends Activity {
 	//This aims to get the height of the image
 	private static int imgHeight;
 	//This aims to get the height of the image view 
-	private int imgViewHeight;
+	private static int imgViewHeight;
 	//This aims to get the width of the image view 
 	private int imgViewWidth;
 	//This aims to get the left of the image view 
@@ -40,9 +39,9 @@ public class DirectionActivity extends Activity {
 	//This aims to get the top of the image view 
 	private static int imgViewTop;
 	//This aims to get the space between the top of View and top of image
-	private int imgPadding;
+	private static int imgPadding;
 	//Create a imageview for the GGC map
-	private TouchImageView img;
+	private static TouchImageView img;
 	//Create a imageview for the current position on map
 	private static ImageView img1;
 	//Create a imageview for the place position on map
@@ -60,16 +59,15 @@ public class DirectionActivity extends Activity {
 	//This will get the user's longitude
 	private static double longitude;
 	//This will get the destination's latitude
-	private double latitudeDes;
+	private static double latitudeDes;
 	//This will get the destination's longitude
-	private double longitudeDes;
+	private static double longitudeDes;
 	//Create a location list that holds list of places in GGC
 	private LocationArray myLocationList;
 	//Create a new spinner to display list of places in GGC 
 	private Spinner spin;
 	//This will get the item that users choose from place's list of spinner
 	private String spin_val;
-
 	/**
 	 * @Override
 	 */
@@ -77,6 +75,7 @@ public class DirectionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
 		myContext = this;
+
 		//Check if user's device GPS is enable or not. If not, let user to enable it
 		checkGPS();
 		//Init locationlist
@@ -97,6 +96,9 @@ public class DirectionActivity extends Activity {
 	    spin.setAdapter(spin_adapter);    
 	}
 	
+	/**
+	 * This function aims to release all objects to NULL in order to save memory
+	 */
 	public void onBackPressed (){
 		img = null;
 		img1 = null;
@@ -108,6 +110,9 @@ public class DirectionActivity extends Activity {
 		return;
 	}
 	
+	/**
+	 * This function aims to update user's location when it changes, to correct location of users on the map
+	 */
 	public static void updateLocation(){
 		//Set the x for the current user's position on Map(-84.01209 to -83.99772)
 		img1.setX((float) (imgLeft+((longitude + 84.01209)*100000*imgWidth/1437)));
@@ -117,11 +122,14 @@ public class DirectionActivity extends Activity {
 		img1.invalidate();
 	}
 	
+	/**
+	 * This function aims to hide cursors of destination and user when the map is zooming.
+	 */
 	public static void hideLocation(){
 		img1.setVisibility(View.INVISIBLE);
 		img2.setVisibility(View.INVISIBLE);
 	}
-	
+
 	/**
 	 * This method is to check if the GPS on users' device is on or off. If it is off, allow users turn on
 	 */
@@ -258,8 +266,8 @@ public class DirectionActivity extends Activity {
 			img2.setX((float) (imgLeft+((longitudeDes + 84.01209)*100000*imgWidth/1437)));
 			//Set the y for the current destination's position on Map(33.98565 to 33.97652)
 			img2.setY((float) (imgViewTop-30+((33.98565 - latitudeDes)*100000*imgHeight/913)));
-			//img.setOriginalSize();
-			Log.d("New values: X" + img.getLeft(), "Y"+img.getTop());
+			img.setOriginalSize();
+			//Log.d("New values: X" + img.getLeft(), "Y"+img.getTop());
 		}
 
 		@Override
