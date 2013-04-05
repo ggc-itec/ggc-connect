@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.direction.DirectionActivity;
@@ -38,6 +40,7 @@ public class Main extends Activity {
 	private Button gymButton;
 	private Button scheduleButton;
 	private Button loveButton;
+	private ImageButton facebookButton;
 	private Button classSearchButton;
 	private Context myContext;
 
@@ -68,6 +71,9 @@ public class Main extends Activity {
 		
 		classSearchButton = (Button)findViewById(R.id.search_button);
 		classSearchButton.setOnClickListener(myListener);
+		
+		facebookButton = (ImageButton)findViewById(R.id.facebook_page);
+		facebookButton.setOnClickListener(myListener);
 
 	}
 
@@ -145,6 +151,17 @@ public class Main extends Activity {
 				startActivity(new Intent(myContext, SetupActivity.class));
 			} else if (view.getId() == R.id.search_button){
 				startActivity(new Intent(myContext, ClassSearchActivity.class));
+			} else if (view.getId() == R.id.facebook_page) {
+				try {
+					myContext.getPackageManager()
+					.getPackageInfo("com.facebook.katana", 0);
+					startActivity(new Intent(Intent.ACTION_VIEW,
+			                Uri.parse("fb://profile/78573401446")));
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+			                Uri.parse("http://www.facebook.com/georgiagwinnett")));
+				}
+				
 			}
 
 		}
