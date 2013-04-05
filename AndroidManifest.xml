@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="6"
-    android:versionName="1.1.4" >
+    android:versionCode="7"
+    android:versionName="1.2.0" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -88,19 +88,19 @@
             android:label="@string/gym_label"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchABuildingActivity" >
+        <activity android:name=".map.ImageTouchABuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchBBuildingActivity" >
+        <activity android:name=".map.ImageTouchBBuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchCBuildingActivity" >
+        <activity android:name=".map.ImageTouchCBuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchDBuildingActivity" >
+        <activity android:name=".map.ImageTouchDBuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchFBuildingActivity" >
+        <activity android:name=".map.ImageTouchFBuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchLBuildingActivity" >
+        <activity android:name=".map.ImageTouchLBuildingActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.map.ImageTouchStudentCenterActivity" >
+        <activity android:name=".map.ImageTouchStudentCenterActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.todo.ToDoListActivity"
@@ -123,12 +123,7 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.MagazineWebView"
-            android:label="@string/title_activity_magazine_web_view" >
-        </activity>
+        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"></activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />
