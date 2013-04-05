@@ -116,11 +116,8 @@ public class GymMainActivity extends Activity {
 			
 			
 			else if (magazine.isPressed()){
-				startActivity(new Intent(myContext, MagazineActivity.class));
-				String Url;
-				 Url = "http://readsh101.com/ggc.html";
-        		 intent.putExtra(EXTRA_MESSAGE, Url);
-        		 startActivity(intent);
+				String url = "http://readsh101.com/ggc.html";
+			
 			}
 			else if (view.getId() == R.id.homeButton) {
 				finish();
