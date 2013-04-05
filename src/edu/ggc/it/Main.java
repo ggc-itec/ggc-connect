@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.direction.DirectionActivity;
@@ -38,6 +40,10 @@ public class Main extends Activity {
 	private Button gymButton;
 	private Button scheduleButton;
 	private Button loveButton;
+	private ImageButton facebookButton;
+	private ImageButton twitterButton;
+	private ImageButton youtubeButton;
+	private ImageButton rssButton;
 	private Button classSearchButton;
 	private Context myContext;
 
@@ -68,6 +74,18 @@ public class Main extends Activity {
 		
 		classSearchButton = (Button)findViewById(R.id.search_button);
 		classSearchButton.setOnClickListener(myListener);
+		
+		facebookButton = (ImageButton)findViewById(R.id.facebook_page);
+		facebookButton.setOnClickListener(myListener);
+		
+		twitterButton = (ImageButton)findViewById(R.id.twitter_page);
+		twitterButton.setOnClickListener(myListener);
+		
+		youtubeButton = (ImageButton)findViewById(R.id.youtube_page);
+		youtubeButton.setOnClickListener(myListener);
+		
+		rssButton = (ImageButton)findViewById(R.id.rss_feed);
+		rssButton.setOnClickListener(myListener);
 
 	}
 
@@ -145,9 +163,71 @@ public class Main extends Activity {
 				startActivity(new Intent(myContext, SetupActivity.class));
 			} else if (view.getId() == R.id.search_button){
 				startActivity(new Intent(myContext, ClassSearchActivity.class));
+			} else if (view.getId() == R.id.facebook_page) {
+				try {
+					myContext.getPackageManager()
+					.getPackageInfo("com.facebook.katana", 0);
+					startActivity(new Intent(Intent.ACTION_VIEW,
+			                Uri.parse("fb://profile/78573401446")));
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+			                Uri.parse("http://www.facebook.com/georgiagwinnett")));
+				}
+				
+			} else if (view.getId() == R.id.twitter_page) {
+				try {
+					myContext.getPackageManager().getPackageInfo(
+							"com.twitter.android", 0);
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("twitter://user?screen_name=georgiagwinnett")));
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("https://twitter.com/georgiagwinnett")));
+				}
+			} else if (view.getId()== R.id.youtube_page) {
+				try {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setPackage("com.google.android.youtube");
+					intent.setData(Uri.parse("http://www.youtube.com/user/georgiagwinnett"));
+					startActivity(intent);
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("http://www.youtube.com/user/georgiagwinnett")));
+				}
+			} else if (view.getId()== R.id.rss_feed) {
+				rssChoserDialog();
 			}
 
 		}
+	}
+	/**
+	 * Method that allows the user to choose between News
+	 * and Events RSS feeds
+	 */
+	public void rssChoserDialog() {
+		new AlertDialog.Builder(this)
+		   .setTitle("RSS Feed")
+		   .setMessage("Which RSS feed would you like to read?")
+		   .setIcon(R.drawable.icon_rss)
+		   .setPositiveButton("News",
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					Intent newsIntent = new Intent(Main.this, NewsRSSActivity.class);
+					startActivity(newsIntent);
+				}
+			})
+			.setNegativeButton("Events",
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					Intent eventsIntent = new Intent(Main.this, EventsRSSActivity.class);
+					startActivity(eventsIntent);
+				}
+			})
+			.show();
 	}
 
 }
