@@ -41,6 +41,9 @@ public class Main extends Activity {
 	private Button scheduleButton;
 	private Button loveButton;
 	private ImageButton facebookButton;
+	private ImageButton twitterButton;
+	private ImageButton youtubeButton;
+	private ImageButton rssButton;
 	private Button classSearchButton;
 	private Context myContext;
 
@@ -74,6 +77,15 @@ public class Main extends Activity {
 		
 		facebookButton = (ImageButton)findViewById(R.id.facebook_page);
 		facebookButton.setOnClickListener(myListener);
+		
+		twitterButton = (ImageButton)findViewById(R.id.twitter_page);
+		twitterButton.setOnClickListener(myListener);
+		
+		youtubeButton = (ImageButton)findViewById(R.id.youtube_page);
+		youtubeButton.setOnClickListener(myListener);
+		
+		rssButton = (ImageButton)findViewById(R.id.rss_feed);
+		rssButton.setOnClickListener(myListener);
 
 	}
 
@@ -162,9 +174,60 @@ public class Main extends Activity {
 			                Uri.parse("http://www.facebook.com/georgiagwinnett")));
 				}
 				
+			} else if (view.getId() == R.id.twitter_page) {
+				try {
+					myContext.getPackageManager().getPackageInfo(
+							"com.twitter.android", 0);
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("twitter://user?screen_name=georgiagwinnett")));
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("https://twitter.com/georgiagwinnett")));
+				}
+			} else if (view.getId()== R.id.youtube_page) {
+				try {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setPackage("com.google.android.youtube");
+					intent.setData(Uri.parse("http://www.youtube.com/user/georgiagwinnett"));
+					startActivity(intent);
+				} catch (Exception e) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("http://www.youtube.com/user/georgiagwinnett")));
+				}
+			} else if (view.getId()== R.id.rss_feed) {
+				rssChoserDialog();
 			}
 
 		}
+	}
+	/**
+	 * Method that allows the user to choose between News
+	 * and Events RSS feeds
+	 */
+	public void rssChoserDialog() {
+		new AlertDialog.Builder(this)
+		   .setTitle("RSS Feed")
+		   .setMessage("Which RSS feed would you like to read?")
+		   .setIcon(R.drawable.icon_rss)
+		   .setPositiveButton("News",
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					Intent newsIntent = new Intent(Main.this, NewsRSSActivity.class);
+					startActivity(newsIntent);
+				}
+			})
+			.setNegativeButton("Events",
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					Intent eventsIntent = new Intent(Main.this, EventsRSSActivity.class);
+					startActivity(eventsIntent);
+				}
+			})
+			.show();
 	}
 
 }
