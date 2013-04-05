@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="edu.ggc.it.direction.DirectionActivity.myItemSelectedListenner" 
+  <class id="1" language="java" name="edu.ggc.it.direction.DirectionActivity.MyItemSelectedListenner" 
     project="ggc-connect" file="/ggc-connect/src/edu/ggc/it/direction/DirectionActivity.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="738" y="-34"/>    
@@ -11,7 +11,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="edu.ggc.it.direction.DirectionActivity.MyLocationListener" project="ggc-connect" 
+  <class id="2" language="java" name="edu.ggc.it.direction.DirectionActivity.UserLocationListener" project="ggc-connect" 
     file="/ggc-connect/src/edu/ggc/it/direction/DirectionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="450" y="562"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -38,8 +38,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="edu.ggc.it.direction.LocationList" project="ggc-connect" 
-    file="/ggc-connect/src/edu/ggc/it/direction/LocationList.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="edu.ggc.it.direction.LocationArray" project="ggc-connect" 
+    file="/ggc-connect/src/edu/ggc/it/direction/LocationArray.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="761" y="203"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
