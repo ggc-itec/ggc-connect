@@ -6,54 +6,54 @@
     android:padding="10dp"
     tools:context=".DirectionActivity" >
 
-    	<Spinner
-    	    android:id="@+id/spinnerText"
-    	    android:background="@color/thai_spinner_color"
-    	    android:layout_width="match_parent"
-    	    android:layout_height="60dip"
+     <Spinner
+     android:id="@+id/spinnerText"
+     android:background="@color/thai_spinner_color"
+     android:layout_width="match_parent"
+     android:layout_height="60dip"
 
-    	    android:layout_alignParentLeft="true"
-    	    android:layout_alignParentRight="true" >
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentRight="true" >
 
-    	</Spinner>
-    	
-    	<TextView
-    	    android:id="@+id/instruction_text"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_below="@+id/spinnerText"
-    	    android:layout_centerHorizontal="true"
-    	    android:background="@color/thai_white_color"
-    	    android:text="@string/instruction"
-    	    android:textAppearance="?android:attr/textAppearanceMedium"
-    	    android:textColor="@color/thai_black_color"
-    	    android:textStyle="italic"
-    	    android:typeface="serif" />
-    	
-    	<edu.ggc.it.direction.TouchImageView
-		    android:id="@+id/imageMap"
-		    android:contentDescription="@string/thai_ggc_map"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/instruction_text"
-		    android:layout_alignParentLeft="true"
-		    android:layout_centerVertical="true"
-		    android:src="@drawable/thai_ggc_map" />
+     </Spinner>
+    
+     <TextView
+     android:id="@+id/instruction_text"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/spinnerText"
+     android:layout_centerHorizontal="true"
+     android:background="@color/thai_white_color"
+     android:text="@string/instruction"
+     android:textAppearance="?android:attr/textAppearanceMedium"
+     android:textColor="@color/thai_black_color"
+     android:textStyle="italic"
+     android:typeface="serif" />
+    
+     <edu.ggc.it.direction.TouchImageView
+         android:id="@+id/imageMap"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/instruction_text"
+         android:layout_centerVertical="true"
+         android:contentDescription="@string/thai_ggc_map"
+         android:src="@drawable/thai_ggc_map" />
 
-    	<ImageView
-    	    android:id="@+id/imageYou"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_alignParentBottom="true"
-    	    android:layout_alignParentRight="true"
-    	    android:src="@drawable/you" />
+     <ImageView
+     android:id="@+id/imageYou"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentRight="true"
+     android:src="@drawable/you" />
 
-    	<ImageView
-    	    android:id="@+id/imageHere"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_alignParentBottom="true"
-    	    android:layout_alignParentLeft="true"
-    	    android:src="@drawable/here" />
+     <ImageView
+     android:id="@+id/imageHere"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentLeft="true"
+     android:src="@drawable/here" />
 
 </RelativeLayout>
