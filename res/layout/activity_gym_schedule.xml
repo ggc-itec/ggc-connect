@@ -50,7 +50,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/location"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Building F"
@@ -71,7 +71,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/phoneNumber"
+                        android:id="@+id/gym_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="678-407-5970"
@@ -92,7 +92,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/email"
+                        android:id="@+id/gym_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="wellnessrec@ggc.edu"
@@ -402,4 +402,6 @@
     </TableLayout>
 
 
+
 </ScrollView>
+

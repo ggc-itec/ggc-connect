@@ -1,22 +1,32 @@
 package edu.ggc.it.gym;
 
+import edu.ggc.it.Main;
 import edu.ggc.it.R;
 import edu.ggc.it.R.layout;
 import edu.ggc.it.R.menu;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+
+import edu.ggc.it.gym.GymMainActivity.ButtonListener;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+
 public class GymScheduleActivity extends Activity {
+	
+	
 
 	
+
 	private TextView Phone;
 	private TextView email;
+
 	@Override
 	/**
 	 * This method creates all of the Text Views in the activity
@@ -25,10 +35,11 @@ public class GymScheduleActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gym_schedule);
 
-		Phone = (TextView) findViewById(R.id.phoneNumber);
-		email = (TextView) findViewById(R.id.email);
 
-		TextView Phone = (TextView) findViewById(R.id.phoneNumber);
+		Phone = (TextView) findViewById(R.id.gym_phone);
+		email = (TextView) findViewById(R.id.gym_email);
+
+		TextView Phone = (TextView) findViewById(R.id.gym_phone);
 		Phone.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -44,7 +55,7 @@ public class GymScheduleActivity extends Activity {
 
 
 
-		TextView email = (TextView) findViewById(R.id.email);
+		TextView email = (TextView) findViewById(R.id.gym_email);
 		email.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -62,6 +73,7 @@ public class GymScheduleActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
 	}
 
 	@Override
@@ -70,5 +82,7 @@ public class GymScheduleActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_gym_schedule, menu);
 		return true;
 	}
+
+	
 
 }
