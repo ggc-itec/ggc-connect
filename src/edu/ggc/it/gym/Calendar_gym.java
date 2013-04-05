@@ -1,27 +1,30 @@
 package edu.ggc.it.gym;
 
+import edu.ggc.it.R;
+import edu.ggc.it.R.layout;
+import edu.ggc.it.R.menu;
+import edu.ggc.it.gym.GroupsActivity.ButtonListener;
+import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import edu.ggc.it.R;
 
+public class Calendar_gym extends Activity {
 
-public class GroupsActivity extends Activity {
-	private Button muscle1;
-	private Button bootCamp;
-	private Button Strength;
+	private Button Muscle1;
+	private Button Muscle2;
+	private Button BootCamp1;
+	private Button BootCamp2;
+	private Button strength;
 	private Button yogaletes;
+	private Button yoga;
+	private Button kickbox;
 	private Button interval1;
 	private Button interval2;
-	private Button muscle2;
-	private Button bootcamp2;
-	private Button kickboxing;
-	private Button yoga;
 	private Button interval3;
 	private Context myContext;
 	
@@ -29,25 +32,22 @@ public class GroupsActivity extends Activity {
 	/***************************************************************************
 	 * this method creates all of the buttons
 	 **************************************************************************/
-
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_groups);
-
+		
 		myContext = this;
+		
+		Muscle1 = (Button) findViewById(R.id.Muscle1);
+		Muscle1.setOnClickListener(new ButtonListener());
+		
+		BootCamp1 = (Button) findViewById(R.id.camp1);
+		BootCamp1.setOnClickListener(new ButtonListener());
 
-
-		muscle1 = (Button) findViewById(R.id.Muscle1);
-		muscle1.setOnClickListener(new ButtonListener());
-
-		bootCamp = (Button) findViewById(R.id.camp1);
-		bootCamp.setOnClickListener(new ButtonListener());
-
-		Strength = (Button) findViewById(R.id.strength);
-		Strength.setOnClickListener(new ButtonListener());
+		strength = (Button) findViewById(R.id.strength);
+		strength.setOnClickListener(new ButtonListener());
 
 		yogaletes = (Button) findViewById(R.id.letes);
-
 		yogaletes.setOnClickListener(new ButtonListener());
 
 		interval1 = (Button) findViewById(R.id.interval1);
@@ -59,25 +59,14 @@ public class GroupsActivity extends Activity {
 		interval3 = (Button) findViewById(R.id.interval3);
 		interval3.setOnClickListener(new ButtonListener());
 
+		Muscle2 = (Button) findViewById(R.id.Muscle2);
+		Muscle2.setOnClickListener(new ButtonListener());
 
-		muscle2 = (Button) findViewById(R.id.Muscle2);
-		muscle2.setOnClickListener(new ButtonListener());
+		BootCamp2 = (Button) findViewById(R.id.camp2);
+		BootCamp2.setOnClickListener(new ButtonListener());
 
-		bootcamp2 = (Button) findViewById(R.id.camp2);
-		bootcamp2.setOnClickListener(new ButtonListener());
-
-		kickboxing = (Button) findViewById(R.id.kickboxing);
-		kickboxing.setOnClickListener(new ButtonListener());
-
-		muscle2 = (Button) findViewById(R.id.Muscle2);
-		muscle2.setOnClickListener(new ButtonListener());
-
-		bootcamp2 = (Button) findViewById(R.id.camp2);
-		bootcamp2.setOnClickListener(new ButtonListener());
-
-		kickboxing = (Button) findViewById(R.id.kickboxing);
-		kickboxing.setOnClickListener(new ButtonListener());
-
+		kickbox = (Button) findViewById(R.id.kickboxing);
+		kickbox.setOnClickListener(new ButtonListener());
 
 		yoga = (Button) findViewById(R.id.yoga);
 		yoga.setOnClickListener(new ButtonListener());
@@ -102,15 +91,6 @@ public class GroupsActivity extends Activity {
 				bootDesc();
 			}
 			else if (view.getId() == R.id.letes){
-
-			if (view.getId() == R.id.Muscle1 || view.getId() == R.id.Muscle2){
-				muscleDesc();				
-			}
-			else if (view.getId() == R.id.camp1 || view.getId() == R.id.camp2){
-				bootDesc();
-			}
-			else if (view.getId() == R.id.letes){
-
 				yogaletesDesc();
 			}
 			else if (view.getId() == R.id.yoga){
@@ -122,10 +102,9 @@ public class GroupsActivity extends Activity {
 			else if (view.getId() == R.id.kickboxing) {
 				kickDesc();
 			}
-
 			else if (view.getId() == R.id.strength) {
-
 				strengthDesc();
+
 			}
 
 		}
@@ -138,7 +117,7 @@ public class GroupsActivity extends Activity {
 	
 	public void muscleDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("Tone and build muscle mass utilizing different resistance tools.");
@@ -154,7 +133,7 @@ public class GroupsActivity extends Activity {
 	
 	public void bootDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("Boot camp is a group exercise class that mixes traditional calisthenics and body weight exercises with interval training and strength training.");
@@ -169,7 +148,7 @@ public class GroupsActivity extends Activity {
 	
 	public void yogaletesDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("Combines Yoga and Pilates");
@@ -184,7 +163,7 @@ public class GroupsActivity extends Activity {
 	
 	public void yogaDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("Appropriate for the beginner who wants to build a strong foundation of basic Yoga postures and breathing techniques, as well as for the practitioner who wants to refine and master the fundamentals. It is an invitation to stretch, relax, unwind and de-stress.");
@@ -199,7 +178,7 @@ public class GroupsActivity extends Activity {
 	
 	public void intervalDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("A great cardio & strength training workout.");
@@ -214,7 +193,7 @@ public class GroupsActivity extends Activity {
 	
 	public void kickDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("Martial arts-inspired interval workout that combines kickboxing with athletic drills.");
@@ -229,7 +208,7 @@ public class GroupsActivity extends Activity {
 	
 	public void strengthDesc() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		// set dialog message;
 		alertDialogBuilder
 		.setMessage("This interval training routine blends strength and cardio alternating circuits using body weight, a variety of equipment and partner work. The circuit training workout is loaded with functional exercises designed to give you the ultimate challenge.");
@@ -238,5 +217,5 @@ public class GroupsActivity extends Activity {
 		alertDialog.show();
 	}
 
+
 }
-	}
