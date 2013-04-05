@@ -4,4 +4,6 @@
     <color name="thai_spinner_color">#00704A</color>
     <color name="thai_white_color">#FFFFFF</color>
     <color name="thai_black_color">#000000</color>
+    <color name="cs_selected">#9CF</color>
+    <color name="cs_unselected">#000</color>
 </resources>

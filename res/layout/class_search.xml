@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ggc_green" >
+
+    <TableRow
+        android:id="@+id/cs_term_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_term_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/cs_term_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:listitem="@android:layout/simple_spinner_item" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_subject_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_subject_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ListView
+            android:id="@+id/cs_subject_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="multipleChoice"
+            android:entries="@array/ds_subject_names"
+            android:listSelector="@drawable/cs_row_selector"
+            tools:listitem="@android:layout/simple_list_item_1" >
+
+        </ListView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_course_number_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_course_number_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <AutoCompleteTextView
+            android:id="@+id/cs_course_number_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10" >
+
+            <requestFocus />
+        </AutoCompleteTextView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_credits_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_credits_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/cs_credits_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_start_time_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_start_time_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/cs_start_time_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_end_time_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_end_time_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/cs_end_time_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_days_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_days_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ListView
+            android:id="@+id/cs_days_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="multipleChoice"
+            android:entries="@array/cs_days"
+            android:listSelector="@drawable/cs_row_selector"
+            tools:listitem="@android:layout/simple_list_item_1" >
+
+        </ListView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_instructor_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_instructor_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/cs_instructor_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_search_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <Button
+            android:id="@+id/cs_search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_search_label" />
+
+    </TableRow>
+
+</TableLayout>
