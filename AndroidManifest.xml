@@ -126,7 +126,7 @@
         <activity android:name="edu.ggc.it.catalog.ClassSearchActivity" >
         </activity>
         <activity
-            android:name="edu.ggc.it.social.SocialActivity"
+            android:name="edu.ggc.it.social.SocialListActivity"
             android:label="Social" >
         </activity>
     </application>
