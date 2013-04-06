@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.ggc.it.social.SocialActivity"
-            android:label="Social" >
+            android:name="edu.ggc.it.News"
+            android:label="News" >
         </activity>
         <activity
             android:name="edu.ggc.it.Credits"
@@ -123,7 +123,12 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"></activity>
+        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.social.SocialActivity"
+            android:label="Social" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />
