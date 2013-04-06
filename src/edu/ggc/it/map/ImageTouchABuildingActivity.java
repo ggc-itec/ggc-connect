@@ -33,6 +33,11 @@ import edu.ggc.it.R;
 		private PointF middle = new PointF();
 		float oldDistance = 1f;
 		
+		@Override
+		protected void onStop() {
+			super.onStop();
+			onDestroy();
+		}
 		
 		@Override
 		protected void onPause() {
