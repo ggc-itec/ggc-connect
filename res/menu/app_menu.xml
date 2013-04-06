@@ -2,22 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/welcome"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/welcome"/>
-    <item
-        android:id="@+id/credits"
-        android:icon="@android:drawable/ic_menu_help"
-        android:title="@string/credits"/>
-    <item android:id="@+id/news_rss"
-        android:title="News" />
-    <item android:id="@+id/events_rss"
-        android:title="Events" />
-    <item
-        android:id="@+id/links"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="@string/links">
-    </item>
+        android:id="@+id/More"
+        android:showAsAction="ifRoom|withText"
+        android:title="Menu">
+        <menu>
+            <item
+                android:id="@+id/welcome"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="@string/welcome"/>
+            <item
+                android:id="@+id/credits"
+                android:icon="@android:drawable/ic_menu_help"
+                android:title="@string/credits"/>
+            <item
+                android:id="@+id/links"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/links">
+            </item>
     <item android:id="@+id/todo"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="To Do" /> 
