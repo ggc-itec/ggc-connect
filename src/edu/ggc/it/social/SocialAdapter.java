@@ -54,8 +54,8 @@ public class SocialAdapter extends BaseAdapter {
 		TextView dateText = (TextView) row.findViewById(R.id.rss_date);
 		TextView descriptionText = (TextView) row.findViewById(R.id.rss_body);
 
-		titleText.setText(titles.get(position) + " " + names.get(position));
-		dateText.setText(dates.get(position));
+		titleText.setText(titles.get(position));
+		dateText.setText(dates.get(position)  + "  from " + names.get(position));
 		// why change the text to html for this? for some reason, the
 		// descriptions are in html!!
 		// no big deal though, if they change it back to plain text, it won't

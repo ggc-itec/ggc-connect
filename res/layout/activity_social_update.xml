@@ -52,7 +52,7 @@
 
             <EditText
                 android:id="@+id/edittext_social_subject"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -71,19 +71,14 @@
                 android:text="Message"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/edittext_social_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <EditText
-                    android:id="@+id/edittext_social_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:lines="6"
-                    android:scrollHorizontally="false" />
-            </LinearLayout>
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:scrollHorizontally="false" />
         </TableRow>
 
         <TableRow

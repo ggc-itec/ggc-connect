@@ -1,11 +1,15 @@
 package edu.ggc.it.social;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -16,7 +20,7 @@ import com.parse.ParseQuery;
 import edu.ggc.it.R;
 
 /**
- * 
+ * Activity that displays all the posts from the users. The posts are stored in Parse.com 
  * 
  * @author crystalist
  * 
@@ -28,7 +32,8 @@ public class SocialListActivity extends ListActivity {
 	private List<String> dates;
 	private List<String> contents;
 	private Context context;
-
+	private Button submitButton;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,8 +43,22 @@ public class SocialListActivity extends ListActivity {
 		dates = new ArrayList<String>();
 		contents = new ArrayList<String>();
 		context = this;
-		downloadParseData();
+		submitButton = (Button) findViewById(R.id.button_social_addentry);
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(context,SocialUpdateActivity.class));
+			}
+		});
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		downloadParseData();
+
+	}
+	
 
 	private void downloadParseData() {
 		Parse.initialize(this, getString(R.string.parse_app_id),
@@ -47,6 +66,10 @@ public class SocialListActivity extends ListActivity {
 		ParseQuery query = new ParseQuery("ggcconnect");
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, ParseException e) {
+				names.clear();
+				subjects.clear();
+				dates.clear();
+				contents.clear();
 				if (e == null) {
 					// retrieve successful
 					for (ParseObject object : objects) {
@@ -62,6 +85,10 @@ public class SocialListActivity extends ListActivity {
 				} else {
 					
 				}
+				Collections.reverse(names);
+				Collections.reverse(subjects);
+				Collections.reverse(dates);
+				Collections.reverse(contents);
 				SocialAdapter adapter = new SocialAdapter(context,names, subjects, dates, contents);
 				setListAdapter(adapter);
 			}
