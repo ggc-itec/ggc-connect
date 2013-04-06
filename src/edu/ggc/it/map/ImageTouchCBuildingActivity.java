@@ -42,6 +42,12 @@ public class ImageTouchCBuildingActivity extends Activity{
 		onDestroy();
 	}
 	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		onDestroy();
+	}
+	
 	public class TouchListener implements OnTouchListener {
 
 		@Override

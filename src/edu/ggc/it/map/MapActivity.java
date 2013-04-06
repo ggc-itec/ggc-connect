@@ -17,7 +17,7 @@ import android.view.MotionEvent;
  * @author Andrew F. Lynch
  *
  * This class is intended to show the location of the device on GGC Campus. 
- * This class works by get the GPS data then passing it to a {@link MapActivity}
+ * This class works by getting the GPS data then passing it to a {@link MapActivity}
  * that has a background image and current location redDot icon the show where the 
  * phone is on campus. 
  */
