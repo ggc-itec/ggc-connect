@@ -129,6 +129,8 @@
             android:name="edu.ggc.it.social.SocialListActivity"
             android:label="Social" >
         </activity>
+        <activity android:name="edu.ggc.it.social.SocialUpdateActivity" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />

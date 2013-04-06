@@ -12,12 +12,12 @@
     </ListView>
 
     <Button
-        android:id="@+id/addTaskButton"
+        android:id="@+id/button_social_addentry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="36dp"
-        android:text="Add Entry" />
+        android:text="Post an Entry" />
 
 </RelativeLayout>
