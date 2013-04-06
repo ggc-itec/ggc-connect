@@ -20,7 +20,9 @@
     </item>
     <item android:id="@+id/todo"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="To Do" />    
+        android:title="To Do" /> 
+    <item android:id="@+id/social"
+        android:title="Social" />   
     <item 
         android:id="@+id/feedback"
         android:title="Feedback" />
