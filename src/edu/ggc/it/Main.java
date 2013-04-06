@@ -25,6 +25,7 @@ import edu.ggc.it.map.MapActivity;
 import edu.ggc.it.rss.EventsRSSActivity;
 import edu.ggc.it.rss.NewsRSSActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.social.SocialActivity;
 import edu.ggc.it.todo.ToDoListActivity;
 
 /*  
@@ -128,6 +129,9 @@ public class Main extends Activity {
 		case R.id.todo:
 			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
 			Main.this.startActivity(myIntent3);
+			return true;
+		case R.id.social:
+			Main.this.startActivity(new Intent(Main.this, SocialActivity.class));
 			return true;
 		case R.id.feedback:
 			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";

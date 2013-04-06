@@ -16,7 +16,7 @@
                 android:title="@string/credits"/>
             <item
                 android:id="@+id/links"
-                android:icon="@android:drawable/ic_menu_share"
+                android:icon="@android:drawable/ic_menu_agenda"
                 android:title="@string/links">
             </item>
             <item
@@ -24,7 +24,12 @@
                 android:icon="@android:drawable/ic_menu_edit"
                 android:title="To Do"/>
             <item
+                android:id="@+id/social"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Social"/>
+            <item
                 android:id="@+id/feedback"
+                android:icon="@android:drawable/ic_btn_speak_now"
                 android:title="Feedback"/>
         </menu>
     </item>
