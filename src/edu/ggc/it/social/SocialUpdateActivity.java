@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,15 @@ public class SocialUpdateActivity extends Activity {
 		editTextBody = (EditText) findViewById(R.id.edittext_social_body);
 		context = this;
 
+		Intent intent = getIntent();
+		String subject = intent
+				.getStringExtra(SocialListActivity.REPLY_SUBJECT);
+		String body = intent.getStringExtra(SocialListActivity.REPLY_BODY);
+		if ( subject != null && body != null) {
+			editTextSubject.setText("Re: " + subject);
+			editTextBody.setText("\n----------------- \n" + body);
+		}
+		
 		buttonCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -91,7 +101,8 @@ public class SocialUpdateActivity extends Activity {
 				finish();
 			}
 		});
-		Toast.makeText(context, "Thank you for your post", Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, "Thank you for your post", Toast.LENGTH_SHORT)
+				.show();
 	}
 
 }
