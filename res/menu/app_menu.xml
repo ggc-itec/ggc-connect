@@ -3,8 +3,7 @@
 
     <item
         android:id="@+id/More"
-        android:showAsAction="ifRoom|withText"
-        android:title="Menu">
+        android:title="More">
         <menu>
             <item
                 android:id="@+id/welcome"
