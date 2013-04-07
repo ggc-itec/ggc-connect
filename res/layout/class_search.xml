@@ -42,9 +42,8 @@
             android:id="@+id/cs_subject_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/cs_unselected"
             android:choiceMode="multipleChoice"
-            android:entries="@array/ds_subject_names"
-            android:listSelector="@drawable/cs_row_selector"
             tools:listitem="@android:layout/simple_list_item_1" >
 
         </ListView>
@@ -71,6 +70,26 @@
 
             <requestFocus />
         </AutoCompleteTextView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/cs_instructor_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs_instructor_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <AutoCompleteTextView
+            android:id="@+id/cs_instructor_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10" />
     </TableRow>
 
     <TableRow
@@ -140,7 +159,6 @@
         android:id="@+id/cs_days_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:visibility="invisible" >
 
         <TextView
@@ -150,36 +168,60 @@
             android:text="@string/cs_days_label"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ListView
-            android:id="@+id/cs_days_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="multipleChoice"
-            android:entries="@array/cs_days"
-            android:listSelector="@drawable/cs_row_selector"
-            tools:listitem="@android:layout/simple_list_item_1" >
-
-        </ListView>
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/cs_instructor_row"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible" >
-
-        <TextView
-            android:id="@+id/textView8"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cs_instructor_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:background="@color/cs_unselected" >
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/cs_instructor_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" />
+            <CheckedTextView
+                android:id="@+id/cs_monday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_monday_label" />
+
+            <CheckedTextView
+                android:id="@+id/cs_tuesday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_tuesday_label" />
+
+            <CheckedTextView
+                android:id="@+id/cs_wednesday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_wednesday_label" />
+
+            <CheckedTextView
+                android:id="@+id/cs_thursday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_thursday_label" />
+
+            <CheckedTextView
+                android:id="@+id/cs_friday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_friday_label" />
+
+            <CheckedTextView
+                android:id="@+id/cs_saturday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:text="@string/cs_saturday_label" />
+
+        </LinearLayout>
 
     </TableRow>
 

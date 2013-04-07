@@ -255,11 +255,15 @@ public class Banner {
 			String hours = detail.substring(creditBegin+linebreak.length(), creditEnd).trim();
 			// get long course description
 			int descEnd = creditBegin;
+			// sometimes the credits are in the format n.0000 TO m.0000; just grab the max in this case
+			creditBegin = hours.lastIndexOf(" ");
+			if (creditBegin != -1)
+				hours = hours.substring(creditBegin+1);
 			int descBegin = detail.substring(0, descEnd).lastIndexOf(linebreak);
-			if (descBegin == -1){
-				Log.w(TAG, "Could not locate long description: " + detail);
-				continue;
-			}
+			if (descBegin == -1)
+				descBegin = 0;
+			else
+				descBegin += linebreak.length();
 			String desc = detail.substring(descBegin, descEnd).trim();
 			// build course
 			Course course = new Course(subject, courseTitle, courseNumber, desc, Double.parseDouble(hours));

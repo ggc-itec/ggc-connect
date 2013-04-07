@@ -204,5 +204,11 @@
         </string-array>
             <string name="cs_search_label">Search</string>
             <string name="cs_main_label">Class Search</string>
+            <string name="cs_monday_label">M</string>
+            <string name="cs_tuesday_label">T</string>
+            <string name="cs_wednesday_label">W</string>
+            <string name="cs_thursday_label">R</string>
+            <string name="cs_friday_label">F</string>
+            <string name="cs_saturday_label">S</string>
 
 </resources>
