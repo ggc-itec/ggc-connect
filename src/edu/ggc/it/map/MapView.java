@@ -121,8 +121,8 @@ public class MapView extends View {
 		scaleReferenceHashMap.put("D_BUILDING_X",(float) ( (scaledWidth*(1150/1400.0)) -(dBuilding.getWidth()/2)));
 		scaleReferenceHashMap.put("D_BUILDING_Y",(float) ( (scaledHeight*(600/1120.0)) -(dBuilding.getHeight()/2)));
 		
-		scaleReferenceHashMap.put("F_BUILDING_X",(float) ( (scaledWidth*(1094/1400.0)) -(fBuilding.getWidth()/2)));
-		scaleReferenceHashMap.put("F_BUILDING_Y",(float) ( (scaledHeight*(536/1120.0)) -(fBuilding.getHeight()/2)));
+		scaleReferenceHashMap.put("F_BUILDING_X",(float) ( (scaledWidth*(1035/1400.0)) -(fBuilding.getWidth()/2)));
+		scaleReferenceHashMap.put("F_BUILDING_Y",(float) ( (scaledHeight*(820/1120.0)) -(fBuilding.getHeight()/2)));
 		
 		scaleReferenceHashMap.put("L_BUILDING_X",(float) ( (scaledWidth*(670/1400.0)) -(lBuilding.getWidth()/2)));
 		scaleReferenceHashMap.put("L_BUILDING_Y",(float) ( (scaledHeight*(613/1120.0)) -(lBuilding.getHeight()/2)));
