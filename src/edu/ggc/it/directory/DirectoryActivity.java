@@ -109,6 +109,11 @@ public class DirectoryActivity extends Activity {
 		startActivity(intent);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		searchDatabase.close();
+	}
 	public class ClearSearchListener implements
 			android.view.View.OnClickListener {
 
