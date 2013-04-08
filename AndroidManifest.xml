@@ -124,6 +124,7 @@
             android:label="Saved Search" >
         </activity>
         <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"></activity>
+        <activity android:name="edu.ggc.it.catalog.SearchResultsActivity"></activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />

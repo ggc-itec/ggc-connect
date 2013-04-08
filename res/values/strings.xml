@@ -210,5 +210,6 @@
             <string name="cs_thursday_label">R</string>
             <string name="cs_friday_label">F</string>
             <string name="cs_saturday_label">S</string>
+            <string name="cs_time_label">Time</string>
 
 </resources>

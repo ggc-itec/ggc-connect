@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/cs_days_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/cs_table_border"
+        android:paddingLeft="2dp" />
+
+    <TextView
+        android:id="@+id/cs_time_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/cs_table_border"
+        android:paddingLeft="2dp" />
+
+    <TextView
+        android:id="@+id/cs_instructor_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/cs_table_border"
+        android:paddingLeft="2dp" />
+
+</TableRow>

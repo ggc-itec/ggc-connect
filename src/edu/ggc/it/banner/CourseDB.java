@@ -7,9 +7,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 class CourseDB extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "course_catalog.db";
 	private static final int DATABASE_VERSION = 1;
+	private static CourseDB instance = null;
 
-	public CourseDB(Context context) {
+	private CourseDB(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+	
+	public static CourseDB getInstance(Context context){
+		if (instance == null)
+			instance = new CourseDB(context);
+		return instance;
 	}
 
 	@Override

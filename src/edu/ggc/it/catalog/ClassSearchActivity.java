@@ -1,9 +1,12 @@
 package edu.ggc.it.catalog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,13 +14,16 @@ import edu.ggc.it.R;
 import edu.ggc.it.banner.Banner;
 import edu.ggc.it.banner.Course;
 import edu.ggc.it.banner.CourseDataSource;
+import edu.ggc.it.banner.CourseSearchBuilder;
 import edu.ggc.it.banner.Instructor;
 import edu.ggc.it.banner.Section;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +47,10 @@ import android.widget.Toast;
  *
  */
 public class ClassSearchActivity extends Activity {
+	private static final String TAG = "ClassSearchActivity";
+	
+	private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("hh:mma", Locale.US);
+	
 	private int cs_selected;
 	private int cs_unselected;
 	
@@ -296,8 +306,9 @@ public class ClassSearchActivity extends Activity {
 							instructorNames.clear();
 							
 							for (int i = 0; i < selectedItems.size(); i++){
-								if (selectedItems.get(i)){
-									String subj = getResources().getStringArray(R.array.ds_subject_codes)[i];
+								int index = selectedItems.keyAt(i);
+								if (selectedItems.get(index)){
+									String subj = getResources().getStringArray(R.array.ds_subject_codes)[index];
 									List<Course> courses = courseDS.getSubjectCourses(term, subj);
 									List<Instructor> instructors = courseDS.getSubjectInstructors(term, subj);
 									
@@ -348,8 +359,86 @@ public class ClassSearchActivity extends Activity {
 
 		@Override
 		public void onClick(View view) {
-			Toast toast = Toast.makeText(ClassSearchActivity.this, "search!", Toast.LENGTH_SHORT);
-			toast.show();
+			// check to make sure a subject has been selected
+			if (subjectList.getCheckedItemCount() == 0){
+				Toast needSubject = Toast.makeText(ClassSearchActivity.this, "Select at least one subject", Toast.LENGTH_SHORT);
+				needSubject.show();
+				return;
+			}
+			
+			// gather search parameters
+			CourseSearchBuilder searchBuilder = new CourseSearchBuilder();
+			
+			searchBuilder.setTerm(terms.get(termInput.getSelectedItem()));
+			
+			SparseBooleanArray selectedItems = subjectList.getCheckedItemPositions();
+			for (int i = 0; i < selectedItems.size(); i++){
+				int index = selectedItems.keyAt(i);
+				if (selectedItems.get(index))
+					searchBuilder.addSubject(getResources().getStringArray(R.array.ds_subject_codes)[index]);
+			}
+			
+			String courseNumber = courseNumberInput.getText().toString().trim();
+			if (!courseNumber.equals(""))
+				searchBuilder.setCourseNumber(courseNumber);
+			
+			String instructor = instructorInput.getText().toString().trim();
+			if (!instructor.equals(""))
+				searchBuilder.setInstructor(instructor);
+			
+			String credits = creditsInput.getText().toString().trim();
+			if (!credits.equals("")){
+				try{
+					searchBuilder.setMinCredits(Double.parseDouble(credits));
+				} catch (NumberFormatException npfe){
+					Log.d(TAG, "User entered invalid number " + credits);
+					Toast numError = Toast.makeText(ClassSearchActivity.this, credits + " is not a valid number", Toast.LENGTH_SHORT);
+					numError.show();
+					return;
+				}
+			}
+			
+			String startTime = startTimeInput.getText().toString().trim();
+			if (!startTime.equals("")){
+				try{
+					searchBuilder.setBeginTime(ANDROID_TIME.parse(startTime));
+				} catch (ParseException pe){
+					Log.d(TAG, "User entered invalid time " + startTime);
+					Toast timeError = Toast.makeText(ClassSearchActivity.this, startTime + " is not a valid time", Toast.LENGTH_SHORT);
+					timeError.show();
+					return;
+				}
+			}
+			
+			String endTime = endTimeInput.getText().toString().trim();
+			if (!startTime.equals("")){
+				try{
+					searchBuilder.setBeginTime(ANDROID_TIME.parse(endTime));
+				} catch (ParseException pe){
+					Log.d(TAG, "User entered invalid time " + endTime);
+					Toast timeError = Toast.makeText(ClassSearchActivity.this, endTime + " is not a valid time", Toast.LENGTH_SHORT);
+					timeError.show();
+					return;
+				}
+			}
+			
+			// TODO: this is ugly; make this some kind of list to be iterated over
+			if (mondayInput.isChecked())
+				searchBuilder.addDay(mondayInput.getText().toString());
+			if (tuesdayInput.isChecked())
+				searchBuilder.addDay(tuesdayInput.getText().toString());
+			if (wednesdayInput.isChecked())
+				searchBuilder.addDay(wednesdayInput.getText().toString());
+			if (thursdayInput.isChecked())
+				searchBuilder.addDay(thursdayInput.getText().toString());
+			if (fridayInput.isChecked())
+				searchBuilder.addDay(fridayInput.getText().toString());
+			if (saturdayInput.isChecked())
+				searchBuilder.addDay(saturdayInput.getText().toString());
+			
+			Intent searchIntent = new Intent(ClassSearchActivity.this, SearchResultsActivity.class);
+			searchIntent.putExtra(CourseSearchBuilder.KEY, searchBuilder);
+			startActivity(searchIntent);
 		}
 		
 	}

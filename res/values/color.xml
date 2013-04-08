@@ -6,4 +6,6 @@
     <color name="thai_black_color">#000000</color>
     <color name="cs_selected">#9CF</color>
     <color name="cs_unselected">#000</color>
+    <color name="cs_header">#3C6700</color>
+    <color name="cs_section_header">#000</color>
 </resources>
