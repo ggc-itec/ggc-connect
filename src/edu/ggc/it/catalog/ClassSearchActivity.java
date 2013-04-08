@@ -14,11 +14,13 @@ import edu.ggc.it.banner.CourseDataSource;
 import edu.ggc.it.banner.Instructor;
 import edu.ggc.it.banner.Section;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -30,6 +32,7 @@ import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -56,6 +59,7 @@ public class ClassSearchActivity extends Activity {
 	private Button searchButton;
 	private Map<String, String> terms;
 	private CourseDataSource courseDS;
+	private TextView focusHolder;
 	
 	private Set<String> courseNumbers;
 	private Set<String> courseNames;
@@ -116,6 +120,12 @@ public class ClassSearchActivity extends Activity {
 		
 		SubmitButtonListener submitListener = new SubmitButtonListener();
 		searchButton.setOnClickListener(submitListener);
+		focusHolder = (TextView)findViewById(R.id.focusholder);
+		focusHolder.requestFocus();
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(termInput.getWindowToken(), 0);
+		imm.hideSoftInputFromInputMethod(subjectList.getWindowToken(), 0);
+		imm.hideSoftInputFromInputMethod(focusHolder.getWindowToken(), 0);
 	}
 	
 	@Override

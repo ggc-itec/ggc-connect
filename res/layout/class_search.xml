@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ggc_green" >
+    
+    <TextView 
+        android:id="@+id/focusholder"
+        android:textIsSelectable="true"
+        android:layout_width="0dip"
+        android:layout_height="0dip"/>
 
     <TableRow
         android:id="@+id/cs_term_row"
