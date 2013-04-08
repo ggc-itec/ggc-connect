@@ -123,7 +123,8 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity" >
+        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"
+                  android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.social.SocialListActivity"

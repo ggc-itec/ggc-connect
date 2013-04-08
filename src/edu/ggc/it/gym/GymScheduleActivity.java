@@ -1,16 +1,12 @@
 package edu.ggc.it.gym;
 
-import edu.ggc.it.Main;
 import edu.ggc.it.R;
-import edu.ggc.it.R.layout;
-import edu.ggc.it.R.menu;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 
-import edu.ggc.it.gym.GymMainActivity.ButtonListener;
+import edu.ggc.it.map.ImageTouchFBuildingActivity;
 
 import android.view.Menu;
 import android.view.View;
@@ -63,14 +59,24 @@ public class GymScheduleActivity extends Activity {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("message/rfc822");
 				//adds email address to intent
-				//intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "wellnessrec@ggc.edu" });
-				intent.setData(Uri.parse("mailto:default@recipient.com")); 
+				intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "wellnessrec@ggc.edu" });
+				//intent.setData(Uri.parse("mailto:default@recipient.com")); 
 				//adds tag at end of email
 				intent.putExtra(Intent.EXTRA_TEXT, "\n" + "\n" + "\n" + "Sent from GGC Connect");
 				//lets user choose their email client
 				//startActivity(Intent.createChooser(intent, "Send Email Via"));
 
 				startActivity(intent);
+			}
+		});
+		
+		TextView buildingF = (TextView) findViewById(R.id.gymfbuilding);
+		buildingF.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent buildingFintent = new Intent(GymScheduleActivity.this, ImageTouchFBuildingActivity.class);
+				startActivity(buildingFintent);
 			}
 		});
 
