@@ -1,116 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/ggc_green"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="30dip" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/love_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:text="@string/dating_label"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/textview_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dip"
-            android:text="@string/main_title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <Button
+        android:id="@+id/directory_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/direction_button"
+        android:layout_below="@+id/direction_button"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/main_button_directory" />
 
-        <Button
-            android:id="@+id/direction_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/direction_label" />
+    <TextView
+        android:id="@+id/main_textview_directory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/directory_button"
+        android:layout_below="@+id/directory_button"
+        android:layout_marginLeft="15dp"
+        android:text="@string/directory_label"
+        android:textColor="@color/main_button_text" />
 
-        <Button
-            android:id="@+id/map_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/map_label" />
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/schedule_button"
+        android:layout_alignRight="@+id/socialLinearLayout"
+        android:layout_below="@+id/gym_button"
+        android:layout_marginLeft="37dp"
+        android:background="@drawable/main_button_class_search" />
+    
+    <TextView
+        android:id="@+id/main_textview_class_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/search_button"
+        android:layout_below="@+id/search_button"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/cs_main_label"
+        android:textColor="@color/main_button_text" />
 
-        <Button
-            android:id="@+id/directory_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/directory_label" />
+    <Button
+        android:id="@+id/direction_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/socialLinearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/main_button_directions" />
+    
+    <TextView
+        android:id="@+id/main_textview_directions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/direction_button"
+        android:layout_below="@+id/direction_button"
+        android:layout_marginLeft="-10dp"
+        android:text="@string/direction_label"
+        android:textColor="@color/main_button_text" />
 
-        <Button
-            android:id="@+id/gym_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/gym_label" />
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/direction_button"
+        android:layout_alignBottom="@+id/direction_button"
+        android:layout_alignRight="@+id/socialLinearLayout"
+        android:background="@drawable/main_button_maps" />
+    
+    <TextView
+        android:id="@+id/main_textview_maps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/map_button"
+        android:layout_below="@+id/map_button"
+        android:text="@string/map_label"
+        android:textColor="@color/main_button_text" />
 
-        <Button
-            android:id="@+id/schedule_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/schedule_label" />
+    <Button
+        android:id="@+id/gym_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/directory_button"
+        android:layout_alignBottom="@+id/directory_button"
+        android:layout_alignRight="@+id/map_button"
+        android:background="@drawable/main_button_gym" />
+    
+    <TextView
+        android:id="@+id/main_textview_gym"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gym_button"
+        android:layout_below="@+id/gym_button"
+        android:layout_marginLeft="15dp"
+        android:text="@string/gym_label"
+        android:textColor="@color/main_button_text" />
 
-        <Button
-            android:id="@+id/love_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dating_label"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cs_main_label" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/schedule_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/directory_button"
+        android:layout_below="@+id/directory_button"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/main_button_schedule" />
+    
+    <TextView
+        android:id="@+id/main_textview_schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/schedule_button"
+        android:layout_below="@+id/schedule_button"
+        android:layout_marginLeft="3dp"
+        android:text="@string/schedule_label"
+        android:textColor="@color/main_button_text" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:id="@+id/socialLinearLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
-        
+
         <ImageButton
             android:id="@+id/facebook_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingRight="10dip"
+            android:contentDescription="@string/main_facebook_desc"
             android:paddingLeft="10dip"
+            android:paddingRight="10dip"
             android:src="@drawable/icon_facebook" />
-        
+
         <ImageButton
             android:id="@+id/twitter_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingRight="10dip"
+            android:contentDescription="@string/main_twitter_desc"
             android:paddingLeft="10dip"
+            android:paddingRight="10dip"
             android:src="@drawable/icon_twitter" />
+
         <ImageButton
             android:id="@+id/youtube_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingRight="10dip"
+            android:contentDescription="@string/main_youtube_desc"
             android:paddingLeft="10dip"
+            android:paddingRight="10dip"
             android:src="@drawable/icon_youtube" />
+
         <ImageButton
             android:id="@+id/rss_feed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingRight="10dip"
+            android:contentDescription="@string/main_rss_desc"
             android:paddingLeft="10dip"
+            android:paddingRight="10dip"
             android:src="@drawable/icon_rss" />
-
     </LinearLayout>
 
 </RelativeLayout>
