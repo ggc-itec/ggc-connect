@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ggc-connect</string>
+    <string name="app_name">GGC Connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
     <string name="links">Links</string>
