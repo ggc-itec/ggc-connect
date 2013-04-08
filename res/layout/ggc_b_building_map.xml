@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/imageView_ggc_building_b_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:scaleType="matrix"
         android:src="@drawable/map_b_building" />
 
