@@ -1,11 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/ggc_green"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:padding="30dip"
-    >
+    android:layout_height="fill_parent"
+    android:background="@color/ggc_green"
+    android:orientation="vertical"
+    android:padding="30dip" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -16,23 +17,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/main_title"
             android:layout_marginBottom="20dip"
+            android:text="@string/main_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-        
+
         <Button
             android:id="@+id/direction_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/direction_label" />
-        
-         <Button
-             android:id="@+id/map_button"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center"
-             android:text="@string/map_label" />
+
+        <Button
+            android:id="@+id/map_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/map_label" />
 
         <Button
             android:id="@+id/directory_button"
@@ -67,7 +68,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cs_main_label" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+        
+        <ImageButton
+            android:id="@+id/facebook_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:src="@drawable/icon_facebook" />
+        
+        <ImageButton
+            android:id="@+id/twitter_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:src="@drawable/icon_twitter" />
+        <ImageButton
+            android:id="@+id/youtube_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:src="@drawable/icon_youtube" />
+        <ImageButton
+            android:id="@+id/rss_feed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:src="@drawable/icon_rss" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

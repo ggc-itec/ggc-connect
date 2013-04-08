@@ -97,14 +97,14 @@ public class Main extends Activity {
 								}
 							}).show();
 			return true;
-		case R.id.news_rss:
+		/*case R.id.news_rss:
 			Intent newsRssIntent = new Intent(Main.this, NewsRSSActivity.class);
 			Main.this.startActivity(newsRssIntent);
 			return true;
 		case R.id.events_rss:
 			Intent eventsRssIntent = new Intent(Main.this, EventsRSSActivity.class);
 			Main.this.startActivity(eventsRssIntent);
-			return true;
+			return true;*/
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
 			Main.this.startActivity(myIntent);

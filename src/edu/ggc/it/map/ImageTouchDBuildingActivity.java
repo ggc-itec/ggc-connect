@@ -41,6 +41,13 @@ public class ImageTouchDBuildingActivity extends Activity{
 		super.onPause();
 		onDestroy();
 	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		onDestroy();
+	}
+	
 	public class TouchListener implements OnTouchListener {
 
 		@Override

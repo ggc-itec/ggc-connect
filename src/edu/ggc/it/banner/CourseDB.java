@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class CourseDB extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "course_catalog.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static CourseDB instance = null;
 
 	private CourseDB(Context context) {
@@ -65,7 +65,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 		
 		public static void onUpgrade(SQLiteDatabase db){
-			// nothing to do
+			db.execSQL("DROP TABLE IF EXISTS catalog");
+			onCreate(db);
 		}
 	}
 	
@@ -99,7 +100,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 		
 		public static void onUpgrade(SQLiteDatabase db){
-			// nothing to do
+			db.execSQL("DROP TABLE IF EXISTS schedule");
+			onCreate(db);
 		}
 	}
 	
@@ -124,7 +126,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 		
 		public static void onUpgrade(SQLiteDatabase db){
-			// nothing to do
+			db.execSQL("DROP TABLE IF EXISTS instructors");
+			onCreate(db);
 		}
 	}
 	
@@ -147,7 +150,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 		
 		public static void onUpgrade(SQLiteDatabase db){
-			// nothing to do
+			db.execSQL("DROP TABLE IF EXISTS classtypes");
+			onCreate(db);
 		}
 	}
 	
@@ -189,7 +193,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 		
 		public static void onUpgrade(SQLiteDatabase db){
-			// nothing to do
+			db.execSQL("DROP TABLE IF EXISTS meetings");
+			onCreate(db);
 		}
 	}
 }

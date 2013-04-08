@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SavedSearchDatabase {
 
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "savedsearchesdb";
 	public static final String DATABASE_TABLE = "SavedSearches";
 
@@ -134,8 +134,9 @@ public class SavedSearchDatabase {
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS SavedSearches");
+			onCreate(db);
 		}
 
 	}

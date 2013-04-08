@@ -109,6 +109,11 @@ public class DirectoryActivity extends Activity {
 		startActivity(intent);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		searchDatabase.close();
+	}
 	public class ClearSearchListener implements
 			android.view.View.OnClickListener {
 
@@ -146,16 +151,21 @@ public class DirectoryActivity extends Activity {
 				startActivity(intent2);
 			}
 			if (position == 3) {
-				wholeUrl = "http://www.ggc.edu/academics/schools/school-of-liberal-arts/meet%20the%20facultyand%20staff/index.html";
+				wholeUrl = "http://www.ggc.edu/academics/schools/school-of-health-sciences/meet-the-faculty-staff/index.html";
 				intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
 				startActivity(intent2);
 			}
 			if (position == 4) {
+				wholeUrl = "http://www.ggc.edu/academics/schools/school-of-liberal-arts/meet%20the%20facultyand%20staff/index.html";
+				intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
+				startActivity(intent2);
+			}
+			if (position == 5) {
 				wholeUrl = "http://www.ggc.edu/academics/schools/school-of-science-and-technology/meet-faculty-and-staff.html";
 				intent2.putExtra(EXTRA_MESSAGE, wholeUrl);
 				startActivity(intent2);
 			}
-
+			
 		}
 
 	}

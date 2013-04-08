@@ -19,7 +19,7 @@ public class ScheduleDatabase {
 	/**
 	 * The database version
 	 */
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	
 	/**
 	 * The name of the database
@@ -360,8 +360,9 @@ public class ScheduleDatabase {
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS classes");
+			onCreate(db);
 		}
 
 	}

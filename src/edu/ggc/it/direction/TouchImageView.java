@@ -12,8 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 /**
  * This class is used to override the imageview to make it draggable and zoomable
- * @author Thai Pham
- * @version 1.0
+ * @author From the internet
  *
  */
 public class TouchImageView extends ImageView {
@@ -40,7 +39,7 @@ public class TouchImageView extends ImageView {
 
     ScaleGestureDetector mScaleDetector;
     Context context;
-    
+
     /**
      * Constructor to create a new touchimageview with given context
      * @param context
@@ -77,7 +76,6 @@ public class TouchImageView extends ImageView {
             public boolean onTouch(View v, MotionEvent event) {
                 mScaleDetector.onTouchEvent(event);
                 PointF curr = new PointF(event.getX(), event.getY());
-
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                     	last.set(curr);
@@ -109,9 +107,12 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                //DirectionActivity.hideLocation();
+                if (saveScale != 1){
+                	DirectionActivity.hideLocation();
+                }
                 setImageMatrix(matrix);
                 invalidate();
+                
                 return true; // indicate event was handled
             }
         });
@@ -123,6 +124,10 @@ public class TouchImageView extends ImageView {
      */
     public void setMaxZoom(float x) {
         maxScale = x;
+    }
+    
+    public void setOriginalSize() {
+    	saveScale = 1f;
     }
     
     /**
@@ -138,6 +143,7 @@ public class TouchImageView extends ImageView {
 
         /**
          * @Override
+         * when users zoom the map
          */
         public boolean onScale(ScaleGestureDetector detector) {
             float mScaleFactor = detector.getScaleFactor();
@@ -230,8 +236,7 @@ public class TouchImageView extends ImageView {
 
         if (saveScale == 1) {
             //Fit to screen.
-            float scale;
-
+        	float scale;
             Drawable drawable = getDrawable();
             if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0)
                 return;
