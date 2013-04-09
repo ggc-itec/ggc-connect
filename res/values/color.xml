@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ggc_green">#4C7801</color>
-    <color name="main_button_text">#FFF</color>
+    <color name="main_button_text">#000</color>
+    <color name="main_background">#FFF</color>
     <color name="thai_spinner_color">#00704A</color>
     <color name="thai_white_color">#FFFFFF</color>
     <color name="thai_black_color">#000000</color>
