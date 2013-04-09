@@ -37,7 +37,8 @@
             android:label="@string/title_activity_direction"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="edu.ggc.it.map.MapActivity" >
+        <activity android:name="edu.ggc.it.map.MapActivity"
+          		  android:screenOrientation="landscape">   
         </activity>
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
