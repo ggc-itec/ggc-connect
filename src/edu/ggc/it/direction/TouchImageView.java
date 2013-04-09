@@ -107,8 +107,11 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                if (saveScale != 1){
+                if (saveScale != 1){//when user zooms the map, the markers will be hidden
                 	DirectionActivity.hideLocation();
+                }
+                else{//saveScale = 1: try to show the markers again
+                	DirectionActivity.refreshMarkers();
                 }
                 setImageMatrix(matrix);
                 invalidate();
