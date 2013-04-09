@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="parse_app_id">RKzja3dFX6fw81CqAanxPU8vKZCynEy9Ss8NePHG</string>
-    <string name="parse_client_key">68jgDu6pwxYyCDXaYl0E5q35XuqDllpTtxxIxHRk</string>
-    
+
     <string name="app_name">GGC Connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
