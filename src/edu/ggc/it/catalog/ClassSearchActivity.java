@@ -88,12 +88,16 @@ public class ClassSearchActivity extends Activity {
 	private ArrayAdapter<String> courseAdapter;
 	private ArrayAdapter<String> instructorAdapter;
 	
+	private Integer asyncCounter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_search);
 		
 		terms = new HashMap<String, String>();
+		
+		asyncCounter = 0;
 		
 		Resources resources = getResources();
 		cs_selected = resources.getColor(R.color.cs_selected);
@@ -283,57 +287,67 @@ public class ClassSearchActivity extends Activity {
 					String subjId = args[0];
 					String term = args[1];
 					
-					// have we already imported these courses for this term?
-					if (!courseDS.hasCourses(term, subjId)){
-						// pull it from Banner
-						List<Course> courses = Banner.getCourses(term, subjId);
-						courseDS.addCourses(courses);
-						List<Section> sections = Banner.getSubjectSections(term, subjId);
-						courseDS.addSections(sections);
+					synchronized (asyncCounter){
+						asyncCounter++;
 					}
 					
-					if (selected){
-						// pull the courses and instructors and add them to our sets
-						List<Course> courses = courseDS.getSubjectCourses(term, subjId);
-						List<Instructor> instructors = courseDS.getSubjectInstructors(term, subjId);
-						
-						synchronized (ClassSearchActivity.this){
-							for (Course course: courses){
-								courseNumbers.add(course.getId());
-								courseNames.add(course.getName());
-							}
-							
-							for (Instructor instructor: instructors)
-								instructorNames.add(instructor.getName());
+					try{
+						// have we already imported these courses for this term?
+						if (!courseDS.hasCourses(term, subjId)){
+							// pull it from Banner
+							List<Course> courses = Banner.getCourses(term, subjId);
+							courseDS.addCourses(courses);
+							List<Section> sections = Banner.getSubjectSections(term, subjId);
+							courseDS.addSections(sections);
 						}
-					} else{
-						// rebuild the list
-						SparseBooleanArray selectedItems = subjectList.getCheckedItemPositions();
 						
-						synchronized (ClassSearchActivity.this){
-							courseNumbers.clear();
-							courseNames.clear();
-							instructorNames.clear();
+						if (selected){
+							// pull the courses and instructors and add them to our sets
+							List<Course> courses = courseDS.getSubjectCourses(term, subjId);
+							List<Instructor> instructors = courseDS.getSubjectInstructors(term, subjId);
 							
-							for (int i = 0; i < selectedItems.size(); i++){
-								int index = selectedItems.keyAt(i);
-								if (selectedItems.get(index)){
-									String subj = getResources().getStringArray(R.array.ds_subject_codes)[index];
-									List<Course> courses = courseDS.getSubjectCourses(term, subj);
-									List<Instructor> instructors = courseDS.getSubjectInstructors(term, subj);
-									
-									for (Course course: courses){
-										courseNumbers.add(course.getId());
-										courseNames.add(course.getName());
+							synchronized (ClassSearchActivity.this){
+								for (Course course: courses){
+									courseNumbers.add(course.getId());
+									courseNames.add(course.getName());
+								}
+								
+								for (Instructor instructor: instructors)
+									instructorNames.add(instructor.getName());
+							}
+						} else{
+							// rebuild the list
+							SparseBooleanArray selectedItems = subjectList.getCheckedItemPositions();
+							
+							synchronized (ClassSearchActivity.this){
+								courseNumbers.clear();
+								courseNames.clear();
+								instructorNames.clear();
+								
+								for (int i = 0; i < selectedItems.size(); i++){
+									int index = selectedItems.keyAt(i);
+									if (selectedItems.get(index)){
+										String subj = getResources().getStringArray(R.array.ds_subject_codes)[index];
+										List<Course> courses = courseDS.getSubjectCourses(term, subj);
+										List<Instructor> instructors = courseDS.getSubjectInstructors(term, subj);
+										
+										for (Course course: courses){
+											courseNumbers.add(course.getId());
+											courseNames.add(course.getName());
+										}
+										
+										for (Instructor instructor: instructors)
+											instructorNames.add(instructor.getName());
 									}
-									
-									for (Instructor instructor: instructors)
-										instructorNames.add(instructor.getName());
 								}
 							}
 						}
+					} finally{
+						synchronized (asyncCounter){
+							asyncCounter--;
+						}
 					}
-					
+						
 					return subjectList.getCheckedItemCount() > 0;
 				}
 				
@@ -374,6 +388,15 @@ public class ClassSearchActivity extends Activity {
 				Toast needSubject = Toast.makeText(ClassSearchActivity.this, "Select at least one subject", Toast.LENGTH_SHORT);
 				needSubject.show();
 				return;
+			}
+			
+			synchronized (asyncCounter){
+				if (asyncCounter > 0){
+					Toast stillLoading = Toast.makeText(ClassSearchActivity.this,
+							"Still loading class information; please try again in a moment", Toast.LENGTH_LONG);
+					stillLoading.show();
+					return;
+				}
 			}
 			
 			// gather search parameters

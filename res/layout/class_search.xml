@@ -13,7 +13,7 @@
 
     <TableRow
         android:id="@+id/cs_term_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
@@ -33,7 +33,7 @@
 
     <TableRow
         android:id="@+id/cs_subject_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
@@ -57,7 +57,7 @@
 
     <TableRow
         android:id="@+id/cs_course_number_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -80,7 +80,7 @@
 
     <TableRow
         android:id="@+id/cs_instructor_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -100,7 +100,7 @@
 
     <TableRow
         android:id="@+id/cs_credits_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -121,7 +121,7 @@
 
     <TableRow
         android:id="@+id/cs_start_time_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -142,7 +142,7 @@
 
     <TableRow
         android:id="@+id/cs_end_time_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -163,7 +163,7 @@
 
     <TableRow
         android:id="@+id/cs_days_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
@@ -233,7 +233,7 @@
 
     <TableRow
         android:id="@+id/cs_search_row"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" >
 
