@@ -34,7 +34,7 @@ public class Location {
 	
 	/**
 	 * This method is to get the name of the location
-	 * @return name of loction ing String
+	 * @return name of location in String
 	 */
 	public String getName(){
 		return name;

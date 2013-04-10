@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ggc-connect</string>
+    <string name="app_name">GGC Connect</string>
     <string name="welcome">Welcome</string>
     <string name="credits">Credits</string>
     <string name="links">Links</string>
@@ -30,6 +30,10 @@
     <string name="dating_label">Social</string>
     <string name="instruction">Instruction</string>
     <string name="thai_ggc_map">GGC map</string>
+    <string name="main_facebook_desc">GGC Facebook page</string>
+    <string name="main_twitter_desc">GGC Twitter feed</string>
+    <string name="main_youtube_desc">GGC YouTube channel</string>
+    <string name="main_rss_desc">GGC News and Events RSS Feed</string>
 
     <string-array name="parent_directories">
         <item>Admissions</item>

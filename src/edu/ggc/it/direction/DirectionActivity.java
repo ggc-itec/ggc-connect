@@ -122,6 +122,11 @@ public class DirectionActivity extends Activity {
 		img1.invalidate();
 	}
 	
+	public static void refreshMarkers(){
+		img1.invalidate();
+		img2.invalidate();
+	}
+	
 	/**
 	 * This function aims to hide cursors of destination and user when the map is zooming.
 	 */
@@ -253,10 +258,10 @@ public class DirectionActivity extends Activity {
 				img2.setVisibility(View.VISIBLE);
 				if(bld.length()==1){
 				instructionText.setText("It is located on building "+ bld
-						+ "\nInstruction: \n"+"    "+spin_val);
+						+ "\nInstruction: Your location is Yellow dot, Destination is Red dot\n"+"    "+spin_val);
 				}
 				else{
-					instructionText.setText("\nInstruction: \n"+"    "+spin_val);
+					instructionText.setText("\nInstruction: Your location is Yellow dot, Destination is Red dot\n"+"    "+spin_val);
 				}
 			}
 			//Depend on building where the instruction points to, these lines will show the appropriate map

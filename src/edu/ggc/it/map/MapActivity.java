@@ -1,6 +1,7 @@
 package edu.ggc.it.map;
 
 
+import edu.ggc.it.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -92,6 +93,13 @@ public class MapActivity extends Activity {
 	protected void onStop() {
 	    super.onStop();
 	    locationManager.removeUpdates(ggcLocactionListener);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		setContentView(R.layout.activity_empty);
+		mapView = null;
 	}
 	
 	/**

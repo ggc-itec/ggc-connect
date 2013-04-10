@@ -27,15 +27,23 @@ public class ImageTouchDBuildingActivity extends Activity{
 	private PointF start = new PointF();
 	private PointF middle = new PointF();
 	float oldDistance = 1f;
+	private ImageView view;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ggc_d_building_map);
-		ImageView view = (ImageView) findViewById(R.id.imageView_ggc_d_Building_map);
+		view = (ImageView) findViewById(R.id.imageView_ggc_d_Building_map);
 		view.setOnTouchListener(new TouchListener());
 	}
 
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		setContentView(R.layout.activity_empty);
+		view = null;
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
