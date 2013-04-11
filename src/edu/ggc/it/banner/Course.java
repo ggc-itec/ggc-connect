@@ -31,6 +31,20 @@ public class Course {
 		return description;
 	}
 	
+	public String getShortDescription(int maxChars){
+		String result = description;
+		if (result.length() <= maxChars)
+			return result;
+		
+		result = description.substring(0, maxChars);
+		int wordBreak = result.lastIndexOf(" ");
+		if (wordBreak == -1)
+			wordBreak = result.length();
+		result = result.substring(0, wordBreak) + "...";
+		
+		return result;
+	}
+	
 	public double getCredits(){
 		return hours;
 	}

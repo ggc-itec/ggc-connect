@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ggc_green"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cs_course_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/cs_section_header"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/cs_desc_abbreviated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/cs_hours_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TableLayout
+        android:id="@+id/cs_meeting_preview_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/cs_meeting_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cs_header" >
+
+            <TextView
+                android:id="@+id/cs_days_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/cs_days_label" />
+
+            <TextView
+                android:id="@+id/cs_time_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/cs_time_label" />
+
+            <TextView
+                android:id="@+id/cs_instructor_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cs_instructor_label" />
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
