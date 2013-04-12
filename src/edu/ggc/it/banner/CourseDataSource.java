@@ -50,7 +50,7 @@ public class CourseDataSource {
 	};
 	
 	public CourseDataSource(Context context){
-		dbHelper = new CourseDB(context);
+		dbHelper = CourseDB.getInstance(context);
 	}
 	
 	public void open() throws SQLException{

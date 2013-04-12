@@ -28,7 +28,7 @@ public class LocationArray {
 		locationList.add(new Location("Georgia Gwinnett College ROTC","ROTC",33.98032,-84.00914,"It is on middle left of the GGC map, beside the soccerfields, and building C. It is named Dorm on the map."));
 		locationList.add(new Location("Jazzman's Cafe & Bakery","L",33.97959,-84.00454,"In the middle of GGC map, you will see a beautiful glass building. Go to this building, you will see it at right the front door on your right."));
 		locationList.add(new Location("Parking Decal","A",33.97999,-84.00096,"On the main GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance, you will see it on your left."));
-		locationList.add(new Location("Registrator","D",33.97950, -83.99831,"It is on the most right middle of the GGC map. "));
+		locationList.add(new Location("Registrar","D",33.97950, -83.99831,"It is on the most right middle of the GGC map. "));
 		locationList.add(new Location("Soccer Fields","SF",33.97884,-84.00848,"It is on the bottom left of the GGC map, beside the Dorm, and next to the student's parking."));
 		locationList.add(new Location("Student Parking Deck","PD",33.98162,-83.99993,"It is on the middle right of the GGC map, it is named Parking Deck on the map."));
 		locationList.add(new Location("Student Parking","PK",33.97860,-84.01110,"It is on the most left of the GGC map, next to the soccer field."));

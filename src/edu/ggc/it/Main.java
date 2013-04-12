@@ -76,7 +76,7 @@ public class Main extends Activity {
 		
 		classSearchButton = (Button)findViewById(R.id.search_button);
 		classSearchButton.setOnClickListener(myListener);
-		
+				
 		facebookButton = (ImageButton)findViewById(R.id.facebook_page);
 		facebookButton.setOnClickListener(myListener);
 		
