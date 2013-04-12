@@ -1,16 +1,24 @@
 package edu.ggc.it.direction;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -27,21 +35,21 @@ import edu.ggc.it.R;
  */
 public class DirectionActivity extends Activity {
 	//This aims to get the width of the image view 
-	private static int imgWidth;
+	private int imgWidth;
 	//This aims to get the height of the image
-	private static int imgHeight;
+	private int imgHeight;
 	//This aims to get the height of the image view 
-	private static int imgViewHeight;
+	private int imgViewHeight;
 	//This aims to get the width of the image view 
 	private int imgViewWidth;
 	//This aims to get the left of the image view 
-	private static int imgLeft;
+	private int imgLeft;
 	//This aims to get the top of the image view 
-	private static int imgViewTop;
+	private int imgViewTop;
 	//This aims to get the space between the top of View and top of image
-	private static int imgPadding;
+	private int imgPadding;
 	//Create a imageview for the GGC map
-	private static TouchImageView img;
+	private TouchImageView img;
 	//Create a imageview for the current position on map
 	private static ImageView img1;
 	//Create a imageview for the place position on map
@@ -55,13 +63,13 @@ public class DirectionActivity extends Activity {
 	//Create a location
 	UserLocationListener myLocationListener;
 	//This will get the user's latitude
-	private static double latitude;
+	private double latitude;
 	//This will get the user's longitude
-	private static double longitude;
+	private double longitude;
 	//This will get the destination's latitude
-	private static double latitudeDes;
+	private double latitudeDes;
 	//This will get the destination's longitude
-	private static double longitudeDes;
+	private double longitudeDes;
 	//Create a location list that holds list of places in GGC
 	private LocationArray myLocationList;
 	//Create a new spinner to display list of places in GGC 
@@ -113,7 +121,7 @@ public class DirectionActivity extends Activity {
 	/**
 	 * This function aims to update user's location when it changes, to correct location of users on the map
 	 */
-	public static void updateLocation(){
+	public void updateLocation(){
 		//Set the x for the current user's position on Map(-84.01209 to -83.99772)
 		img1.setX((float) (imgLeft+((longitude + 84.01209)*100000*imgWidth/1437)));
 		//Set the y for the current user's position on Map(33.98565 to 33.97652)
@@ -162,7 +170,7 @@ public class DirectionActivity extends Activity {
 		public void onLocationChanged(Location location) {
 			longitude= location.getLongitude();
 		    latitude= location.getLatitude();
-		    DirectionActivity.updateLocation();
+		    updateLocation();
 		}
 		@Override
 		public void onProviderDisabled(String provider) {
@@ -205,9 +213,39 @@ public class DirectionActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_direction, menu);
+		getMenuInflater().inflate(R.menu.weather, menu);
 		return true;
 	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+
+		List<Address> addresses = null;
+
+		try {
+		    addresses = geocoder.getFromLocation(latitude, longitude, 3);
+		} catch (IOException ex) {
+		    //Handle IOException
+		}
+		String zipCode="";
+		for (int i = 0; i < addresses.size(); i++) {
+		    Address address = addresses.get(i);
+		    if (address.getPostalCode() != null)
+		        zipCode = address.getPostalCode();
+		}
+		String url="http://www.weather.com/weather/today/"+zipCode;
+		if (item.getItemId()==R.id.weather) {
+			try {
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(url));
+				startActivity(intent);
+			} catch (Exception e) {
+				startActivity(new Intent(Intent.ACTION_VIEW,
+						Uri.parse(url)));
+			}
+		}
+		return true;
+	}
+
 	
 	/**
 	 * This method is a listenner for the spinner in order to get the position of item which is selected
