@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -57,6 +58,10 @@ public class ImageTouchABuildingActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		setContentView(R.layout.activity_empty);
+		Drawable d = view.getDrawable();
+		if (d!=null) d.setCallback(null);
+		view.setImageDrawable(null);
+		view.setOnTouchListener(null);
 		view = null;
 	}
 

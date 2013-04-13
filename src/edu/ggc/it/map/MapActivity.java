@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -98,7 +99,11 @@ public class MapActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		setContentView(R.layout.activity_empty);
+		setContentView(R.layout.activity_empty);	    
+		if(locationManager != null)	locationManager.removeUpdates(ggcLocactionListener);
+		Drawable d = mapView.getBackground();
+		if (d!=null) d.setCallback(null);
+		mapView.setOnTouchListener(null);
 		mapView = null;
 	}
 	
