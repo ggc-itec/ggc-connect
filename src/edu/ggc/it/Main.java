@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.direction.DirectionActivity;
 import edu.ggc.it.directory.DirectoryActivity;
@@ -95,7 +92,7 @@ public class Main extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.app_menu, menu);
+		inflater.inflate(R.menu.activity_main, menu);
 		return true;
 	}
 
@@ -103,8 +100,6 @@ public class Main extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.More:
-			return true;
 		case R.id.welcome:
 			new AlertDialog.Builder(this)
 					.setTitle("Welcome")
@@ -121,23 +116,23 @@ public class Main extends Activity {
 			return true;
 		case R.id.credits:
 			Intent myIntent = new Intent(Main.this, Credits.class);
-			Main.this.startActivity(myIntent);
+			startActivity(myIntent);
 			return true;
 		case R.id.links:
 			Intent myIntent2 = new Intent(Main.this, News.class);
-			Main.this.startActivity(myIntent2);
+			startActivity(myIntent2);
 			return true;
 		case R.id.todo:
 			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
-			Main.this.startActivity(myIntent3);
+			startActivity(myIntent3);
 			return true;
 		case R.id.social:
-			Main.this.startActivity(new Intent(Main.this, SocialListActivity.class));
+			startActivity(new Intent(Main.this, SocialListActivity.class));
 			return true;
 		case R.id.feedback:
 			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(feedbackURL));
-			Main.this.startActivity(browserIntent);
+			startActivity(browserIntent);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

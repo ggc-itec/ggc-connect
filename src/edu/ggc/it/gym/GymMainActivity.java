@@ -1,8 +1,6 @@
 package edu.ggc.it.gym;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.ggc.it.R;
 
 public class GymMainActivity extends Activity {
@@ -57,9 +54,6 @@ public class GymMainActivity extends Activity {
 
 		magazine = (Button) findViewById(R.id.healthMagazine);
 		magazine.setOnClickListener(new ButtonListener());
-
-		HomeButton = (Button) findViewById(R.id.homeButton);
-		HomeButton.setOnClickListener(new ButtonListener());
 		
 		quote = (TextView) findViewById(R.id.quoteTextView);
 		
@@ -117,18 +111,8 @@ public class GymMainActivity extends Activity {
 			
 			else if (magazine.isPressed()){
 				String url = "http://readsh101.com/ggc.html";
-			
-			}
-			else if (view.getId() == R.id.homeButton) {
-				finish();
 			}
 		}
 
 	}
-
-
-	
-	
-
-
 }
