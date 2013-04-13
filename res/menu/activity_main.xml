@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/welcome"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/welcome" android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/links"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/links" android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/credits"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/credits" android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/todo"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/to_do" android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/social"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/social" android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/feedback"
+        android:icon="@android:drawable/ic_btn_speak_now"
+        android:title="@string/feedback" android:showAsAction="ifRoom"/>
+
+</menu>
