@@ -70,13 +70,12 @@ public class MapView extends View {
 		// sets canvasX and canvasY to the starting point of the background image.
 		setCanvasXY(0, 0);	
 	}
+
 	/*
 	 * The setCanvasXY and getCanvasX/getCanvasY where made to help keep track of where
 	 * start of background image is.
 	 * 
 	 */
-	
-	
 	private void setCanvasXY(float x, float y){
 		canvasX = x;
 		canvasY = y;
