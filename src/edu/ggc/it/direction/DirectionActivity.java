@@ -56,9 +56,9 @@ public class DirectionActivity extends Activity {
 	// Create a imageview for the GGC map
 	private TouchImageView img;
 	// Create a imageview for the current position on map
-	private static ImageView img1;
+	private ImageView img1;
 	// Create a imageview for the place position on map
-	private static ImageView img2;
+	private ImageView img2;
 	// Create new context for activity
 	private Context myContext;
 	// Create a textview to display instructions to users
@@ -163,7 +163,7 @@ public class DirectionActivity extends Activity {
 	}
 
 	
-	public static void refreshMarkers(){
+	public void refreshMarkers(){
 		img1.setVisibility(View.VISIBLE);
 		img2.setVisibility(View.VISIBLE);
 
@@ -173,7 +173,7 @@ public class DirectionActivity extends Activity {
 	 * This function aims to hide cursors of destination and user when the map
 	 * is zooming.
 	 */
-	public static void hideLocation() {
+	public void hideLocation() {
 		img1.setVisibility(View.INVISIBLE);
 		img2.setVisibility(View.INVISIBLE);
 	}
