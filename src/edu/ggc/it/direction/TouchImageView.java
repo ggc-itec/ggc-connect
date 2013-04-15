@@ -19,9 +19,9 @@ public class TouchImageView extends ImageView {
 
     Matrix matrix;
     // We can be in one of these 3 states
-    static final int NONE = 0;
-    static final int DRAG = 1;
-    static final int ZOOM = 2;
+    final int NONE = 0;
+    final int DRAG = 1;
+    final int ZOOM = 2;
     int mode = NONE;
 
     // Remember some things for zooming
@@ -32,7 +32,7 @@ public class TouchImageView extends ImageView {
     float[] m;
 
     int viewWidth, viewHeight;
-    static final int CLICK = 3;
+    final int CLICK = 3;
     float saveScale = 1f;
     protected float origWidth, origHeight;
     int oldMeasuredWidth, oldMeasuredHeight;

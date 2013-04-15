@@ -34,6 +34,7 @@ import edu.ggc.it.R;
  *
  */
 public class DirectionActivity extends Activity {
+
 	//This aims to get the width of the image view 
 	private int imgWidth;
 	//This aims to get the height of the image
@@ -83,7 +84,6 @@ public class DirectionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
 		myContext = this;
-
 		//Check if user's device GPS is enable or not. If not, let user to enable it
 		checkGPS();
 		//Init locationlist
@@ -131,8 +131,8 @@ public class DirectionActivity extends Activity {
 	}
 	
 	public static void refreshMarkers(){
-		img1.invalidate();
-		img2.invalidate();
+		img1.setVisibility(View.VISIBLE);
+		img2.setVisibility(View.VISIBLE);
 	}
 	
 	/**
