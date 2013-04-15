@@ -173,7 +173,7 @@ public class DirectionActivity extends Activity {
 	 * This function aims to hide cursors of destination and user when the map
 	 * is zooming.
 	 */
-	public void hideLocation() {
+	public static void hideLocation() {
 		img1.setVisibility(View.INVISIBLE);
 		img2.setVisibility(View.INVISIBLE);
 	}
