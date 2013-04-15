@@ -38,6 +38,7 @@ import edu.ggc.it.R;
  * 
  */
 public class DirectionActivity extends Activity {
+
 	// This aims to get the width of the image view
 	private int imgWidth;
 	// This aims to get the height of the image
@@ -55,9 +56,9 @@ public class DirectionActivity extends Activity {
 	// Create a imageview for the GGC map
 	private TouchImageView img;
 	// Create a imageview for the current position on map
-	private ImageView img1;
+	private static ImageView img1;
 	// Create a imageview for the place position on map
-	private ImageView img2;
+	private static ImageView img2;
 	// Create new context for activity
 	private Context myContext;
 	// Create a textview to display instructions to users
@@ -90,8 +91,8 @@ public class DirectionActivity extends Activity {
 		setContentView(R.layout.activity_direction);
 		myContext = this;
 
-		// Check if user's device GPS is enable or not. If not, let user to
-		// enable it
+		//Check if user's device GPS is enable or not. If not, let user to enable it
+
 		checkGPS();
 		// Init locationlist
 		myLocationList = new LocationArray();
@@ -161,16 +162,18 @@ public class DirectionActivity extends Activity {
 		img1.invalidate();
 	}
 
-	public void refreshMarkers() {
-		img1.invalidate();
-		img2.invalidate();
+	
+	public static void refreshMarkers(){
+		img1.setVisibility(View.VISIBLE);
+		img2.setVisibility(View.VISIBLE);
+
 	}
 
 	/**
 	 * This function aims to hide cursors of destination and user when the map
 	 * is zooming.
 	 */
-	public void hideLocation() {
+	public static void hideLocation() {
 		img1.setVisibility(View.INVISIBLE);
 		img2.setVisibility(View.INVISIBLE);
 	}

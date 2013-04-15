@@ -38,7 +38,8 @@
          android:layout_below="@+id/instruction_text"
          android:layout_centerVertical="true"
          android:contentDescription="@string/thai_ggc_map"
-         android:src="@drawable/thai_ggc_map" />
+         android:src="@drawable/thai_ggc_map" 
+         />
 
      <ImageView
      android:id="@+id/imageYou"
