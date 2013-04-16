@@ -1,5 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/add_class" android:title="@string/schedule_add_class"></item>
     <item android:id="@+id/clear_schedule" android:title="@string/schedule_menu_clear_schedule"></item>
+    <item android:id="@+id/schedule_settings" android:title="@string/schedule_menu_settings"></item>
 
 </menu>

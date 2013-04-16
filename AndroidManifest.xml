@@ -10,6 +10,8 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <uses-sdk android:minSdkVersion="11" />
 
     <application
         android:icon="@drawable/ggc_connect_icon"
@@ -134,8 +136,10 @@
         <activity android:name="edu.ggc.it.social.SocialUpdateActivity" >
         </activity>
         <activity android:name="edu.ggc.it.catalog.SearchResultsActivity"></activity>
+        <activity android:name="edu.ggc.it.schedule.SchedulePreferenceActivity"
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity"></activity>
     </application>
 
-    <uses-sdk android:minSdkVersion="11" />
+    
 
 </manifest>

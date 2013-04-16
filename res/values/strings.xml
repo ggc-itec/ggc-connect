@@ -219,5 +219,8 @@
             <string name="to_do">To Do</string>
             <string name="social">Social</string>
             <string name="feedback">Feedback</string>
+            <string name="schedule_menu_settings">Settings</string>
+            <string name="schedule_pref_chk_notify_txt">Notify me when my class is about to start</string>
+            <string name="schedule_pref_reminder_txt">Reminder:</string>
 
 </resources>
