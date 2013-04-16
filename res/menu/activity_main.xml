@@ -4,26 +4,26 @@
     <item
         android:id="@+id/welcome"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/welcome" android:showAsAction="ifRoom"/>
+        android:title="@string/welcome" />
     <item
         android:id="@+id/links"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/links" android:showAsAction="ifRoom"/>
+        android:title="@string/links" />
     <item
         android:id="@+id/credits"
         android:icon="@android:drawable/ic_menu_help"
-        android:title="@string/credits" android:showAsAction="ifRoom"/>
+        android:title="@string/credits" />
     <item
         android:id="@+id/todo"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/to_do" android:showAsAction="ifRoom"/>
+        android:title="@string/to_do" />
     <item
         android:id="@+id/social"
         android:icon="@android:drawable/ic_menu_share"
-        android:title="@string/social" android:showAsAction="ifRoom"/>
+        android:title="@string/social" />
     <item
         android:id="@+id/feedback"
         android:icon="@android:drawable/ic_btn_speak_now"
-        android:title="@string/feedback" android:showAsAction="ifRoom"/>
+        android:title="@string/feedback" />
 
 </menu>
