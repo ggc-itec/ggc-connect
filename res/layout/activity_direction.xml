@@ -38,22 +38,7 @@
          android:layout_below="@+id/instruction_text"
          android:layout_centerVertical="true"
          android:contentDescription="@string/thai_ggc_map"
-         android:src="@drawable/thai_ggc_map" />
-
-     <ImageView
-     android:id="@+id/imageYou"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_alignParentBottom="true"
-     android:layout_alignParentRight="true"
-     android:src="@drawable/you" />
-
-     <ImageView
-     android:id="@+id/imageHere"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_alignParentBottom="true"
-     android:layout_alignParentLeft="true"
-     android:src="@drawable/here" />
+         android:src="@drawable/thai_ggc_map" 
+         />
 
 </RelativeLayout>
