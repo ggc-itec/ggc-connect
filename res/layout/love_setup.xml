@@ -120,7 +120,6 @@
             android:visibility="gone" >
 
             <TextView
-                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ds_course_label"
@@ -141,7 +140,7 @@
             android:visibility="gone" >
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/cs_capacity_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ds_search_by_label"

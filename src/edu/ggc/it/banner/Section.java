@@ -1,12 +1,13 @@
 package edu.ggc.it.banner;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
-public class Section {
+public class Section implements Serializable{
+	private static final long serialVersionUID = 4676656216027877660L;
+
+	public static final String KEY = "edu.ggc.it.banner.Section";
+	
 	private Course course;
 	private String term;
 	private int section;

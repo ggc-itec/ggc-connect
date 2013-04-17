@@ -13,10 +13,12 @@ import edu.ggc.it.banner.Meeting;
 import edu.ggc.it.banner.Section;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TableLayout;
@@ -27,12 +29,14 @@ public class SearchResultsActivity extends ListActivity {
 	private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a", Locale.US);
 	
 	private SectionAdapter sectionAdapter;
+	private SectionClickListener sectionListener;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
 		CourseSearchBuilder searchBuilder = (CourseSearchBuilder)getIntent().getExtras().get(CourseSearchBuilder.KEY);
+		sectionListener = new SectionClickListener();
 		// the search may take some time, so initialize the list to empty
 		List<Section> emptyList = new ArrayList<Section>();
 		sectionAdapter = new SectionAdapter(this, emptyList);
@@ -131,7 +135,23 @@ public class SearchResultsActivity extends ListActivity {
 					meetingTable.getChildAt(i).setVisibility(View.GONE);
 			}
 			
+			convertView.setTag(section);
+			convertView.setOnClickListener(sectionListener);
+			
 			return convertView;
 		}
+	}
+	
+	private class SectionClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View view) {
+			Section section = (Section)view.getTag();
+			
+			Intent detailIntent = new Intent(SearchResultsActivity.this, SectionDetailActivity.class);
+			detailIntent.putExtra(Section.KEY, section);
+			startActivity(detailIntent);
+		}
+		
 	}
 }

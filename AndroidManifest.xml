@@ -134,6 +134,7 @@
         <activity android:name="edu.ggc.it.social.SocialUpdateActivity" >
         </activity>
         <activity android:name="edu.ggc.it.catalog.SearchResultsActivity"></activity>
+        <activity android:name="edu.ggc.it.catalog.SectionDetailActivity"></activity>
     </application>
 
     <uses-sdk android:minSdkVersion="11" />

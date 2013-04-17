@@ -300,6 +300,51 @@ public class Banner {
 	}
 	
 	/**
+	 * Retrieves an array of ints containing the capacity, actual enrollment, and
+	 * remaining seats (in that order) in the section identified by the given CRN.
+	 * 
+	 * @param term		the semester to retrieve courses for in YYYYMM format. for
+	 * 					the month, Spring = 02, Summer = 05, and Fall = 08 (e.g. "201302")
+	 * @param crn		the CRN (e.g. "20709")
+	 * @return an array containing the capacity, actual enrollment, and remaining
+	 * seats, in that order
+	 */
+	public static Integer[] getSectionEnrollment(String term, String crn){
+		final String tdclass = "dddefault";
+		
+		Integer[] results = new Integer[3];
+		String response = "";
+		
+		synchronized (p_disp_detail_sched){
+			p_disp_detail_sched.set("term_in", term);
+			p_disp_detail_sched.set("crn_in", crn);
+			response = p_disp_detail_sched.request();
+		}
+		
+		/*
+		 *  the enrollment info is contained in a series of td elements with class
+		 *  dddefault, themselves in a table nested within a td element with class
+		 *  dddefault. therefore, grab the first td with this class, then grab
+		 *  the contained tds.
+		 */
+		String contents = scrapeInner(response, "TD", tdclass).get(0);
+		List<String> enrollment = scrapeInner(contents, "TD", tdclass);
+		try{
+			results[0] = Integer.parseInt(enrollment.get(0).trim());
+			results[1] = Integer.parseInt(enrollment.get(1).trim());
+			results[2] = Integer.parseInt(enrollment.get(2).trim());
+		} catch (NumberFormatException nfe){
+			Log.w(TAG, "Failed to parse enrollment info: " + contents);
+			results = null;
+		} catch (IndexOutOfBoundsException ioobe){
+			Log.w(TAG, "Did not find enrollment info: " + contents);
+			results = null;
+		}
+		
+		return results;
+	}
+	
+	/**
 	 * Helper method for getSection() and getSubjectSections() to parse the output of the
 	 * p_disp_listcrse form.
 	 * 
