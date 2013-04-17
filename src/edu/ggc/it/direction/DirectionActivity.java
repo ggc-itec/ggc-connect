@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,11 +20,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import edu.ggc.it.R;
@@ -39,26 +36,8 @@ import edu.ggc.it.R;
  */
 public class DirectionActivity extends Activity {
 
-	// This aims to get the width of the image view
-	private int imgWidth;
-	// This aims to get the height of the image
-	private int imgHeight;
-	// This aims to get the height of the image view
-	private int imgViewHeight;
-	// This aims to get the width of the image view
-	private int imgViewWidth;
-	// This aims to get the left of the image view
-	private int imgLeft;
-	// This aims to get the top of the image view
-	private int imgViewTop;
-	// This aims to get the space between the top of View and top of image
-	private int imgPadding;
 	// Create a imageview for the GGC map
 	private TouchImageView img;
-	// Create a imageview for the current position on map
-	private ImageView img1;
-	// Create a imageview for the place position on map
-	private ImageView img2;
 	// Create new context for activity
 	private Context myContext;
 	// Create a textview to display instructions to users
@@ -92,7 +71,6 @@ public class DirectionActivity extends Activity {
 		myContext = this;
 
 		//Check if user's device GPS is enable or not. If not, let user to enable it
-
 		checkGPS();
 		// Init locationlist
 		myLocationList = new LocationArray();
@@ -104,8 +82,6 @@ public class DirectionActivity extends Activity {
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (TouchImageView) findViewById(R.id.imageMap);
 		img.setMaxZoom(4f);
-		img1 = (ImageView) findViewById(R.id.imageYou);
-		img2 = (ImageView) findViewById(R.id.imageHere);
 		// Create ArrayAdapter for spinner
 		spin_adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item,
@@ -125,18 +101,6 @@ public class DirectionActivity extends Activity {
 		img.setImageDrawable(null);
 		img = null;
 
-		Drawable d1 = img1.getDrawable();
-		if (d1 != null)
-			d1.setCallback(null);
-		img1.setImageDrawable(null);
-		img1 = null;
-
-		Drawable d2 = img2.getDrawable();
-		if (d2 != null)
-			d2.setCallback(null);
-		img2.setImageDrawable(null);
-		img2 = null;
-
 		// Set Location manager to null to turn GPS off
 		if (myLocationListener != null)
 			lm.removeUpdates(myLocationListener);
@@ -150,32 +114,8 @@ public class DirectionActivity extends Activity {
 	 * location of users on the map
 	 */
 	public void updateLocation() {
-		// Set the x for the current user's position on Map(-84.01209 to
-		// -83.99772)
-		img1.setX((float) (imgLeft + ((longitude + 84.01209) * 100000
-				* imgWidth / 1437)));
-		// Set the y for the current user's position on Map(33.98565 to
-		// 33.97652)
-		img1.setY((float) (imgViewTop - 30 + ((33.98565 - latitude) * 100000
-				* imgHeight / 913)));
-		img1.setImageResource(R.drawable.you);
-		img1.invalidate();
-	}
-
-	
-	public void refreshMarkers(){
-		img1.setVisibility(View.VISIBLE);
-		img2.setVisibility(View.VISIBLE);
-
-	}
-
-	/**
-	 * This function aims to hide cursors of destination and user when the map
-	 * is zooming.
-	 */
-	public void hideLocation() {
-		img1.setVisibility(View.INVISIBLE);
-		img2.setVisibility(View.INVISIBLE);
+		img.setUserCoordinator(latitude, longitude);
+		img.invalidate();
 	}
 
 	/**
@@ -263,9 +203,7 @@ public class DirectionActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
-
 		List<Address> addresses = null;
-
 		try {
 			addresses = geocoder.getFromLocation(latitude, longitude, 3);
 		} catch (IOException ex) {
@@ -299,55 +237,14 @@ public class DirectionActivity extends Activity {
 
 		public void onItemSelected(AdapterView<?> arg0, View arg1,
 				int position, long id) {
-			Configuration config = getResources().getConfiguration();
 			spin_val = myLocationList.getInstruction(position);
 			String bld = myLocationList.getBuilding(position);
-			if (img != null) {
-				imgLeft = img.getLeft();
-				imgViewTop = img.getTop();
-			} else {
-				imgLeft = 0;
-				imgViewTop = 0;
-			}
-			if (config.orientation == 1) {// Portrait
-				imgWidth = img.getWidth();
-				// Find the relative height of image on its width
-				imgHeight = imgWidth * 913 / 1188;
-				imgViewHeight = img.getHeight();
-				// Find the space between the top of View and Image
-				imgPadding = (imgViewHeight - imgHeight) / 2;
-				// Update the top for the image
-				imgViewTop = imgViewTop + imgPadding;
-			} else if (config.orientation == 2) {
-				imgHeight = img.getHeight();
-				// Find the relative width of image on its height
-				imgWidth = imgHeight * 1188 / 913;
-				imgViewWidth = img.getWidth();
-				// Find the space between the left of View and Image
-				imgPadding = (imgViewWidth - imgWidth) / 2;
-				// Update the left for the image
-				imgLeft = imgLeft + imgPadding;
-				// instructionText.setVisibility(View.GONE);
-			}
-			// Set the x for the current user's position on Map(-84.01209 to
-			// -83.99772)
-			img1.setX((float) (imgLeft + ((longitude + 84.01209) * 100000
-					* imgWidth / 1437)));
-			// Set the y for the current user's position on Map(33.98565 to
-			// 33.97652)
-			img1.setY((float) (imgViewTop - 30 + ((33.98565 - latitude)
-					* 100000 * imgHeight / 913)));
 
-			// Check and run these lines when user click nothing or the first
-			// row in the place's list
 			if (bld.length() == 0) {
 				instructionText.setText(spin_val);
 				img.setImageResource(R.drawable.thai_ggc_map);
-				img2.setVisibility(View.INVISIBLE);
-				img1.setImageResource(R.drawable.you);
 			} else {// Run these lines when users click on any item on the list
 					// of spinner
-				img2.setVisibility(View.VISIBLE);
 				if (bld.length() == 1) {
 					instructionText
 							.setText("It is located on building "
@@ -364,16 +261,8 @@ public class DirectionActivity extends Activity {
 			// will show the appropriate map
 			latitudeDes = myLocationList.getLatitude(position);
 			longitudeDes = myLocationList.getLongitude(position);
-			// Set the x for the current destination's position on Map(-84.01209
-			// to -83.99772)
-			img2.setX((float) (imgLeft + ((longitudeDes + 84.01209) * 100000
-					* imgWidth / 1437)));
-			// Set the y for the current destination's position on Map(33.98565
-			// to 33.97652)
-			img2.setY((float) (imgViewTop - 30 + ((33.98565 - latitudeDes)
-					* 100000 * imgHeight / 913)));
+			img.setDesCoordinator(latitudeDes, longitudeDes);
 			img.setOriginalSize();
-			// Log.d("New values: X" + img.getLeft(), "Y"+img.getTop());
 		}
 
 		@Override
