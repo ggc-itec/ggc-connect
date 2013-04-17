@@ -219,5 +219,12 @@
             <string name="to_do">To Do</string>
             <string name="social">Bulletin Board</string>
             <string name="feedback">Feedback</string>
+            <string name="cs_capacity_label">Capacity</string>
+            <string name="cs_actual_label">Actual</string>
+            <string name="cs_remaining_label">Remaining</string>
+            <string name="cs_location_label">Location</string>
+            <string name="cs_date_label">Date</string>
+            <string name="cs_enrollment_label">Loading enrollment information...</string>
+            <string name="cs_loading_error">Error loading enrollment information</string>
 
 </resources>
