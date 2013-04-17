@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,16 @@ public class SocialUpdateActivity extends Activity {
 			editTextSubject.setText("Re: " + subject);
 			editTextBody.setText("\n----------------- \n" + body);
 		}
+		
+		editTextBody.setSelectAllOnFocus(true);
+		
+		editTextBody.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				editTextBody.setSelection(0);
+			}
+		});
 		
 		buttonCancel.setOnClickListener(new View.OnClickListener() {
 			@Override

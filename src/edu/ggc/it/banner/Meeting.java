@@ -1,8 +1,10 @@
 package edu.ggc.it.banner;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Meeting {
+public class Meeting implements Serializable{
+	private static final long serialVersionUID = 6543419763151671413L;
 	private String location;
 	private Instructor instructor;
 	private Date beginDate;

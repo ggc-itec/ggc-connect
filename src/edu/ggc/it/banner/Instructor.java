@@ -1,6 +1,9 @@
 package edu.ggc.it.banner;
 
-public class Instructor {
+import java.io.Serializable;
+
+public class Instructor implements Serializable{
+	private static final long serialVersionUID = -486753106973769596L;
 	private String name;
 	private String email;
 	

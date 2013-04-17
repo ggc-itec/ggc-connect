@@ -1,6 +1,9 @@
 package edu.ggc.it.direction;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
@@ -10,18 +13,27 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
+import edu.ggc.it.R;
 /**
  * This class is used to override the imageview to make it draggable and zoomable
  * @author From the internet
  *
  */
 public class TouchImageView extends ImageView {
+	// Longitude of destination that user wants to hit
+	double longitudeDes;
+	// Latitude of destination that user wants to hit
+    double latitudeDes;
+	// Longitude where user current at
+    double longitudeUser;
+    // Latitude where user current at
+	double latitudeUser;
 
     Matrix matrix;
     // We can be in one of these 3 states
-    static final int NONE = 0;
-    static final int DRAG = 1;
-    static final int ZOOM = 2;
+    final int NONE = 0;
+    final int DRAG = 1;
+    final int ZOOM = 2;
     int mode = NONE;
 
     // Remember some things for zooming
@@ -32,13 +44,17 @@ public class TouchImageView extends ImageView {
     float[] m;
 
     int viewWidth, viewHeight;
-    static final int CLICK = 3;
+    final int CLICK = 3;
     float saveScale = 1f;
     protected float origWidth, origHeight;
     int oldMeasuredWidth, oldMeasuredHeight;
 
     ScaleGestureDetector mScaleDetector;
     Context context;
+    
+    Bitmap mUser;
+    Bitmap mMarker;
+    
 
     /**
      * Constructor to create a new touchimageview with given context
@@ -47,6 +63,8 @@ public class TouchImageView extends ImageView {
     public TouchImageView(Context context) {
         super(context);
         sharedConstructing(context);
+        mMarker = BitmapFactory.decodeResource(context.getResources(), R.drawable.here);
+        mUser = BitmapFactory.decodeResource(context.getResources(), R.drawable.you);
     }
     
     /**
@@ -56,6 +74,8 @@ public class TouchImageView extends ImageView {
     public TouchImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         sharedConstructing(context);
+        mMarker = BitmapFactory.decodeResource(context.getResources(), R.drawable.here);
+        mUser = BitmapFactory.decodeResource(context.getResources(), R.drawable.you);
     }
     /**
      * Get and define the constructing of image
@@ -107,12 +127,6 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                if (saveScale != 1){//when user zooms the map, the markers will be hidden
-                	//DirectionActivity.hideLocation();
-                }
-                else{//saveScale = 1: try to show the markers again
-                	//DirectionActivity.refreshMarkers();
-                }
                 setImageMatrix(matrix);
                 invalidate();
                 
@@ -120,9 +134,10 @@ public class TouchImageView extends ImageView {
             }
         });
     }
-
+    
+    
     /**
-     * This rountine is used to set the maximum size of image that can be zoom in
+     * This routine is used to set the maximum size of image that can be zoom in
      * @param x
      */
     public void setMaxZoom(float x) {
@@ -267,4 +282,49 @@ public class TouchImageView extends ImageView {
         }
         fixTrans();
     }
+    
+    /**
+     * This method is used to set the coordinators of destination where user wants to hit
+     * @param lat: latitude of destination
+     * @param lon: longitude of destination
+     */
+    public void setDesCoordinator(double lat, double lon){
+    	longitudeDes = lon;
+    	latitudeDes=lat;
+    }
+    
+    /**
+     * This method is used to set the current coordinators of user position on the map
+     * @param lat: latitude where user is
+     * @param lon: longitude where user is
+     */
+    public void setUserCoordinator(double lat, double lon){
+    	longitudeUser = lon;
+    	latitudeUser=lat;
+    }
+    
+    /**
+     * Override onDraw method
+     * This method is used to add  marker to the main map:
+     * One is the marker of destination where user wants to hit
+     * The other is the marker of user on the map
+     */
+    protected void onDraw(Canvas c) {
+        //Let the image of the campus map be drawn first
+        super.onDraw(c);
+ 
+        float[] pDes = new float[2];
+        float[] pUser = new float[2];
+
+        pDes[0]=(float) ((longitudeDes + 84.01209) * 100000*1188/1437);
+        pDes[1]=(float) (((33.98565 - latitudeDes) * 100000)-15);
+        
+        pUser[0]=(float) ((longitudeUser + 84.01209) * 100000*1188/1437);
+        pUser[1]=(float) (((33.98565 - latitudeUser) * 100000)-15);
+        matrix.mapPoints(pDes);
+        matrix.mapPoints(pUser);
+        c.drawBitmap(mMarker, pDes[0],pDes[1], null);
+        c.drawBitmap(mUser, pUser[0],pUser[1], null);
+    }
+
 }
