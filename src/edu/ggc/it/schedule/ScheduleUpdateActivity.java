@@ -97,17 +97,21 @@ public class ScheduleUpdateActivity extends Activity implements
 		// check if updating a class
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			rowID = extras.getLong("rowID");
-			fillForm();
-			editingClass = true;
+			String action = extras.getString("action");
+			if (action.equals("edit")) {
+				rowID = extras.getLong("rowID");
+				fillForm(rowID);
+				editingClass = true;
+			}
 		}
 	}
 
 	/**
 	 * Gets the class data based on rowID and fills the form with the
 	 * information from the database
+	 * @param rowID 
 	 */
-	private void fillForm() {
+	private void fillForm(long rowID) {
 		
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
@@ -281,7 +285,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						// continue with delete
+						// don't do anything, just an information message
 					}
 				}).show();
 	}
