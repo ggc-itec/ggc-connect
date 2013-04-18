@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
+import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
 /**
  * This is the main activity for the class schedule feature of ggc-connect.

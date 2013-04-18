@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Schedule;
+import edu.ggc.it.schedule.helper.TimePickerFragment;
 
 /**
  * The update class handles processing of the add/edit form. This class handles
@@ -100,10 +101,34 @@ public class ScheduleUpdateActivity extends Activity implements
 			String action = extras.getString("action");
 			if (action.equals("edit")) {
 				rowID = extras.getLong("rowID");
-				fillForm(rowID);
+				fillFormFromDatabase(rowID);
 				editingClass = true;
+			} else if (action.equals("add_from_banner")) {
+				String[] classDetails = extras.getStringArray("class_details");
+				fillFormFromArray(classDetails);
 			}
 		}
+	}
+	
+	/**
+	 * Fills in the add form using a string array of details
+	 * @param classDetails the string array containing the fields to be filled in
+	 */
+	private void fillFormFromArray(String[] classDetails) {
+		txtClass.setText(classDetails[0]);
+		txtSection.setText(classDetails[1]);
+		
+		Resources res = getResources();
+		String[] buildingLocations = res.getStringArray(R.array.buildings);
+		for (int i = 0; i < buildingLocations.length; i++) {
+			if(classDetails[2].equals(buildingLocations[i])) {
+				spnBuildingLocation.setSelection(i);
+			}
+		}
+		
+		txtRoomLocation.setText(classDetails[3]);
+		
+		
 	}
 
 	/**
@@ -111,7 +136,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	 * information from the database
 	 * @param rowID 
 	 */
-	private void fillForm(long rowID) {
+	private void fillFormFromDatabase(long rowID) {
 		
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
