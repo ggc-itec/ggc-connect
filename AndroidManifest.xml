@@ -10,7 +10,7 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    
+
     <uses-sdk android:minSdkVersion="11" />
 
     <application
@@ -39,8 +39,9 @@
             android:label="@string/title_activity_direction"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="edu.ggc.it.map.MapActivity"
-          		  android:screenOrientation="landscape">   
+        <activity
+            android:name="edu.ggc.it.map.MapActivity"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="edu.ggc.it.schedule.ScheduleActivity"
@@ -48,6 +49,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ggc.it.Main" />
+        </activity>
+        <activity
+            android:name="edu.ggc.it.schedule.SchedulePreferenceActivity"
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.love.SetupActivity"
@@ -126,8 +131,9 @@
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
             android:label="Saved Search" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.ClassSearchActivity"
-                  android:screenOrientation="portrait" >
+        <activity
+            android:name="edu.ggc.it.catalog.ClassSearchActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.social.SocialListActivity"
@@ -135,11 +141,10 @@
         </activity>
         <activity android:name="edu.ggc.it.social.SocialUpdateActivity" >
         </activity>
-        <activity android:name="edu.ggc.it.catalog.SearchResultsActivity"></activity>
-        <activity android:name="edu.ggc.it.schedule.SchedulePreferenceActivity"
-            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity"></activity>
+        <activity android:name="edu.ggc.it.catalog.SearchResultsActivity" >
+        </activity>
+        <activity android:name="edu.ggc.it.catalog.SectionDetailActivity" >
+        </activity>
     </application>
-
-    
 
 </manifest>
