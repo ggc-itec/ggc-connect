@@ -98,8 +98,7 @@ public class SocialUpdateActivity extends Activity {
 
 	// uploads name, subject, data and body of the message
 	private void uploadParse() {
-		Parse.initialize(this, getString(R.string.parse_app_id),
-				getString(R.string.parse_client_key));
+		Parse.initialize(this, getString(R.string.parse_app_id),getString(R.string.parse_client_key));
 		ParseObject testObject = new ParseObject("ggcconnect");
 		testObject.put("name", editTextName.getText().toString());
 		String mydate = java.text.DateFormat.getDateTimeInstance().format(
