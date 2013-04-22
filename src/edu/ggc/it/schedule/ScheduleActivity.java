@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
+import edu.ggc.it.schedule.helper.ClassItem;
 import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
 /**
@@ -289,6 +290,7 @@ public class ScheduleActivity extends Activity {
 			return true;
 		case R.id.schedule_settings:
 			startActivity(new Intent(scheduleContext, SchedulePreferenceActivity.class));
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
