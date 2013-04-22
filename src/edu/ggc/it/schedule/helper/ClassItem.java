@@ -1,5 +1,7 @@
 package edu.ggc.it.schedule.helper;
 
+import java.io.Serializable;
+
 /**
  * This is a class object to represent a class/course schedule item.
  * 
@@ -7,7 +9,9 @@ package edu.ggc.it.schedule.helper;
  * @author Raj
  *
  */
-public class ClassItem {
+public class ClassItem implements Serializable {
+	
+	private static final long serialVersionUID = 1;
 	
 	private String className;
 	private String section;

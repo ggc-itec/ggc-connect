@@ -105,8 +105,8 @@ public class ScheduleUpdateActivity extends Activity implements
 				fillFormFromDatabase(rowID);
 				editingClass = true;
 			} else if (action.equals("add_from_banner")) {
-				String[] classDetails = extras.getStringArray("class_details");
-				fillFormFromArray(classDetails);
+				ClassItem ci = (ClassItem) extras.getSerializable("class");
+				fillForm(ci);
 			}
 		}
 	}
