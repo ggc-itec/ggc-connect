@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Schedule;
+import edu.ggc.it.schedule.helper.ClassItem;
 import edu.ggc.it.schedule.helper.TimePickerFragment;
 
 /**
@@ -110,27 +111,39 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 	}
 	
-	/**
-	 * Fills in the add form using a string array of details
-	 * @param classDetails the string array containing the fields to be filled in
-	 */
-	private void fillFormFromArray(String[] classDetails) {
-		txtClass.setText(classDetails[0]);
-		txtSection.setText(classDetails[1]);
+	private void fillForm(ClassItem ci) {
+		txtClass.setText(ci.getClassName());
+		txtSection.setText(ci.getSection());
 		
 		Resources res = getResources();
 		String[] buildingLocations = res.getStringArray(R.array.buildings);
-		for (int i = 0; i < buildingLocations.length; i++) {
-			if(classDetails[2].equals(buildingLocations[i])) {
+		for (int i=0;i<buildingLocations.length;i++) {
+			if (ci.getBuildingLocation().equals(buildingLocations[i])) {
 				spnBuildingLocation.setSelection(i);
 			}
 		}
 		
-		txtRoomLocation.setText(classDetails[3]);
+		txtRoomLocation.setText(ci.getRoomLocation());
 		
+		chkMonday.setChecked(ci.isOnMonday());
+		chkTuesday.setChecked(ci.isOnTuesday());
+		chkWednesday.setChecked(ci.isOnWednesday());
+		chkThursday.setChecked(ci.isOnThursday());
+		chkFriday.setChecked(ci.isOnFriday());
+		chkSaturday.setChecked(ci.isOnSaturday());
 		
+		startTimeHour = ci.getStartTimeHour();
+		startTimeMinute = ci.getStartTimeMinute();
+		btnStartTime.setText(getFormattedTimeString(startTimeHour, startTimeMinute));
+		endTimeHour = ci.getEndTimeHour();
+		endTimeMinute = ci.getEndTimeMinute();
+		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
+		
+		if (editingClass) {
+			btnUpdateClass.setText("Update Class");
+		}
 	}
-
+	
 	/**
 	 * Gets the class data based on rowID and fills the form with the
 	 * information from the database
