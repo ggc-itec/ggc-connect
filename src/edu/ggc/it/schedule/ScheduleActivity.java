@@ -331,7 +331,7 @@ public class ScheduleActivity extends Activity {
 		Intent intent = new Intent(scheduleContext,
 				ScheduleUpdateActivity.class);
 		intent.putExtra("rowID", rowId);
-		intent.putExtra("action", "edit");
+		intent.putExtra("action", ScheduleUpdateActivity.ACTION_EDIT);
 		startActivity(intent);
 	}
 

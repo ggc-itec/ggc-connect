@@ -2,6 +2,9 @@ package edu.ggc.it.catalog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +14,8 @@ import edu.ggc.it.banner.CourseSearchBuilder;
 import edu.ggc.it.banner.Instructor;
 import edu.ggc.it.banner.Meeting;
 import edu.ggc.it.banner.Section;
+import edu.ggc.it.schedule.ScheduleUpdateActivity;
+import edu.ggc.it.schedule.helper.ClassItem;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -148,10 +153,50 @@ public class SearchResultsActivity extends ListActivity {
 		public void onClick(View view) {
 			Section section = (Section)view.getTag();
 			
-			Intent detailIntent = new Intent(SearchResultsActivity.this, SectionDetailActivity.class);
+			addToSchedule(section);
+			
+			/*Intent detailIntent = new Intent(SearchResultsActivity.this, SectionDetailActivity.class);
 			detailIntent.putExtra(Section.KEY, section);
-			startActivity(detailIntent);
+			startActivity(detailIntent);*/
 		}
-		
+
+		private void addToSchedule(Section section) {
+			ClassItem ci = new ClassItem();
+			Course course = section.getCourse();
+			ci.setClassName(course.getName());
+			ci.setSection(Integer.toString(section.getSection()));
+			
+			List<Meeting> meetings = section.getMeetings();
+			for (Meeting m: meetings) {
+				Date beginTime = m.getBeginTime();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(beginTime);
+				ci.setStartTimeHour(Calendar.HOUR_OF_DAY);
+				ci.setStartTimeMinute(Calendar.MINUTE);
+				
+				Date endTime = m.getEndTime();
+				cal.setTime(endTime);
+				ci.setEndTimeHour(Calendar.HOUR_OF_DAY);
+				ci.setEndTimeMinute(Calendar.MINUTE);
+				
+				char[] days = m.getDays().toCharArray();
+				ci.setOnMonday(Arrays.asList(days).contains('M'));
+				ci.setOnTuesday(Arrays.asList(days).contains('T'));
+				ci.setOnWednesday(Arrays.asList(days).contains('W'));
+				ci.setOnThursday(Arrays.asList(days).contains('R'));
+				ci.setOnFriday(Arrays.asList(days).contains('F'));
+				ci.setOnSaturday(Arrays.asList(days).contains('S'));
+				
+				String location = m.getLocation();
+				ci.setBuildingLocation(location.substring(0, 10));
+				ci.setRoomLocation(location.substring(11, location.length()));
+			}
+			
+			Intent scheduleIntent = new Intent(SearchResultsActivity.this, ScheduleUpdateActivity.class);
+			scheduleIntent.putExtra("action", ScheduleUpdateActivity.ACTION_ADD_FROM_BANNER);
+			scheduleIntent.putExtra("class", ci);
+			startActivity(scheduleIntent);
+		}
+
 	}
 }

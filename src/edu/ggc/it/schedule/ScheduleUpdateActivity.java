@@ -62,6 +62,9 @@ public class ScheduleUpdateActivity extends Activity implements
 	private int startTimeMinute = 60;
 	private int endTimeHour = 24;
 	private int endTimeMinute = 60;
+	
+	public static String ACTION_EDIT = "edit";
+	public static String ACTION_ADD_FROM_BANNER = "add_from_banner";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +103,11 @@ public class ScheduleUpdateActivity extends Activity implements
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			String action = extras.getString("action");
-			if (action.equals("edit")) {
+			if (action.equals(ACTION_EDIT)) {
 				rowID = extras.getLong("rowID");
 				fillFormFromDatabase(rowID);
 				editingClass = true;
-			} else if (action.equals("add_from_banner")) {
+			} else if (action.equals(ACTION_ADD_FROM_BANNER)) {
 				ClassItem ci = (ClassItem) extras.getSerializable("class");
 				fillForm(ci);
 			}
