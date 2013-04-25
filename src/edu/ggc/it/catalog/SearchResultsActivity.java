@@ -168,16 +168,16 @@ public class SearchResultsActivity extends ListActivity {
 			
 			List<Meeting> meetings = section.getMeetings();
 			for (Meeting m: meetings) {
+				SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+				SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
+				
 				Date beginTime = m.getBeginTime();
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(beginTime);
-				ci.setStartTimeHour(Calendar.HOUR_OF_DAY);
-				ci.setStartTimeMinute(Calendar.MINUTE);
+				ci.setStartTimeHour(Integer.parseInt(hourFormat.format(beginTime)));
+				ci.setStartTimeMinute(Integer.parseInt(minuteFormat.format(beginTime)));
 				
 				Date endTime = m.getEndTime();
-				cal.setTime(endTime);
-				ci.setEndTimeHour(Calendar.HOUR_OF_DAY);
-				ci.setEndTimeMinute(Calendar.MINUTE);
+				ci.setEndTimeHour(Integer.parseInt(hourFormat.format(endTime)));
+				ci.setEndTimeMinute(Integer.parseInt(minuteFormat.format(endTime)));
 				
 				char[] days = m.getDays().toCharArray();
 				ci.setOnMonday(Arrays.asList(days).contains('M'));
