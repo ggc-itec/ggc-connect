@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
+import edu.ggc.it.schedule.helper.ClassItem;
+import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
 /**
  * This is the main activity for the class schedule feature of ggc-connect.
@@ -286,6 +288,11 @@ public class ScheduleActivity extends Activity {
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
 			return true;
+		/* TODO: Need to implement reminders first!
+		case R.id.schedule_settings:
+			startActivity(new Intent(scheduleContext, SchedulePreferenceActivity.class));
+			return true;
+		*/
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -326,6 +333,7 @@ public class ScheduleActivity extends Activity {
 		Intent intent = new Intent(scheduleContext,
 				ScheduleUpdateActivity.class);
 		intent.putExtra("rowID", rowId);
+		intent.putExtra("action", ScheduleUpdateActivity.ACTION_EDIT);
 		startActivity(intent);
 	}
 

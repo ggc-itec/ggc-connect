@@ -1,4 +1,4 @@
-package edu.ggc.it.schedule;
+package edu.ggc.it.schedule.helper;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

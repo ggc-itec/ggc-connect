@@ -16,8 +16,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Schedule;
+import edu.ggc.it.schedule.helper.ClassItem;
+import edu.ggc.it.schedule.helper.TimePickerFragment;
 
 /**
  * The update class handles processing of the add/edit form. This class handles
@@ -33,7 +36,6 @@ public class ScheduleUpdateActivity extends Activity implements
 
 	private ScheduleDatabase database;
 	private long rowID;
-	private boolean editingClass = false;
 
 	private Context scheduleContext;
 
@@ -60,6 +62,11 @@ public class ScheduleUpdateActivity extends Activity implements
 	private int startTimeMinute = 60;
 	private int endTimeHour = 24;
 	private int endTimeMinute = 60;
+	
+	private String action = "add";
+	
+	public static String ACTION_EDIT = "edit";
+	public static String ACTION_ADD_FROM_BANNER = "add_from_banner";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,17 +104,56 @@ public class ScheduleUpdateActivity extends Activity implements
 		// check if updating a class
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			rowID = extras.getLong("rowID");
-			fillForm();
-			editingClass = true;
+			action = extras.getString("action");
+			if (action.equals(ACTION_EDIT)) {
+				rowID = extras.getLong("rowID");
+				fillFormFromDatabase(rowID);
+			} else if (action.equals(ACTION_ADD_FROM_BANNER)) {
+				ClassItem ci = (ClassItem) extras.getSerializable("class");
+				fillForm(ci);
+			}
 		}
 	}
-
+	
+	private void fillForm(ClassItem ci) {
+		txtClass.setText(ci.getClassName());
+		txtSection.setText(ci.getSection());
+		
+		Resources res = getResources();
+		String[] buildingLocations = res.getStringArray(R.array.buildings);
+		for (int i=0;i<buildingLocations.length;i++) {
+			if (ci.getBuildingLocation().equals(buildingLocations[i])) {
+				spnBuildingLocation.setSelection(i);
+			}
+		}
+		
+		txtRoomLocation.setText(ci.getRoomLocation());
+		
+		chkMonday.setChecked(ci.isOnMonday());
+		chkTuesday.setChecked(ci.isOnTuesday());
+		chkWednesday.setChecked(ci.isOnWednesday());
+		chkThursday.setChecked(ci.isOnThursday());
+		chkFriday.setChecked(ci.isOnFriday());
+		chkSaturday.setChecked(ci.isOnSaturday());
+		
+		startTimeHour = ci.getStartTimeHour();
+		startTimeMinute = ci.getStartTimeMinute();
+		btnStartTime.setText(getFormattedTimeString(startTimeHour, startTimeMinute));
+		endTimeHour = ci.getEndTimeHour();
+		endTimeMinute = ci.getEndTimeMinute();
+		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
+		
+		if (action.equals(ACTION_EDIT)) {
+			btnUpdateClass.setText("Update Class");
+		}
+	}
+	
 	/**
 	 * Gets the class data based on rowID and fills the form with the
 	 * information from the database
+	 * @param rowID 
 	 */
-	private void fillForm() {
+	private void fillFormFromDatabase(long rowID) {
 		
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
@@ -258,10 +304,14 @@ public class ScheduleUpdateActivity extends Activity implements
 			ContentValues values = database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation);
-			if (editingClass) {
+			if (action.equals(ACTION_EDIT)) {
 				database.updateRow(rowID, values);
 			} else {
 				database.createRow(values);
+				if (action.equals(ACTION_ADD_FROM_BANNER)) {
+					Toast.makeText(this, "Course added to schedule",
+							Toast.LENGTH_LONG).show();
+				}
 			}
 			finish();
 		}
@@ -281,7 +331,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						// continue with delete
+						// don't do anything, just an information message
 					}
 				}).show();
 	}
