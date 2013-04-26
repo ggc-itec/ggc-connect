@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import edu.ggc.it.R;
 import edu.ggc.it.banner.Schedule;
 import edu.ggc.it.schedule.helper.ClassItem;
@@ -35,7 +36,6 @@ public class ScheduleUpdateActivity extends Activity implements
 
 	private ScheduleDatabase database;
 	private long rowID;
-	private boolean editingClass = false;
 
 	private Context scheduleContext;
 
@@ -62,6 +62,8 @@ public class ScheduleUpdateActivity extends Activity implements
 	private int startTimeMinute = 60;
 	private int endTimeHour = 24;
 	private int endTimeMinute = 60;
+	
+	private String action = "add";
 	
 	public static String ACTION_EDIT = "edit";
 	public static String ACTION_ADD_FROM_BANNER = "add_from_banner";
@@ -102,11 +104,10 @@ public class ScheduleUpdateActivity extends Activity implements
 		// check if updating a class
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			String action = extras.getString("action");
+			action = extras.getString("action");
 			if (action.equals(ACTION_EDIT)) {
 				rowID = extras.getLong("rowID");
 				fillFormFromDatabase(rowID);
-				editingClass = true;
 			} else if (action.equals(ACTION_ADD_FROM_BANNER)) {
 				ClassItem ci = (ClassItem) extras.getSerializable("class");
 				fillForm(ci);
@@ -142,7 +143,7 @@ public class ScheduleUpdateActivity extends Activity implements
 		endTimeMinute = ci.getEndTimeMinute();
 		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
 		
-		if (editingClass) {
+		if (action.equals(ACTION_EDIT)) {
 			btnUpdateClass.setText("Update Class");
 		}
 	}
@@ -303,10 +304,14 @@ public class ScheduleUpdateActivity extends Activity implements
 			ContentValues values = database.createContentValues(className, section,
 					startTime, endTime, monday, tuesday, wednesday, thursday,
 					friday, saturday, buildingLocation, roomLocation);
-			if (editingClass) {
+			if (action.equals(ACTION_EDIT)) {
 				database.updateRow(rowID, values);
 			} else {
 				database.createRow(values);
+				if (action.equals(ACTION_ADD_FROM_BANNER)) {
+					Toast.makeText(this, "Course added to schedule",
+							Toast.LENGTH_LONG).show();
+				}
 			}
 			finish();
 		}

@@ -288,9 +288,11 @@ public class ScheduleActivity extends Activity {
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
 			return true;
+		/* TODO: Need to implement reminders first!
 		case R.id.schedule_settings:
 			startActivity(new Intent(scheduleContext, SchedulePreferenceActivity.class));
 			return true;
+		*/
 		default:
 			return super.onOptionsItemSelected(item);
 		}
