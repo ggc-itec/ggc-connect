@@ -24,6 +24,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
+import edu.ggc.it.banner.Meeting;
+import edu.ggc.it.catalog.ClassSearchActivity;
+import edu.ggc.it.catalog.SearchResultsActivity;
 import edu.ggc.it.schedule.helper.ClassItem;
 import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
@@ -282,8 +285,7 @@ public class ScheduleActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add_class:
-			startActivity(new Intent(scheduleContext,
-					ScheduleUpdateActivity.class));
+			showAddClassDialog();
 			return true;
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
@@ -296,6 +298,21 @@ public class ScheduleActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void showAddClassDialog() {
+		new AlertDialog.Builder(scheduleContext)
+		.setItems(R.array.schedule_add_menu_options,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int which) {
+						if (which == 0) {
+							startActivity(new Intent(scheduleContext, ScheduleUpdateActivity.class));
+						} else if (which == 1) {
+							startActivity(new Intent(scheduleContext, ClassSearchActivity.class));
+						}
+					}
+				}).show();
 	}
 
 	/**
