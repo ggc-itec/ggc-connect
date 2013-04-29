@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +23,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import edu.ggc.it.R;
-import edu.ggc.it.banner.Meeting;
 import edu.ggc.it.catalog.ClassSearchActivity;
-import edu.ggc.it.catalog.SearchResultsActivity;
-import edu.ggc.it.schedule.helper.ClassItem;
 import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
 /**
@@ -62,7 +58,7 @@ public class ScheduleActivity extends Activity {
 		database.open();
 
 	}
-
+	
 	/**
 	 * Pulls the information from the database and sorts it under each
 	 * appropriate header.
@@ -290,11 +286,9 @@ public class ScheduleActivity extends Activity {
 		case R.id.clear_schedule:
 			showConfirmClearSchedule();
 			return true;
-		/* TODO: Need to implement reminders first!
 		case R.id.schedule_settings:
 			startActivity(new Intent(scheduleContext, SchedulePreferenceActivity.class));
 			return true;
-		*/
 		default:
 			return super.onOptionsItemSelected(item);
 		}

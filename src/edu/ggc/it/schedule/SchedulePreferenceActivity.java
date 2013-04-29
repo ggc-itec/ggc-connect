@@ -12,6 +12,10 @@ import android.widget.Spinner;
 public class SchedulePreferenceActivity extends Activity {
 	
 	private Spinner spnReminderTime;
+	
+	public static final String SHARED_PREFERENCES_FILE = "schedule_reminder";
+	public static final String KEY_REMINDER_STRING = "schedule_reminder_string";
+	public static final String KEY_SPINNER_REMINDER_POS = "schedule_reminder_pos";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +28,14 @@ public class SchedulePreferenceActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		SharedPreferences settings = getPreferences(0);
+		SharedPreferences settings = getSharedPreferences(SHARED_PREFERENCES_FILE, 0);
 		spnReminderTime.setSelection(settings.getInt("schedule_reminder_pos", 0));
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		SharedPreferences settings = getPreferences(0);
+		SharedPreferences settings = getSharedPreferences(SHARED_PREFERENCES_FILE, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("schedule_reminder_string", spnReminderTime.getSelectedItem().toString());
 		editor.putInt("schedule_reminder_pos", spnReminderTime.getSelectedItemPosition());
