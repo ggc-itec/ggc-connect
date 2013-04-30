@@ -180,7 +180,15 @@ public class SearchResultsActivity extends ListActivity {
 									if (which == 0) {
 										showSectionDetail(section);
 									} else if (which == 1) {
-										showMeetingSelectionDialog(section);
+										List<Meeting> meetings = section.getMeetings();
+										if (meetings.size()==2) {
+											// If meetings == 2, it means there is a class and a lab
+											showMeetingSelectionDialog(section);
+										} else {
+											// Add the first meeting, which is the class
+											addToSchedule(section, 0);
+										}
+										
 									}
 								}
 							}).show();
@@ -196,17 +204,22 @@ public class SearchResultsActivity extends ListActivity {
 		private void showMeetingSelectionDialog(final Section section) {
 			List<Meeting> meetings = section.getMeetings();
 			String[] meetingsArray = new String[meetings.size()];
-			for (int i = 0; i < meetings.size(); i++) {
-				Meeting m = meetings.get(i);
-				String beginTime = TIME_FORMAT.format(m.getBeginTime());
-				String endTime = TIME_FORMAT.format(m.getEndTime());
-				String meetingStr = m.getDays() + " " + beginTime + " - "
-						+ endTime;
-				meetingsArray[i] = meetingStr;
-			}
+			
+			Meeting classTime = meetings.get(0);
+			String classBeginTime = TIME_FORMAT.format(classTime.getBeginTime());
+			String classEndTime = TIME_FORMAT.format(classTime.getEndTime());
+			String classMeetingStr = "(Class) " + classTime.getDays() + " " + classBeginTime + " - "
+					+ classEndTime;
+			meetingsArray[0] = classMeetingStr;
+			
+			Meeting labTime = meetings.get(1);
+			String labBeginTime = TIME_FORMAT.format(labTime.getBeginTime());
+			String labEndTime = TIME_FORMAT.format(labTime.getEndTime());
+			String labMeetingStr = "(Lab) " + labTime.getDays() + " " + labBeginTime + " - " + labEndTime;
+			meetingsArray[1] = labMeetingStr;
 
 			new AlertDialog.Builder(SearchResultsActivity.this)
-					.setTitle("Select Class Time")
+					.setTitle("Add Class or Lab to Schedule")
 					.setItems(meetingsArray,
 							new DialogInterface.OnClickListener() {
 								@Override

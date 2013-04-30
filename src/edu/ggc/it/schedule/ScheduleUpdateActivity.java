@@ -6,10 +6,10 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import edu.ggc.it.R;
-import edu.ggc.it.banner.Schedule;
 import edu.ggc.it.schedule.helper.ClassItem;
 import edu.ggc.it.schedule.helper.TimePickerFragment;
 
@@ -62,9 +61,9 @@ public class ScheduleUpdateActivity extends Activity implements
 	private int startTimeMinute = 60;
 	private int endTimeHour = 24;
 	private int endTimeMinute = 60;
-	
+
 	private String action = "add";
-	
+
 	public static String ACTION_EDIT = "edit";
 	public static String ACTION_ADD_FROM_BANNER = "add_from_banner";
 
@@ -114,47 +113,49 @@ public class ScheduleUpdateActivity extends Activity implements
 			}
 		}
 	}
-	
+
 	private void fillForm(ClassItem ci) {
 		txtClass.setText(ci.getClassName());
 		txtSection.setText(ci.getSection());
-		
+
 		Resources res = getResources();
 		String[] buildingLocations = res.getStringArray(R.array.buildings);
-		for (int i=0;i<buildingLocations.length;i++) {
+		for (int i = 0; i < buildingLocations.length; i++) {
 			if (ci.getBuildingLocation().equals(buildingLocations[i])) {
 				spnBuildingLocation.setSelection(i);
 			}
 		}
-		
+
 		txtRoomLocation.setText(ci.getRoomLocation());
-		
+
 		chkMonday.setChecked(ci.isOnMonday());
 		chkTuesday.setChecked(ci.isOnTuesday());
 		chkWednesday.setChecked(ci.isOnWednesday());
 		chkThursday.setChecked(ci.isOnThursday());
 		chkFriday.setChecked(ci.isOnFriday());
 		chkSaturday.setChecked(ci.isOnSaturday());
-		
+
 		startTimeHour = ci.getStartTimeHour();
 		startTimeMinute = ci.getStartTimeMinute();
-		btnStartTime.setText(getFormattedTimeString(startTimeHour, startTimeMinute));
+		btnStartTime.setText(getFormattedTimeString(startTimeHour,
+				startTimeMinute));
 		endTimeHour = ci.getEndTimeHour();
 		endTimeMinute = ci.getEndTimeMinute();
 		btnEndTime.setText(getFormattedTimeString(endTimeHour, endTimeMinute));
-		
+
 		if (action.equals(ACTION_EDIT)) {
 			btnUpdateClass.setText("Update Class");
 		}
 	}
-	
+
 	/**
 	 * Gets the class data based on rowID and fills the form with the
 	 * information from the database
-	 * @param rowID 
+	 * 
+	 * @param rowID
 	 */
 	private void fillFormFromDatabase(long rowID) {
-		
+
 		Cursor cursor = database.query(rowID);
 		txtClass.setText(cursor.getString(ScheduleDatabase.INDEX_NAME));
 		txtSection.setText(cursor.getString(ScheduleDatabase.INDEX_SECTION));
@@ -301,9 +302,14 @@ public class ScheduleUpdateActivity extends Activity implements
 		}
 
 		if (validData) {
-			ContentValues values = database.createContentValues(className, section,
-					startTime, endTime, monday, tuesday, wednesday, thursday,
-					friday, saturday, buildingLocation, roomLocation);
+			ContentValues values = database.createContentValues(className,
+					section, startTime, endTime, monday, tuesday, wednesday,
+					thursday, friday, saturday, buildingLocation, roomLocation);
+			SharedPreferences settings = getSharedPreferences(
+					SchedulePreferenceActivity.SHARED_PREFERENCES_FILE, 0);
+			String scheduleReminderSetting = settings.getString(
+					"schedule_reminder_string", null);
+
 			if (action.equals(ACTION_EDIT)) {
 				database.updateRow(rowID, values);
 			} else {
@@ -312,6 +318,8 @@ public class ScheduleUpdateActivity extends Activity implements
 					Toast.makeText(this, "Course added to schedule",
 							Toast.LENGTH_LONG).show();
 				}
+				// TODO: add an alarm/notification thingy here
+				//addNotification();
 			}
 			finish();
 		}
@@ -407,6 +415,7 @@ public class ScheduleUpdateActivity extends Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		database.close();
 	}
 
 }

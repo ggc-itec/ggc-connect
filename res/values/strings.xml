@@ -251,5 +251,10 @@
         <item>View more details</item>
         <item>Add to my schedule</item>
     </string-array>
+    
+    <string-array name="schedule_add_menu_options">
+        <item>Add manually</item>
+        <item>Add from banner search</item>
+    </string-array>
 
 </resources>
