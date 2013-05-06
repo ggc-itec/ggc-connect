@@ -256,5 +256,6 @@
         <item>Add manually</item>
         <item>Add from banner search</item>
     </string-array>
-
+    
+    <string name="myinfo">Find My Mentor</string>
 </resources>
