@@ -146,7 +146,8 @@
         </activity>
         <activity android:name="edu.ggc.it.catalog.SectionDetailActivity" >
         </activity>
-        
+        <activity android:name="edu.ggc.it.myinfo.MyInfoActivity" >
+        </activity>
     </application>
 
 </manifest>

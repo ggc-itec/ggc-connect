@@ -20,6 +20,7 @@ import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
+import edu.ggc.it.myinfo.MyInfoActivity;
 import edu.ggc.it.rss.EventsRSSActivity;
 import edu.ggc.it.rss.NewsRSSActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
@@ -70,20 +71,20 @@ public class Main extends Activity {
 
 		loveButton = (Button) findViewById(R.id.love_button);
 		loveButton.setOnClickListener(myListener);
-		
-		classSearchButton = (Button)findViewById(R.id.search_button);
+
+		classSearchButton = (Button) findViewById(R.id.search_button);
 		classSearchButton.setOnClickListener(myListener);
-				
-		facebookButton = (ImageButton)findViewById(R.id.facebook_page);
+
+		facebookButton = (ImageButton) findViewById(R.id.facebook_page);
 		facebookButton.setOnClickListener(myListener);
-		
-		twitterButton = (ImageButton)findViewById(R.id.twitter_page);
+
+		twitterButton = (ImageButton) findViewById(R.id.twitter_page);
 		twitterButton.setOnClickListener(myListener);
-		
-		youtubeButton = (ImageButton)findViewById(R.id.youtube_page);
+
+		youtubeButton = (ImageButton) findViewById(R.id.youtube_page);
 		youtubeButton.setOnClickListener(myListener);
-		
-		rssButton = (ImageButton)findViewById(R.id.rss_feed);
+
+		rssButton = (ImageButton) findViewById(R.id.rss_feed);
 		rssButton.setOnClickListener(myListener);
 
 	}
@@ -122,6 +123,9 @@ public class Main extends Activity {
 			Intent myIntent2 = new Intent(Main.this, News.class);
 			startActivity(myIntent2);
 			return true;
+		case R.id.myinfo:
+			startActivity(new Intent(Main.this, MyInfoActivity.class));
+			return true;
 		case R.id.todo:
 			Intent myIntent3 = new Intent(Main.this, ToDoListActivity.class);
 			startActivity(myIntent3);
@@ -131,7 +135,8 @@ public class Main extends Activity {
 			return true;
 		case R.id.feedback:
 			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(feedbackURL));
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(feedbackURL));
 			startActivity(browserIntent);
 			return true;
 		default:
@@ -152,76 +157,81 @@ public class Main extends Activity {
 				startActivity(new Intent(myContext, GymMainActivity.class));
 			} else if (view.getId() == R.id.schedule_button) {
 				startActivity(new Intent(myContext, ScheduleActivity.class));
-				
+
 			} else if (view.getId() == R.id.love_button) {
 				startActivity(new Intent(myContext, SetupActivity.class));
-			} else if (view.getId() == R.id.search_button){
+			} else if (view.getId() == R.id.search_button) {
 				startActivity(new Intent(myContext, ClassSearchActivity.class));
 			} else if (view.getId() == R.id.facebook_page) {
 				try {
-					myContext.getPackageManager()
-					.getPackageInfo("com.facebook.katana", 0);
+					myContext.getPackageManager().getPackageInfo(
+							"com.facebook.katana", 0);
 					startActivity(new Intent(Intent.ACTION_VIEW,
-			                Uri.parse("fb://profile/78573401446")));
+							Uri.parse("fb://profile/78573401446")));
 				} catch (Exception e) {
-					startActivity(new Intent(Intent.ACTION_VIEW,
-			                Uri.parse("http://www.facebook.com/georgiagwinnett")));
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
+							Uri.parse("http://www.facebook.com/georgiagwinnett")));
 				}
-				
+
 			} else if (view.getId() == R.id.twitter_page) {
 				try {
 					myContext.getPackageManager().getPackageInfo(
 							"com.twitter.android", 0);
-					startActivity(new Intent(Intent.ACTION_VIEW,
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
 							Uri.parse("twitter://user?screen_name=georgiagwinnett")));
 				} catch (Exception e) {
 					startActivity(new Intent(Intent.ACTION_VIEW,
 							Uri.parse("https://twitter.com/georgiagwinnett")));
 				}
-			} else if (view.getId()== R.id.youtube_page) {
+			} else if (view.getId() == R.id.youtube_page) {
 				try {
 					Intent intent = new Intent(Intent.ACTION_VIEW);
 					intent.setPackage("com.google.android.youtube");
-					intent.setData(Uri.parse("http://www.youtube.com/user/georgiagwinnett"));
+					intent.setData(Uri
+							.parse("http://www.youtube.com/user/georgiagwinnett"));
 					startActivity(intent);
 				} catch (Exception e) {
-					startActivity(new Intent(Intent.ACTION_VIEW,
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
 							Uri.parse("http://www.youtube.com/user/georgiagwinnett")));
 				}
-			} else if (view.getId()== R.id.rss_feed) {
+			} else if (view.getId() == R.id.rss_feed) {
 				rssChoserDialog();
 			}
 
 		}
 	}
+
 	/**
-	 * Method that allows the user to choose between News
-	 * and Events RSS feeds
+	 * Method that allows the user to choose between News and Events RSS feeds
 	 */
 	public void rssChoserDialog() {
 		new AlertDialog.Builder(this)
-		   .setTitle("RSS Feed")
-		   .setMessage("Which RSS feed would you like to read?")
-		   .setIcon(R.drawable.icon_rss)
-		   .setPositiveButton("News",
-					new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					Intent newsIntent = new Intent(Main.this, NewsRSSActivity.class);
-					startActivity(newsIntent);
-				}
-			})
-			.setNegativeButton("Events",
-					new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,
-						int which) {
-					Intent eventsIntent = new Intent(Main.this, EventsRSSActivity.class);
-					startActivity(eventsIntent);
-				}
-			})
-			.show();
+				.setTitle("RSS Feed")
+				.setMessage("Which RSS feed would you like to read?")
+				.setIcon(R.drawable.icon_rss)
+				.setPositiveButton("News",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Intent newsIntent = new Intent(Main.this,
+										NewsRSSActivity.class);
+								startActivity(newsIntent);
+							}
+						})
+				.setNegativeButton("Events",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Intent eventsIntent = new Intent(Main.this,
+										EventsRSSActivity.class);
+								startActivity(eventsIntent);
+							}
+						}).show();
 	}
 
 }
