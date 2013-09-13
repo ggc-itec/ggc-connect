@@ -97,6 +97,11 @@ public class Main extends Activity {
 		return true;
 	}
 
+	/**
+	 * Called when an opetion from the menu is selected.
+	 * @param item
+	 * @return
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
