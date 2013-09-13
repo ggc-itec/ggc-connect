@@ -99,9 +99,11 @@ public class SocialListActivity extends ListActivity {
 						}).show();
 	}
 
+    /**
+     * Downloads data from the parse cloud storage area.
+     */
 	private void downloadParseData() {
-		Parse.initialize(this, getString(R.string.parse_app_id)
-				,getString(R.string.parse_client_key));
+		Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
 		ParseQuery query = new ParseQuery("ggcconnect");
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, ParseException e) {
