@@ -192,7 +192,9 @@ public class ClassSearchActivity extends Activity {
 				new ArrayList<String>(terms.keySet()));
 		termInput.setAdapter(adapter);
 	}
-	
+	/**
+	 * Populates the subject list
+	 */
 	private void getSubjects(){
 		String[] subjects = getResources().getStringArray(R.array.ds_subject_names);
 		HighlightAdapter adapter = new HighlightAdapter(this, android.R.layout.simple_list_item_1, subjects);
