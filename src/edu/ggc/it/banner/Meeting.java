@@ -5,8 +5,8 @@ import java.util.Date;
 
 /* Class: Meeting
  * This class provides methods (getters) that return various information about classes that
- * are offered. Information includes location, instructor, beginning date, end date,
- * days of classes, and the class type.
+ * are offered. Information includes location, instructor, beginning date, end date, time class
+ * starts, time class ends, days of classes, and the class type.
  */
 
 public class Meeting implements Serializable{
