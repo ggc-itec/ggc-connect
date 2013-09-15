@@ -20,7 +20,7 @@ public class Meeting implements Serializable{
 	private String days;
 	private String type;
 	
-	/*Constructor which receives information about classes
+	/* Constructor which receives information about classes
 	 * @param: location - holds information about the location of the class
 	 * @param: days - holds information about days the class meets
 	 * @param: type - holds information about the type of class it is
@@ -43,7 +43,7 @@ public class Meeting implements Serializable{
 		this.endTime = endTime;
 	}
 	
-	/*Method: getLocation
+	/* Method: getLocation
 	 * @return: location of the class
 	 * @param: none
 	 */
@@ -52,7 +52,7 @@ public class Meeting implements Serializable{
 		return location;
 	}
 	
-	/*Method: getDays
+	/* Method: getDays
 	 * @return: days that the class meets
 	 * @param: none
 	 */
@@ -61,7 +61,7 @@ public class Meeting implements Serializable{
 		return days;
 	}
 	
-	/*Method: getType
+	/* Method: getType
 	 * @return: type of the class
 	 * @param: none
 	 */
@@ -70,7 +70,7 @@ public class Meeting implements Serializable{
 		return type;
 	}
 	
-	/*Method: getInstructor
+	/* Method: getInstructor
 	 * @return: name of the instructor teaching the class
 	 * @param: none
 	 */
@@ -79,7 +79,7 @@ public class Meeting implements Serializable{
 		return instructor;
 	}
 	
-	/*Method: getBeginDate
+	/* Method: getBeginDate
 	 * @return: day that the class starts
 	 * @param: none
 	 */
@@ -88,7 +88,7 @@ public class Meeting implements Serializable{
 		return beginDate;
 	}
 	
-	/*Method: getEndDate
+	/* Method: getEndDate
 	 * @return: day that the class ends
 	 * @param: none
 	 */
@@ -97,7 +97,7 @@ public class Meeting implements Serializable{
 		return endDate;
 	}
 	
-	/*Method: getBeginTime
+	/* Method: getBeginTime
 	 * @return: time that the class starts
 	 * @param: none
 	 */
@@ -106,7 +106,7 @@ public class Meeting implements Serializable{
 		return beginTime;
 	}
 	
-	/*Method: getEndTime
+	/* Method: getEndTime
 	 * @return: time that the class ends
 	 * @param: none
 	 */
