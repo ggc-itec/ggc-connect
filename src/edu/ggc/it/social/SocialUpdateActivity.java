@@ -22,6 +22,12 @@ import com.parse.SaveCallback;
 
 import edu.ggc.it.R;
 
+/**
+ * 
+ * This class is responsible for updating the social activity.
+ * @author joe
+ *
+ */
 public class SocialUpdateActivity extends Activity {
 
 	private Button buttonCancel;
