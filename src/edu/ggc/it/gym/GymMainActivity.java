@@ -11,12 +11,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.ggc.it.R;
 
 public class GymMainActivity extends Activity {
@@ -97,7 +99,10 @@ public class GymMainActivity extends Activity {
 		public void onClick(View view) {
 
 			if (contract.isPressed()){
-
+				//TODO: First time and renewal feature does not do anything.
+				
+				Toast.makeText(myContext, "Sorry, this function is not working at the moment \n Please try again later.", Toast.LENGTH_LONG)
+				.show();
 			}
 			else if (view.getId() == R.id.gymSchedule){
 				startActivity(new Intent (myContext, GymScheduleActivity.class));
@@ -111,6 +116,9 @@ public class GymMainActivity extends Activity {
 			
 			else if (magazine.isPressed()){
 				String url = "http://readsh101.com/ggc.html";
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+				startActivity(browserIntent);
+				
 			}
 		}
 

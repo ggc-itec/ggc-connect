@@ -35,6 +35,25 @@ public class EventsRSSActivity extends ListActivity {
 	private List<String> publishedDates;
 	private List<String> descriptions;
 	private Context context;
+	
+	public enum RSSTaskDetail 
+	{
+		Item("item"),
+		Title("title"),
+		Link("link"),
+		Description("description"),
+		PublishDate("pubDate");		
+		
+		private final String detail;       
+
+		private RSSTaskDetail(String s) 
+		{
+			detail = s;
+	    }
+
+		 public String getValue(){return detail;}
+	}
+	
 
 	/**
 	 * Current GGC news RSS url
@@ -61,6 +80,9 @@ public class EventsRSSActivity extends ListActivity {
 	   startActivity(intent);
 	}
 
+	
+	
+	
 	// Types for Params, Progress and Result are all void since the task is very simple
 	private class RSSTask extends AsyncTask<Void, Void, Void> {
 
@@ -79,24 +101,24 @@ public class EventsRSSActivity extends ListActivity {
 				int eventType = parser.getEventType();
 				while (eventType != XmlPullParser.END_DOCUMENT) {
 					if (eventType == XmlPullParser.START_TAG) {
-						if (parser.getName().equalsIgnoreCase("item")) {
+						
+						if (parser.getName().equalsIgnoreCase(RSSTaskDetail.Item.toString())) {
 							insideItem = true;
-						} else if (parser.getName().equalsIgnoreCase("title")) {
+						} else if (parser.getName().equalsIgnoreCase(RSSTaskDetail.Title.getValue())) {
 							if (insideItem)
 								titles.add(parser.nextText());
-						} else if (parser.getName().equalsIgnoreCase("link")) {
+						} else if (parser.getName().equalsIgnoreCase(RSSTaskDetail.Link.getValue())) {
 							if (insideItem)
 								links.add(parser.nextText());
-						} else if (parser.getName().equalsIgnoreCase(
-								"description")) {
+						} else if (parser.getName().equalsIgnoreCase(RSSTaskDetail.Description.getValue())) {
 							if (insideItem)
 								descriptions.add(parser.nextText());
-						} else if (parser.getName().equalsIgnoreCase("pubDate")) {
+						} else if (parser.getName().equalsIgnoreCase(RSSTaskDetail.PublishDate.getValue())) {
 							if (insideItem)
 								publishedDates.add(parser.nextText());
 						}
 					} else if (eventType == XmlPullParser.END_TAG
-							&& parser.getName().equalsIgnoreCase("item")) {
+							&& parser.getName().equalsIgnoreCase(RSSTaskDetail.Item.toString())) {
 						insideItem = false;
 					}
 					eventType = parser.next();
