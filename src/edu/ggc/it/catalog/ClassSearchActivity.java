@@ -252,7 +252,11 @@ public class ClassSearchActivity extends Activity {
 		public void onNothingSelected(AdapterView<?> parent) {
 			clearSelections();
 		}
-		
+
+        /*
+        * Clears the selections of the course names, course numbers,
+        * instructor names, and subjects selected
+        */
 		private void clearSelections(){
 			synchronized (ClassSearchActivity.this){
 				hideOptions();
