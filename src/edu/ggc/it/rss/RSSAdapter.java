@@ -1,7 +1,5 @@
 package edu.ggc.it.rss;
 
-import java.util.List;
-
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
@@ -24,32 +22,23 @@ import edu.ggc.it.R;
  * @author crystalist
  * 
  */
-public class NewsAdapter extends BaseAdapter {
+public class RSSAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> titles;
-	private List<String> dates;
-	private List<String> descriptions;
+	private RSSDataContainer container;
 
 	/**
 	 * Needs context and the strings for each part of the rss view that it will
 	 * be returned
 	 * 
 	 * @param context
-	 *            Context in which the generated views should be place
-	 * @param titles
-	 *            Strings describing the rss item
-	 * @param dates
-	 *            Strings describing dates for each rss item
-	 * @param descriptions
-	 *            Strings describing the body of each rss item
+	 * 			the Context of the calling class
+	 * @param container
+	 * 			a container object that contains the data from the rss feed
 	 */
-	public NewsAdapter(Context context, List<String> titles,
-			List<String> dates, List<String> descriptions) {
+	public RSSAdapter(Context context, RSSDataContainer container) {
 		this.context = context;
-		this.titles = titles;
-		this.dates = dates;
-		this.descriptions = descriptions;
+		this.container = container;
 	}
 
 	/**
@@ -57,7 +46,7 @@ public class NewsAdapter extends BaseAdapter {
 	 */
 	@Override
 	public int getCount() {
-		return titles.size();
+		return container.getTitlesSize();
 	}
 
 	/**
@@ -97,11 +86,11 @@ public class NewsAdapter extends BaseAdapter {
 		TextView dateText = (TextView) row.findViewById(R.id.rss_date);
 		TextView descriptionText = (TextView) row.findViewById(R.id.rss_body);
 
-		titleText.setText(titles.get(position));
-		dateText.setText(dates.get(position));
+		titleText.setText(container.getTitleAtIndex(position));
+		dateText.setText(container.getPublishedDatesAtIndex(position));
 		// why change the text to html for this? for some reason, the descriptions are in html!!
 		// no big deal though, if they change it back to plain text, it won't break anything
-		descriptionText.setText(Html.fromHtml(descriptions.get(position)));
+		descriptionText.setText(Html.fromHtml(container.getDescriptionsAtIndex(position)));
 
 		return row;
 	}
