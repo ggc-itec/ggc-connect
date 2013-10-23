@@ -21,8 +21,8 @@ import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 import edu.ggc.it.myinfo.MyInfoActivity;
-import edu.ggc.it.rss.EventsRSSActivity;
-import edu.ggc.it.rss.NewsRSSActivity;
+import edu.ggc.it.rss.RSSActivity;
+import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
 import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.social.SocialListActivity;
 import edu.ggc.it.todo.ToDoListActivity;
@@ -222,8 +222,10 @@ public class Main extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								Intent newsIntent = new Intent(Main.this,
-										NewsRSSActivity.class);
+								Intent newsIntent = new Intent(Main.this, RSSActivity.class);
+								newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.toString());
+//								Intent newsIntent = new Intent(Main.this,
+//										NewsRSSActivity.class);
 								startActivity(newsIntent);
 							}
 						})
@@ -232,8 +234,10 @@ public class Main extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								Intent eventsIntent = new Intent(Main.this,
-										EventsRSSActivity.class);
+								Intent eventsIntent = new Intent(Main.this, RSSActivity.class);
+								eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.toString());
+//								Intent eventsIntent = new Intent(Main.this,
+//										EventsRSSActivity.class);
 								startActivity(eventsIntent);
 							}
 						}).show();
