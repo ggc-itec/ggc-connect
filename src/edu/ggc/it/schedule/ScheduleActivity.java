@@ -27,7 +27,7 @@ import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.schedule.helper.SeparatedListAdapter;
 
 /**
- * This is the main activity for the class schedule feature of ggc-connect.
+ * This is the main_screen_view_one activity for the class schedule feature of ggc-connect.
  * @author Raj Ramsaroop
  *
  */
@@ -105,7 +105,7 @@ public class ScheduleActivity extends Activity {
 	 * This creates a list item in the separated list view for the activity
 	 * 
 	 * @param title
-	 *            The main text for the item
+	 *            The main_screen_view_one text for the item
 	 * @param caption
 	 *            A short description of the item
 	 * @return A HashMap with the item title and caption
