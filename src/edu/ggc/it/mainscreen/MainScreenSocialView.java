@@ -18,9 +18,9 @@ import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
 import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
-import edu.ggc.it.rss.EventsRSSActivity;
-import edu.ggc.it.rss.NewsRSSActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
+import edu.ggc.it.rss.RSSActivity;
+import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
 
 /**
  * Created by gregwesterfield on 10/21/13.
@@ -136,8 +136,8 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Intent newsIntent = new Intent(context,
-                                        NewsRSSActivity.class);
+                                Intent newsIntent = new Intent(context, RSSActivity.class);
+                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.toString());
                                 context.startActivity(newsIntent);
                             }
                         })
@@ -146,8 +146,8 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Intent eventsIntent = new Intent(context,
-                                        EventsRSSActivity.class);
+                                Intent eventsIntent = new Intent(context, RSSActivity.class);
+                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.toString());
                                 context.startActivity(eventsIntent);
                             }
                         }).show();
