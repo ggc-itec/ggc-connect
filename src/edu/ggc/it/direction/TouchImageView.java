@@ -305,7 +305,7 @@ public class TouchImageView extends ImageView {
     
     /**
      * Override onDraw method
-     * This method is used to add  marker to the main map:
+     * This method is used to add  marker to the main_screen_view_one map:
      * One is the marker of destination where user wants to hit
      * The other is the marker of user on the map
      */

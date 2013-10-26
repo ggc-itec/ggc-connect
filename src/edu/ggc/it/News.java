@@ -28,25 +28,20 @@ public class News extends ListActivity {
 		String selection = getListAdapter().getItem(position).toString();
 
 		if (selection.equals("Clawmail")) {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://clawmail.ggc.edu"));
-			startActivity(browserIntent);
+			startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://clawmail.ggc.edu")));
 		} else if (selection.equals("Banner")) {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("https://ggc.gabest.usg.edu/pls/B400/twbkwbis.P_WWWLogin"));
-			startActivity(browserIntent);
+			startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://ggc.gabest.usg.edu/pls/B400/twbkwbis.P_WWWLogin")));
 		} else if (selection.equals("GGC")) {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.ggc.edu"));
-			startActivity(browserIntent);
+			startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.ggc.edu")));
 		} else if (selection.equals("My.GGC")) {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://my.ggc.edu"));
-			startActivity(browserIntent);
+			startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://my.ggc.edu")));
 		} else {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.ggc.edu/academics/calendar/index.html"));
-			startActivity(browserIntent);
+			startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.ggc.edu/academics/calendar/index.html")));
 		}
 
 	}

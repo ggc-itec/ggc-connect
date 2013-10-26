@@ -123,8 +123,6 @@ public class SocialListActivity extends ListActivity {
 						dates.add(date);
 						contents.add(body);
 					}
-				} else {
-
 				}
 				Collections.reverse(names);
 				Collections.reverse(subjects);
