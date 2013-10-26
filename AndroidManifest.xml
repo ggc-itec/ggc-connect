@@ -121,13 +121,8 @@
             android:label="TODO Update"
             android:windowSoftInputMode="stateVisible" >
         </activity>
-        <activity
-            android:name="edu.ggc.it.rss.NewsRSSActivity"
-            android:label="GGC News" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.rss.EventsRSSActivity"
-            android:label="GGC Events" >
+        <activity 
+            android:name="edu.ggc.it.rss.RSSActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
