@@ -9,13 +9,6 @@
     android:padding="30dip" >
 
     <Button
-        android:id="@+id/love_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dating_label"
-        android:visibility="gone" />
-
-    <Button
         android:id="@+id/directory_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

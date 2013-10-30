@@ -16,7 +16,6 @@ import edu.ggc.it.catalog.ClassSearchActivity;
 import edu.ggc.it.direction.DirectionActivity;
 import edu.ggc.it.directory.DirectoryActivity;
 import edu.ggc.it.gym.GymMainActivity;
-import edu.ggc.it.love.SetupActivity;
 import edu.ggc.it.map.MapActivity;
 import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.rss.RSSActivity;
@@ -78,8 +77,6 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
             context.startActivity(new Intent(context, GymMainActivity.class));
         } else if (view.getId() == R.id.schedule_button) {
             context.startActivity(new Intent(context, ScheduleActivity.class));
-        } else if (view.getId() == R.id.love_button) {
-            context.startActivity(new Intent(context, SetupActivity.class));
         } else if (view.getId() == R.id.search_button) {
             context.startActivity(new Intent(context, ClassSearchActivity.class));
         } else if (view.getId() == R.id.facebook_page) {
