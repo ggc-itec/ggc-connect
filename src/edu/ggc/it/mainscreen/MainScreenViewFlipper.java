@@ -19,47 +19,14 @@ import edu.ggc.it.R;
  */
 public class MainScreenViewFlipper extends LinearLayout implements View.OnTouchListener
 {
-
-    /**
-     * Count of index buttons. Default is 3
-     */
-    public static int countIndexes = 3;
-
-    /**
-     * Button Layout
-     */
-    LinearLayout buttonLayout;
-
-    /**
-     * Index button images
-     */
-    ImageView[] indexButtons;
-
-    /**
-     * Views for the Flipper
-     */
-    View[] views;
-
-    /**
-     * Flipper instance
-     */
-    ViewFlipper flipper;
-
-    /**
-     * X coordinate for touch down
-     */
-    float downX;
-
-    /**
-     * X coordinate for touch up
-     */
-    float upX;
-
-    /**
-     * Current index
-     */
-    int currentIndex = 0;
-
+    private static final int COUNT_INDEXES = 3;
+    private LinearLayout buttonLayout;
+    private ImageView[] indexButtons;
+    private View[] views;
+    private ViewFlipper flipper;
+    private float downX;
+    private float upX;
+    private int currentIndex = 0;
 
     public MainScreenViewFlipper(Context context)
     {
@@ -95,14 +62,14 @@ public class MainScreenViewFlipper extends LinearLayout implements View.OnTouchL
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         params.leftMargin = 50;
 
-        indexButtons = new ImageView[countIndexes];
+        indexButtons = new ImageView[COUNT_INDEXES];
 
-        views = new View[countIndexes];
+        views = new View[COUNT_INDEXES];
         views[0] = new MainScreenViewOne(context);
         views[1] = new MainScreenViewTwo(context);
         views[2] = new MainScreenViewThree(context);
 
-        for(int i = 0; i < countIndexes; i++) {
+        for(int i = 0; i < COUNT_INDEXES; i++) {
             indexButtons[i] = new ImageView(context);
 
             if (i == currentIndex) {
@@ -137,11 +104,11 @@ public class MainScreenViewFlipper extends LinearLayout implements View.OnTouchL
                 flipper.setOutAnimation(AnimationUtils.loadAnimation(getContext(),
                         R.anim.push_left_out));
 
-                if (currentIndex < (countIndexes-1)) {
+                if (currentIndex < (COUNT_INDEXES-1)) {
                     currentIndex++;
                     flipper.setDisplayedChild(currentIndex);
                     updateIndexes();
-                } else if (currentIndex == (countIndexes-1)) {
+                } else if (currentIndex == (COUNT_INDEXES-1)) {
                     currentIndex=0;
                     flipper.setDisplayedChild(currentIndex);
                     updateIndexes();
@@ -172,7 +139,7 @@ public class MainScreenViewFlipper extends LinearLayout implements View.OnTouchL
      */
     private void updateIndexes()
     {
-        for(int i = 0; i < countIndexes; i++) {
+        for(int i = 0; i < COUNT_INDEXES; i++) {
             if (i == currentIndex) {
                 indexButtons[i].setImageResource(R.drawable.green);
             } else {
