@@ -21,7 +21,6 @@ import edu.ggc.it.schedule.ScheduleActivity;
  */
 public class MainScreenViewOne extends RelativeLayout implements View.OnClickListener
 {
-
     private Button directoryButton;
     private Button directionButton;
     private Button mapButton;

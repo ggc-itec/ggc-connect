@@ -12,12 +12,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import edu.ggc.it.R;
-import edu.ggc.it.catalog.ClassSearchActivity;
-import edu.ggc.it.direction.DirectionActivity;
-import edu.ggc.it.directory.DirectoryActivity;
-import edu.ggc.it.gym.GymMainActivity;
-import edu.ggc.it.map.MapActivity;
-import edu.ggc.it.schedule.ScheduleActivity;
 import edu.ggc.it.rss.RSSActivity;
 import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
 
@@ -67,19 +61,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.directory_button) {
-            context.startActivity(new Intent(context, DirectoryActivity.class));
-        } else if (view.getId() == R.id.map_button) {
-            context.startActivity(new Intent(context, MapActivity.class));
-        } else if (view.getId() == R.id.direction_button) {
-            context.startActivity(new Intent(context, DirectionActivity.class));
-        } else if (view.getId() == R.id.gym_button) {
-            context.startActivity(new Intent(context, GymMainActivity.class));
-        } else if (view.getId() == R.id.schedule_button) {
-            context.startActivity(new Intent(context, ScheduleActivity.class));
-        } else if (view.getId() == R.id.search_button) {
-            context.startActivity(new Intent(context, ClassSearchActivity.class));
-        } else if (view.getId() == R.id.facebook_page) {
+       if (view.getId() == R.id.facebook_page) {
             try {
                 context.getPackageManager().getPackageInfo(
                         "com.facebook.katana", 0);
