@@ -1,11 +1,5 @@
 package edu.ggc.it.gym;
 
-
-
-
-
-
-
 import edu.ggc.it.R;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,16 +11,16 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
-
-public class MagazineActivity  extends Activity{
+public class MagazineActivity  extends Activity
+{
 	private WebView webView;
-	private Intent intent;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 		setContentView(edu.ggc.it.R.layout.activity_magazine);
-		intent =  new Intent(this, MagazineActivity.class);
+		Intent intent =  new Intent(this, MagazineActivity.class);
 		webView = (WebView) findViewById(R.id.webView);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
@@ -41,26 +35,13 @@ public class MagazineActivity  extends Activity{
 			
 
 		});
-		
 	}
-		public static void main(String[] args) 
-		{
-			String url = "http://readsh101.com/ggc.html";
-			Activity act = new Activity();
-			showWebSite(act, url);
 
-		}
-		private static void showWebSite(Activity activity, String url)
-		{
-			Intent webIntent = new Intent(Intent.ACTION_VIEW);
-			webIntent.setData( Uri.parse(url));
-			activity.startActivity(webIntent);
-		}
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			// Inflate the menu; this adds items to the action bar if it is present.
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+    {
 			getMenuInflater().inflate(R.menu.activity_magazine, menu);
 			return true;
-		}
 	}
+}
 

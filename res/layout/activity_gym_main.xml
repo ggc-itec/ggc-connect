@@ -17,13 +17,6 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/firstTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="First Time and Renewal" />
-
-        <Button
             android:id="@+id/gymSchedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

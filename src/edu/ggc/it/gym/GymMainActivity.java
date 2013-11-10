@@ -21,52 +21,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.ggc.it.R;
 
-public class GymMainActivity extends Activity {
-
-
-	private Button contract;
+public class GymMainActivity extends Activity
+{
 	private Button schedule;
 	private Button groups;
-	private Button buddiesButton;
 	private Button magazine;
-	private Button HomeButton;
-	private Context myContext;
+	private Context context;
 	private TextView quote;
-	private Intent intent;
 	public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
-	@Override
 
-	/**
-	 * This method creates all of the buttons according to their names and 
-	 * locations of the button
-	 */
-	protected void onCreate(Bundle savedInstanceState) {
+    /**
+     * This method creates all of the buttons according to their names and
+     * locations of the button
+     */
+    @Override
+	protected void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gym_main);
 		
-		myContext = this;
-		contract = (Button) findViewById(R.id.firstTime);
-		contract.setOnClickListener(new ButtonListener());
+		context = this;
 
 		schedule = (Button) findViewById(R.id.gymSchedule);
 		schedule.setOnClickListener(new ButtonListener());
-
 		groups = (Button) findViewById(R.id.Group);
 		groups.setOnClickListener(new ButtonListener());
-
 		magazine = (Button) findViewById(R.id.healthMagazine);
 		magazine.setOnClickListener(new ButtonListener());
-		
 		quote = (TextView) findViewById(R.id.quoteTextView);
 		
 		try {
-			// insert text file in the assets folder
-			// you can't write to the assests folder, it is read-only
-
-			AssetManager am = myContext.getAssets();
+			AssetManager am = context.getAssets();
 			InputStream in = am.open("quotes.txt");			
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(in));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String str;
 			ArrayList <String> quotes = new ArrayList<String>();
 			while ((str = reader.readLine()) != null) {
@@ -74,9 +61,7 @@ public class GymMainActivity extends Activity {
 				Collections.shuffle(quotes);
 			}
 			in.close();
-			
 			quote.setText(quotes.get(0).toString());
-			//in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,43 +69,29 @@ public class GymMainActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu)
+    {
 		getMenuInflater().inflate(R.menu.activity_gym_main, menu);
 		return true;
 	}
 
-
 	/**
-	 * this method creates the listeners for all of the buttons individually
-	 * 
+	 * Creates the listeners for all of the buttons individually
 	 */
-	public class ButtonListener implements OnClickListener {
+	public class ButtonListener implements OnClickListener
+    {
 		public void onClick(View view) {
-
-			if (contract.isPressed()){
-				//TODO: First time and renewal feature does not do anything.
-				
-				Toast.makeText(myContext, "Sorry, this function is not working at the moment \n Please try again later.", Toast.LENGTH_LONG)
-				.show();
-			}
-			else if (view.getId() == R.id.gymSchedule){
-				startActivity(new Intent (myContext, GymScheduleActivity.class));
-				//Toast.makeText(myContext, "What a cute cat!", Toast.LENGTH_LONG)
-				//.show();
+            if (view.getId() == R.id.gymSchedule){
+				startActivity(new Intent (context, GymScheduleActivity.class));
 			}
 			else if (groups.isPressed()){
-				startActivity( new Intent ( myContext, GroupsActivity.class));
-			}
-			
-			
-			else if (magazine.isPressed()){
+				startActivity( new Intent ( context, GroupsActivity.class));
+            }
+            else if (magazine.isPressed()){
 				String url = "http://readsh101.com/ggc.html";
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 				startActivity(browserIntent);
-				
 			}
 		}
-
 	}
 }
