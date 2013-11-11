@@ -15,7 +15,7 @@
             android:layout_alignLeft="@+id/view_two_dummy_btn1"
             android:layout_below="@+id/view_two_dummy_btn1"
             android:layout_marginTop="40dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_gpa_calc" />
 
     <TextView
             android:id="@+id/view_two_textview3"
