@@ -246,16 +246,19 @@
     </string-array>
 
     <string name="schedule_pref_notify_desc">Remind me when my class is about to start:</string>
-    
+
     <string-array name="cs_course_actions">
         <item>View more details</item>
         <item>Add to my schedule</item>
     </string-array>
-    
     <string-array name="schedule_add_menu_options">
         <item>Add manually</item>
         <item>Add from banner search</item>
     </string-array>
-    
+
     <string name="myinfo">Find My Mentor</string>
+    <string name="title_activity_gpacalc">GPACalcActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gpacalc_semester">GPACalcSemester</string>
+
 </resources>
