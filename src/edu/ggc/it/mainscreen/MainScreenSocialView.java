@@ -20,10 +20,6 @@ import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
  */
 public class MainScreenSocialView extends LinearLayout implements View.OnClickListener
 {
-    private ImageButton facebookButton;
-    private ImageButton twitterButton;
-    private ImageButton youtubeButton;
-    private ImageButton rssButton;
     private Context context;
 
     public MainScreenSocialView(Context context)
@@ -45,10 +41,10 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_social_view, this, true);
 
-        facebookButton = getListenedImageButton(R.id.facebook_page);
-        twitterButton = getListenedImageButton(R.id.twitter_page);
-        youtubeButton = getListenedImageButton(R.id.youtube_page);
-        rssButton = getListenedImageButton(R.id.rss_feed);
+        ImageButton facebookButton = getListenedImageButton(R.id.facebook_page);
+        ImageButton twitterButton = getListenedImageButton(R.id.twitter_page);
+        ImageButton youtubeButton = getListenedImageButton(R.id.youtube_page);
+        ImageButton rssButton = getListenedImageButton(R.id.rss_feed);
     }
 
     private ImageButton getListenedImageButton(final int resource)

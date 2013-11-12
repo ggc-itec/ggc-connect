@@ -21,12 +21,6 @@ import edu.ggc.it.schedule.ScheduleActivity;
  */
 public class MainScreenViewOne extends RelativeLayout implements View.OnClickListener
 {
-    private Button directoryButton;
-    private Button directionButton;
-    private Button mapButton;
-    private Button gymButton;
-    private Button scheduleButton;
-    private Button classSearchButton;
     private Context context;
 
     public MainScreenViewOne(Context context)
@@ -48,12 +42,12 @@ public class MainScreenViewOne extends RelativeLayout implements View.OnClickLis
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_view_one, this, true);
 
-        directoryButton = getListenedButton(R.id.directory_button);
-        directionButton = getListenedButton(R.id.direction_button);
-        mapButton = getListenedButton(R.id.map_button);
-        gymButton = getListenedButton(R.id.gym_button);
-        scheduleButton = getListenedButton(R.id.schedule_button);
-        classSearchButton = getListenedButton(R.id.search_button);
+        Button directoryButton = getListenedButton(R.id.directory_button);
+        Button directionButton = getListenedButton(R.id.direction_button);
+        Button mapButton = getListenedButton(R.id.map_button);
+        Button gymButton = getListenedButton(R.id.gym_button);
+        Button scheduleButton = getListenedButton(R.id.schedule_button);
+        Button classSearchButton = getListenedButton(R.id.search_button);
     }
 
     private Button getListenedButton(final int resource)
