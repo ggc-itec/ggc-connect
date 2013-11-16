@@ -348,11 +348,11 @@ public class ScheduleUpdateActivity extends Activity implements
 			int thursday, int friday, int saturday) {
 		int[] days = { monday, tuesday, wednesday, thursday, friday, saturday };
 		boolean dayChecked = false;
-		for (int i = 0; i < days.length; i++) {
-			if (days[i] == 1) {
-				dayChecked = true;
-			}
-		}
+        for (int day : days) {
+            if (day == 1) {
+                dayChecked = true;
+            }
+        }
 		return dayChecked;
 	}
 

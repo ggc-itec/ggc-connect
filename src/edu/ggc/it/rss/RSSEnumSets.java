@@ -3,7 +3,6 @@ package edu.ggc.it.rss;
 public class RSSEnumSets
 {
 	/**
-	 * An enum set
 	 * Defines the tags present in the XML document from the Rss Feed
 	 * @author crystalist
 	 *

@@ -65,19 +65,7 @@ public class ToDoDatabase {
 				" ROWID");
 	}
 
-	/**
-	 * Queries all items from the database, results them in ascending order
-	 * 
-	 * @see <a
-	 *      href="http://www.sqlite.org/queryplanner.html">http://www.sqlite.org/queryplanner.html</a>
-	 * @return cursor with the results
-	 */
-	public Cursor queryAllByAscending() {
-		return database.query(DATABASE_TABLE, KEYS_ALL, null, null, null, null,
-				ToDoDatabase.KEY_TASK + " ASC");
-	}
-
-	public Cursor query(long rowId) throws SQLException {
+    public Cursor query(long rowId) throws SQLException {
 		Cursor cursor = database.query(true, DATABASE_TABLE, KEYS_ALL,
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		cursor.moveToFirst();
