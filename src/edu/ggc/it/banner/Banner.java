@@ -39,10 +39,10 @@ import android.util.Log;
  * @author Jacob
  *
  */
-public class Banner {
+public class Banner
+{
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
-	// for class data
 	private static final SimpleDateFormat BANNER_DATE = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
 	private static final SimpleDateFormat BANNER_TIME = new SimpleDateFormat("hh:mm a", Locale.US);
 	private static final String TYPE = "Type";
@@ -89,7 +89,8 @@ public class Banner {
 					new BasicNameValuePair("crn_in", "")
 			});
 	
-	private Banner(){
+	private Banner()
+    {
 		// cannot instantiate; static class
 	}
 	
@@ -101,7 +102,8 @@ public class Banner {
 	 * @param subject	the 3-4 letter subject code of the subject to find courses for (e.g. "ITEC")
 	 * @return a Map of course numbers to course names (e.g. {"3860": "Software Development I"})
 	 */
-	public static Map<String, String> getCourseNumbers(String subject){
+	public static Map<String, String> getCourseNumbers(String subject)
+    {
 		String response = "";
 		synchronized (p_display_courses){
 			p_display_courses.set("one_subj", subject);
@@ -132,7 +134,8 @@ public class Banner {
 	 * @param course	the 4 digit course number (e.g. "3860")
 	 * @return a Map of section numbers to CRNs (e.g. {"01": "20709"})
 	 */
-	public static Map<String, String> getCourseSections(String subject, String course){
+	public static Map<String, String> getCourseSections(String subject, String course)
+    {
 		final String separator = " - ";
 		
 		String response = "";
@@ -171,7 +174,8 @@ public class Banner {
 	 * @param crn		the CRN (e.g. "20709")
 	 * @return a Section object containing the section's schedule information
 	 */
-	public static Section getSection(String subject, String course, String crn){
+	public static Section getSection(String subject, String course, String crn)
+    {
 		Section result = null;
 		
 		String response = "";
@@ -203,7 +207,8 @@ public class Banner {
 	 * @param subject	the 3-4 letter subject code (e.g. "ITEC")
 	 * @return a List of Course objects representing all possible courses for that term
 	 */
-	public static List<Course> getCourses(String term, String subject){
+	public static List<Course> getCourses(String term, String subject)
+    {
 		final String course_parm = "crse_numb_in=";
 		final String tag_close = "\">";
 		final String separator = " - ";
