@@ -7,7 +7,7 @@ public class RSSEnumSets
 	 * @author crystalist
 	 *
 	 */
-	public enum RSSTaskDetail 
+	public enum RSSTag 
 	{
 		ITEM("item"),
 		TITLE("title"),
@@ -17,12 +17,12 @@ public class RSSEnumSets
 		
 		private final String detail;       
 
-		private RSSTaskDetail(String s) 
+		private RSSTag(String s) 
 		{
 			detail = s;
 	    }
 
-		 public String getValue(){return detail;}
+		 public String toString(){return detail;}
 	}
 	
 	/**

@@ -8,5 +8,5 @@ package edu.ggc.it.rss;
  */
 public interface RSSTaskComplete 
 {
-	public void taskComplete();
+	public void taskComplete(RSSDataContainer container);
 }
