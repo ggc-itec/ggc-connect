@@ -15,6 +15,5 @@ Now available on the Play Store. Updated weekly.
 5. Gym Schedule
 6. Be Social! 
 7. And more...
-
 ## Feature Request
 [Tell us what you would like to see in the app](http://goo.gl/LkEqH "google doc link")
