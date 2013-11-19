@@ -50,6 +50,9 @@ import android.widget.Toast;
  */
 public class ClassSearchActivity extends Activity
 {
+	private static final String TERM_SPRING = "02";
+	private static final String TERM_SUMMER = "05";
+	private static final String TERM_FALL = "08";
 	private static final String TAG = "ClassSearchActivity";
 	private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("hh:mma", Locale.US);
 	private int cs_selected;
@@ -173,9 +176,12 @@ public class ClassSearchActivity extends Activity
 	
 	private void getTerms()
     {
-		terms.put("Spring 2013",  "201302");
-		terms.put("Summer 2013", "201305");
-		terms.put("Fall 2013", "201308");
+		
+		terms.put("Spring 2013",  "2013" + TERM_SUMMER);
+		terms.put("Summer 2013", "2013" + TERM_SUMMER);
+	    terms.put("Fall 2013", "2013" + TERM_FALL);
+	    terms.put("Spring 2014",  "2014" + TERM_SPRING);
+	    
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				new ArrayList<String>(terms.keySet()));
 		termInput.setAdapter(adapter);
