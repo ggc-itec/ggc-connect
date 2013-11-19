@@ -257,7 +257,6 @@
     </string-array>
 
     <string name="myinfo">Find My Mentor</string>
-    <string name="title_activity_reminders">RemindersActivity</string>
     <string name="action_settings">Settings</string>
     <string name="reminders">Reminders</string>
     <string name="reminder_label">Enter your reminder text:</string>
@@ -336,6 +335,7 @@
         <item>PM</item>
     </string-array>
 
-    <string name="title_activity_create_reminder">CreateReminderActivity</string>
+    <string name="title_activity_reminders">GGC Reminders</string>
+    <string name="title_activity_create_reminder">GGC Reminders</string>
 
 </resources>
