@@ -126,7 +126,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/lastNameText"
                         android:layout_marginTop="52dp"
-                        android:onClick="searchName"
                         android:text="Search" />
 
                     <Button

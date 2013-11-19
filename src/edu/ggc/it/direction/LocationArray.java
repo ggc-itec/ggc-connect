@@ -1,19 +1,19 @@
 package edu.ggc.it.direction;
 
 import java.util.ArrayList;
+
 /**
  * This class aims to create a list of location and feed for the spinner.
  * @author Thai Pham
  * @version 0.1
  *
  */
-public class LocationArray {
-	//Create a new arraylist
+public class LocationArray
+{
 	private ArrayList<Location> locationList;
-	/**
-	 * Constructor to create a new LocationList
-	 */
-	public LocationArray(){	
+
+	public LocationArray()
+    {
 		locationList = new ArrayList<Location>();
 		locationList.add(new Location("Please choose a place you are looking! ","",0.0,0.0,"                         Welcome to GGC! \n              Your position is the red point. \n Your target is the white point with red text.\n"));
 		locationList.add(new Location("Academic Enhancement Center(AEC)","L",33.97959,-84.00454,"In the middle of GGC map, you will see a beautiful glass building. Go to the second floor of this building, it is on your right."));
@@ -33,14 +33,10 @@ public class LocationArray {
 		locationList.add(new Location("Student Parking Deck","PD",33.98162,-83.99993,"It is on the middle right of the GGC map, it is named Parking Deck on the map."));
 		locationList.add(new Location("Student Parking","PK",33.97860,-84.01110,"It is on the most left of the GGC map, next to the soccer field."));
 		locationList.add(new Location("Testing Center","A",33.97999,-84.00096,"On the main_screen_view_one GGC map, you will see this building in L shape at right middle of the map. Go to the front entrance of this building, you will see it."));
-		//Add some more here...
 	}
-	
-	/**
-	 * This method is to get the size of arraylist
-	 * @return
-	 */
-	public int getSize(){
+
+	public int getSize()
+    {
 		return locationList.size();
 	}
 	
@@ -49,7 +45,8 @@ public class LocationArray {
 	 * @param i: position of element want to get
 	 * @return name of the location which has position i in the location list
 	 */
-	public String getElement(int i){
+	public String getElement(int i)
+    {
 		return locationList.get(i).getName();
 	}
 	
@@ -57,7 +54,8 @@ public class LocationArray {
 	 * This method is to get the arraylist of only the name of location, to display in the spinner
 	 * @return list of locations' name
 	 */
-	public ArrayList<String> getNameList(){
+	public ArrayList<String> getNameList()
+    {
 		ArrayList<String> nameList = new ArrayList<String>();
 		for(int i = 0; i < locationList.size(); i++){
 			nameList.add(locationList.get(i).getName());
@@ -70,7 +68,8 @@ public class LocationArray {
 	 * @param i: position of a place want to get the building name
 	 * @return name of the building where the place is on
 	 */
-	public String getBuilding(int i){
+	public String getBuilding(int i)
+    {
 		return locationList.get(i).getBuilding();
 	}
 	
@@ -79,7 +78,8 @@ public class LocationArray {
 	 * @param i: position of the location in location list
 	 * @return instruction for the place which has position is i
 	 */
-	public String getInstruction(int i){
+	public String getInstruction(int i)
+    {
 		return locationList.get(i).getInstruction();
 	}
 	
@@ -88,7 +88,8 @@ public class LocationArray {
 	 * @param i: position of the location in location list
 	 * @return latitude of the place which has position is i
 	 */
-	public double getLatitude(int i){
+	public double getLatitude(int i)
+    {
 		return locationList.get(i).getLatitude();
 	}
 	
@@ -97,7 +98,8 @@ public class LocationArray {
 	 * @param i: position of the location in location list
 	 * @return latitude of the place which has position is i
 	 */
-	public double getLongitude(int i){
+	public double getLongitude(int i)
+    {
 		return locationList.get(i).getLongitude();
 	}
 }

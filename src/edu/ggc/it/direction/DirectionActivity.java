@@ -34,78 +34,60 @@ import edu.ggc.it.R;
  * @version 0.1
  * 
  */
-public class DirectionActivity extends Activity {
-
-	// Create a imageview for the GGC map
+public class DirectionActivity extends Activity
+{
 	private TouchImageView img;
-	// Create new context for activity
-	private Context myContext;
-	// Create a textview to display instructions to users
+	private Context context;
 	private TextView instructionText;
-	// Create location manager
 	private LocationManager lm;
-	// Create a location
-	UserLocationListener myLocationListener;
-	// This will get the user's latitude
+	private UserLocationListener locationListener;
 	private double latitude;
-	// This will get the user's longitude
 	private double longitude;
-	// This will get the destination's latitude
 	private double latitudeDes;
-	// This will get the destination's longitude
 	private double longitudeDes;
-	// Create a location list that holds list of places in GGC
-	private LocationArray myLocationList;
-	// Create a new spinner to display list of places in GGC
+	private LocationArray locationList;
 	private Spinner spin;
-	// This will get the item that users choose from place's list of spinner
-	private String spin_val;
-	private ArrayAdapter<String> spin_adapter;
+	private String spinVal;
+	private ArrayAdapter<String> spinAdapter;
 
-	/**
-	 * @Override
-	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direction);
-		myContext = this;
-
-		//Check if user's device GPS is enable or not. If not, let user to enable it
+		context = this;
 		checkGPS();
-		// Init locationlist
-		myLocationList = new LocationArray();
-		// Create new listenner for spinner
-		MyItemSelectedListenner mySelectedListenner = new MyItemSelectedListenner();
+		locationList = new LocationArray();
 		spin = (Spinner) findViewById(R.id.spinnerText);
-		spin.setOnItemSelectedListener(mySelectedListenner);
-
+		spin.setOnItemSelectedListener(new MyItemSelectedListener());
 		instructionText = (TextView) findViewById(R.id.instruction_text);
 		img = (TouchImageView) findViewById(R.id.imageMap);
 		img.setMaxZoom(4f);
-		// Create ArrayAdapter for spinner
-		spin_adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item,
-				myLocationList.getNameList());
-		// setting adapter to spinner
-		spin.setAdapter(spin_adapter);
+		spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,
+				locationList.getNameList());
+		spin.setAdapter(spinAdapter);
 	}
 
 	/**
 	 * This function aims to release all objects to NULL in order to save memory
 	 */
-	public void onBackPressed() {
+	public void onBackPressed()
+    {
 		super.onBackPressed();
 		Drawable d = img.getDrawable();
-		if (d != null)
+
+		if (d != null) {
 			d.setCallback(null);
+        }
+
 		img.setImageDrawable(null);
 		img = null;
 
-		// Set Location manager to null to turn GPS off
-		if (myLocationListener != null)
-			lm.removeUpdates(myLocationListener);
+		if (locationListener != null) {
+			lm.removeUpdates(locationListener);
+        }
+
 		lm = null;
-		spin_adapter = null;
+		spinAdapter = null;
 		spin = null;
 	}
 
@@ -113,7 +95,8 @@ public class DirectionActivity extends Activity {
 	 * This function aims to update user's location when it changes, to correct
 	 * location of users on the map
 	 */
-	public void updateLocation() {
+	public void updateLocation()
+    {
 		img.setUserCoordinator(latitude, longitude);
 		img.invalidate();
 	}
@@ -122,28 +105,23 @@ public class DirectionActivity extends Activity {
 	 * This method is to check if the GPS on users' device is on or off. If it
 	 * is off, allow users turn on
 	 */
-	public void checkGPS() {
-		// Create a new location manager
+	public void checkGPS()
+    {
 		lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		// Run these codes when testing on a real device has GPS
 		if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			buildAlertMessageNoGps();
 		} else {
 			lm = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
 			lm.getProvider(LocationManager.GPS_PROVIDER);
-			myLocationListener = new UserLocationListener();
+			locationListener = new UserLocationListener();
 			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,
-					myLocationListener);
+					locationListener);
 		}
 	}
 
-	/**
-	 * This class to override LocationListener to get current location of users.
-	 * 
-	 */
-	private class UserLocationListener implements LocationListener {
-
+	private class UserLocationListener implements LocationListener
+    {
 		@Override
 		public void onLocationChanged(Location location) {
 			longitude = location.getLongitude();
@@ -152,26 +130,15 @@ public class DirectionActivity extends Activity {
 		}
 
 		@Override
-		public void onProviderDisabled(String provider) {
-			// TODO Auto-generated method stub
-		}
-
+		public void onProviderDisabled(String provider) {}
 		@Override
-		public void onProviderEnabled(String provider) {
-			// TODO Auto-generated method stub
-		}
-
+		public void onProviderEnabled(String provider) {}
 		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-			// TODO Auto-generated method stub
-		}
+		public void onStatusChanged(String provider, int status, Bundle extras) {}
 	}
 
-	/**
-	 * This method is used to warn users when they click on Direction button if
-	 * the GPS on their device is not enable and allow them to enable it
-	 */
-	private void buildAlertMessageNoGps() {
+	private void buildAlertMessageNoGps()
+    {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(
 				"Your GPS seems to be disabled, do you want to enable it?")
@@ -195,19 +162,20 @@ public class DirectionActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu)
+    {
 		getMenuInflater().inflate(R.menu.weather, menu);
 		return true;
 	}
 
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+    {
 		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 		List<Address> addresses = null;
 		try {
 			addresses = geocoder.getFromLocation(latitude, longitude, 3);
 		} catch (IOException ex) {
-			// Handle IOException
+			ex.getMessage();
 		}
 		String zipCode = "";
 		for (int i = 0; i < addresses.size(); i++) {
@@ -228,46 +196,35 @@ public class DirectionActivity extends Activity {
 		return true;
 	}
 
-	/**
-	 * This method is a listener for the spinner in order to get the position
-	 * of item which is selected
-	 * 
-	 */
-	public class MyItemSelectedListenner implements OnItemSelectedListener {
-
-		public void onItemSelected(AdapterView<?> arg0, View arg1,
-				int position, long id) {
-			spin_val = myLocationList.getInstruction(position);
-			String bld = myLocationList.getBuilding(position);
+	public class MyItemSelectedListener implements OnItemSelectedListener
+    {
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
+        {
+			spinVal = locationList.getInstruction(position);
+			String bld = locationList.getBuilding(position);
 
 			if (bld.length() == 0) {
-				instructionText.setText(spin_val);
+				instructionText.setText(spinVal);
 				img.setImageResource(R.drawable.thai_ggc_map);
-			} else {// Run these lines when users click on any item on the list
-					// of spinner
+			} else {
 				if (bld.length() == 1) {
 					instructionText
-							.setText("It is located on building "
-									+ bld
-									+ "\nInstruction: Your location is Yellow dot, Destination is Red dot\n"
-									+ "    " + spin_val);
+							.setText("It is located on building " + bld + "\nInstruction: Your " +
+                                    "location is Yellow dot, Destination is Red dot\n" + "    " + spinVal);
 				} else {
 					instructionText
 							.setText("\nInstruction: Your location is Yellow dot, Destination is Red dot\n"
-									+ "    " + spin_val);
+									+ "    " + spinVal);
 				}
 			}
-			// Depend on building where the instruction points to, these lines
-			// will show the appropriate map
-			latitudeDes = myLocationList.getLatitude(position);
-			longitudeDes = myLocationList.getLongitude(position);
+
+			latitudeDes = locationList.getLatitude(position);
+			longitudeDes = locationList.getLongitude(position);
 			img.setDesCoordinator(latitudeDes, longitudeDes);
 			img.setOriginalSize();
 		}
 
 		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-		}
+		public void onNothingSelected(AdapterView<?> arg0) {}
 	}
 }

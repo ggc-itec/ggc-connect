@@ -48,14 +48,12 @@ import android.widget.Toast;
  * @author Jacob
  *
  */
-public class ClassSearchActivity extends Activity {
+public class ClassSearchActivity extends Activity
+{
 	private static final String TAG = "ClassSearchActivity";
-	
 	private static final SimpleDateFormat ANDROID_TIME = new SimpleDateFormat("hh:mma", Locale.US);
-	
 	private int cs_selected;
 	private int cs_unselected;
-	
 	private Spinner termInput;
 	private ListView subjectList;
 	private TableRow courseNumberRow;
@@ -76,22 +74,18 @@ public class ClassSearchActivity extends Activity {
 	private TableRow instructorRow;
 	private AutoCompleteTextView instructorInput;
 	private TableRow searchRow;
-	private Button searchButton;
-	private Map<String, String> terms;
+    private Map<String, String> terms;
 	private CourseDataSource courseDS;
-	private TextView focusHolder;
-	
-	private Set<String> courseNumbers;
+    private Set<String> courseNumbers;
 	private Set<String> courseNames;
 	private Set<String> instructorNames;
-	
 	private ArrayAdapter<String> courseAdapter;
 	private ArrayAdapter<String> instructorAdapter;
-	
 	private Integer asyncCounter;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState){
+	protected void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_search);
 		
@@ -102,8 +96,7 @@ public class ClassSearchActivity extends Activity {
 		Resources resources = getResources();
 		cs_selected = resources.getColor(R.color.cs_selected);
 		cs_unselected = resources.getColor(R.color.cs_unselected);
-		
-		// find views
+
 		termInput = (Spinner)findViewById(R.id.cs_term_input);
 		subjectList = (ListView)findViewById(R.id.cs_subject_list);
 		courseNumberRow = (TableRow)findViewById(R.id.cs_course_number_row);
@@ -124,9 +117,8 @@ public class ClassSearchActivity extends Activity {
 		instructorRow = (TableRow)findViewById(R.id.cs_instructor_row);
 		instructorInput = (AutoCompleteTextView)findViewById(R.id.cs_instructor_input);
 		searchRow = (TableRow)findViewById(R.id.cs_search_row);
-		searchButton = (Button)findViewById(R.id.cs_search_button);
-		
-		// create auto-complete objects
+        Button searchButton = (Button) findViewById(R.id.cs_search_button);
+
 		courseNumbers = new HashSet<String>();
 		courseNames = new HashSet<String>();
 		instructorNames = new HashSet<String>();
@@ -139,18 +131,14 @@ public class ClassSearchActivity extends Activity {
 		
 		courseNumberInput.setThreshold(1);
 		instructorInput.setThreshold(1);
-		
-		// populate spinner
+
 		getTerms();
-		
-		// populate subjects
+
 		getSubjects();
-		
-		// connect to database
+
 		courseDS = new CourseDataSource(this);
 		courseDS.open();
-		
-		// add event listeners
+
 		TermChangeListener termListener = new TermChangeListener();
 		termInput.setOnItemSelectedListener(termListener);
 		
@@ -167,8 +155,8 @@ public class ClassSearchActivity extends Activity {
 		thursdayInput.setOnClickListener(dayListener);
 		fridayInput.setOnClickListener(dayListener);
 		saturdayInput.setOnClickListener(dayListener);
-		
-		focusHolder = (TextView)findViewById(R.id.focusholder);
+
+        TextView focusHolder = (TextView) findViewById(R.id.focusholder);
 		focusHolder.requestFocus();
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(termInput.getWindowToken(), 0);
@@ -177,31 +165,34 @@ public class ClassSearchActivity extends Activity {
 	}
 	
 	@Override
-	protected void onDestroy(){
+	protected void onDestroy()
+    {
 		super.onDestroy();
 		courseDS.close();
 	}
 	
-	private void getTerms(){
-		// still trying to determine how to generate this list automatically; in the meantime, it's hardcoded
+	private void getTerms()
+    {
 		terms.put("Spring 2013",  "201302");
 		terms.put("Summer 2013", "201305");
 		terms.put("Fall 2013", "201308");
-		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				new ArrayList<String>(terms.keySet()));
 		termInput.setAdapter(adapter);
 	}
+
 	/**
 	 * Populates the subject list
 	 */
-	private void getSubjects(){
+	private void getSubjects()
+    {
 		String[] subjects = getResources().getStringArray(R.array.ds_subject_names);
 		HighlightAdapter adapter = new HighlightAdapter(this, android.R.layout.simple_list_item_1, subjects);
 		subjectList.setAdapter(adapter);
 	}
 	
-	private void showOptions(){
+	private void showOptions()
+    {
 		courseNumberRow.setVisibility(View.VISIBLE);
 		creditsRow.setVisibility(View.VISIBLE);
 		startTimeRow.setVisibility(View.VISIBLE);
@@ -211,7 +202,8 @@ public class ClassSearchActivity extends Activity {
 		searchRow.setVisibility(View.VISIBLE);
 	}
 	
-	private void hideOptions(){
+	private void hideOptions()
+    {
 		courseNumberRow.setVisibility(View.INVISIBLE);
 		creditsRow.setVisibility(View.INVISIBLE);
 		startTimeRow.setVisibility(View.INVISIBLE);
@@ -221,44 +213,46 @@ public class ClassSearchActivity extends Activity {
 		searchRow.setVisibility(View.INVISIBLE);
 	}
 	
-	private class HighlightAdapter extends ArrayAdapter<String>{
-		public HighlightAdapter(Context context, int textViewResourceId,
-				String[] objects) {
+	private class HighlightAdapter extends ArrayAdapter<String>
+    {
+		public HighlightAdapter(Context context, int textViewResourceId, String[] objects)
+        {
 			super(context, textViewResourceId, objects);
 		}
 		
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent){
+		public View getView(int position, View convertView, ViewGroup parent)
+        {
 			View result = super.getView(position, convertView, parent);
 			
-			if (subjectList.isItemChecked(position))
+			if (subjectList.isItemChecked(position)) {
 				result.setBackgroundColor(cs_selected);
-			else
+            } else {
 				result.setBackgroundColor(cs_unselected);
+            }
 			
 			return result;
 		}
 	}
 	
-	private class TermChangeListener implements OnItemSelectedListener{
-
+	private class TermChangeListener implements OnItemSelectedListener
+    {
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+        {
 			clearSelections();
 		}
 
 		@Override
-		public void onNothingSelected(AdapterView<?> parent) {
+		public void onNothingSelected(AdapterView<?> parent)
+        {
 			clearSelections();
 		}
 
-        /*
-        * Clears the selections of the course names, course numbers,
-        * instructor names, and subjects selected
-        */
-		private void clearSelections(){
-			synchronized (ClassSearchActivity.this){
+		private void clearSelections()
+        {
+			synchronized (ClassSearchActivity.this)
+            {
 				hideOptions();
 				courseNames.clear();
 				courseNumbers.clear();
@@ -273,21 +267,23 @@ public class ClassSearchActivity extends Activity {
 		}
 	}
 	
-	private class SubjectClickListener implements OnItemClickListener{
-
+	private class SubjectClickListener implements OnItemClickListener
+    {
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
 			String subjId = getResources().getStringArray(R.array.ds_subject_codes)[position];
 			String term = terms.get(termInput.getSelectedItem());
 			final boolean selected = subjectList.getCheckedItemPositions().get(position);
 			
-			if (selected)
+			if (selected) {
 				view.setBackgroundColor(cs_selected);
-			else
+            } else {
 				view.setBackgroundColor(cs_unselected);
+            }
 			
-			AsyncTask<String, Void, Boolean> task = new AsyncTask<String, Void, Boolean>(){
+			AsyncTask<String, Void, Boolean> task = new AsyncTask<String, Void, Boolean>()
+            {
 				@Override
 				protected Boolean doInBackground(String... args) {
 					String subjId = args[0];
@@ -322,7 +318,6 @@ public class ClassSearchActivity extends Activity {
 									instructorNames.add(instructor.getName());
 							}
 						} else{
-							// rebuild the list
 							SparseBooleanArray selectedItems = subjectList.getCheckedItemPositions();
 							
 							synchronized (ClassSearchActivity.this){
@@ -358,10 +353,10 @@ public class ClassSearchActivity extends Activity {
 				}
 				
 				@Override
-				protected void onPostExecute(Boolean hasSelections){
+				protected void onPostExecute(Boolean hasSelections)
+                {
 					synchronized (ClassSearchActivity.this){
 						if (hasSelections){
-							// set adapters for the auto-complete views
 							courseAdapter.clear();
 							courseAdapter.addAll(courseNumbers);
 							courseAdapter.notifyDataSetChanged();
@@ -370,26 +365,20 @@ public class ClassSearchActivity extends Activity {
 							instructorAdapter.notifyDataSetChanged();
 							
 							showOptions();
-						} else{
-							// hide options until a selection is made
-							//hideOptions();
-							// don't hide them once they've already been displayed, just disable the search button
 						}
-						
 					}
 				}
 			};
 			
 			task.execute(subjId, term);
 		}
-		
 	}
 	
-	private class SubmitButtonListener implements OnClickListener{
-
+	private class SubmitButtonListener implements OnClickListener
+    {
 		@Override
-		public void onClick(View view) {
-			// check to make sure a subject has been selected
+		public void onClick(View view)
+        {
 			if (subjectList.getCheckedItemCount() == 0){
 				Toast needSubject = Toast.makeText(ClassSearchActivity.this, "Select at least one subject", Toast.LENGTH_SHORT);
 				needSubject.show();
@@ -404,26 +393,27 @@ public class ClassSearchActivity extends Activity {
 					return;
 				}
 			}
-			
-			// gather search parameters
+
 			CourseSearchBuilder searchBuilder = new CourseSearchBuilder();
-			
 			searchBuilder.setTerm(terms.get(termInput.getSelectedItem()));
 			
 			SparseBooleanArray selectedItems = subjectList.getCheckedItemPositions();
 			for (int i = 0; i < selectedItems.size(); i++){
 				int index = selectedItems.keyAt(i);
-				if (selectedItems.get(index))
+				if (selectedItems.get(index)) {
 					searchBuilder.addSubject(getResources().getStringArray(R.array.ds_subject_codes)[index]);
+                }
 			}
 			
 			String courseNumber = courseNumberInput.getText().toString().trim();
-			if (!courseNumber.equals(""))
+			if (!courseNumber.equals("")) {
 				searchBuilder.setCourseNumber(courseNumber);
+            }
 			
 			String instructor = instructorInput.getText().toString().trim();
-			if (!instructor.equals(""))
+			if (!instructor.equals("")) {
 				searchBuilder.setInstructor(instructor);
+            }
 			
 			String credits = creditsInput.getText().toString().trim();
 			if (!credits.equals("")){
@@ -460,20 +450,25 @@ public class ClassSearchActivity extends Activity {
 					return;
 				}
 			}
-			
-			// TODO: this is ugly; make this some kind of list to be iterated over
-			if (mondayInput.isChecked())
+
+			if (mondayInput.isChecked()) {
 				searchBuilder.addDay(mondayInput.getText().toString());
-			if (tuesdayInput.isChecked())
+            }
+			if (tuesdayInput.isChecked()) {
 				searchBuilder.addDay(tuesdayInput.getText().toString());
-			if (wednesdayInput.isChecked())
+            }
+			if (wednesdayInput.isChecked()) {
 				searchBuilder.addDay(wednesdayInput.getText().toString());
-			if (thursdayInput.isChecked())
+            }
+			if (thursdayInput.isChecked()) {
 				searchBuilder.addDay(thursdayInput.getText().toString());
-			if (fridayInput.isChecked())
+            }
+			if (fridayInput.isChecked()) {
 				searchBuilder.addDay(fridayInput.getText().toString());
-			if (saturdayInput.isChecked())
+            }
+			if (saturdayInput.isChecked()) {
 				searchBuilder.addDay(saturdayInput.getText().toString());
+            }
 			
 			Intent searchIntent = new Intent(ClassSearchActivity.this, SearchResultsActivity.class);
 			searchIntent.putExtra(CourseSearchBuilder.KEY, searchBuilder);
@@ -482,8 +477,8 @@ public class ClassSearchActivity extends Activity {
 		
 	}
 	
-	private class DayClickListener implements OnClickListener{
-
+	private class DayClickListener implements OnClickListener
+    {
 		@Override
 		public void onClick(View view) {
 			CheckedTextView ctv = (CheckedTextView)view;
@@ -496,6 +491,5 @@ public class ClassSearchActivity extends Activity {
 				ctv.setChecked(false);
 			}
 		}
-		
 	}
 }
