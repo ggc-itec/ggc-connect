@@ -10,6 +10,7 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-sdk android:minSdkVersion="11" />
 
@@ -144,6 +145,21 @@
         </activity>
         <activity android:name="edu.ggc.it.myinfo.MyInfoActivity" >
         </activity>
+        
+                <activity
+            android:name="edu.ggc.it.reminders.RemindersActivity"
+            android:label="@string/title_activity_reminders"
+            android:parentActivityName="edu.ggc.it.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.Main" />
+        </activity>
+        <activity
+            android:name="edu.ggc.it.reminders.CreateReminderActivity"
+            android:label="@string/title_activity_create_reminder" >
+        </activity>
+        
+        <receiver android:name="edu.ggc.it.reminders.Reminder" >
+        </receiver>
     </application>
-
 </manifest>

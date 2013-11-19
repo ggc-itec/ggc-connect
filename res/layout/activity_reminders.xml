@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/ggc_green"
+    tools:context=".ReminderActivity" >
+
+    <EditText
+        android:id="@+id/reminder_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reminder_label"
+        android:inputType="text"
+        android:layout_alignRight="@+id/reminder_label"
+        android:layout_below="@+id/reminder_label"
+        android:layout_marginTop="19dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/create_reminder_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/reminder_button_text" 
+        android:onClick="createReminder" />
+    
+    <TextView
+        android:id="@+id/reminder_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/reminder_label"
+        android:textSize="22sp" />
+
+    <Spinner
+        android:id="@+id/year_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/day_spinner"
+        android:layout_toRightOf="@+id/day_spinner" />
+
+    <Spinner
+        android:id="@+id/month_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/day_spinner"
+        android:layout_toLeftOf="@+id/day_spinner" />
+
+    <Spinner
+        android:id="@+id/day_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/create_reminder_button"
+        android:layout_alignRight="@+id/create_reminder_button"
+        android:layout_below="@+id/reminder_description"
+        android:layout_marginTop="132dp" />
+
+    <TextView
+        android:id="@+id/reminder_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/month_spinner"
+        android:layout_alignLeft="@+id/reminder_description"
+        android:layout_alignRight="@+id/reminder_description"
+        android:layout_marginBottom="52dp"
+        android:text="@string/reminder_date_label"
+        android:textSize="22sp" />
+
+    <Spinner
+        android:id="@+id/times_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/create_reminder_button"
+        android:layout_alignLeft="@+id/month_spinner"
+        android:layout_alignRight="@+id/day_spinner"
+        android:layout_marginBottom="42dp" />
+
+    <Spinner
+        android:id="@+id/ampm_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/year_spinner"
+        android:layout_alignTop="@+id/times_spinner" />
+
+</RelativeLayout>
