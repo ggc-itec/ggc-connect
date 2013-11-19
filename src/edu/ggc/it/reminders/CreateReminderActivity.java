@@ -25,6 +25,7 @@ public class CreateReminderActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_reminder);
 		// Show the Up button in the action bar.
@@ -37,6 +38,15 @@ public class CreateReminderActivity extends Activity {
 		Date date = new Date(reminderTime);
 		//DateFormat formatter = new SimpleDateFormat("M-d-y HH:mm:ss:SSS");
 		//String dateFormatted = formatter.format(date);
+		
+		/*
+		 * Note: Starting with API level 19, the OS will take liberties as to
+		 * exactly when the alarm goes off in order to minimize battery usage.
+		 * 
+		 * Typically, the alarm will be delivered within a few seconds of the 
+		 * designated time.  This should be sufficient for the intended use case
+		 * of the reminders.
+		 */
 		
 	    Intent intent2 = new Intent(this, edu.ggc.it.reminders.Reminder.class);
 	    intent2.putExtra(REMINDER_TEXT, reminderText);

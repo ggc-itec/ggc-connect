@@ -28,53 +28,34 @@ public class Reminder extends BroadcastReceiver
 
 	public Reminder(){}
 
-	public Reminder(String reminderText, long reminderTime){
-		this.reminderText = reminderText;
-		this.reminderTime = reminderTime;
-	}
-
 	@SuppressLint("NewApi")
 	@Override
 	public void onReceive(Context context, Intent intent) 
 	{   
-		Log.d("timer", "Received");
+
+		//Request a wake lock from the device so that the notification will be shown
+		//if the device is locked/sleeping.
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
 		wl.acquire();
 
+		//Build the notification for our reminder.
 		Notification noti = new Notification.Builder(context)
 		.setContentTitle("GGCReminders")
 		.setContentText(intent.getStringExtra(REMINDER_TEXT))
-		.setSmallIcon(R.drawable.green)
+		.setSmallIcon(R.drawable.ggc_connect_icon)
 		.build();
 
+		//Send the notification to the device NotificationManager
 		NotificationManager mNotificationManager =
 				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.notify(1, noti);
 
 		Log.d("timer", "Alarm going off now.");
+		
+		//Release the wake lock - we're done.
 		wl.release();
+		
 	}
 
-	public void SetAlarm(Context context)
-	{
-
-		Date date = new Date(this.reminderTime);
-		DateFormat formatter = new SimpleDateFormat("M-d-y HH:mm:ss:SSS");
-		String dateFormatted = formatter.format(date);
-
-		Log.d("timer", "The time for the alarm is " + dateFormatted);
-		AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-		Intent i = new Intent(context, Reminder.class);
-		PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-		am.set(AlarmManager.RTC_WAKEUP, this.reminderTime, pi);
-	}
-
-	public void CancelAlarm(Context context)
-	{
-		Intent intent = new Intent(context, Reminder.class);
-		PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.cancel(sender);
-	}
 }
