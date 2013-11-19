@@ -112,7 +112,7 @@ public class MapView extends View
         makeRedDot();
         invalidate();
     }
-
+//MAKE CHANGES TO THIS
     private void makeScaleReferenceHashMap()
     {
         scaleReferenceHashMap = new HashMap<String, Float>();
