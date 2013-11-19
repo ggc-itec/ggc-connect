@@ -1,23 +1,13 @@
 package edu.ggc.it.reminders;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import edu.ggc.it.R;
-
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
-import android.util.Log;
 
 public class Reminder extends BroadcastReceiver 
 {    
@@ -51,8 +41,6 @@ public class Reminder extends BroadcastReceiver
 				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.notify(1, noti);
 
-		Log.d("timer", "Alarm going off now.");
-		
 		//Release the wake lock - we're done.
 		wl.release();
 		

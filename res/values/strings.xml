@@ -337,5 +337,8 @@
 
     <string name="title_activity_reminders">GGC Reminders</string>
     <string name="title_activity_create_reminder">GGC Reminders</string>
-
+    <string name="reminder_result_example">1-1-2013 12:00</string>
+    <string name="activity_reminder_lower_text">You\'ll get a device notification to remind you at that time.</string>
+	<string name="activity_reminder_upper_text">Your reminder has been set for:</string>
+	
 </resources>

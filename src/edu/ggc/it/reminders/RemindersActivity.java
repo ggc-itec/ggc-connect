@@ -3,8 +3,6 @@ package edu.ggc.it.reminders;
 import java.util.Arrays;
 
 import edu.ggc.it.R;
-import edu.ggc.it.R.layout;
-import edu.ggc.it.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +15,8 @@ import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.text.format.Time;
 
-public class RemindersActivity extends Activity {
+public class RemindersActivity extends Activity
+{
 	
 	public static final String REMINDER_TEXT = "edu.ggc.it.reminders.reminderText";
 	public static final String REMINDER_TIME = "edu.ggc.it.reminders.reminderTime";
@@ -27,90 +26,91 @@ public class RemindersActivity extends Activity {
 	                                       "November", "December"};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reminders);
-		// Show the Up button in the action bar.
 		
-		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+		// Set up the spinners on the view.
+		
+		// Months
+		Spinner monthSpinner = (Spinner) findViewById(R.id.month_spinner);
+		ArrayAdapter<CharSequence> monthAdapter = ArrayAdapter.createFromResource(this,
 		        R.array.months_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
+		monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		monthSpinner.setAdapter(monthAdapter);
 		
-		Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+		// Days
+		Spinner daySpinner = (Spinner) findViewById(R.id.day_spinner);
+		ArrayAdapter<CharSequence> dayAdapter = ArrayAdapter.createFromResource(this,
 		        R.array.days_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner2.setAdapter(adapter2);
+		dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		daySpinner.setAdapter(dayAdapter);
 		
-		Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+		// Years
+		Spinner yearSpinner = (Spinner) findViewById(R.id.year_spinner);
+		ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(this,
 		        R.array.years_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner3.setAdapter(adapter3);
+		yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		yearSpinner.setAdapter(yearAdapter);
 		
-		Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this,
+		// Hours
+		Spinner timeSpinner = (Spinner) findViewById(R.id.times_spinner);
+		ArrayAdapter<CharSequence> timeAdapter = ArrayAdapter.createFromResource(this,
 		        R.array.times_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner4.setAdapter(adapter4);
+		timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		timeSpinner.setAdapter(timeAdapter);
 		
-		Spinner spinner6 = (Spinner) findViewById(R.id.spinner6);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter5 = ArrayAdapter.createFromResource(this,
+		// AM/PM
+		Spinner ampmSpinner = (Spinner) findViewById(R.id.ampm_spinner);
+		ArrayAdapter<CharSequence> ampmAdapter = ArrayAdapter.createFromResource(this,
 		        R.array.ampm_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner6.setAdapter(adapter5);
+		ampmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ampmSpinner.setAdapter(ampmAdapter);
 		
 		setupActionBar();
+		
 	}
+
 	
-	
-	public void createReminder(View view){
+	public void createReminder(View view)
+	{
 		
 		Intent intent = new Intent(this, CreateReminderActivity.class);
 		
-		EditText reminderTextEdit = (EditText)findViewById(R.id.reminderDescription);
+		
+		// Store the reminder text in the Intent.
+		EditText reminderTextEdit = (EditText)findViewById(R.id.reminder_description);
 		String reminderText = reminderTextEdit.getText().toString();
 		intent.putExtra(REMINDER_TEXT, reminderText);
 		
-		Spinner monthSpinner = (Spinner)findViewById(R.id.spinner1);
+		
+		// Retrieve the selected time options...
+		Spinner monthSpinner = (Spinner)findViewById(R.id.month_spinner);
 		String month_str = monthSpinner.getSelectedItem().toString();
 		int month = Arrays.asList(months_map).indexOf(month_str);
 		
-		Spinner daySpinner = (Spinner)findViewById(R.id.spinner2);
+		Spinner daySpinner = (Spinner)findViewById(R.id.day_spinner);
 		int day = Integer.parseInt(daySpinner.getSelectedItem().toString());
 		
-		Spinner yearSpinner = (Spinner)findViewById(R.id.spinner3);
+		Spinner yearSpinner = (Spinner)findViewById(R.id.year_spinner);
 		int year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 		
-		Spinner hourSpinner = (Spinner)findViewById(R.id.spinner4);
+		Spinner hourSpinner = (Spinner)findViewById(R.id.times_spinner);
 		int hour = Integer.parseInt(hourSpinner.getSelectedItem().toString().substring(0, 2));
 		
-		Spinner ampmSpinner = (Spinner)findViewById(R.id.spinner6);
+		Spinner ampmSpinner = (Spinner)findViewById(R.id.ampm_spinner);
 		String ampm = ampmSpinner.getSelectedItem().toString();
 		
-		if(ampm.equals("PM")){
+		if(ampm.equals("PM"))
+		{
 			hour += 12;
 		}
 		
+		// .. and store them in the intent.
 		Time reminderTime = new Time();
-		reminderTime.set(0, 58, hour, day, month, year);
+		reminderTime.set(0, 0, hour, day, month, year);
 		intent.putExtra(REMINDER_TIME, reminderTime.toMillis(false));
 		
 		startActivity(intent);
@@ -120,21 +120,24 @@ public class RemindersActivity extends Activity {
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
-	private void setupActionBar() {
+	private void setupActionBar()
+	{
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.reminders, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this

@@ -10,13 +10,13 @@
     tools:context=".ReminderActivity" >
 
     <EditText
-        android:id="@+id/reminderDescription"
+        android:id="@+id/reminder_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/reminder_label"
         android:inputType="text"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignRight="@+id/reminder_label"
+        android:layout_below="@+id/reminder_label"
         android:layout_marginTop="19dp"
         android:ems="10" >
 
@@ -24,7 +24,7 @@
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/create_reminder_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,7 +33,7 @@
         android:onClick="createReminder" />
     
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/reminder_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -43,53 +43,53 @@
         android:textSize="22sp" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/year_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spinner2"
-        android:layout_toRightOf="@+id/spinner2" />
+        android:layout_alignTop="@+id/day_spinner"
+        android:layout_toRightOf="@+id/day_spinner" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/month_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spinner2"
-        android:layout_toLeftOf="@+id/spinner2" />
+        android:layout_alignTop="@+id/day_spinner"
+        android:layout_toLeftOf="@+id/day_spinner" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/day_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/reminderDescription"
+        android:layout_alignLeft="@+id/create_reminder_button"
+        android:layout_alignRight="@+id/create_reminder_button"
+        android:layout_below="@+id/reminder_description"
         android:layout_marginTop="132dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/reminder_date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner1"
-        android:layout_alignLeft="@+id/reminderDescription"
-        android:layout_alignRight="@+id/reminderDescription"
+        android:layout_above="@+id/month_spinner"
+        android:layout_alignLeft="@+id/reminder_description"
+        android:layout_alignRight="@+id/reminder_description"
         android:layout_marginBottom="52dp"
         android:text="@string/reminder_date_label"
         android:textSize="22sp" />
 
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/times_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_alignRight="@+id/spinner2"
+        android:layout_above="@+id/create_reminder_button"
+        android:layout_alignLeft="@+id/month_spinner"
+        android:layout_alignRight="@+id/day_spinner"
         android:layout_marginBottom="42dp" />
 
     <Spinner
-        android:id="@+id/spinner6"
+        android:id="@+id/ampm_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner3"
-        android:layout_alignTop="@+id/spinner4" />
+        android:layout_alignLeft="@+id/year_spinner"
+        android:layout_alignTop="@+id/times_spinner" />
 
 </RelativeLayout>
