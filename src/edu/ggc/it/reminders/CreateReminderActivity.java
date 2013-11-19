@@ -1,6 +1,7 @@
 package edu.ggc.it.reminders;
 
 import java.text.SimpleDateFormat;
+import java.util.Random;
 import java.sql.Date;
 
 import edu.ggc.it.R;
@@ -55,7 +56,10 @@ public class CreateReminderActivity extends Activity
 	     * To set up an alarm, we create a PendingIntent and send it to the device's
 	     * alarm service manager.
 	     */
-	    PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent2, 0);
+	    final Random rand = new Random();
+	    int alarmIdentifier = rand.nextInt(99999) + 1;
+	    
+	    PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), alarmIdentifier, intent2, 0);
 	    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 	    alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent);
 
