@@ -436,8 +436,17 @@ public class Banner
 			// get meeting times
 			List<Meeting> meetingTimes = getMeetings(content);
 			
+			// FIXME: temp fix applied, perm fix needed 
+			// zero credit hours does not make sense
+			double temp = 0;
+			try {
+				temp = Double.parseDouble(credits);
+			} catch(NumberFormatException e) {
+				temp = 0;
+			}
+			
 			// incomplete course data
-			Course course = new Course(subject, name, courseNum, null, Double.parseDouble(credits));
+			Course course = new Course(subject, name, courseNum, null, temp);
 			Section sect = new Section(course, term, Integer.parseInt(section), Integer.parseInt(crn), meetingTimes);
 			result.add(sect);
 		}
@@ -490,7 +499,16 @@ public class Banner
 			}
 			
 			try {
-				endTime = BANNER_TIME.parse(times[1]);
+				// FIXME: temp fix applied
+				if( times.length >= 2)
+				{
+					endTime = BANNER_TIME.parse(times[1]);
+				}
+				else
+				{
+					//initialize to current date, of course, this makes no sense
+					endTime = new Date();
+				}
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad time format " + times[1], pe);
 			}
