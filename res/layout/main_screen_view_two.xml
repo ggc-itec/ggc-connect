@@ -12,8 +12,8 @@
             android:id="@+id/view_two_dummy_btn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn1"
-            android:layout_below="@+id/view_two_dummy_btn1"
+            android:layout_alignLeft="@+id/view_two_about_ggc_btn"
+            android:layout_below="@+id/view_two_about_ggc_btn"
             android:layout_marginTop="40dp"
             android:background="@drawable/main_button_directory" />
 
@@ -48,8 +48,9 @@
             android:text="dummy textview6"
             android:textColor="@color/main_button_text" />
 
+    <!-- About GGC Button -->
     <Button
-            android:id="@+id/view_two_dummy_btn1"
+            android:id="@+id/view_two_about_ggc_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/socialLinearLayout"
@@ -57,22 +58,25 @@
             android:layout_marginTop="42dp"
             android:background="@drawable/main_button_directory" />
 
+    <!-- About GGC Button Title -->
     <TextView
-            android:id="@+id/view_two_textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn1"
-            android:layout_below="@+id/view_two_dummy_btn1"
-            android:layout_marginLeft="-10dp"
-            android:text="dummy textview1"
-            android:textColor="@color/main_button_text" />
+        android:id="@+id/view_two_about_ggc_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/view_two_about_ggc_btn"
+        android:layout_alignRight="@+id/view_two_about_ggc_btn"
+        android:layout_below="@+id/view_two_about_ggc_btn"
+        android:gravity="center"
+        android:layout_marginLeft="-10dp"
+        android:text="About GGC"
+        android:textColor="@color/main_button_text" />
 
     <Button
             android:id="@+id/view_two_dummy_btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/view_two_dummy_btn1"
-            android:layout_alignBottom="@+id/view_two_dummy_btn1"
+            android:layout_alignBaseline="@+id/view_two_about_ggc_btn"
+            android:layout_alignBottom="@+id/view_two_about_ggc_btn"
             android:layout_alignRight="@+id/socialLinearLayout"
             android:background="@drawable/main_button_directory" />
 

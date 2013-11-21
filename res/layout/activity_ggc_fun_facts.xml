@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#7800704a" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/didYouKnowImage"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
+            android:src="@drawable/did_you_know" />
+
+        <TextView
+            android:id="@+id/textView_funFacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="•	A few years ago, Georgia Gwinnett college was home to just over 100 students.\n\n
+•	Now it has more than 9000 students.\n\n
+•	Gwinnett County was the largest county east of the Mississippi without a four-year college.\n\n
+•	GGC opened its doors in 2006 as the first four-year college founded in Georgia in more than 100 years, and the first four-year, public college created in the U.S. in the 21st century.\n\n
+•	Georgia Gwinnett College is a member of the University System of Georgia.\n\n
+•	Gwinnett County remains one of the most dynamic regions in the South to live and work with a current population of 824,941, and a population of 1.2 million projected by the year 2025.\n\n
+•	GGC will be a wellspring of educational innovation\n\n
+•	The 90,000 square-foot Library has a capacity for 300,000 volumes.\n\n
+•   GGC students place the college among the top 10% of colleges nationwide for  the level of academic challenge according to the National Survey of Student Engagement 2011.\n\n
+•	GGC offers 12 majors - biology, business administration, criminal justice/criminology, early childhood education, English, exercise science, history, information technology, mathematics, political science, psychology and special education.\n\n
+•	There are more than 40 concentrations, seven academic minors, a certificate in Latin-American Studies and an Honors Program.\n\n
+•	Our ROTC program offers students from all academic majors a unique pathway into a post-graduate career as a military officer.\n\n
+•	The Library has a gold-level certification from the U.S. Green Building Council’s Leadership in Energy and Environmental Design (LEED) program.\n\n
+•	The Library promotes the whole-building approach to sustainability by recognizing performance in six key areas of human and environmental health.\n\n
+•	GGC&apos;s Library is the first academic library in Georgia to achieve LEED Gold certification."  />
+		
+        <TextView
+            android:id="@+id/flickrLinkIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Cool To Watch: After Acceptance" />
+        
+        <TextView
+            android:id="@+id/flickrLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColorLink="#081078"
+            android:text="link will appear here" />
+        
+    </LinearLayout>
+
+</ScrollView>
