@@ -340,10 +340,10 @@
     <string name="reminder_result_example">1-1-2013 12:00</string>
     <string name="activity_reminder_lower_text">You\'ll get a device notification to remind you at that time.</string>
     <string name="activity_reminder_upper_text">Your reminder has been set for:</string>
-    <string name="title_activity_about_main">AboutMainActivity</string>
-    <string name="title_activity_history_button">HistoryButtonActivity</string>
-    <string name="title_activity_ggcgeography">Geography</string>
-    <string name="title_activity_ggcfun_facts">Fun Facts</string>
+    <string name="title_activity_about_main">About GGC</string>
+    <string name="title_activity_history_button">GGC History</string>
+    <string name="title_activity_ggcgeography">GGC Geography</string>
+    <string name="title_activity_ggcfun_facts">GGC Fun Facts</string>
     <string name="title_activity_ggcsong">GGC\'s Official Song</string>
 
 </resources>

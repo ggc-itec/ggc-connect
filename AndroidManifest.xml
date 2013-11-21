@@ -161,7 +161,8 @@
 
         <activity
             android:name="edu.ggc.it.about.AboutMainActivity"
-            android:label="@string/title_activity_about_main" >
+            android:label="@string/title_activity_about_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.ggc.it.about.HistoryButtonActivity"
@@ -177,7 +178,8 @@
         </activity>
         <activity
             android:name="edu.ggc.it.about.GGCSongActivity"
-            android:label="@string/title_activity_ggcsong" >
+            android:label="@string/title_activity_ggcsong"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

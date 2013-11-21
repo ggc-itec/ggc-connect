@@ -64,7 +64,7 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_view_two, this, true);
 
-        Button aboutGGCButton = getListenedButton(R.id.view_two_dummy_btn1);
+        Button aboutGGCButton = getListenedButton(R.id.view_two_about_ggc_btn);
         Button buttonTwo = getListenedButton(R.id.view_two_dummy_btn2);
         Button buttonThree = getListenedButton(R.id.view_two_dummy_btn3);
         Button buttonFour = getListenedButton(R.id.view_two_dummy_btn4);
@@ -82,7 +82,7 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.view_two_dummy_btn1) {
+        if (view.getId() == R.id.view_two_about_ggc_btn) {
             context.startActivity(new Intent(context, AboutMainActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn2) {
             //context.startActivity(new Intent(context, YourActivity.class));
