@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#4a4a4a"> 
+    
+    <!-- Player Header -->
+    <LinearLayout 
+        android:id="@+id/player_header_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:background="@layout/bg_player_header"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+        
+        <!-- Song Title -->
+        <TextView 
+            android:id="@+id/songTitle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#04b3d2"
+            android:textSize="18sp"
+            android:paddingLeft="20dp"
+            android:textStyle="bold"
+            android:text="GGC's Official Song: Alma Mater"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+    
+    <!-- Timer Display -->
+    <LinearLayout
+        android:id="@+id/timerDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/player_header_bg" >
+
+        <TextView
+            android:id="@+id/songCurrentDurationLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:textColor="#eeeeee"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/songTotalDurationLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:textColor="#04cbde"
+            android:textStyle="bold" />
+    </LinearLayout>
+    
+    <!-- Song Progress Bar/Seek bar -->
+    <SeekBar
+      	android:id="@+id/songProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp" 
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+   	 	android:layout_below="@id/timerDisplay"
+   	 	android:thumb="@drawable/seek_handler"
+   	 	android:progressDrawable="@drawable/seekbar_progress"
+   	 	android:paddingLeft="20dp"
+   	 	android:paddingRight="20dp"/>
+    
+    <!-- Player Footer -->
+    <LinearLayout 
+        android:id="@+id/player_footer_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/songProgressBar"
+        android:background="@layout/bg_player_footer"
+        android:gravity="center">
+    	
+        <!-- Player Buttons -->
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@layout/rounded_corner"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+            <!-- Backward Button -->
+            <ImageButton 
+                android:id="@+id/btnBackward"
+                android:src="@drawable/btn_backward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"/>
+            <!-- Play Button -->
+            <ImageButton 
+                android:id="@+id/btnPlay"
+                android:src="@drawable/btn_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"/>
+            <!-- Forward Button -->
+            <ImageButton 
+                android:id="@+id/btnForward"
+                android:src="@drawable/btn_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+    <!-- Lyrics Display -->
+    <LinearLayout 
+        android:id="@+id/lyricsDisplay"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/player_footer_bg"
+        android:background="#aaaaaa">
+
+        <TextView
+            android:id="@+id/lyricsTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#999999"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text="Alma Mater Lyrics\n" />
+        
+        <ScrollView 
+        	android:id="@+id/lyricsScrollView" 
+        	android:layout_width="fill_parent"
+        	android:layout_height="match_parent" 
+        	android:fadeScrollbars="false" >
+        
+        	<TextView 
+        		android:id="@+id/lyricsText"
+	        	android:layout_width="fill_parent"
+	        	android:layout_height="wrap_content"
+	        	android:padding="5dp"
+	        	android:gravity="center"
+	        	android:textSize="22sp"
+	        	android:textColor="#000000"
+	        	android:text=" We have gained wisdom and honor\n
+From our home of green and gray.\n
+We will go forth and remember\n
+All we've learned along the way.\n
+And with knowledge and compassion\n
+We will build communities\n
+Leading by example\n
+And with dignity.\n
+Georgia Gwinnett, we'll never forget\n
+How we have grown,\n
+and those that we've met.\n
+Georgia Gwinnett, love and respect\n
+Our alma mater, Georgia Gwinnett." />
+    	</ScrollView>
+    </LinearLayout>
+    
+    
+
+</RelativeLayout>
