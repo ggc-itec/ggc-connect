@@ -257,8 +257,8 @@
     </string-array>
 
     <string name="myinfo">Find My Mentor</string>
-    <string name="title_activity_gpacalc">GPACalcActivity</string>
+    <string name="title_activity_gpacalc">GPA Calculator</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_gpacalc_semester">GPACalcSemester</string>
+    <string name="title_activity_gpacalc_semester">GPA Calculator</string>
 
 </resources>

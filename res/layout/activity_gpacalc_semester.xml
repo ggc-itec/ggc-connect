@@ -1,72 +1,68 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/semester_scroll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
 
-    //Class
-    <TextView
-            android:id="@+id/text_class_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Enter the information for class 1:"
-            android:layout_below="@id/text_class_one" />
-    <Spinner
-            android:id="@+id/input_class_one_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_class_one"
-            
-            android:inputType="numberDecimal"/>
-    <Spinner
-            android:id="@+id/input_class_one_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/input_class_one_hours"
-            android:layout_alignBaseline="@id/input_class_one_hours"
-            android:hint="Grade"
-            android:inputType="numberDecimal"/>
+    <LinearLayout
+        android:id="@+id/semester_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-    //Submit Button
-    <Button
-            android:id="@+id/button_submit"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/child_layout_1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:text="Submit"/>
+            android:orientation="horizontal" >
 
-    //New GPA
-    <TextView
-            android:id="@+id/text_new_gpa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_submit"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"/>
-    
-    //Add Class
-    <Button
-            android:id="@+id/button_add_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_new_gpa"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:text="Add Class"/>
-    
-    //Remove Class
-    <Button
-            android:id="@+id/button_remove_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_add_class"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:text="Add Class"/>
+            <!-- Class -->
 
+            <TextView
+                android:id="@+id/text_class_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your information for each class and press submit"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/child_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <!-- Add course -->
+
+            <Button
+                android:id="@+id/button_add_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Class" />
+
+            <!-- Remove course -->
+
+            <Button
+                android:id="@+id/button_remove_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove Class" />
+
+            <!-- Submit Button -->
+
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
