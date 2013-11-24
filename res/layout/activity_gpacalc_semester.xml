@@ -6,13 +6,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin">
 
-    //Class 1
+    //Class
     <TextView
             android:id="@+id/text_class_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Enter the information for class 1:" />
+            android:text="Enter the information for class 1:"
+            android:layout_below="@id/text_class_one" />
     <Spinner
             android:id="@+id/input_class_one_hours"
             android:layout_width="wrap_content"
@@ -29,84 +30,11 @@
             android:hint="Grade"
             android:inputType="numberDecimal"/>
 
-    //Class 2
-    <TextView
-            android:id="@+id/text_class_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_below="@id/input_class_one_hours"
-            android:text="Enter the information for class 2:"/>
-    <Spinner
-            android:id="@+id/input_class_two_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_class_two"
-            android:hint="Credit Hours"
-            android:inputType="numberDecimal"/>
-    <Spinner
-            android:id="@+id/input_class_two_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/input_class_two_hours"
-            android:layout_alignBaseline="@id/input_class_two_hours"
-            android:hint="Grade"
-            android:inputType="numberDecimal"/>
-
-    //Class 3
-    <TextView
-            android:id="@+id/text_class_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_below="@id/input_class_two_hours"
-            android:text="Enter the information for class 3:" />
-    <Spinner
-            android:id="@+id/input_class_three_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_class_three"
-            android:hint="Credit Hours"
-            android:inputType="numberDecimal"/>
-    <Spinner
-            android:id="@+id/input_class_three_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/input_class_three_hours"
-            android:layout_alignBaseline="@id/input_class_three_hours"
-            android:hint="Grade"
-            android:inputType="numberDecimal"/>
-
-    //Class 4
-    <TextView
-            android:id="@+id/text_class_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_below="@id/input_class_three_hours"
-            android:text="Enter the information for class 4:" />
-    <Spinner
-            android:id="@+id/input_class_four_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_class_four"
-            android:hint="Credit Hours"
-            android:inputType="numberDecimal"/>
-    <Spinner
-            android:id="@+id/input_class_four_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/input_class_four_hours"
-            android:layout_alignBaseline="@id/input_class_four_hours"
-            android:hint="Grade"
-            android:inputType="numberDecimal"/>
-
     //Submit Button
     <Button
             android:id="@+id/button_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/input_class_four_hours"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:text="Submit"/>
@@ -119,6 +47,26 @@
             android:layout_below="@id/button_submit"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"/>
+    
+    //Add Class
+    <Button
+            android:id="@+id/button_add_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_new_gpa"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Add Class"/>
+    
+    //Remove Class
+    <Button
+            android:id="@+id/button_remove_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_add_class"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Add Class"/>
 
 
 </RelativeLayout>
