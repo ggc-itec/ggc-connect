@@ -181,7 +181,7 @@
             android:label="@string/title_activity_ggcsong"
             android:screenOrientation="portrait" >
         </activity>
-		<activity
+        <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
             android:label="@string/title_activity_gpacalc"
             android:configChanges="orientation|keyboardHidden" >
@@ -191,6 +191,20 @@
             android:label="@string/title_activity_gpacalc_semester"
             android:configChanges="orientation|keyboardHidden" >
         </activity>
+        <receiver 
+            android:name="edu.ggc.it.widget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data 
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info"/>
+        </receiver>
+        <service 
+            android:name="edu.ggc.it.widget.WidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
     </application>
 
 </manifest>

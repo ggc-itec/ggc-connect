@@ -14,65 +14,75 @@ import android.widget.ListView;
  * Activity responsible for displaying RSS feeds from ggc.edu
  * 
  * @author crystalist, Derek
- *
+ * 
  */
-public class RSSActivity extends ListActivity implements RSSTaskComplete 
+public class RSSActivity extends ListActivity implements RSSTaskComplete
 {
-	public static final String RSS_URL_EXTRA = "edu.ggc.it.rss.RSS_URL";
-	
-	private Context context;
-	private RSSDataContainer container;
-	private RSSTask rssTask;
+    public static final String RSS_URL_EXTRA = "edu.ggc.it.rss.RSS_URL_EXTRA";
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.rss);
-		
-		context = this;
-		container = new RSSDataContainer(getIntent().getStringExtra(RSS_URL_EXTRA));
-		
-		setRSSActivityTitle();
-		
-		rssTask = new RSSTask(this, container);
-		rssTask.execute();
-	}
-	
-	/**
-	 * Set the title of the activity based on the URL passed from Main
-	 */
-	private void setRSSActivityTitle()
+    private Context context;
+    private RSSTask rssTask;
+    private RSSAdapter adapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.rss);
+
+	context = this;
+	rssTask = new RSSTask(this, context, true);
+	rssTask.execute(setRSSActivityTitle(getIntent().getStringExtra(RSS_URL_EXTRA)));
+	adapter = new RSSAdapter(context);
+    }
+
+    /**
+     * Set the title of the activity based on the URL
+     * 
+     * @param rssURL		the URL passed as an extra 
+     * @return url		RSS_URL that matches passed String
+     */
+    private RSS_URL setRSSActivityTitle(String rssURL)
+    {
+	RSS_URL[] urls = RSS_URL.values();
+	int index = 0;
+	for(int i = 0; i < urls.length; i++)
 	{
-		if(container.getURL().equals(RSS_URL.NEWS.toString()))
-		{
-			setTitle("GGC News");
-		}
-		else if(container.getURL().equals(RSS_URL.EVENTS.toString()))
-		{
-			setTitle("GGC Events");
-		}
+	    if(rssURL.equals(urls[i].URL()))
+	    {
+		setTitle("GGC " + urls[i].title());
+		index = i;
+	    }
 	}
-	
-	/**
-	 * Called when user clicks on a List item
-	 * Opens web page of item
-	 * @param position
-	 * 			the position of the View item click the only passed argument used in method
-	 */
-	@Override
-	protected void onListItemClick(ListView list, View view, int position, long id) {
-	   Uri uri = Uri.parse(container.getLinkAtIndex(position));
-	   Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-	   startActivity(intent);
-	}
+	return urls[index];
+    }
 
-	/**
-	 * Override from RSSTaskComplete interface
-	 * This method is called when RSSTask finishes execution
-	 */
-	@Override
-	public void taskComplete() {
-		RSSAdapter adapter = new RSSAdapter(context,container);
-		setListAdapter(adapter);	
-	}
+    /**
+     * Called when user clicks on a List item Opens webpage of item
+     * 
+     * @param list		ListView where the click happened
+     * @param view		View that was clicked within the ListView
+     * @param position		position of the View item clicked
+     * @param id		row id of the item that was clicked 
+     */
+    @Override
+    protected void onListItemClick(ListView list, View view, int position, long id)
+    {
+	RSSDataContainer container = adapter.getContainer();
+	Uri uri = Uri.parse(container.getLinkAt(position));
+	Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+	startActivity(intent);
+    }
+
+    /**
+     * Called when RSSTask finishes execution
+     * 
+     * @param containers	container filled by RSSTask
+     */
+    @Override
+    public void taskComplete(RSSDataContainer[] containers)
+    {
+	adapter.setContainer(containers[0]);
+	setListAdapter(adapter);
+    }
 }
