@@ -258,7 +258,11 @@
 
     <string name="myinfo">Find My Mentor</string>
     <string name="action_settings">Settings</string>
-    <string name="reminders">Reminders</string>
+	
+	<string name="title_activity_gpacalc">GPA Calculator</string>
+    <string name="title_activity_gpacalc_semester">GPA Calculator</string>
+    
+	<string name="reminders">Reminders</string>
     <string name="reminder_label">Enter your reminder text:</string>
     <string name="example_reminder">Return library books</string>
     <string name="reminder_date_label">Choose a date and time:</string>
