@@ -52,7 +52,7 @@ public class GPACalcActivity extends Activity
                 int hours = 0;
 
                 //Error checking for empty GPA text field
-                if(!stringGPA.isEmpty())
+                if(!stringGPA.isEmpty() && !stringGPA.equals("."))
                 {
                     gpa = Float.parseFloat(stringGPA);
                 }
@@ -65,7 +65,7 @@ public class GPACalcActivity extends Activity
                 }
 
                 //Error checking for empty Hours text field
-                if (!stringHours.isEmpty())
+                if (!stringHours.isEmpty() && !stringHours.equals("."))
                 {
                     
                     hours = (int) Float.parseFloat(stringHours);

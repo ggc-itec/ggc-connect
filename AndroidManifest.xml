@@ -143,14 +143,16 @@
         </activity>
         <activity android:name="edu.ggc.it.myinfo.MyInfoActivity" >
         </activity>
-        <activity
-            android:name="edu.ggc.it.gpacalc.GPACalcActivity"
-            android:label="@string/title_activity_gpacalc" >
-        </activity>
-        <activity
-            android:name="edu.ggc.it.gpacalc.GPACalcSemester"
-            android:label="@string/title_activity_gpacalc_semester" >
-        </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcActivity"
+            android:label="@string/title_activity_gpacalc"
+            android:configChanges="orientation|keyboardHidden" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcSemester"
+            android:label="@string/title_activity_gpacalc_semester"
+            android:configChanges="orientation|keyboardHidden" >
+        </activity>
         <activity
             android:name="edu.ggc.it.reminders.RemindersActivity"
             android:label="@string/title_activity_reminders"
