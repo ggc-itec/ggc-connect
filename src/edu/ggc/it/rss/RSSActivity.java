@@ -19,11 +19,9 @@ import android.widget.ListView;
 public class RSSActivity extends ListActivity implements RSSTaskComplete
 {
     public static final String RSS_URL_EXTRA = "edu.ggc.it.rss.RSS_URL_EXTRA";
-    //current rss urls for ggc
 
     private Context context;
     private RSSTask rssTask;
-    private String rssURL;
     private RSSAdapter adapter;
 
     @Override
@@ -33,25 +31,30 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	setContentView(R.layout.rss);
 
 	context = this;
-	this.rssURL = getIntent().getStringExtra(RSS_URL_EXTRA);
 	rssTask = new RSSTask(this, context, true);
-	rssTask.execute(rssURL);
+	rssTask.execute(setRSSActivityTitle(getIntent().getStringExtra(RSS_URL_EXTRA)));
 	adapter = new RSSAdapter(context);
-	setRSSActivityTitle();
     }
 
     /**
      * Set the title of the activity based on the URL
+     * 
+     * @param rssURL		the URL passed as an extra 
+     * @return url		RSS_URL that matches passed String
      */
-    private void setRSSActivityTitle()
+    private RSS_URL setRSSActivityTitle(String rssURL)
     {
-	if (rssURL.equals(RSS_URL.NEWS.toString()))
+	RSS_URL[] urls = RSS_URL.values();
+	int index = 0;
+	for(int i = 0; i < urls.length; i++)
 	{
-	    setTitle("GGC News");
-	} else if (rssURL.equals(RSS_URL.EVENTS.toString()))
-	{
-	    setTitle("GGC Events");
+	    if(rssURL.equals(urls[i].URL()))
+	    {
+		setTitle("GGC " + urls[i].title());
+		index = i;
+	    }
 	}
+	return urls[index];
     }
 
     /**
@@ -77,9 +80,9 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
      * @param container		container filled by RSSTask
      */
     @Override
-    public void taskComplete(RSSDataContainer container)
+    public void taskComplete(RSSDataContainer[] container)
     {
-	adapter.setContainer(container);
+	adapter.setContainer(container[0]);
 	setListAdapter(adapter);
     }
 }

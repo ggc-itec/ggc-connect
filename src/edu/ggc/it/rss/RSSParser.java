@@ -40,7 +40,7 @@ public class RSSParser
     {
 	try
 	{
-	    url = new URL(container.getURL());
+	    url = new URL(container.getRSSURL().URL());
 	    factory = XmlPullParserFactory.newInstance();
 	    factory.setNamespaceAware(false);
 	    parser = factory.newPullParser();
@@ -70,32 +70,32 @@ public class RSSParser
 		String name = parser.getName();
 		if (eventType == XmlPullParser.START_TAG)
 		{
-		    if (name.equalsIgnoreCase(RSSTag.ITEM.toString()))
+		    if (name.equalsIgnoreCase(RSSTag.ITEM.tag()))
 		    {
 			insideItem = true;
 		    }
-		    else if (name.equalsIgnoreCase(RSSTag.TITLE.toString()))
+		    else if (name.equalsIgnoreCase(RSSTag.TITLE.tag()))
 		    {
 			if (insideItem)
 			    container.add(parser.nextText(), RSSTag.TITLE);
 		    }
-		    else if (name.equalsIgnoreCase(RSSTag.LINK.toString()))
+		    else if (name.equalsIgnoreCase(RSSTag.LINK.tag()))
 		    {
 			if (insideItem)
 			    container.add(parser.nextText(), RSSTag.LINK);
 		    }
-		    else if (name.equalsIgnoreCase(RSSTag.DESCRIPTION.toString()))
+		    else if (name.equalsIgnoreCase(RSSTag.DESCRIPTION.tag()))
 		    {
 			if (insideItem)
 			    container.add(parser.nextText(), RSSTag.DESCRIPTION);
 		    }
-		    else if (name.equalsIgnoreCase(RSSTag.PUBLISH_DATE.toString()))
+		    else if (name.equalsIgnoreCase(RSSTag.PUBLISH_DATE.tag()))
 		    {
 			if (insideItem)
 			    container.add(parser.nextText(), RSSTag.PUBLISH_DATE);
 		    }
 		}
-		else if (eventType == XmlPullParser.END_TAG && name.equalsIgnoreCase(RSSTag.ITEM.toString()))
+		else if (eventType == XmlPullParser.END_TAG && name.equalsIgnoreCase(RSSTag.ITEM.tag()))
 		{
 		    insideItem = false;
 		}

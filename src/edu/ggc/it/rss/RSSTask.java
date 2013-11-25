@@ -1,5 +1,6 @@
 package edu.ggc.it.rss;
 
+import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,7 +12,7 @@ import android.os.AsyncTask;
  * @param String
  * @progress
  */
-public class RSSTask extends AsyncTask<String, Void, RSSDataContainer>
+public class RSSTask extends AsyncTask<RSS_URL, Void, RSSDataContainer[]>
 {
     private RSSTaskComplete task;
     private Context context;
@@ -57,10 +58,14 @@ public class RSSTask extends AsyncTask<String, Void, RSSDataContainer>
      *            an array of strings passed when RSSTask.execute(String)
      */
     @Override
-    protected RSSDataContainer doInBackground(String... rssURL)
+    protected RSSDataContainer[] doInBackground(RSS_URL... rssURL)
     {
-	RSSDataContainer container = new RSSDataContainer(rssURL[0]);
-	container.fill(context);
+	RSSDataContainer[] container = new RSSDataContainer[rssURL.length];
+	for(int i = 0; i < rssURL.length; i++)
+	{
+	    container[i] = new RSSDataContainer(rssURL[i]);
+	    container[i].fill(context);
+	}
 	return container;
     }
 
@@ -70,9 +75,8 @@ public class RSSTask extends AsyncTask<String, Void, RSSDataContainer>
      * @param container
      *            the container returned by doInBackground()
      */
-    protected void onPostExecute(RSSDataContainer container)
+    protected void onPostExecute(RSSDataContainer[] container)
     {
-	task.taskComplete(container);
 	if (showDialog)
 	{
 	    if (dialog.isShowing())
@@ -80,5 +84,6 @@ public class RSSTask extends AsyncTask<String, Void, RSSDataContainer>
 		dialog.dismiss();
 	    }
 	}
+	task.taskComplete(container);
     }
 }

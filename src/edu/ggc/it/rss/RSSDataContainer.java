@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ggc.it.rss.RSSEnumSets.RSSTag;
+import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
 import android.content.Context;
 
 
@@ -16,7 +17,7 @@ import android.content.Context;
  */
 public class RSSDataContainer
 {
-	private final String rssUrl;
+	private final RSS_URL rssUrl;
 	private List<String> titles = new ArrayList<String>();
 	private List<String> links = new ArrayList<String>();
 	private List<String> publishedDates = new ArrayList<String>();
@@ -27,7 +28,7 @@ public class RSSDataContainer
 	 * 
 	 * @param rssUrl	URL unique to instance of this class
 	 */
-	public RSSDataContainer(String rssUrl)
+	public RSSDataContainer(RSS_URL rssUrl)
 	{
 		this.rssUrl = rssUrl;
 	}
@@ -77,7 +78,7 @@ public class RSSDataContainer
 	/**
 	 * @return the URL associated with this container
 	 */
-	public String getURL()
+	public RSS_URL getRSSURL()
 	{
 		return rssUrl;
 	}
