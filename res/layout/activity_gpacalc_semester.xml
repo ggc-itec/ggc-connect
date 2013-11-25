@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/semester_scroll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <LinearLayout
+        android:id="@+id/semester_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/child_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- Class -->
+
+            <TextView
+                android:id="@+id/text_class_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your information for each class and press submit"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/child_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <!-- Add course -->
+
+            <Button
+                android:id="@+id/button_add_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Class" />
+
+            <!-- Remove course -->
+
+            <Button
+                android:id="@+id/button_remove_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove Class" />
+
+            <!-- Submit Button -->
+
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
