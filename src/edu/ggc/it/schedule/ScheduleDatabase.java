@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static edu.ggc.it.schedule.ScheduleDatabase.*;
+
 /**
  * This is the Schedule Database class. It contains all the information about
  * the database and methods for adding, editing, retrieving and deleting
@@ -164,15 +166,15 @@ public class ScheduleDatabase {
 	/**
 	 * A string array of all the keys
 	 */
-	public static final String[] KEYS_ALL = { ScheduleDatabase.KEY_ROWID,
-			ScheduleDatabase.KEY_NAME, ScheduleDatabase.KEY_SECTION,
-			ScheduleDatabase.KEY_START_TIME, ScheduleDatabase.KEY_END_TIME,
-			ScheduleDatabase.KEY_ON_MONDAY, ScheduleDatabase.KEY_ON_TUESDAY,
-			ScheduleDatabase.KEY_ON_WEDNESDAY,
-			ScheduleDatabase.KEY_ON_THURSDAY, ScheduleDatabase.KEY_ON_FRIDAY,
-			ScheduleDatabase.KEY_ON_SATURDAY,
-			ScheduleDatabase.KEY_BUILDING_LOCATION,
-			ScheduleDatabase.KEY_ROOM_LOCATION };
+	public static final String[] KEYS_ALL = { KEY_ROWID,
+			KEY_NAME, KEY_SECTION,
+			KEY_START_TIME, KEY_END_TIME,
+			KEY_ON_MONDAY, KEY_ON_TUESDAY,
+			KEY_ON_WEDNESDAY,
+			KEY_ON_THURSDAY, KEY_ON_FRIDAY,
+			KEY_ON_SATURDAY,
+			KEY_BUILDING_LOCATION,
+			KEY_ROOM_LOCATION };
 
 	private Context context;
 	private SQLiteDatabase database;
@@ -221,7 +223,7 @@ public class ScheduleDatabase {
 	 */
 	public boolean updateRow(long rowId, ContentValues values) {
 		return database.update(DATABASE_TABLE, values,
-				ScheduleDatabase.KEY_ROWID + "=" + rowId, null) > 0;
+				KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	/**
@@ -230,7 +232,7 @@ public class ScheduleDatabase {
 	 * @return
 	 */
 	public boolean deleteRow(long rowId) {
-		return database.delete(DATABASE_TABLE, ScheduleDatabase.KEY_ROWID + "="
+		return database.delete(DATABASE_TABLE, KEY_ROWID + "="
 				+ rowId, null) > 0;
 	}
 
@@ -288,18 +290,18 @@ public class ScheduleDatabase {
 			int wednesday, int thursday, int friday, int saturday,
 			String buildingLocation, String roomLocation) {
 		ContentValues values = new ContentValues();
-		values.put(ScheduleDatabase.KEY_NAME, name);
-		values.put(ScheduleDatabase.KEY_SECTION, section);
-		values.put(ScheduleDatabase.KEY_START_TIME, startTime);
-		values.put(ScheduleDatabase.KEY_END_TIME, endTime);
+		values.put(KEY_NAME, name);
+		values.put(KEY_SECTION, section);
+		values.put(KEY_START_TIME, startTime);
+		values.put(KEY_END_TIME, endTime);
 		values.put(KEY_ON_MONDAY, monday);
 		values.put(KEY_ON_TUESDAY, tuesday);
 		values.put(KEY_ON_WEDNESDAY, wednesday);
 		values.put(KEY_ON_THURSDAY, thursday);
 		values.put(KEY_ON_FRIDAY, friday);
 		values.put(KEY_ON_SATURDAY, saturday);
-		values.put(ScheduleDatabase.KEY_BUILDING_LOCATION, buildingLocation);
-		values.put(ScheduleDatabase.KEY_ROOM_LOCATION, roomLocation);
+		values.put(KEY_BUILDING_LOCATION, buildingLocation);
+		values.put(KEY_ROOM_LOCATION, roomLocation);
 		return values;
 	}
 	
@@ -320,31 +322,31 @@ public class ScheduleDatabase {
 		private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "
 				+ DATABASE_TABLE
 				+ " ("
-				+ ScheduleDatabase.KEY_ROWID
+				+ KEY_ROWID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ ScheduleDatabase.KEY_NAME
+				+ KEY_NAME
 				+ " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_SECTION
+				+ KEY_SECTION
 				+ " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_START_TIME
+				+ KEY_START_TIME
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_END_TIME
+				+ KEY_END_TIME
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_MONDAY
+				+ KEY_ON_MONDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_TUESDAY
+				+ KEY_ON_TUESDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_WEDNESDAY
+				+ KEY_ON_WEDNESDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_THURSDAY
+				+ KEY_ON_THURSDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_FRIDAY
+				+ KEY_ON_FRIDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_ON_SATURDAY
+				+ KEY_ON_SATURDAY
 				+ " INTEGER NOT NULL, "
-				+ ScheduleDatabase.KEY_BUILDING_LOCATION
+				+ KEY_BUILDING_LOCATION
 				+ " TEXT NOT NULL, "
-				+ ScheduleDatabase.KEY_ROOM_LOCATION + " TEXT NOT NULL " + ");";
+				+ KEY_ROOM_LOCATION + " TEXT NOT NULL " + ");";
 
 		/**
 		 * The database helper constructor

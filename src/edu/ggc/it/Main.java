@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import edu.ggc.it.myinfo.MyInfoActivity;
 import edu.ggc.it.social.SocialListActivity;
 import edu.ggc.it.todo.ToDoListActivity;
+import edu.ggc.it.reminders.RemindersActivity;
 
 /*  
  * ggc-connect is an app designed for the GGC community 
@@ -83,6 +84,9 @@ public class Main extends Activity
 		case R.id.feedback:
 			String feedbackURL = "https://docs.google.com/forms/d/1_6-2W088X8q2RNziskqiGIRYGelE-d0YvLYpd7hcNI0/viewform";
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(feedbackURL)));
+			return true;
+		case R.id.reminders:
+			startActivity(new Intent(Main.this, RemindersActivity.class));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

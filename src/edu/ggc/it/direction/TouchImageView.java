@@ -19,48 +19,34 @@ import edu.ggc.it.R;
  * @author From the internet
  *
  */
-public class TouchImageView extends ImageView {
-	// Longitude of destination that user wants to hit
-	double longitudeDes;
-	// Latitude of destination that user wants to hit
-    double latitudeDes;
-	// Longitude where user current at
-    double longitudeUser;
-    // Latitude where user current at
-	double latitudeUser;
-
-    Matrix matrix;
-    // We can be in one of these 3 states
-    final int NONE = 0;
-    final int DRAG = 1;
-    final int ZOOM = 2;
-    int mode = NONE;
-
-    // Remember some things for zooming
-    PointF last = new PointF();
-    PointF start = new PointF();
-    float minScale = 1f;
-    float maxScale = 3f;
-    float[] m;
-
-    int viewWidth, viewHeight;
-    final int CLICK = 3;
-    float saveScale = 1f;
+public class TouchImageView extends ImageView
+{
+    private final int CLICK = 3;
+    private final int NONE = 0;
+    private final int DRAG = 1;
+    private final int ZOOM = 2;
+	private double longitudeDes;
+    private double latitudeDes;
+    private double longitudeUser;
+	private double latitudeUser;
+    private Matrix matrix;
+    private int mode = NONE;
+    private PointF last = new PointF();
+    private PointF start = new PointF();
+    private float minScale = 1f;
+    private float maxScale = 3f;
+    private float[] m;
+    private int viewWidth, viewHeight;
+    private float saveScale = 1f;
     protected float origWidth, origHeight;
-    int oldMeasuredWidth, oldMeasuredHeight;
+    private int oldMeasuredWidth, oldMeasuredHeight;
+    private ScaleGestureDetector mScaleDetector;
+    private Context context;
+    private Bitmap mUser;
+    private Bitmap mMarker;
 
-    ScaleGestureDetector mScaleDetector;
-    Context context;
-    
-    Bitmap mUser;
-    Bitmap mMarker;
-    
-
-    /**
-     * Constructor to create a new touchimageview with given context
-     * @param context
-     */
-    public TouchImageView(Context context) {
+    public TouchImageView(Context context)
+    {
         super(context);
         sharedConstructing(context);
         mMarker = BitmapFactory.decodeResource(context.getResources(), R.drawable.here);
@@ -71,17 +57,20 @@ public class TouchImageView extends ImageView {
      * Constructor to create a new touchimageview with given context and attribute
      * @param context
      */
-    public TouchImageView(Context context, AttributeSet attrs) {
+    public TouchImageView(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         sharedConstructing(context);
         mMarker = BitmapFactory.decodeResource(context.getResources(), R.drawable.here);
         mUser = BitmapFactory.decodeResource(context.getResources(), R.drawable.you);
     }
+
     /**
      * Get and define the constructing of image
      * @param context
      */
-    private void sharedConstructing(Context context) {
+    private void sharedConstructing(Context context)
+    {
         super.setClickable(true);
         this.context = context;
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
@@ -129,8 +118,7 @@ public class TouchImageView extends ImageView {
                 }
                 setImageMatrix(matrix);
                 invalidate();
-                
-                return true; // indicate event was handled
+                return true;
             }
         });
     }
@@ -140,11 +128,13 @@ public class TouchImageView extends ImageView {
      * This routine is used to set the maximum size of image that can be zoom in
      * @param x
      */
-    public void setMaxZoom(float x) {
+    public void setMaxZoom(float x)
+    {
         maxScale = x;
     }
     
-    public void setOriginalSize() {
+    public void setOriginalSize()
+    {
     	saveScale = 1f;
     }
     
@@ -152,9 +142,11 @@ public class TouchImageView extends ImageView {
      * Listener to get information when users do zoom in or out
      *
      */
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener
+    {
         @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
+        public boolean onScaleBegin(ScaleGestureDetector detector)
+        {
             mode = ZOOM;
             return true;
         }
@@ -163,7 +155,8 @@ public class TouchImageView extends ImageView {
          * @Override
          * when users zoom the map
          */
-        public boolean onScale(ScaleGestureDetector detector) {
+        public boolean onScale(ScaleGestureDetector detector)
+        {
             float mScaleFactor = detector.getScaleFactor();
             float origScale = saveScale;
             saveScale *= mScaleFactor;
@@ -188,7 +181,8 @@ public class TouchImageView extends ImageView {
     /**
      * define the matrix to make sure the view does not move
      */
-    void fixTrans() {
+    void fixTrans()
+    {
         matrix.getValues(m);
         float transX = m[Matrix.MTRANS_X];
         float transY = m[Matrix.MTRANS_Y];
@@ -207,7 +201,8 @@ public class TouchImageView extends ImageView {
      * @param contentSize
      * @return
      */
-    float getFixTrans(float trans, float viewSize, float contentSize) {
+    float getFixTrans(float trans, float viewSize, float contentSize)
+    {
         float minTrans, maxTrans;
 
         if (contentSize <= viewSize) {
@@ -232,7 +227,8 @@ public class TouchImageView extends ImageView {
      * @param contentSize
      * @return
      */
-    float getFixDragTrans(float delta, float viewSize, float contentSize) {
+    float getFixDragTrans(float delta, float viewSize, float contentSize)
+    {
         if (contentSize <= viewSize) {
             return 0;
         }
@@ -240,24 +236,24 @@ public class TouchImageView extends ImageView {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
-        
-        // Rescales image on rotation
-        if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight
-                || viewWidth == 0 || viewHeight == 0)
+
+        if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight || viewWidth == 0 || viewHeight == 0) {
             return;
+        }
         oldMeasuredHeight = viewHeight;
         oldMeasuredWidth = viewWidth;
 
         if (saveScale == 1) {
-            //Fit to screen.
         	float scale;
             Drawable drawable = getDrawable();
-            if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0)
+            if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0) {
                 return;
+            }
             int bmWidth = drawable.getIntrinsicWidth();
             int bmHeight = drawable.getIntrinsicHeight();
             
@@ -268,7 +264,6 @@ public class TouchImageView extends ImageView {
             scale = Math.min(scaleX, scaleY);
             matrix.setScale(scale, scale);
 
-            // Center the image
             float redundantYSpace = (float) viewHeight - (scale * (float) bmHeight);
             float redundantXSpace = (float) viewWidth - (scale * (float) bmWidth);
             redundantYSpace /= (float) 2;
@@ -288,7 +283,8 @@ public class TouchImageView extends ImageView {
      * @param lat: latitude of destination
      * @param lon: longitude of destination
      */
-    public void setDesCoordinator(double lat, double lon){
+    public void setDesCoordinator(double lat, double lon)
+    {
     	longitudeDes = lon;
     	latitudeDes=lat;
     }
@@ -298,7 +294,8 @@ public class TouchImageView extends ImageView {
      * @param lat: latitude where user is
      * @param lon: longitude where user is
      */
-    public void setUserCoordinator(double lat, double lon){
+    public void setUserCoordinator(double lat, double lon)
+    {
     	longitudeUser = lon;
     	latitudeUser=lat;
     }
@@ -309,8 +306,8 @@ public class TouchImageView extends ImageView {
      * One is the marker of destination where user wants to hit
      * The other is the marker of user on the map
      */
-    protected void onDraw(Canvas c) {
-        //Let the image of the campus map be drawn first
+    protected void onDraw(Canvas c)
+    {
         super.onDraw(c);
  
         float[] pDes = new float[2];
@@ -326,5 +323,4 @@ public class TouchImageView extends ImageView {
         c.drawBitmap(mMarker, pDes[0],pDes[1], null);
         c.drawBitmap(mUser, pUser[0],pUser[1], null);
     }
-
 }

@@ -15,17 +15,6 @@ import android.widget.Button;
 
 public class Calendar_gym extends Activity
 {
-	private Button muscle1;
-	private Button muscle2;
-	private Button bootCamp1;
-	private Button bootCamp2;
-	private Button strength;
-	private Button yogaletes;
-	private Button yoga;
-	private Button kickbox;
-	private Button interval1;
-	private Button interval2;
-	private Button interval3;
 	private Context context;
 
     /*
@@ -37,17 +26,17 @@ public class Calendar_gym extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_groups);
 	    context = this;
-		muscle1 = getListenedButton(R.id.Muscle1);
-		bootCamp1 = getListenedButton(R.id.camp1);
-		strength = getListenedButton(R.id.strength);
-		yogaletes = getListenedButton(R.id.letes);
-		interval1 = getListenedButton(R.id.interval1);
-		interval2 = getListenedButton(R.id.interval2);
-		interval3 = getListenedButton(R.id.interval3);
-		muscle2 = getListenedButton(R.id.Muscle2);
-		bootCamp2 = getListenedButton(R.id.camp2);
-		kickbox = getListenedButton(R.id.kickboxing);
-		yoga = getListenedButton(R.id.yoga);
+		Button muscle1 = getListenedButton(R.id.Muscle1);
+		Button bootCamp1 = getListenedButton(R.id.camp1);
+		Button strength = getListenedButton(R.id.strength);
+		Button yogaletes = getListenedButton(R.id.letes);
+		Button interval1 = getListenedButton(R.id.interval1);
+		Button interval2 = getListenedButton(R.id.interval2);
+		Button interval3 = getListenedButton(R.id.interval3);
+		Button muscle2 = getListenedButton(R.id.Muscle2);
+		Button bootCamp2 = getListenedButton(R.id.camp2);
+		Button kickbox = getListenedButton(R.id.kickboxing);
+		Button yoga = getListenedButton(R.id.yoga);
 	}
 
     private Button getListenedButton(final int id)

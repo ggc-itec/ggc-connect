@@ -29,5 +29,10 @@
         android:id="@+id/feedback"
         android:icon="@android:drawable/ic_btn_speak_now"
         android:title="@string/feedback" />
+    
+    <item
+        android:id="@+id/reminders"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/reminders" />
 
 </menu>

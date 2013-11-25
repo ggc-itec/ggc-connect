@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="12"
-    android:versionName="1.2.5" >
+    android:versionCode="13"
+    android:versionName="1.3" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -10,6 +10,7 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-sdk android:minSdkVersion="11" />
 
@@ -142,13 +143,51 @@
         </activity>
         <activity android:name="edu.ggc.it.myinfo.MyInfoActivity" >
         </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcActivity"
+            android:label="@string/title_activity_gpacalc" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcSemester"
+            android:label="@string/title_activity_gpacalc_semester" >
+        </activity>
         <activity
-            android:name="edu.ggc.it.gpacalc.GPACalcActivity"
-            android:label="@string/title_activity_gpacalc" >
+            android:name="edu.ggc.it.reminders.RemindersActivity"
+            android:label="@string/title_activity_reminders"
+            android:parentActivityName="edu.ggc.it.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ggc.it.Main" />
         </activity>
         <activity
-            android:name="edu.ggc.it.gpacalc.GPACalcSemester"
-            android:label="@string/title_activity_gpacalc_semester" >
+            android:name="edu.ggc.it.reminders.CreateReminderActivity"
+            android:label="@string/title_activity_create_reminder" >
+        </activity>
+
+        <receiver android:name="edu.ggc.it.reminders.Reminder" >
+        </receiver>
+
+        <activity
+            android:name="edu.ggc.it.about.AboutMainActivity"
+            android:label="@string/title_activity_about_main"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.about.HistoryButtonActivity"
+            android:label="@string/title_activity_history_button" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.about.GGCGeographyActivity"
+            android:label="@string/title_activity_ggcgeography" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.about.GGCFunFactsActivity"
+            android:label="@string/title_activity_ggcfun_facts" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.about.GGCSongActivity"
+            android:label="@string/title_activity_ggcsong"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

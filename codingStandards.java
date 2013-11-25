@@ -1,4 +1,4 @@
-import java.lang.String;  //import sepcific packages, not *'s
+import java.lang.String;  //import specific packages, not *'s
 
 /**
  * This file is both an example and explanation of adopted coding standards.

@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".CreateReminderActivity"
+    android:background="@color/ggc_green">
+
+   <TextView
+       android:id="@+id/reminder_notification_view"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/reminder_label_view"
+       android:layout_alignParentBottom="true"
+       android:layout_marginBottom="62dp"
+       android:gravity="center"
+       android:text="@string/activity_reminder_lower_text"
+       android:textColor="#FFFFFF"
+       android:textSize="25sp" />
+
+   <TextView
+       android:id="@+id/reminder_label_view"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="58dp"
+       android:gravity="center"
+       android:text="@string/activity_reminder_upper_text"
+       android:textColor="#FFFFFF"
+       android:textSize="30sp" />
+
+   <TextView
+       android:id="@+id/reminder_text_view"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:gravity="center"
+       android:text="@string/reminder_result_example"
+       android:textColor="#FFFFFF"
+       android:textSize="30sp" />
+
+</RelativeLayout>

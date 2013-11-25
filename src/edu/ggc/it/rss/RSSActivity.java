@@ -55,15 +55,12 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	
 	/**
 	 * Called when user clicks on a List item
-	 * Opens webpage of item
-	 * @param l
-	 * @param v
+	 * Opens web page of item
 	 * @param position
 	 * 			the position of the View item click the only passed argument used in method
-	 * @param id
 	 */
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void onListItemClick(ListView list, View view, int position, long id) {
 	   Uri uri = Uri.parse(container.getLinkAtIndex(position));
 	   Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 	   startActivity(intent);

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7800704a" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/historyImageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            android:src="@drawable/ggc_ground_breaking" />
+
+        <TextView
+            android:id="@+id/historyTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="&quot;The challenges of living in a global community require men and women of character who can anticipate and respond effectively to an uncertain and changing world.&quot;" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/historyImageView2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="5dp"
+                android:src="@drawable/kaufman" />
+
+            <TextView
+                android:id="@+id/historyTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5sp"
+                android:textStyle="bold"
+            	android:textSize="18sp"
+                android:text="– Daniel J. Kaufman, founding president of Georgia Gwinnett College\n" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/historyTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="•	Dr. Kaufman became charter president of the then-unnamed college in September 2005.\n\n
+•	Georgia Gwinnett College opened its doors on August 18, 2006 to 118 students as the nation’s first four-year public college founded in the 21st century and the first four-year public institution created in Georgia in more than 100 years.\n\n
+•	GGC’s students voted to name its Grizzly mascot “General” to honor Dr. Kaufman.\n\n
+•	In 2008, GGC held its inaugural commencement ceremony, graduating 17 students.\n\n
+•	In 2009, the Commission on Colleges of the Southern Association of Colleges and Schools granted Georgia Gwinnett its initial accreditation in record time. More than 3,000 students attended GGC.\n\n
+•	In 2010, GGC celebrated the opening of its new Library and Learning Center and its first student residence halls, transforming the commuter college into a residential campus.\n\n
+•	More than 5,300 students enrolled for the 2010 fall semester.\n\n
+•	The Student Center and laboratory structure opened in 2011.\n\n
+•	GGC enrolled 9,400 students in fall 2012.\n\n
+•	In 2013, the College broke ground on its Allied Health and Sciences Building.\n\n
+•	2012-13 was the Grizzlies’ first season of official intercollegiate competition in the National Association of Intercollegiate Athletics. The varsity athletics facilities were completed.\n\n
+" />
+        
+    </LinearLayout>
+
+</ScrollView>

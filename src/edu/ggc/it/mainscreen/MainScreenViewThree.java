@@ -42,12 +42,6 @@ import edu.ggc.it.R;
  */
 public class MainScreenViewThree extends RelativeLayout implements View.OnClickListener
 {
-    private Button buttonOne;
-    private Button buttonTwo;
-    private Button buttonThree;
-    private Button buttonFour;
-    private Button buttonFive;
-    private Button buttonSix;
     private Context context;
 
     public MainScreenViewThree(Context context)
@@ -69,12 +63,12 @@ public class MainScreenViewThree extends RelativeLayout implements View.OnClickL
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_view_three, this, true);
 
-        buttonOne = getListenedButton(R.id.view_three_dummy_btn1);
-        buttonTwo = getListenedButton(R.id.view_three_dummy_btn2);
-        buttonThree = getListenedButton(R.id.view_three_dummy_btn3);
-        buttonFour = getListenedButton(R.id.view_three_dummy_btn4);
-        buttonFive = getListenedButton(R.id.view_three_dummy_btn5);
-        buttonSix = getListenedButton(R.id.view_three_dummy_btn6);
+        Button buttonOne = getListenedButton(R.id.view_three_dummy_btn1);
+        Button buttonTwo = getListenedButton(R.id.view_three_dummy_btn2);
+        Button buttonThree = getListenedButton(R.id.view_three_dummy_btn3);
+        Button buttonFour = getListenedButton(R.id.view_three_dummy_btn4);
+        Button buttonFive = getListenedButton(R.id.view_three_dummy_btn5);
+        Button buttonSix = getListenedButton(R.id.view_three_dummy_btn6);
     }
 
     private Button getListenedButton(final int resource)

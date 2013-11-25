@@ -11,14 +11,13 @@ import android.webkit.WebViewClient;
 
 public class MagazineWebView extends Activity
 {
-	WebView mWebView;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_magazine_web_view);
-		mWebView = (WebView) findViewById(R.id.webView1);
+
+		WebView mWebView = (WebView) findViewById(R.id.webView1);
         mWebView.getSettings().setJavaScriptEnabled(true);
 	}
 
