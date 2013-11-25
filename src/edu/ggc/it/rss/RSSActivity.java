@@ -77,12 +77,12 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     /**
      * Called when RSSTask finishes execution
      * 
-     * @param container		container filled by RSSTask
+     * @param containers	container filled by RSSTask
      */
     @Override
-    public void taskComplete(RSSDataContainer[] container)
+    public void taskComplete(RSSDataContainer[] containers)
     {
-	adapter.setContainer(container[0]);
+	adapter.setContainer(containers[0]);
 	setListAdapter(adapter);
     }
 }

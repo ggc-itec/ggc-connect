@@ -23,7 +23,7 @@ public class RSSParser
     /**
      * Constructor
      * 
-     * @param container		reference to RSSDataContainer uses this class
+     * @param container		reference to RSSDataContainer that uses this class
      * @param context		Context of activity
      */
     public RSSParser(RSSDataContainer container, Context context)

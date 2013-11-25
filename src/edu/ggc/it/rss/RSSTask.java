@@ -52,10 +52,10 @@ public class RSSTask extends AsyncTask<RSS_URL, Void, RSSDataContainer[]>
     }
 
     /**
-     * Creates a RSSDataContainer object that is filled and returned
+     * Creates a RSSDataContainer[] object that is filled and returned
      * 
      * @param rssURL
-     *            an array of strings passed when RSSTask.execute(String)
+     *            an array of RSS_URL's passed when RSSTask.execute(RSS_URL)
      */
     @Override
     protected RSSDataContainer[] doInBackground(RSS_URL... rssURL)
@@ -70,7 +70,7 @@ public class RSSTask extends AsyncTask<RSS_URL, Void, RSSDataContainer[]>
     }
 
     /**
-     * Calls the RSSTaskComplete objects taskcomplete() method
+     * Calls the RSSTaskComplete object's taskComplete() method
      * 
      * @param container
      *            the container returned by doInBackground()

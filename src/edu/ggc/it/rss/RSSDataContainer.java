@@ -76,7 +76,7 @@ public class RSSDataContainer
 	}
 	
 	/**
-	 * @return the URL associated with this container
+	 * @return the RSS_URL associated with this container
 	 */
 	public RSS_URL getRSSURL()
 	{
