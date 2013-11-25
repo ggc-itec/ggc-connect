@@ -67,7 +67,8 @@ public class GPACalcActivity extends Activity
                 //Error checking for empty Hours text field
                 if (!stringHours.isEmpty())
                 {
-                    hours = Integer.parseInt(stringHours);
+                    
+                    hours = (int) Float.parseFloat(stringHours);
                 }
                 else 
                 {
