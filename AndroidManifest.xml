@@ -191,6 +191,14 @@
             android:label="@string/title_activity_gpacalc_semester"
             android:configChanges="orientation|keyboardHidden" >
         </activity>
+        <activity android:name="edu.ggc.it.departmenthours.DepartmentHoursActivity"
+            android:label="@string/title_activity_departmenthours" >
+            <intent-filter>
+                <action android:name="edu.ggc.it.departmenthours" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <receiver 
             android:name="edu.ggc.it.widget.WidgetProvider">
             <intent-filter>
