@@ -30,9 +30,12 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.rss);
 
+	String rssURL = getIntent().getStringExtra(RSS_URL_EXTRA);
 	context = this;
 	rssTask = new RSSTask(this, context, true);
-	rssTask.execute(setRSSActivityTitle(getIntent().getStringExtra(RSS_URL_EXTRA)));
+	rssTask.execute(getRSS_URL(rssURL));
+	
+	setRSSActivityTitle(rssURL);
 	adapter = new RSSAdapter(context);
     }
 
@@ -42,7 +45,25 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
      * @param rssURL		the URL passed as an extra 
      * @return url		RSS_URL that matches passed String
      */
-    private RSS_URL setRSSActivityTitle(String rssURL)
+    private void setRSSActivityTitle(String rssURL)
+    {
+	if(rssURL.equals(RSS_URL.NEWS.URL()))
+	{
+	    setTitle("GGC News");
+	}
+	else if(rssURL.equals(RSS_URL.EVENTS.URL()))
+	{
+	    setTitle("GGC Events");
+	}
+    }
+    
+    /**
+     * Returns an RSS_URL enum with the same URL as the passed String
+     * 
+     * @param rssURL		the URL passed as an extra
+     * @return url		RSS_URL that matches passed String
+     */
+    private RSS_URL getRSS_URL(String rssURL)
     {
 	RSS_URL[] urls = RSS_URL.values();
 	int index = 0;
@@ -50,7 +71,6 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	{
 	    if(rssURL.equals(urls[i].URL()))
 	    {
-		setTitle("GGC " + urls[i].title());
 		index = i;
 	    }
 	}
@@ -77,7 +97,7 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     /**
      * Called when RSSTask finishes execution
      * 
-     * @param containers	container filled by RSSTask
+     * @param containers	containers filled by RSSTask
      */
     @Override
     public void taskComplete(RSSDataContainer[] containers)

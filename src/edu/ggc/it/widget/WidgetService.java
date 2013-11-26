@@ -2,6 +2,7 @@ package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -13,6 +14,7 @@ import android.widget.RemoteViewsService;
  */
 public class WidgetService extends RemoteViewsService
 {
+    private static final String TAG = "WidgetService";
     /**
      * Returns a ViewsFactory object
      */
@@ -71,6 +73,9 @@ public class WidgetService extends RemoteViewsService
 	@Override
 	public RemoteViews getViewAt(int index)
 	{
+	    if(index < 0 || index >= getCount()) {
+		return null;
+	    }
 	    String title = data.getCurrentContainer().getTitleAt(index);
 	    rv.setTextViewText(R.id.widget_title_textview, title);
 	    
