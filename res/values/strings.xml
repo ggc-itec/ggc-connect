@@ -349,5 +349,6 @@
     <string name="title_activity_ggcgeography">GGC Geography</string>
     <string name="title_activity_ggcfun_facts">GGC Fun Facts</string>
     <string name="title_activity_ggcsong">GGC\'s Official Song</string>
+    <string name="title_activity_departmenthours">GGC Campus Hours</string>
 
 </resources>

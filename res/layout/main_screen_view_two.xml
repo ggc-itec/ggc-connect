@@ -72,7 +72,7 @@
         android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_two_dummy_btn2"
+            android:id="@+id/view_two_department_hours_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/view_two_about_ggc_btn"
@@ -81,13 +81,13 @@
             android:background="@drawable/main_button_directory" />
 
     <TextView
-            android:id="@+id/view_two_textview2"
+            android:id="@+id/view_two_department_hours_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn2"
-            android:layout_below="@+id/view_two_dummy_btn2"
+            android:layout_alignLeft="@+id/view_two_department_hours_btn"
+            android:layout_below="@+id/view_two_department_hours_btn"
             android:layout_marginLeft="-12dp"
-            android:text="dummy textview2"
+            android:text="Campus Hours"
             android:textColor="@color/main_button_text" />
 
     <Button
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/gpa_calc_button"
             android:layout_alignBottom="@+id/gpa_calc_button"
-            android:layout_alignRight="@+id/view_two_dummy_btn2"
+            android:layout_alignRight="@+id/view_two_department_hours_btn"
             android:background="@drawable/main_button_directory" />
 
     <TextView
