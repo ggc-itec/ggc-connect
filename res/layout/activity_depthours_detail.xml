@@ -1,0 +1,31 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:paddingTop="10dip"
+	android:paddingLeft="15dip"
+	>
+
+	<TextView
+		android:id="@+id/depthours_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+	/>
+
+	<TextView
+		android:id="@+id/depthours_open_closed"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		/>
+		
+	<TextView
+		android:id="@+id/depthours_hours"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		/>
+
+</LinearLayout>

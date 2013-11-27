@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
 import edu.ggc.it.R;
+import edu.ggc.it.departmenthours.DepartmentHoursActivity;
+import edu.ggc.it.gpacalc.GPACalcActivity;
 import edu.ggc.it.about.AboutMainActivity;
 
 /**
@@ -65,8 +66,8 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
         inflater.inflate(R.layout.main_screen_view_two, this, true);
 
         Button aboutGGCButton = getListenedButton(R.id.view_two_about_ggc_btn);
-        Button buttonTwo = getListenedButton(R.id.view_two_dummy_btn2);
-        Button buttonThree = getListenedButton(R.id.view_two_dummy_btn3);
+        Button buttonTwo = getListenedButton(R.id.view_two_department_hours_btn);
+        Button gpaCalcButton = getListenedButton(R.id.gpa_calc_button);
         Button buttonFour = getListenedButton(R.id.view_two_dummy_btn4);
         Button buttonFive = getListenedButton(R.id.view_two_dummy_btn5);
         Button buttonSix = getListenedButton(R.id.view_two_dummy_btn6);
@@ -84,10 +85,10 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
     {
         if (view.getId() == R.id.view_two_about_ggc_btn) {
             context.startActivity(new Intent(context, AboutMainActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn2) {
-            //context.startActivity(new Intent(context, YourActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn3) {
-            //context.startActivity(new Intent(context, YourActivity.class));
+        } else if (view.getId() == R.id.view_two_department_hours_btn) {
+            context.startActivity(new Intent(context, DepartmentHoursActivity.class));
+        } else if (view.getId() == R.id.gpa_calc_button) {
+            context.startActivity(new Intent(context, GPACalcActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn4) {
             //context.startActivity(new Intent(context, YourActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn5) {

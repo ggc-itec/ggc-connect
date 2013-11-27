@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <department name="Admissions" url="http://www.ggc.edu/admissions/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1000" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Bookstore" url="http://www.ggc.edu/about-ggc/departments/bookstore/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1500"/>
+        </hoursofoperation>
+    </department>
+    <department name="B Building Information Commons Help Desk" url="http://www.ggc.edu/about-ggc/departments/library/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Career Development and Advising Center" url="http://www.ggc.edu/about-ggc/departments/career-center/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Claw Card Office" url="http://www.ggc.edu/about-ggc/departments/claw-card/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Copy and Mail Services" url="http://www.ggc.edu/about-ggc/departments/copy-and-mail-services/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1730"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1730"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1730"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1730"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1630"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Counseling and Psychological Services" url="http://www.ggc.edu/about-ggc/departments/counseling-and-psychological-services/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="The Den (A Building)" url="http://www.ggc.edu/about-ggc/departments/library/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="745" closingTime="2000"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="745" closingTime="2000"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="745" closingTime="2000"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="745" closingTime="2000"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="745" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="745" closingTime="1100"/>
+        </hoursofoperation>
+    </department>
+    <department name="Dining Hall (Student Center)" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="1100" closingTime="1830"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1930"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1930"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1930"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1930"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1830"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1830"/>
+        </hoursofoperation>
+    </department>
+    <department name="Disability Services" url="http://www.ggc.edu/about-ggc/departments/disability-services/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="900" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Financial Aid" url="http://www.ggc.edu/admissions/tuition-and-aid/financial-aid/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Game Center" url="http://www.ggc.edu/student-life/get-involved-on-campus/student-center/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="1100" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="1100" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="1100" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1100" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="1100" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="1100" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1900"/>
+        </hoursofoperation>
+    </department>
+    <department name="GGCity Cafe" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Human Resources" url="http://www.ggc.edu/employment/human-resources/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Jazzman's Cafe and Bakery" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Library" url="http://www.ggc.edu/about-ggc/departments/library/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="1300" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1800"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1000" closingTime="1400"/>
+        </hoursofoperation>
+    </department>
+    <department name="Marketplace" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1430"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1430"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1430"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1430"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1430"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Office of Veteran Success" url="http://www.ggc.edu/about-ggc/departments/office-of-veteran-success/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1000" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Quiznos Sub" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="1030" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Registrar" url="http://www.ggc.edu/about-ggc/departments/registrar/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1000" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="ROTC" url="http://www.ggc.edu/academics/rotc/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Student Center" url="http://www.ggc.edu/student-life/get-involved-on-campus/student-center/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="1100" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1900"/>
+        </hoursofoperation>
+    </department>
+    <department name="Wellness and Recreation Center" url="http://www.ggc.edu/about-ggc/departments/wellness-center/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="1200" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="700" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="700" closingTime="1730"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="800" closingTime="1700"/>
+        </hoursofoperation>
+    </department>
+    <department name="WOW Cafe and Wingery" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="1030" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+</resources>

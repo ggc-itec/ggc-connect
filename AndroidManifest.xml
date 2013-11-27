@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="13"
-    android:versionName="1.3" >
+    android:versionCode="14"
+    android:versionName="1.3.1" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -181,6 +181,38 @@
             android:label="@string/title_activity_ggcsong"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcActivity"
+            android:label="@string/title_activity_gpacalc"
+            android:configChanges="orientation|keyboardHidden" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.gpacalc.GPACalcSemester"
+            android:label="@string/title_activity_gpacalc_semester"
+            android:configChanges="orientation|keyboardHidden" >
+        </activity>
+        <activity android:name="edu.ggc.it.departmenthours.DepartmentHoursActivity"
+            android:label="@string/title_activity_departmenthours" >
+            <intent-filter>
+                <action android:name="edu.ggc.it.departmenthours" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <receiver 
+            android:name="edu.ggc.it.widget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data 
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info"/>
+        </receiver>
+        <service 
+            android:name="edu.ggc.it.widget.WidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
     </application>
 
 </manifest>

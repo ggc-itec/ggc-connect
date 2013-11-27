@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 
 public class Reminder extends BroadcastReceiver 
 {    
@@ -30,7 +31,7 @@ public class Reminder extends BroadcastReceiver
 		wl.acquire();
 
 		//Build the notification for our reminder.
-		Notification noti = new Notification.Builder(context)
+		Notification noti = new NotificationCompat.Builder(context)
 		.setContentTitle("GGCReminders")
 		.setContentText(intent.getStringExtra(REMINDER_TEXT))
 		.setSmallIcon(R.drawable.ggc_connect_icon)
