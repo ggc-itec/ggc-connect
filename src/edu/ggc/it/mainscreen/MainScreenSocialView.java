@@ -112,7 +112,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent newsIntent = new Intent(context, RSSActivity.class);
-                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.toString());
+                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.URL());
                                 context.startActivity(newsIntent);
                             }
                         })
@@ -122,7 +122,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent eventsIntent = new Intent(context, RSSActivity.class);
-                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.toString());
+                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.URL());
                                 context.startActivity(eventsIntent);
                             }
                         }).show();
