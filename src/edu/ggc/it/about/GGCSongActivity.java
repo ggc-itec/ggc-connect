@@ -31,7 +31,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	private Handler mHandler = new Handler();
 	private int seekForwardTime = 5000;
 	private int seekBackwardTime = 5000;
-	private AssetFileDescriptor afd;
+	private AssetFileDescriptor songFile;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -48,7 +48,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		songProgressBar.setOnSeekBarChangeListener(this);
 		mp = new MediaPlayer();
 		mp.setOnCompletionListener(this);
-		afd = this.getResources().openRawResourceFd(R.raw.ggc_alma_mater); 
+		songFile = this.getResources().openRawResourceFd(R.raw.ggc_alma_mater); 
 		
 		prepareMediaPlayer();
 		
@@ -152,7 +152,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		{
 			// sets media player's data source and prepares it
 			mp.reset();
-			mp.setDataSource(afd.getFileDescriptor());
+			mp.setDataSource(songFile.getFileDescriptor());
 			mp.prepare();
 			
 			// Changes Button Image to play image
