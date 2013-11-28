@@ -2,7 +2,8 @@ package edu.ggc.it.banner;
 
 import java.io.Serializable;
 
-public class Course implements Serializable{
+public class Course implements Serializable
+{
 	private static final long serialVersionUID = -4597480769239854297L;
 	private String subject;
 	private String courseName;
@@ -10,7 +11,8 @@ public class Course implements Serializable{
 	private String description;
 	private double hours;
 	
-	public Course(String subj, String name, String id, String desc, double hours){
+	public Course(String subj, String name, String id, String desc, double hours)
+    {
 		subject = subj;
 		courseName = name;
 		courseId = id;
@@ -18,23 +20,28 @@ public class Course implements Serializable{
 		this.hours = hours;
 	}
 	
-	public String getSubject(){
+	public String getSubject()
+    {
 		return subject;
 	}
 	
-	public String getName(){
+	public String getName()
+    {
 		return courseName;
 	}
 	
-	public String getId(){
+	public String getId()
+    {
 		return courseId;
 	}
 	
-	public String getDescription(){
+	public String getDescription()
+    {
 		return description;
 	}
 	
-	public String getShortDescription(int maxChars){
+	public String getShortDescription(int maxChars)
+    {
 		String result = description;
 		if (result.length() <= maxChars)
 			return result;
@@ -48,11 +55,13 @@ public class Course implements Serializable{
 		return result;
 	}
 	
-	public double getCredits(){
+	public double getCredits()
+    {
 		return hours;
 	}
 	
-	public String toString(){
+	public String toString()
+    {
 		return String.format("%s %s - %s", subject, courseId, courseName);
 	}
 }

@@ -92,6 +92,7 @@ public class Banner
 	private Banner()
     {
 		// cannot instantiate; static class
+        throw new AssertionError();
 	}
 	
 	/**
