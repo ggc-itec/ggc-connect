@@ -39,9 +39,10 @@ public class CalendarActivity extends Activity
         setContentView(R.layout.activity_calendar);
         webView = (WebView) findViewById(R.id.calendar_webview);
         webView.getSettings().setJavaScriptEnabled(false);
+        webView.setBackgroundColor(Color.parseColor("#4C7801")); // GGC color!
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("UTF-8");
-        webView.setBackgroundColor(Color.parseColor("#4C7801")); // GGC color!
+        
         DownloadCalendarTask task = new DownloadCalendarTask(CalendarActivity.this);
         task.execute();
     }
@@ -74,10 +75,10 @@ public class CalendarActivity extends Activity
             {
                 e.printStackTrace();
             }
-            Elements newsHeadlines = doc.select(".one_twoCol"); // class one_twoCol is a CSS selector for the calendar table (this can change!)
+            Elements tableElements = doc.select(".one_twoCol"); // class one_twoCol is a CSS selector for the calendar table (this can change!)
             String html = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" +
                     "<style> table, td, th { border-collapse:collapse; border:1px solid black; } </style></head><body>"; //apply css table style
-            html = html + newsHeadlines.toString();
+            html = html + tableElements.toString();
             html = html + "</body></html>";
             return html;
         }
