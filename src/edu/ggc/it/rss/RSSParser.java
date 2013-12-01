@@ -40,7 +40,7 @@ public class RSSParser
     {
 	try
 	{
-	    url = new URL(container.getRSSURL().URL());
+	    url = new URL(container.getRSSFeed().URL());
 	    factory = XmlPullParserFactory.newInstance();
 	    factory.setNamespaceAware(false);
 	    parser = factory.newPullParser();

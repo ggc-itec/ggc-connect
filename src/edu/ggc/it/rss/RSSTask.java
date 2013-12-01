@@ -1,6 +1,6 @@
 package edu.ggc.it.rss;
 
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -12,7 +12,7 @@ import android.os.AsyncTask;
  * @param String
  * @progress
  */
-public class RSSTask extends AsyncTask<RSS_URL, Void, RSSDataContainer[]>
+public class RSSTask extends AsyncTask<RSSFeed, Void, RSSDataContainer[]>
 {
     private RSSTaskComplete task;
     private Context context;
@@ -54,16 +54,16 @@ public class RSSTask extends AsyncTask<RSS_URL, Void, RSSDataContainer[]>
     /**
      * Creates a RSSDataContainer[] object that is filled and returned
      * 
-     * @param rssURL
-     *            an array of RSS_URL's passed when RSSTask.execute(RSS_URL)
+     * @param feeds
+     *            an array of RSSFeed's passed when RSSTask.execute(RSSFeed) is called
      */
     @Override
-    protected RSSDataContainer[] doInBackground(RSS_URL... rssURL)
+    protected RSSDataContainer[] doInBackground(RSSFeed... feeds)
     {
-	RSSDataContainer[] container = new RSSDataContainer[rssURL.length];
-	for(int i = 0; i < rssURL.length; i++)
+	RSSDataContainer[] container = new RSSDataContainer[feeds.length];
+	for(int i = 0; i < feeds.length; i++)
 	{
-	    container[i] = new RSSDataContainer(rssURL[i]);
+	    container[i] = new RSSDataContainer(feeds[i]);
 	    container[i].fill(context);
 	}
 	return container;
