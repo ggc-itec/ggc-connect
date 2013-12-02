@@ -39,10 +39,10 @@ import android.util.Log;
  * @author Jacob
  *
  */
-public class Banner {
+public class Banner
+{
 	private static final String BANNER_URL = "https://ggc.gabest.usg.edu";
 	private static final String TAG = "BannerInterface";
-	// for class data
 	private static final SimpleDateFormat BANNER_DATE = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
 	private static final SimpleDateFormat BANNER_TIME = new SimpleDateFormat("hh:mm a", Locale.US);
 	private static final String TYPE = "Type";
@@ -89,8 +89,10 @@ public class Banner {
 					new BasicNameValuePair("crn_in", "")
 			});
 	
-	private Banner(){
+	private Banner()
+    {
 		// cannot instantiate; static class
+        throw new AssertionError();
 	}
 	
 	/**
@@ -101,7 +103,8 @@ public class Banner {
 	 * @param subject	the 3-4 letter subject code of the subject to find courses for (e.g. "ITEC")
 	 * @return a Map of course numbers to course names (e.g. {"3860": "Software Development I"})
 	 */
-	public static Map<String, String> getCourseNumbers(String subject){
+	public static Map<String, String> getCourseNumbers(String subject)
+    {
 		String response = "";
 		synchronized (p_display_courses){
 			p_display_courses.set("one_subj", subject);
@@ -132,7 +135,8 @@ public class Banner {
 	 * @param course	the 4 digit course number (e.g. "3860")
 	 * @return a Map of section numbers to CRNs (e.g. {"01": "20709"})
 	 */
-	public static Map<String, String> getCourseSections(String subject, String course){
+	public static Map<String, String> getCourseSections(String subject, String course)
+    {
 		final String separator = " - ";
 		
 		String response = "";
@@ -171,7 +175,8 @@ public class Banner {
 	 * @param crn		the CRN (e.g. "20709")
 	 * @return a Section object containing the section's schedule information
 	 */
-	public static Section getSection(String subject, String course, String crn){
+	public static Section getSection(String subject, String course, String crn)
+    {
 		Section result = null;
 		
 		String response = "";
@@ -203,7 +208,8 @@ public class Banner {
 	 * @param subject	the 3-4 letter subject code (e.g. "ITEC")
 	 * @return a List of Course objects representing all possible courses for that term
 	 */
-	public static List<Course> getCourses(String term, String subject){
+	public static List<Course> getCourses(String term, String subject)
+    {
 		final String course_parm = "crse_numb_in=";
 		final String tag_close = "\">";
 		final String separator = " - ";
@@ -431,8 +437,17 @@ public class Banner {
 			// get meeting times
 			List<Meeting> meetingTimes = getMeetings(content);
 			
+			// FIXME: temp fix applied, perm fix needed 
+			// zero credit hours does not make sense
+			double temp = 0;
+			try {
+				temp = Double.parseDouble(credits);
+			} catch(NumberFormatException e) {
+				temp = 0;
+			}
+			
 			// incomplete course data
-			Course course = new Course(subject, name, courseNum, null, Double.parseDouble(credits));
+			Course course = new Course(subject, name, courseNum, null, temp);
 			Section sect = new Section(course, term, Integer.parseInt(section), Integer.parseInt(crn), meetingTimes);
 			result.add(sect);
 		}
@@ -485,7 +500,16 @@ public class Banner {
 			}
 			
 			try {
-				endTime = BANNER_TIME.parse(times[1]);
+				// FIXME: temp fix applied
+				if( times.length >= 2)
+				{
+					endTime = BANNER_TIME.parse(times[1]);
+				}
+				else
+				{
+					//initialize to current date, of course, this makes no sense
+					endTime = new Date();
+				}
 			} catch (ParseException pe) {
 				Log.w(TAG, "Bad time format " + times[1], pe);
 			}

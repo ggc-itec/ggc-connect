@@ -15,13 +15,9 @@ import android.widget.EditText;
  * @modified Jesse Perkins
  * 
  */
-public class SavedSearchUpdateActivity extends Activity {
-
-	/**
-	 * Hold value of the row that was being edited
-	 */
+public class SavedSearchUpdateActivity extends Activity
+{
 	public static final String SAVE_ROW = "saverow";
-
 	private SavedSearchDatabase database;
 	private Long rowID;
 	private EditText editTextFirst;
@@ -33,14 +29,15 @@ public class SavedSearchUpdateActivity extends Activity {
 		setContentView(R.layout.activity_updatedb);
 		editTextFirst = (EditText) findViewById(R.id.firstNameText);
 		editTextLast = (EditText) findViewById(R.id.lastNameText);
-
 		rowID = null;
 
 		if (bundle == null) {
 			Bundle extras = getIntent().getExtras();
+
 			if (extras != null && extras.containsKey("rowID")) {
 				rowID = extras.getLong("rowID");
 			}
+
 		} else {
 			rowID = bundle.getLong(SAVE_ROW);
 		}
@@ -75,8 +72,7 @@ public class SavedSearchUpdateActivity extends Activity {
 	private void databaseToUI() {
 		if (rowID != null) {
 			Cursor cursor = database.query(rowID);
-			editTextFirst.setText(cursor
-					.getString(SavedSearchDatabase.INDEX_LASTNAMEFIRSTNAME));
+			editTextFirst.setText(cursor.getString(SavedSearchDatabase.INDEX_LASTNAMEFIRSTNAME));
 			cursor.close();
 		}
 	}
@@ -86,7 +82,6 @@ public class SavedSearchUpdateActivity extends Activity {
 		super.onPause();
 	}
 
-	// update only if the string is not empty
 	private void save() {
 		String first = editTextFirst.getText().toString();
 		String last = editTextLast.getText().toString();

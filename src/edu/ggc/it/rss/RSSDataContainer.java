@@ -3,43 +3,44 @@ package edu.ggc.it.rss;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ggc.it.rss.RSSEnumSets.RSSTaskDetail;
+import edu.ggc.it.rss.RSSEnumSets.RSSTag;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
+import android.content.Context;
+
 
 /**
  * This is a container class that has a unique URL associated with it
- * This class is instantiated in RSSActivity
- * Passed and filled in RSSTask
- * Then passed to RSSAdapter
- * Originally this package had multiple references to the below ArrayLists
- * I just put the ArrayLists in one class and now just pass references to this class
- * This encapsulates the rss data into one class
+ * 
  * 
  * @author Derek
  *
  */
-public class RSSDataContainer 
+public class RSSDataContainer
 {
-	private final String rssUrl;
+	private final RSSFeed feed;
 	private List<String> titles = new ArrayList<String>();
 	private List<String> links = new ArrayList<String>();
 	private List<String> publishedDates = new ArrayList<String>();
 	private List<String> descriptions = new ArrayList<String>();
 	
-	public RSSDataContainer(String rssUrl)
+	/**
+	 * Constructor
+	 * 
+	 * @param rssFeed	the RSSFeed associated with this container
+	 */
+	public RSSDataContainer(RSSFeed feed)
 	{
-		this.rssUrl = rssUrl;
+		this.feed = feed;
 	}
 	
 	/**
-	 * Add data to the appropriate ArrayList based on the passed RSSTaskDetail
-	 * This method is used in RSSTask.doInBackground(Void... args)
-	 * @param data
-	 * 			the string information added to ArrayLists
-	 * @param tag
-	 * 			the tag associated with the passed data
+	 * Add data to the appropriate ArrayList based on the passed RSSTag
+	 * This method is used in RSSParser.parseRSS()
+	 * 
+	 * @param data		the string information added to ArrayLists
+	 * @param tag		the tag associated with the passed data
 	 */
-	@SuppressWarnings("incomplete-switch")
-	public void add(String data, RSSTaskDetail tag)
+	public void add(String data, RSSTag tag)
 	{
 		switch (tag) 
 		{
@@ -55,15 +56,31 @@ public class RSSDataContainer
 			case DESCRIPTION:
 				descriptions.add(data);
 				break;
+			default:
+				break;
 		}
 	}
 	
 	/**
-	 * @return the URL associated with this container
+	 * Fills the the instance of the data container object
+	 * This method MUST NOT be called on the Main thread
+	 * Instead use some type of multithreading utility such as AsyncTask
+	 * 
+	 * @param context	Context of an activity that uses RSSDataContainer
+	 * 			Used for displaying Toast messages in RSSParser
 	 */
-	public String getURL()
+	public void fill(Context context)
 	{
-		return rssUrl;
+	    RSSParser parser = new RSSParser(this, context);
+	    parser.parseRSS();
+	}
+	
+	/**
+	 * @return the RSSFeed associated with this container
+	 */
+	public RSSFeed getRSSFeed()
+	{
+		return feed;
 	}
 	
 	/**
@@ -74,29 +91,38 @@ public class RSSDataContainer
 		return titles.size();
 	}
 	
+	/**
+	 * empties all lists in this container
+	 */
+	public void clearContainer()
+	{
+	    titles.clear();
+	    links.clear();
+	    publishedDates.clear();
+	    descriptions.clear();
+	}
+	
 	/*
 	 * The getters for each of the arrays
 	 * Returns string at specified index
 	 */
-	public String getTitleAtIndex(int index)
+	public String getTitleAt(int index)
 	{
 		return titles.get(index);
 	}
 	
-	public String getLinkAtIndex(int index)
+	public String getLinkAt(int index)
 	{
 		return links.get(index);
 	}
 	
-	public String getPublishedDatesAtIndex(int index)
+	public String getDateAt(int index)
 	{
 		return publishedDates.get(index);
 	}
 	
-	public String getDescriptionsAtIndex(int index)
+	public String getDescriptionAt(int index)
 	{
 		return descriptions.get(index);
 	}
 }
-
-

@@ -4,23 +4,27 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class CourseDB extends SQLiteOpenHelper {
+class CourseDB extends SQLiteOpenHelper
+{
 	private static final String DATABASE_NAME = "course_catalog.db";
 	private static final int DATABASE_VERSION = 2;
 	private static CourseDB instance = null;
 
-	private CourseDB(Context context) {
+	private CourseDB(Context context)
+    {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
-	public static CourseDB getInstance(Context context){
+	public static CourseDB getInstance(Context context)
+    {
 		if (instance == null)
 			instance = new CourseDB(context);
 		return instance;
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
+	public void onCreate(SQLiteDatabase db)
+    {
 		Catalog.onCreate(db);
 		Schedule.onCreate(db);
 		Instructors.onCreate(db);
@@ -29,7 +33,8 @@ class CourseDB extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
 		Catalog.onUpgrade(db);
 		Schedule.onUpgrade(db);
 		Instructors.onUpgrade(db);
@@ -38,7 +43,8 @@ class CourseDB extends SQLiteOpenHelper {
 	}
 
 	// inner classes for creating individual tables
-	static class Catalog{
+	static class Catalog
+    {
 		public static final String TABLE = "catalog";
 		public static final String COL_ID = "_id";
 		public static final String COL_SUBJ = "subj";
@@ -70,7 +76,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 	}
 	
-	static class Schedule{
+	static class Schedule
+    {
 		public static final String TABLE = "schedule";
 		public static final String COL_ID = "_id";
 		public static final String COL_COURSE = "courseid";
@@ -82,7 +89,8 @@ class CourseDB extends SQLiteOpenHelper {
 		public static final String INDEX_SECT = "sectidx";
 		public static final int NUM_COLUMNS = 4;
 		
-		public static void onCreate(SQLiteDatabase db){
+		public static void onCreate(SQLiteDatabase db)
+        {
 			db.execSQL("create table " + TABLE + " (" +
 					COL_ID + " integer primary key," +
 					COL_COURSE + " integer not null," +
@@ -99,13 +107,15 @@ class CourseDB extends SQLiteOpenHelper {
 					")");
 		}
 		
-		public static void onUpgrade(SQLiteDatabase db){
+		public static void onUpgrade(SQLiteDatabase db)
+        {
 			db.execSQL("DROP TABLE IF EXISTS schedule");
 			onCreate(db);
 		}
 	}
 	
-	static class Instructors{
+	static class Instructors
+    {
 		public static final String TABLE = "instructors";
 		public static final String COL_ID = "_id";
 		public static final String COL_NAME = "name";
@@ -131,7 +141,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 	}
 	
-	static class ClassTypes{
+	static class ClassTypes
+    {
 		public static final String TABLE = "classtypes";
 		public static final String COL_ID = "_id";
 		public static final String COL_DESC = "desc";
@@ -155,7 +166,8 @@ class CourseDB extends SQLiteOpenHelper {
 		}
 	}
 	
-	static class Meetings{
+	static class Meetings
+    {
 		public static final String TABLE = "meetings";
 		public static final String COL_ID = "_id";
 		public static final String COL_INSTRUCTOR = "instid";

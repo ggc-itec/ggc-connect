@@ -32,39 +32,39 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SearchResultsActivity extends ListActivity {
-	private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(
-			"hh:mm a", Locale.US);
-
+public class SearchResultsActivity extends ListActivity
+{
+	private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a", Locale.US);
 	private SectionAdapter sectionAdapter;
 	private SectionClickListener sectionListener;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 
-		CourseSearchBuilder searchBuilder = (CourseSearchBuilder) getIntent()
-				.getExtras().get(CourseSearchBuilder.KEY);
+		CourseSearchBuilder searchBuilder = (CourseSearchBuilder) getIntent().getExtras().get(CourseSearchBuilder.KEY);
 		sectionListener = new SectionClickListener();
-		// the search may take some time, so initialize the list to empty
+
 		List<Section> emptyList = new ArrayList<Section>();
 		sectionAdapter = new SectionAdapter(this, emptyList);
 		setListAdapter(sectionAdapter);
 
-		Toast loadingNotice = Toast.makeText(this, "Loading...",
-				Toast.LENGTH_LONG);
+		Toast loadingNotice = Toast.makeText(this, "Loading...", Toast.LENGTH_LONG);
 		loadingNotice.show();
 
 		AsyncTask<CourseSearchBuilder, Void, List<Section>> task = new AsyncTask<CourseSearchBuilder, Void, List<Section>>() {
 
 			@Override
-			protected List<Section> doInBackground(CourseSearchBuilder... parms) {
+			protected List<Section> doInBackground(CourseSearchBuilder... parms)
+            {
 				CourseSearchBuilder searchBuilder = parms[0];
 				return searchBuilder.searchCourses(SearchResultsActivity.this);
 			}
 
 			@Override
-			protected void onPostExecute(List<Section> sections) {
+			protected void onPostExecute(List<Section> sections)
+            {
 				sectionAdapter.addAll(sections);
 				sectionAdapter.notifyDataSetChanged();
 			}
@@ -82,70 +82,62 @@ public class SearchResultsActivity extends ListActivity {
 	 * @author Jacob
 	 * 
 	 */
-	private class SectionAdapter extends ArrayAdapter<Section> {
+	private class SectionAdapter extends ArrayAdapter<Section>
+    {
 		private static final int MAX_DESCRIPTION = 100;
-
 		private List<Section> sections;
 
-		public SectionAdapter(Context context, List<Section> sections) {
+		public SectionAdapter(Context context, List<Section> sections)
+        {
 			super(context, R.layout.section_preview, sections);
 			this.sections = sections;
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent)
+        {
 			LayoutInflater inflater = getLayoutInflater();
 
-			if (convertView == null)
+			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.section_preview, null);
+            }
 
-			// populate data
-			TextView courseTitle = (TextView) convertView
-					.findViewById(R.id.cs_course_title);
-			TextView description = (TextView) convertView
-					.findViewById(R.id.cs_desc_abbreviated);
-			TextView hours = (TextView) convertView
-					.findViewById(R.id.cs_hours_preview);
-			TableLayout meetingTable = (TableLayout) convertView
-					.findViewById(R.id.cs_meeting_preview_table);
+			TextView courseTitle = (TextView) convertView.findViewById(R.id.cs_course_title);
+			TextView description = (TextView) convertView.findViewById(R.id.cs_desc_abbreviated);
+			TextView hours = (TextView) convertView.findViewById(R.id.cs_hours_preview);
+			TableLayout meetingTable = (TableLayout) convertView.findViewById(R.id.cs_meeting_preview_table);
 			Section section = sections.get(position);
 			Course course = section.getCourse();
 			List<Meeting> meetings = section.getMeetings();
 
-			courseTitle.setText(String.format("%s - %02d", course.getName(),
-					section.getSection()));
+			courseTitle.setText(String.format("%s - %02d", course.getName(), section.getSection()));
 			description.setText(course.getShortDescription(MAX_DESCRIPTION));
-			hours.setText(Double.toString(course.getCredits())
-					+ " Credit hours");
+			hours.setText(Double.toString(course.getCredits()) + " Credit hours");
 
 			for (int i = 0; i < meetings.size(); i++) {
 				Meeting meeting = meetings.get(i);
 				View meetingRow = null;
 
-				// the first row is a header, so skip it
 				if (meetingTable.getChildCount() > i + 1) {
 					meetingRow = meetingTable.getChildAt(i + 1);
 				} else {
-					meetingRow = inflater.inflate(R.layout.meeting_preview,
-							null);
+					meetingRow = inflater.inflate(R.layout.meeting_preview, null);
 					meetingTable.addView(meetingRow);
 				}
 
-				TextView daysCell = (TextView) meetingRow
-						.findViewById(R.id.cs_days_preview);
-				TextView timeRange = (TextView) meetingRow
-						.findViewById(R.id.cs_time_preview);
-				TextView instructorCell = (TextView) meetingRow
-						.findViewById(R.id.cs_instructor_preview);
+				TextView daysCell = (TextView) meetingRow.findViewById(R.id.cs_days_preview);
+				TextView timeRange = (TextView) meetingRow.findViewById(R.id.cs_time_preview);
+				TextView instructorCell = (TextView) meetingRow.findViewById(R.id.cs_instructor_preview);
 				Instructor instructor = meeting.getInstructor();
 				String beginTime = TIME_FORMAT.format(meeting.getBeginTime());
 				String endTime = TIME_FORMAT.format(meeting.getEndTime());
 				String range = beginTime + " - " + endTime;
 				String instructorName = null;
-				if (instructor == null)
+				if (instructor == null) {
 					instructorName = "TBA";
-				else
+                } else {
 					instructorName = instructor.getName();
+                }
 
 				daysCell.setText(meeting.getDays());
 				timeRange.setText(range);
@@ -153,8 +145,7 @@ public class SearchResultsActivity extends ListActivity {
 			}
 
 			if (meetingTable.getChildCount() > meetings.size() + 1) {
-				for (int i = meetings.size() + 1; i < meetingTable
-						.getChildCount(); i++)
+				for (int i = meetings.size() + 1; i < meetingTable.getChildCount(); i++)
 					meetingTable.getChildAt(i).setVisibility(View.GONE);
 			}
 
@@ -165,8 +156,8 @@ public class SearchResultsActivity extends ListActivity {
 		}
 	}
 
-	private class SectionClickListener implements OnClickListener {
-
+	private class SectionClickListener implements OnClickListener
+    {
 		@Override
 		public void onClick(View view) {
 			final Section section = (Section) view.getTag();
@@ -182,26 +173,24 @@ public class SearchResultsActivity extends ListActivity {
 									} else if (which == 1) {
 										List<Meeting> meetings = section.getMeetings();
 										if (meetings.size()==2) {
-											// If meetings == 2, it means there is a class and a lab
 											showMeetingSelectionDialog(section);
 										} else {
-											// Add the first meeting, which is the class
 											addToSchedule(section, 0);
 										}
-										
 									}
 								}
 							}).show();
 		}
 
-		private void showSectionDetail(Section section) {
-			Intent detailIntent = new Intent(SearchResultsActivity.this,
-					SectionDetailActivity.class);
+		private void showSectionDetail(Section section)
+        {
+			Intent detailIntent = new Intent(SearchResultsActivity.this, SectionDetailActivity.class);
 			detailIntent.putExtra(Section.KEY, section);
 			startActivity(detailIntent);
 		}
 
-		private void showMeetingSelectionDialog(final Section section) {
+		private void showMeetingSelectionDialog(final Section section)
+        {
 			List<Meeting> meetings = section.getMeetings();
 			String[] meetingsArray = new String[meetings.size()];
 			
@@ -230,7 +219,8 @@ public class SearchResultsActivity extends ListActivity {
 							}).show();
 		}
 
-		private void addToSchedule(Section section, int selectedMeeting) {
+		private void addToSchedule(Section section, int selectedMeeting)
+        {
 			ClassItem ci = new ClassItem();
 			Course course = section.getCourse();
 			ci.setClassName(course.getName());
@@ -239,13 +229,11 @@ public class SearchResultsActivity extends ListActivity {
 			List<Meeting> meetings = section.getMeetings();
 			Meeting m = meetings.get(selectedMeeting);
 			SimpleDateFormat hourFormat = new SimpleDateFormat("HH", Locale.US);
-			SimpleDateFormat minuteFormat = new SimpleDateFormat("mm",
-					Locale.US);
+			SimpleDateFormat minuteFormat = new SimpleDateFormat("mm", Locale.US);
 
 			Date beginTime = m.getBeginTime();
 			ci.setStartTimeHour(Integer.parseInt(hourFormat.format(beginTime)));
-			ci.setStartTimeMinute(Integer.parseInt(minuteFormat
-					.format(beginTime)));
+			ci.setStartTimeMinute(Integer.parseInt(minuteFormat.format(beginTime)));
 
 			Date endTime = m.getEndTime();
 			ci.setEndTimeHour(Integer.parseInt(hourFormat.format(endTime)));
@@ -272,13 +260,10 @@ public class SearchResultsActivity extends ListActivity {
 			ci.setBuildingLocation(location.substring(0, 10));
 			ci.setRoomLocation(location.substring(11, location.length()));
 
-			Intent scheduleIntent = new Intent(SearchResultsActivity.this,
-					ScheduleUpdateActivity.class);
-			scheduleIntent.putExtra("action",
-					ScheduleUpdateActivity.ACTION_ADD_FROM_BANNER);
+			Intent scheduleIntent = new Intent(SearchResultsActivity.this, ScheduleUpdateActivity.class);
+			scheduleIntent.putExtra("action", ScheduleUpdateActivity.ACTION_ADD_FROM_BANNER);
 			scheduleIntent.putExtra("class", ci);
 			startActivity(scheduleIntent);
 		}
-
 	}
 }

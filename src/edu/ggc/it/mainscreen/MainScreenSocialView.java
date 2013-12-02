@@ -13,17 +13,13 @@ import android.widget.LinearLayout;
 
 import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSActivity;
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 
 /**
  * Created by gregwesterfield on 10/21/13.
  */
 public class MainScreenSocialView extends LinearLayout implements View.OnClickListener
 {
-    private ImageButton facebookButton;
-    private ImageButton twitterButton;
-    private ImageButton youtubeButton;
-    private ImageButton rssButton;
     private Context context;
 
     public MainScreenSocialView(Context context)
@@ -45,10 +41,10 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_social_view, this, true);
 
-        facebookButton = getListenedImageButton(R.id.facebook_page);
-        twitterButton = getListenedImageButton(R.id.twitter_page);
-        youtubeButton = getListenedImageButton(R.id.youtube_page);
-        rssButton = getListenedImageButton(R.id.rss_feed);
+        ImageButton facebookButton = getListenedImageButton(R.id.facebook_page);
+        ImageButton twitterButton = getListenedImageButton(R.id.twitter_page);
+        ImageButton youtubeButton = getListenedImageButton(R.id.youtube_page);
+        ImageButton rssButton = getListenedImageButton(R.id.rss_feed);
     }
 
     private ImageButton getListenedImageButton(final int resource)
@@ -116,7 +112,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent newsIntent = new Intent(context, RSSActivity.class);
-                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.toString());
+                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.NEWS.URL());
                                 context.startActivity(newsIntent);
                             }
                         })
@@ -126,7 +122,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent eventsIntent = new Intent(context, RSSActivity.class);
-                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.toString());
+                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.EVENTS.URL());
                                 context.startActivity(eventsIntent);
                             }
                         }).show();

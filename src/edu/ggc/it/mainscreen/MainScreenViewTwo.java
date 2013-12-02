@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
 import edu.ggc.it.R;
+import edu.ggc.it.calendar.CalendarActivity;
+import edu.ggc.it.departmenthours.DepartmentHoursActivity;
+import edu.ggc.it.gpacalc.GPACalcActivity;
+import edu.ggc.it.about.AboutMainActivity;
 
 /**
  * INSTRUCTIONS FOR ADDING YOUR FEATURE TO THE MAIN SCREEN
@@ -42,12 +45,6 @@ import edu.ggc.it.R;
  */
 public class MainScreenViewTwo extends RelativeLayout implements View.OnClickListener
 {
-    private Button buttonOne;
-    private Button buttonTwo;
-    private Button buttonThree;
-    private Button buttonFour;
-    private Button buttonFive;
-    private Button buttonSix;
     private Context context;
 
     public MainScreenViewTwo(Context context)
@@ -69,12 +66,12 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_view_two, this, true);
 
-        buttonOne = getListenedButton(R.id.view_two_dummy_btn1);
-        buttonTwo = getListenedButton(R.id.view_two_dummy_btn2);
-        buttonThree = getListenedButton(R.id.view_two_dummy_btn3);
-        buttonFour = getListenedButton(R.id.view_two_dummy_btn4);
-        buttonFive = getListenedButton(R.id.view_two_dummy_btn5);
-        buttonSix = getListenedButton(R.id.view_two_dummy_btn6);
+        Button aboutGGCButton = getListenedButton(R.id.view_two_about_ggc_btn);
+        Button buttonTwo = getListenedButton(R.id.view_two_department_hours_btn);
+        Button gpaCalcButton = getListenedButton(R.id.gpa_calc_button);
+        Button calendarButton = getListenedButton(R.id.calendar_btn);
+        Button buttonFive = getListenedButton(R.id.view_two_dummy_btn5);
+        Button buttonSix = getListenedButton(R.id.view_two_dummy_btn6);
     }
 
     private Button getListenedButton(final int resource)
@@ -87,14 +84,14 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.view_two_dummy_btn1) {
-            //context.startActivity(new Intent(context, YourActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn2) {
-            //context.startActivity(new Intent(context, YourActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn3) {
-            //context.startActivity(new Intent(context, YourActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn4) {
-            //context.startActivity(new Intent(context, YourActivity.class));
+        if (view.getId() == R.id.view_two_about_ggc_btn) {
+            context.startActivity(new Intent(context, AboutMainActivity.class));
+        } else if (view.getId() == R.id.view_two_department_hours_btn) {
+            context.startActivity(new Intent(context, DepartmentHoursActivity.class));
+        } else if (view.getId() == R.id.gpa_calc_button) {
+            context.startActivity(new Intent(context, GPACalcActivity.class));
+        } else if (view.getId() == R.id.calendar_btn) {
+            context.startActivity(new Intent(context, CalendarActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn5) {
             //context.startActivity(new Intent(context, YourActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn6) {

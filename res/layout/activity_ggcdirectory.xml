@@ -12,7 +12,8 @@
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" />
 
     <TabHost
         android:id="@+id/tabHost"
@@ -126,7 +127,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/lastNameText"
                         android:layout_marginTop="52dp"
-                        android:onClick="searchName"
                         android:text="Search" />
 
                     <Button

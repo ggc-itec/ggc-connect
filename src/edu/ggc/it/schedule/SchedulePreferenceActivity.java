@@ -14,8 +14,6 @@ public class SchedulePreferenceActivity extends Activity {
 	private Spinner spnReminderTime;
 	
 	public static final String SHARED_PREFERENCES_FILE = "schedule_reminder";
-	public static final String KEY_REMINDER_STRING = "schedule_reminder_string";
-	public static final String KEY_SPINNER_REMINDER_POS = "schedule_reminder_pos";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

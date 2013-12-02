@@ -246,16 +246,108 @@
     </string-array>
 
     <string name="schedule_pref_notify_desc">Remind me when my class is about to start:</string>
-    
+
     <string-array name="cs_course_actions">
         <item>View more details</item>
         <item>Add to my schedule</item>
     </string-array>
-    
     <string-array name="schedule_add_menu_options">
         <item>Add manually</item>
         <item>Add from banner search</item>
     </string-array>
-    
+
     <string name="myinfo">Find My Mentor</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gpacalc">GPA Calculator</string>
+    <string name="title_activity_gpacalc_semester">GPA Calculator</string>
+    <string name="reminders">Reminders</string>
+    <string name="reminder_label">Enter your reminder text:</string>
+    <string name="example_reminder">Return library books</string>
+    <string name="reminder_date_label">Choose a date and time:</string>
+    <string name="reminder_button_text">Create Reminder</string>
+
+    <string-array name="months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="days_array">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+    <string-array name="years_array">
+        <item>2013</item>
+        <item>2014</item>
+        <item>2015</item>
+    </string-array>
+    <string-array name="times_array">
+        <item>12:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+    </string-array>
+    <string-array name="ampm_array">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string name="title_activity_reminders">GGC Reminders</string>
+    <string name="title_activity_create_reminder">GGC Reminders</string>
+    <string name="reminder_result_example">1-1-2013 12:00</string>
+    <string name="activity_reminder_lower_text">You\'ll get a device notification to remind you at that time.</string>
+    <string name="activity_reminder_upper_text">Your reminder has been set for:</string>
+    <string name="title_activity_about_main">About GGC</string>
+    <string name="title_activity_history_button">GGC History</string>
+    <string name="title_activity_ggcgeography">GGC Geography</string>
+    <string name="title_activity_ggcfun_facts">GGC Fun Facts</string>
+    <string name="title_activity_ggcsong">GGC\'s Official Song</string>
+    <string name="title_activity_departmenthours">GGC Campus Hours</string>
+    <string name="title_activity_calendar">GGC Academic Calendar</string>
+
 </resources>

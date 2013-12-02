@@ -23,12 +23,8 @@ import edu.ggc.it.R;
 
 public class GymMainActivity extends Activity
 {
-	private Button schedule;
-	private Button groups;
-	private Button magazine;
-	private Context context;
-	private TextView quote;
-	public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
+    public final static String EXTRA_MESSAGE = "edu.ggc.it.directory.MESSAGE";
+    private Context context;
 
     /**
      * This method creates all of the buttons according to their names and
@@ -42,13 +38,13 @@ public class GymMainActivity extends Activity
 		
 		context = this;
 
-		schedule = (Button) findViewById(R.id.gymSchedule);
+		Button schedule = (Button) findViewById(R.id.gymSchedule);
 		schedule.setOnClickListener(new ButtonListener());
-		groups = (Button) findViewById(R.id.Group);
+		Button groups = (Button) findViewById(R.id.Group);
 		groups.setOnClickListener(new ButtonListener());
-		magazine = (Button) findViewById(R.id.healthMagazine);
+		Button magazine = (Button) findViewById(R.id.healthMagazine);
 		magazine.setOnClickListener(new ButtonListener());
-		quote = (TextView) findViewById(R.id.quoteTextView);
+		TextView quote = (TextView) findViewById(R.id.quoteTextView);
 		
 		try {
 			AssetManager am = context.getAssets();
@@ -84,10 +80,10 @@ public class GymMainActivity extends Activity
             if (view.getId() == R.id.gymSchedule){
 				startActivity(new Intent (context, GymScheduleActivity.class));
 			}
-			else if (groups.isPressed()){
+			else if (view.getId() == R.id.Group){
 				startActivity( new Intent ( context, GroupsActivity.class));
             }
-            else if (magazine.isPressed()){
+            else if (view.getId() == R.id.healthMagazine){
 				String url = "http://readsh101.com/ggc.html";
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 				startActivity(browserIntent);

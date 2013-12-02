@@ -13,15 +13,13 @@ import android.content.Intent;
 
 public class MagazineActivity  extends Activity
 {
-	private WebView webView;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
 		setContentView(edu.ggc.it.R.layout.activity_magazine);
 		Intent intent =  new Intent(this, MagazineActivity.class);
-		webView = (WebView) findViewById(R.id.webView);
+		WebView webView = (WebView) findViewById(R.id.webView);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
 		webView.getSettings().setBuiltInZoomControls(true);

@@ -81,7 +81,9 @@ public class ToDoUpdateActivity extends Activity {
 		super.onPause();
 	}
 
-	// update only if the string is not empty
+    /**
+     * update only if the string is not empty
+     */
 	private void save() {
 		String task = editTextTask.getText().toString();
 

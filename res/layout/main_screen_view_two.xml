@@ -9,22 +9,22 @@
                 android:padding="30dip" >
 
     <Button
-            android:id="@+id/view_two_dummy_btn3"
+            android:id="@+id/gpa_calc_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn1"
-            android:layout_below="@+id/view_two_dummy_btn1"
+            android:layout_alignLeft="@+id/view_two_about_ggc_btn"
+            android:layout_below="@+id/view_two_about_ggc_btn"
             android:layout_marginTop="40dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_gpa_calc" />
 
     <TextView
             android:id="@+id/view_two_textview3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn3"
-            android:layout_below="@+id/view_two_dummy_btn3"
-            android:layout_marginLeft="-10dp"
-            android:text="dummy textview3"
+            android:layout_alignLeft="@+id/gpa_calc_button"
+            android:layout_below="@+id/gpa_calc_button"
+            android:layout_marginLeft="-7dp"
+            android:text="GPA Calculator"
             android:textColor="@color/main_button_text" />
 
     <Button
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/view_two_dummy_btn5"
             android:layout_alignRight="@+id/socialLinearLayout"
-            android:layout_below="@+id/view_two_dummy_btn4"
+            android:layout_below="@+id/calendar_btn"
             android:layout_marginLeft="37dp"
             android:background="@drawable/main_button_directory" />
 
@@ -48,8 +48,9 @@
             android:text="dummy textview6"
             android:textColor="@color/main_button_text" />
 
+    <!-- About GGC Button -->
     <Button
-            android:id="@+id/view_two_dummy_btn1"
+            android:id="@+id/view_two_about_ggc_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/socialLinearLayout"
@@ -57,60 +58,63 @@
             android:layout_marginTop="42dp"
             android:background="@drawable/main_button_directory" />
 
+    <!-- About GGC Button Title -->
     <TextView
-            android:id="@+id/view_two_textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn1"
-            android:layout_below="@+id/view_two_dummy_btn1"
-            android:layout_marginLeft="-10dp"
-            android:text="dummy textview1"
-            android:textColor="@color/main_button_text" />
+        android:id="@+id/view_two_about_ggc_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/view_two_about_ggc_btn"
+        android:layout_alignRight="@+id/view_two_about_ggc_btn"
+        android:layout_below="@+id/view_two_about_ggc_btn"
+        android:gravity="center"
+        android:layout_marginLeft="-5dp"
+        android:text="About GGC"
+        android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_two_dummy_btn2"
+            android:id="@+id/view_two_department_hours_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/view_two_dummy_btn1"
-            android:layout_alignBottom="@+id/view_two_dummy_btn1"
+            android:layout_alignBaseline="@+id/view_two_about_ggc_btn"
+            android:layout_alignBottom="@+id/view_two_about_ggc_btn"
             android:layout_alignRight="@+id/socialLinearLayout"
             android:background="@drawable/main_button_directory" />
 
     <TextView
-            android:id="@+id/view_two_textview2"
+            android:id="@+id/view_two_department_hours_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn2"
-            android:layout_below="@+id/view_two_dummy_btn2"
-            android:layout_marginLeft="-12dp"
-            android:text="dummy textview2"
+            android:layout_alignLeft="@+id/view_two_department_hours_btn"
+            android:layout_below="@+id/view_two_department_hours_btn"
+            android:layout_marginLeft="-6dp"
+            android:text="Campus Hours"
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_two_dummy_btn4"
+            android:id="@+id/calendar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/view_two_dummy_btn3"
-            android:layout_alignBottom="@+id/view_two_dummy_btn3"
-            android:layout_alignRight="@+id/view_two_dummy_btn2"
-            android:background="@drawable/main_button_directory" />
+            android:layout_alignBaseline="@+id/gpa_calc_button"
+            android:layout_alignBottom="@+id/gpa_calc_button"
+            android:layout_alignRight="@+id/view_two_department_hours_btn"
+            android:background="@drawable/main_button_calendar" />
 
     <TextView
-            android:id="@+id/view_two_textview4"
+            android:id="@+id/view_two_calendar_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn4"
-            android:layout_below="@+id/view_two_dummy_btn4"
-            android:layout_marginLeft="-12dp"
-            android:text="dummy textview4"
+            android:layout_alignLeft="@+id/calendar_btn"
+            android:layout_below="@+id/calendar_btn"
+            android:layout_marginLeft="16dp"
+            android:text="Calendar"
             android:textColor="@color/main_button_text" />
 
     <Button
             android:id="@+id/view_two_dummy_btn5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn3"
-            android:layout_below="@+id/view_two_dummy_btn3"
+            android:layout_alignLeft="@+id/gpa_calc_button"
+            android:layout_below="@+id/gpa_calc_button"
             android:layout_marginTop="40dp"
             android:background="@drawable/main_button_directory" />
 

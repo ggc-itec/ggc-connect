@@ -20,34 +20,29 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-public class SectionDetailActivity extends Activity {
+public class SectionDetailActivity extends Activity
+{
 	private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a", Locale.US);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yy", Locale.US);
-	
-	private LinearLayout detailLayout;
-	private TextView detailTitle;
-	private TextView detailDesc;
-	private TextView detailHours;
-	private LinearLayout loadingLayout;
+    private LinearLayout loadingLayout;
 	private TextView detailLoading;
 	private ProgressBar detailProgress;
 	private TableLayout enrollmentTable;
 	private TextView capacityText;
 	private TextView actualText;
 	private TextView remainingText;
-	
 	private Section section;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState){
+	protected void onCreate(Bundle savedInstanceState)
+    {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_detail);
-		
-		// find views
-		detailLayout = (LinearLayout)findViewById(R.id.cs_detail_layout);
-		detailTitle = (TextView)findViewById(R.id.cs_detail_title);
-		detailDesc = (TextView)findViewById(R.id.cs_detail_desc);
-		detailHours = (TextView)findViewById(R.id.cs_detail_hours);
+
+        LinearLayout detailLayout = (LinearLayout) findViewById(R.id.cs_detail_layout);
+        TextView detailTitle = (TextView) findViewById(R.id.cs_detail_title);
+        TextView detailDesc = (TextView) findViewById(R.id.cs_detail_desc);
+        TextView detailHours = (TextView) findViewById(R.id.cs_detail_hours);
 		loadingLayout = (LinearLayout)findViewById(R.id.cs_loading_layout);
 		detailLoading = (TextView)findViewById(R.id.cs_detail_loading);
 		detailProgress = (ProgressBar)findViewById(R.id.cs_detail_progress);

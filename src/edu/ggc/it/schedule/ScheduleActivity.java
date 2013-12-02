@@ -176,11 +176,9 @@ public class ScheduleActivity extends Activity {
 				endTimeHour, endTimeMinute);
 		String duration = getFormattedTimeDuration(startTime, endTime);
 
-		String caption = startTimeFormatted + " - " + endTimeFormatted + " ("
-				+ duration + ").\n" + "Section: " + section + "\n"
-				+ "Location: " + building + " (Room: " + room + ").";
-
-		return caption;
+        return startTimeFormatted + " - " + endTimeFormatted + " ("
+                + duration + ").\n" + "Section: " + section + "\n"
+                + "Location: " + building + " (Room: " + room + ").";
 	}
 
 	/**
