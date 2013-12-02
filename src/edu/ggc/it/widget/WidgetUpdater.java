@@ -2,7 +2,7 @@ package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSDataContainer;
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 import edu.ggc.it.rss.RSSTask;
 import edu.ggc.it.rss.RSSTaskComplete;
 import android.app.PendingIntent;
@@ -43,7 +43,7 @@ public class WidgetUpdater implements RSSTaskComplete
     public WidgetUpdater(Context context, int widgetID)
     {
 	//create and execute a new RSSTask
-	new RSSTask(this, context, false).execute(RSS_URL.NEWS, RSS_URL.EVENTS);
+	new RSSTask(this, context, false).execute(RSSFeed.NEWS, RSSFeed.EVENTS);
 	
 	this.context = context;
 	this.manager = AppWidgetManager.getInstance(context);

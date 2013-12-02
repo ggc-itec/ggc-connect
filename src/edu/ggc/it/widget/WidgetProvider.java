@@ -1,17 +1,22 @@
 package edu.ggc.it.widget;
 
-import edu.ggc.it.R;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import edu.ggc.it.R;
 
 /**
  * The WidgetProvider class which is a AppWidgetProvider a type of BroadcastReceiver.
  * Makes updates and receives actions based on user interaction with the widget.
  * @author Derek
+ * 
+ * NOTE:
+ * 	If the data for the widget is ever cleared from RAM the widget will crash whenever the Switch button is clicked.
+ * 	This was a design oversight on my part, the Android guide recommends using a ContentProvider to store data.
+ * 	Instead this widget uses RSSDataContainers, essentially a bunch of ArrayLists, that will potentially get cleared from RAM.
  *
  */
 public class WidgetProvider extends AppWidgetProvider
@@ -27,11 +32,6 @@ public class WidgetProvider extends AppWidgetProvider
      * The fill extra for the widget_items
      */
     public static final String FILL_EXTRA = "edu.ggc.it.widget.WidgetProvider.FILLIN";
-    
-    /**
-     * The singleton instance
-     */
-    private WidgetData data = WidgetData.getInstance();
     
     /**
      * Updates the widget everytime it is created and for every update period.
@@ -57,7 +57,8 @@ public class WidgetProvider extends AppWidgetProvider
     @Override
     public void onReceive(Context context, Intent intent)
     {
-	String action = intent.getAction();
+	WidgetData data = WidgetData.getInstance();
+	String action = intent.getAction();//the action defined by the received Intent
 	AppWidgetManager manager = AppWidgetManager.getInstance(context);
 	RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 	int widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
@@ -72,12 +73,12 @@ public class WidgetProvider extends AppWidgetProvider
 	    rv.showNext(R.id.widget_view_flipper);
 	    manager.partiallyUpdateAppWidget(widgetID, rv);
 	}
-	if (action.equals(SWITCH_ACTION))//The "switch" button clicked, changes RSSDataContainer and updates the text on the button
+	if (action.equals(SWITCH_ACTION))//The "switch" button clicked, changes RSSDataContainer and updates the text on the banner
 	{
 	    data.switchContainer();
 	    manager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_view_flipper);
 	    
-	    rv.setTextViewText(R.id.widget_switch_button, data.getTitle());
+	    rv.setTextViewText(R.id.widget_banner, data.getTitle());
 	    manager.updateAppWidget(widgetID, rv);
 	}
 	if(action.equals(WEB_ACTION))//When user clicks the widget_item returned from WidgetService, opens webpage to item clicked

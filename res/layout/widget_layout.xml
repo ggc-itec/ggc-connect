@@ -4,56 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/ggc_green">
+    android:padding="3dp">
     
-    <AdapterViewFlipper 
+    <TextView 
+        android:id="@+id/widget_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:background="@drawable/widget_banner_background"
+        android:text="GGC News"
+        android:textColor="@color/thai_white_color"/>
+    
+    <AdapterViewFlipper
         android:id="@+id/widget_view_flipper"
         android:layout_width="fill_parent"
+        android:background="@drawable/widget_view_flipper_background"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:autoStart="true"
         android:flipInterval="5000"
         android:loopViews="true">
     </AdapterViewFlipper>
-
+ 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="?android:attr/buttonBarButtonStyle">
+        android:orientation="horizontal">
         
         <Button
             android:id="@+id/widget_previous_button"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@android:color/background_dark"
+            android:background="@drawable/widget_button"
             android:text="Previous"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@color/thai_white_color" />
         
         <Button
             android:id="@+id/widget_switch_button"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@android:color/background_dark"
-            android:text="News"
-            android:textColor="@android:color/background_light" />
+            android:background="@drawable/widget_button"
+            android:text="Switch"
+            android:textColor="@color/thai_white_color" />
         
         <Button 
             android:id="@+id/widget_next_button"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@android:color/background_dark"
+            android:background="@drawable/widget_button"
             android:text="Next"
-            android:textColor="@android:color/background_light"/>
+            android:textColor="@color/thai_white_color"/>
         
     </LinearLayout>
     

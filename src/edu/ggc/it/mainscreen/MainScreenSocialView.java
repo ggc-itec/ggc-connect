@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSActivity;
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 
 /**
  * Created by gregwesterfield on 10/21/13.
@@ -112,7 +112,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent newsIntent = new Intent(context, RSSActivity.class);
-                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.NEWS.URL());
+                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.NEWS.URL());
                                 context.startActivity(newsIntent);
                             }
                         })
@@ -122,7 +122,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 Intent eventsIntent = new Intent(context, RSSActivity.class);
-                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSS_URL.EVENTS.URL());
+                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.EVENTS.URL());
                                 context.startActivity(eventsIntent);
                             }
                         }).show();

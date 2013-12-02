@@ -2,7 +2,6 @@ package edu.ggc.it.rss;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import edu.ggc.it.R;
  */
 public class RSSAdapter extends BaseAdapter
 {
-    private static final String TAG = "Adapter Tag";
     private LayoutInflater inflater;
     private RSSDataContainer container;
 
@@ -54,7 +52,6 @@ public class RSSAdapter extends BaseAdapter
     public RSSAdapter(Context context)
     {
 	inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	Log.i(TAG, "In constructor");
     }
     
 
@@ -64,7 +61,6 @@ public class RSSAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-	Log.i(TAG, "getCount()");
 	return container.getTitlesSize();
     }
 
@@ -74,7 +70,6 @@ public class RSSAdapter extends BaseAdapter
     @Override
     public Object getItem(int position)
     {
-	Log.i(TAG, "getItem()");
 	return null;
     }
 
@@ -84,7 +79,6 @@ public class RSSAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-	Log.i(TAG, "getItemId()");
 	return 0;
     }
 
@@ -100,7 +94,6 @@ public class RSSAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-	Log.i(TAG, "getView()");
 	View view = convertView;
 	ViewHolder holder;
 
