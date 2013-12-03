@@ -181,6 +181,10 @@
             android:label="@string/title_activity_ggcsong"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <!-- The property configChanges was added here to tell Android
+        not to reset the activity to default when the keyboard is pulled out, 
+        or the phone is rotated; I want to handle this myself. -->
         <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
             android:configChanges="orientation|keyboardHidden"
