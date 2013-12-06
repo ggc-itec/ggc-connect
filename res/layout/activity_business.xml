@@ -1,0 +1,131 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff009933"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <Button
+        android:id="@+id/accounting_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Accounting" />
+    
+    <Button
+        android:id="@+id/economics_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accounting_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Economics" />
+    
+    <Button
+        android:id="@+id/finance_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/economics_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Finance" />
+    
+    <Button
+        android:id="@+id/general_business_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/finance_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="General Business" />
+    
+    <Button
+        android:id="@+id/international_business_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/general_business_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="International Business" />
+    
+    <Button
+        android:id="@+id/leadership_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/international_business_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Leadership" />
+    
+    <Button
+        android:id="@+id/mis_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leadership_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Management Information Systems" />
+    
+    <Button
+        android:id="@+id/marketing_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mis_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Marketing" />
+    
+    <Button
+        android:id="@+id/business_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/marketing_major"
+        android:layout_marginTop="15dp"
+        android:background="#FF6E6E6E"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:text="Back" />
+    
+    <ImageView
+        android:id="@+id/imageview_id"
+        android:layout_width="300dp"
+        android:layout_height="184dp"
+        android:layout_below="@+id/business_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.53"
+        android:src="@drawable/ggclogodm" />
+    
+	</RelativeLayout>
+</ScrollView>
