@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import edu.ggc.it.R;
+import edu.ggc.it.banner_web.BannerWebLoginActivity;
+import edu.ggc.it.d2l_web.D2LWebLoginActivity;
 
 /**
  * INSTRUCTIONS FOR ADDING YOUR FEATURE TO THE MAIN SCREEN
@@ -63,8 +65,8 @@ public class MainScreenViewThree extends RelativeLayout implements View.OnClickL
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.main_screen_view_three, this, true);
 
-        Button buttonOne = getListenedButton(R.id.view_three_dummy_btn1);
-        Button buttonTwo = getListenedButton(R.id.view_three_dummy_btn2);
+        Button buttonBannerWebLogin = getListenedButton(R.id.button_banner_web);
+        Button buttonD2LWebLogin = getListenedButton(R.id.button_d2l_web);
         Button buttonThree = getListenedButton(R.id.view_three_dummy_btn3);
         Button buttonFour = getListenedButton(R.id.view_three_dummy_btn4);
         Button buttonFive = getListenedButton(R.id.view_three_dummy_btn5);
@@ -81,10 +83,10 @@ public class MainScreenViewThree extends RelativeLayout implements View.OnClickL
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.view_three_dummy_btn1) {
-            //context.startActivity(new Intent(context, YourActivity.class));
-        } else if (view.getId() == R.id.view_three_dummy_btn2) {
-            //context.startActivity(new Intent(context, YourActivity.class));
+        if (view.getId() == R.id.button_banner_web) {
+            context.startActivity(new Intent(context, BannerWebLoginActivity.class));
+        } else if (view.getId() == R.id.button_d2l_web) {
+            context.startActivity(new Intent(context, D2LWebLoginActivity.class));
         } else if (view.getId() == R.id.view_three_dummy_btn3) {
             //context.startActivity(new Intent(context, YourActivity.class));
         } else if (view.getId() == R.id.view_three_dummy_btn4) {
