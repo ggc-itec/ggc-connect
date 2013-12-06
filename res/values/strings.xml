@@ -349,5 +349,19 @@
     <string name="title_activity_ggcsong">GGC\'s Official Song</string>
     <string name="title_activity_departmenthours">GGC Campus Hours</string>
     <string name="title_activity_calendar">GGC Academic Calendar</string>
+    <string name="title_activity_biology">Biology</string>
+    <string name="title_activity_business">Business</string>
+    <string name="title_activity_criminal_justice">CriminalJustice</string>
+    <string name="title_activity_degrees_main">DegreesMainActivity</string>
+    <string name="title_activity_education">Education</string>
+    <string name="title_activity_health_science">HealthScience</string>
+    <string name="title_activity_information_technology">InformationTechnology</string>
+    <string name="title_activity_liberal_arts">LiberalArts</string>
+    <string name="title_activity_liberal_arts_english">LiberalArtsEnglish</string>
+    <string name="title_activity_liberal_arts_history">LiberalArtsHistory</string>
+    <string name="title_activity_liberal_arts_political_science">LiberalArtsPoliticalScience</string>
+    <string name="title_activity_mathematics">Mathematics</string>
+    <string name="title_activity_schools">Schools</string>
+    <string name="title_activity_science_technology">ScienceTechnology</string>
 
 </resources>
