@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ggc.it.rss.RSSEnumSets.RSSTag;
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 import android.content.Context;
 
 
@@ -17,7 +17,7 @@ import android.content.Context;
  */
 public class RSSDataContainer
 {
-	private final RSS_URL rssUrl;
+	private final RSSFeed feed;
 	private List<String> titles = new ArrayList<String>();
 	private List<String> links = new ArrayList<String>();
 	private List<String> publishedDates = new ArrayList<String>();
@@ -26,11 +26,11 @@ public class RSSDataContainer
 	/**
 	 * Constructor
 	 * 
-	 * @param rssUrl	URL unique to instance of this class
+	 * @param rssFeed	the RSSFeed associated with this container
 	 */
-	public RSSDataContainer(RSS_URL rssUrl)
+	public RSSDataContainer(RSSFeed feed)
 	{
-		this.rssUrl = rssUrl;
+		this.feed = feed;
 	}
 	
 	/**
@@ -76,11 +76,11 @@ public class RSSDataContainer
 	}
 	
 	/**
-	 * @return the RSS_URL associated with this container
+	 * @return the RSSFeed associated with this container
 	 */
-	public RSS_URL getRSSURL()
+	public RSSFeed getRSSFeed()
 	{
-		return rssUrl;
+		return feed;
 	}
 	
 	/**
@@ -89,6 +89,17 @@ public class RSSDataContainer
 	public int getTitlesSize()
 	{
 		return titles.size();
+	}
+	
+	/**
+	 * empties all lists in this container
+	 */
+	public void clearContainer()
+	{
+	    titles.clear();
+	    links.clear();
+	    publishedDates.clear();
+	    descriptions.clear();
 	}
 	
 	/*

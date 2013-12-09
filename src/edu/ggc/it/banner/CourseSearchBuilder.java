@@ -14,7 +14,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
 // TODO: this duplicates a lot of functionality of CourseDataSource; merge these somehow
-public class CourseSearchBuilder implements Serializable {
+public class CourseSearchBuilder implements Serializable
+{
 	private static final long serialVersionUID = -4716765738834007056L;
 	private static final String[] COURSE_COLUMNS = new String[]{
 		CourseDB.Catalog.COL_ID,

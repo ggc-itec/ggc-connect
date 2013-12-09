@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/widget_item_background">
 
     <TextView
-        android:id="@+id/widget_title_textview"
+        android:id="@+id/widget_titles_textview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:text="TextView1"
-        android:textSize="16sp" />
+        android:textColor="@color/thai_white_color"
+        android:textSize="14sp" />
 
 </LinearLayout>

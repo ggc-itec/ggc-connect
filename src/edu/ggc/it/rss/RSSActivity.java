@@ -1,7 +1,7 @@
 package edu.ggc.it.rss;
 
 import edu.ggc.it.R;
-import edu.ggc.it.rss.RSSEnumSets.RSS_URL;
+import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,50 +31,33 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	setContentView(R.layout.rss);
 
 	String rssURL = getIntent().getStringExtra(RSS_URL_EXTRA);
+	RSSFeed feed = getRSSFeed(rssURL);
 	context = this;
 	rssTask = new RSSTask(this, context, true);
-	rssTask.execute(getRSS_URL(rssURL));
+	rssTask.execute(feed);
 	
-	setRSSActivityTitle(rssURL);
+	setTitle(feed.title());
 	adapter = new RSSAdapter(context);
-    }
-
-    /**
-     * Set the title of the activity based on the URL
-     * 
-     * @param rssURL		the URL passed as an extra 
-     * @return url		RSS_URL that matches passed String
-     */
-    private void setRSSActivityTitle(String rssURL)
-    {
-	if(rssURL.equals(RSS_URL.NEWS.URL()))
-	{
-	    setTitle("GGC News");
-	}
-	else if(rssURL.equals(RSS_URL.EVENTS.URL()))
-	{
-	    setTitle("GGC Events");
-	}
     }
     
     /**
-     * Returns an RSS_URL enum with the same URL as the passed String
+     * Returns an RSSFeed enum with the same URL as the passed String
      * 
      * @param rssURL		the URL passed as an extra
-     * @return url		RSS_URL that matches passed String
+     * @return RSSFeed that matches passed String
      */
-    private RSS_URL getRSS_URL(String rssURL)
+    private RSSFeed getRSSFeed(String rssURL)
     {
-	RSS_URL[] urls = RSS_URL.values();
+	RSSFeed[] feeds = RSSFeed.values();
 	int index = 0;
-	for(int i = 0; i < urls.length; i++)
+	for(int i = 0; i < feeds.length; i++)
 	{
-	    if(rssURL.equals(urls[i].URL()))
+	    if(rssURL.equals(feeds[i].URL()))
 	    {
 		index = i;
 	    }
 	}
-	return urls[index];
+	return feeds[index];
     }
 
     /**
@@ -104,5 +87,13 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     {
 	adapter.setContainer(containers[0]);
 	setListAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+	RSSDataContainer container = adapter.getContainer();
+	container.clearContainer();
+	super.onDestroy();
     }
 }

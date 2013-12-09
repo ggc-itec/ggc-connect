@@ -23,8 +23,8 @@ public class GPACalcActivity extends Activity
     private EditText creditHoursEditText;
     private Button nextButton;
     private Context context;
-    private CharSequence text;
-    private int duration = Toast.LENGTH_SHORT;
+    private CharSequence toastText;
+    private int toastDuration = Toast.LENGTH_SHORT;
     private Toast toast;
 
 
@@ -51,35 +51,35 @@ public class GPACalcActivity extends Activity
                 float gpa = 0;
                 int hours = 0;
 
-                //Error checking for empty GPA text field
-                if(!stringGPA.isEmpty() && !stringGPA.equals("."))
+                //Error checking for empty Hours, a single period, and high values in the GPA text field
+                if(!stringGPA.isEmpty() && !stringGPA.equals(".") && Float.parseFloat(stringGPA) <= 4.0)
                 {
                     gpa = Float.parseFloat(stringGPA);
                 }
                 else
                 {
-                    text = "Please enter a value for GPA!";
+                    toastText = "Please enter a proper value for GPA!";
                     context = getApplicationContext();
-                    toast = Toast.makeText(context, text, duration);
+                    toast = Toast.makeText(context, toastText, toastDuration);
                     toast.show();
                 }
 
-                //Error checking for empty Hours text field
-                if (!stringHours.isEmpty() && !stringHours.equals("."))
+                //Error checking for empty Hours, a single period, and high values in the Credit Hours text field
+                if (!stringHours.isEmpty() && !stringHours.equals(".") && Float.parseFloat(stringHours) <= 300)
                 {
                     
                     hours = (int) Float.parseFloat(stringHours);
                 }
                 else 
                 {
-                    text = "Please enter a value for Credit Hours!";
+                    toastText = "Please enter a proper value for Credit Hours!";
                     context = getApplicationContext();
-                    toast = Toast.makeText(context, text, duration);
+                    toast = Toast.makeText(context, toastText, toastDuration);
                     toast.show();
                 }
 
                 //If both fields are not empty, create a new intent and start next activity
-                if (!stringGPA.isEmpty() && !stringHours.isEmpty())
+                if (!stringGPA.isEmpty() && !stringHours.isEmpty() && Float.parseFloat(stringGPA) <= 4.0 && Float.parseFloat(stringHours) <= 300)
                 {
                     Intent intent = new Intent(getBaseContext(),GPACalcSemester.class);
                     intent.putExtra("gpa", gpa);

@@ -20,7 +20,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
  * @author Jacob
  *
  */
-public class CourseDataSource {
+public class CourseDataSource
+{
 	private SQLiteDatabase db;
 	private CourseDB dbHelper;
 	
@@ -49,19 +50,23 @@ public class CourseDataSource {
 		CourseDB.Instructors.COL_NAME
 	};
 	
-	public CourseDataSource(Context context){
+	public CourseDataSource(Context context)
+    {
 		dbHelper = CourseDB.getInstance(context);
 	}
 	
-	public void open() throws SQLException{
+	public void open() throws SQLException
+    {
 		db = dbHelper.getWritableDatabase();
 	}
 	
-	public void close(){
+	public void close()
+    {
 		dbHelper.close();
 	}
 	
-	public boolean hasCourses(String term, String subject){
+	public boolean hasCourses(String term, String subject)
+    {
 		final String schdcourse = CourseDB.Schedule.TABLE + "." + CourseDB.Schedule.COL_COURSE;
 		final String schdterm = CourseDB.Schedule.TABLE + "." + CourseDB.Schedule.COL_TERM;
 		final String ctlgsubj = CourseDB.Catalog.TABLE + "." + CourseDB.Catalog.COL_SUBJ;
@@ -79,7 +84,8 @@ public class CourseDataSource {
 		return result;
 	}
 	
-	public void addCourses(List<Course> courses){
+	public void addCourses(List<Course> courses)
+    {
 		final String existsQuery = "select " + CourseDB.Catalog.COL_ID +
 				" from " + CourseDB.Catalog.TABLE +
 				" where " + CourseDB.Catalog.COL_SUBJ + " = ?" +
@@ -110,7 +116,8 @@ public class CourseDataSource {
 		}
 	}
 	
-	public void addSections(List<Section> sections){
+	public void addSections(List<Section> sections)
+    {
 		final String existsQuery = "select " + CourseDB.Schedule.COL_ID +
 				" from " + CourseDB.Schedule.TABLE +
 				" where " + CourseDB.Schedule.COL_TERM + " = ?" +
@@ -153,7 +160,8 @@ public class CourseDataSource {
 		}
 	}
 	
-	public long getCourseId(Course course){
+	public long getCourseId(Course course)
+    {
 		String[] args = new String[]{course.getSubject(), course.getId()};
 		
 		Cursor cursor = db.query(CourseDB.Catalog.TABLE,
@@ -170,7 +178,8 @@ public class CourseDataSource {
 		return id;
 	}
 	
-	public Course getCourse(long crseId){
+	public Course getCourse(long crseId)
+    {
 		String[] args = new String[]{Long.toString(crseId)};
 		Cursor cursor = db.query(CourseDB.Catalog.TABLE, COURSE_COLUMNS, 
 				CourseDB.Catalog.COL_ID + " = ?", args, null, null, null);
@@ -189,7 +198,8 @@ public class CourseDataSource {
 		return course;
 	}
 	
-	public Instructor getInstructor(long instId){
+	public Instructor getInstructor(long instId)
+    {
 		String[] args = new String[]{Long.toString(instId)};
 		Cursor cursor = db.query(CourseDB.Instructors.TABLE, INSTRUCTOR_COLUMNS, 
 				CourseDB.Instructors.COL_ID + " = ?", args, null, null, null);
@@ -205,7 +215,8 @@ public class CourseDataSource {
 		return instructor;
 	}
 	
-	public List<Section> getSubjectSections(String term, String subject){
+	public List<Section> getSubjectSections(String term, String subject)
+    {
 		List<Section> result = null;
 		String[] args = new String[]{term, subject};
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
@@ -223,7 +234,8 @@ public class CourseDataSource {
 		return result;
 	}
 	
-	public List<Course> getSubjectCourses(String term, String subject){
+	public List<Course> getSubjectCourses(String term, String subject)
+    {
 		List<Course> result = new ArrayList<Course>();
 		String[] args = new String[]{subject, term};
 		
@@ -248,7 +260,8 @@ public class CourseDataSource {
 		return result;
 	}
 	
-	public List<Instructor> getSubjectInstructors(String term, String subject){
+	public List<Instructor> getSubjectInstructors(String term, String subject)
+    {
 		final String[] cols = new String[]{CourseDB.Instructors.COL_NAME, CourseDB.Instructors.COL_EMAIL};
 		List<Instructor> result = new ArrayList<Instructor>();
 		String[] args = new String[]{term, subject};
@@ -279,7 +292,8 @@ public class CourseDataSource {
 		return result;
 	}
 	
-	private List<Section> cursorToSections(Cursor sectcsr){
+	private List<Section> cursorToSections(Cursor sectcsr)
+    {
 		final String typeid = CourseDB.ClassTypes.TABLE + "." + CourseDB.ClassTypes.COL_ID;
 		final String[] meetColumns = new String[]{
 			CourseDB.Meetings.COL_BEGIN_DATE,
@@ -352,7 +366,8 @@ public class CourseDataSource {
 		return result;
 	}
 	
-	private void addMeeting(long sectionId, Meeting meeting){
+	private void addMeeting(long sectionId, Meeting meeting)
+    {
 		ContentValues values = new ContentValues(CourseDB.Meetings.NUM_COLUMNS);
 		Instructor instructor = meeting.getInstructor();
 		long classTypeId = createClassTypeId(meeting.getType());
@@ -371,7 +386,8 @@ public class CourseDataSource {
 		db.insert(CourseDB.Meetings.TABLE, null, values);
 	}
 	
-	private long createInstructorId(Instructor instructor){
+	private long createInstructorId(Instructor instructor)
+    {
 		String[] args = new String[]{instructor.getEmail()};
 		
 		Cursor cursor = db.query(CourseDB.Instructors.TABLE, INSTRUCTOR_ID,
@@ -391,7 +407,8 @@ public class CourseDataSource {
 		return id;
 	}
 	
-	private long createClassTypeId(String type){
+	private long createClassTypeId(String type)
+    {
 		String[] args = new String[]{type};
 		
 		Cursor cursor = db.query(CourseDB.ClassTypes.TABLE, CLASS_TYPES_ID, 

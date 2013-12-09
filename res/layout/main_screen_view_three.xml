@@ -12,8 +12,8 @@
             android:id="@+id/view_three_dummy_btn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_three_dummy_btn1"
-            android:layout_below="@+id/view_three_dummy_btn1"
+            android:layout_alignLeft="@+id/button_banner_web"
+            android:layout_below="@+id/button_banner_web"
             android:layout_marginTop="40dp"
             android:background="@drawable/main_button_directory" />
 
@@ -49,41 +49,41 @@
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_three_dummy_btn1"
+            android:id="@+id/button_banner_web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/socialLinearLayout"
             android:layout_alignParentTop="true"
             android:layout_marginTop="42dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_banner_web" />
 
     <TextView
-            android:id="@+id/view_three_textview1"
+            android:id="@+id/textview_banner_web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_three_dummy_btn1"
-            android:layout_below="@+id/view_three_dummy_btn1"
-            android:layout_marginLeft="-10dp"
-            android:text="dummy textview1"
+            android:layout_alignLeft="@+id/button_banner_web"
+            android:layout_below="@+id/button_banner_web"
+            android:layout_marginLeft="20dp"
+            android:text="Banner"
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_three_dummy_btn2"
+            android:id="@+id/button_d2l_web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/view_three_dummy_btn1"
-            android:layout_alignBottom="@+id/view_three_dummy_btn1"
+            android:layout_alignBaseline="@+id/button_banner_web"
+            android:layout_alignBottom="@+id/button_banner_web"
             android:layout_alignRight="@+id/socialLinearLayout"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_d2l_web" />
 
     <TextView
-            android:id="@+id/view_three_textview2"
+            android:id="@+id/textview_d2l_web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_three_dummy_btn2"
-            android:layout_below="@+id/view_three_dummy_btn2"
-            android:layout_marginLeft="-15dp"
-            android:text="dummy textview2"
+            android:layout_alignLeft="@+id/button_d2l_web"
+            android:layout_below="@+id/button_d2l_web"
+            android:layout_marginLeft="1dp"
+            android:text="Desire2Learn"
             android:textColor="@color/main_button_text" />
 
     <Button
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/view_three_dummy_btn3"
             android:layout_alignBottom="@+id/view_three_dummy_btn3"
-            android:layout_alignRight="@+id/view_three_dummy_btn2"
+            android:layout_alignRight="@+id/button_d2l_web"
             android:background="@drawable/main_button_directory" />
 
     <TextView

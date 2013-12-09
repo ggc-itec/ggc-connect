@@ -19,7 +19,7 @@ public class WidgetData
     /**
      * The containers for the rss feeds
      */
-    private RSSDataContainer[] containers;
+    public RSSDataContainer[] containers;
     
     /**
      * The index of the current rss feed
@@ -85,10 +85,10 @@ public class WidgetData
     }
     
     /**
-     * @return the title of the current RSSDataContainers RSS_URL title
+     * @return the title of the current RSSDataContainers RSSFeed title
      */
     public String getTitle()
     {
-	return getCurrentContainer().getRSSURL().title();
+	return getCurrentContainer().getRSSFeed().title();
     }
 }

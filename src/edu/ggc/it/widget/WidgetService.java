@@ -2,19 +2,17 @@ package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 /**
- * The WidgetService class which is a RemoteViewsService is a type of Service.
+ * The WidgetService class which is a RemoteViewsService a type of Service.
  * For a simple collection widget like this one we only need to override the onGetViewFactory() method
  * @author Derek
  *
  */
 public class WidgetService extends RemoteViewsService
 {
-    private static final String TAG = "WidgetService";
     /**
      * Returns a ViewsFactory object
      */
@@ -74,14 +72,14 @@ public class WidgetService extends RemoteViewsService
 	public RemoteViews getViewAt(int index)
 	{
 	    if(index < 0 || index >= getCount()) {
-		return null;
+		return getLoadingView();
 	    }
 	    String title = data.getCurrentContainer().getTitleAt(index);
-	    rv.setTextViewText(R.id.widget_title_textview, title);
+	    rv.setTextViewText(R.id.widget_titles_textview, title);
 	    
 	    Intent fillIntent = new Intent();
 	    fillIntent.putExtra(WidgetProvider.FILL_EXTRA, index);
-	    rv.setOnClickFillInIntent(R.id.widget_title_textview, fillIntent);
+	    rv.setOnClickFillInIntent(R.id.widget_titles_textview, fillIntent);
 	    return rv;
 	}
 
@@ -107,10 +105,7 @@ public class WidgetService extends RemoteViewsService
 	 * These methods are unused
 	 */
 	@Override
-	public long getItemId(int index)
-	{
-	    return 0;
-	}
+	public long getItemId(int index){return 0;}
 
 	@Override
 	public void onCreate(){}

@@ -27,23 +27,22 @@ public class RSSEnumSets
     }
 
     /**
-     * An enum set that holds the URLs to the GGC news and events rss feeds
      * 
      * @author Derek I made this to keep from putting long URLs in other classes
      *         specifically in Main or any other class that uses these rss URLs
      */
-    public enum RSS_URL
+    public enum RSSFeed
     {
 	// Current GGC news URL
-	NEWS("http://www.ggc.edu/about-ggc/news/News?format=rss", "News"),
+	NEWS("http://www.ggc.edu/about-ggc/news/News?format=rss", "GGC News"),
 
 	// Current GGC events URL
-	EVENTS("http://www.ggc.edu/student-life/events-calendar/events-calendar/rss", "Events");
+	EVENTS("http://www.ggc.edu/student-life/events-calendar/events-calendar/rss", "GGC Events");
 
 	private final String url;
 	private final String title;
 
-	private RSS_URL(String url, String title)
+	private RSSFeed(String url, String title)
 	{
 	    this.url = url;
 	    this.title = title;

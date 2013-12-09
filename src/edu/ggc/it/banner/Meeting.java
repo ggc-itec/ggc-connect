@@ -9,7 +9,8 @@ import java.util.Date;
  * starts, time class ends, days of classes, and the class type.
  */
 
-public class Meeting implements Serializable{
+public class Meeting implements Serializable
+{
 	private static final long serialVersionUID = 6543419763151671413L;
 	private String location;
 	private Instructor instructor;
@@ -32,7 +33,8 @@ public class Meeting implements Serializable{
 	 */
 	
 	public Meeting(String location, String days, String type, Instructor instructor, Date beginDate,
-			Date endDate, Date beginTime, Date endTime){
+			Date endDate, Date beginTime, Date endTime)
+    {
 		this.location = location;
 		this.days = days;
 		this.type = type;
@@ -48,7 +50,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public String getLocation(){
+	public String getLocation()
+    {
 		return location;
 	}
 	
@@ -57,7 +60,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public String getDays(){
+	public String getDays()
+    {
 		return days;
 	}
 	
@@ -66,7 +70,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public String getType(){
+	public String getType()
+    {
 		return type;
 	}
 	
@@ -75,7 +80,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public Instructor getInstructor(){
+	public Instructor getInstructor()
+    {
 		return instructor;
 	}
 	
@@ -84,7 +90,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public Date getBeginDate(){
+	public Date getBeginDate()
+    {
 		return beginDate;
 	}
 	
@@ -93,7 +100,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public Date getEndDate(){
+	public Date getEndDate()
+    {
 		return endDate;
 	}
 	
@@ -102,7 +110,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public Date getBeginTime(){
+	public Date getBeginTime()
+    {
 		return beginTime;
 	}
 	
@@ -111,7 +120,8 @@ public class Meeting implements Serializable{
 	 * @param: none
 	 */
 	
-	public Date getEndTime(){
+	public Date getEndTime()
+    {
 		return endTime;
 	}
 }
