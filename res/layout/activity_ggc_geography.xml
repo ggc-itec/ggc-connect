@@ -10,29 +10,30 @@
     tools:context=".GGCGeographyActivity"
     android:background="#7800704a" >
 
+    <!-- GGC B Building Image -->
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:src="@drawable/ggc_b_building" />
 
+    <!-- Link Title -->
     <TextView
-        android:id="@+id/geographyTitle"
+        android:id="@+id/geographyLinkTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="25sp"
         android:text="Links" />
     
+    <!-- Link URL -->
     <TextView
         android:id="@+id/geographyLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="18sp"
-        android:textColorLink="#081078"
-        android:text="link will show up here" />
-
-    
+        android:textColorLink="#64E6F5" 
+        android:text="link will show up here in place of this text -- It is coded in GGCGeographyActivity.java" />
 
 </LinearLayout>
