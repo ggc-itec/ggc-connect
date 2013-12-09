@@ -1,9 +1,14 @@
 package edu.ggc.it.rss;
 
-import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Any class that has a reference to RSSTask MUST implement or pass a reference
@@ -12,12 +17,14 @@ import android.os.AsyncTask;
  * @param String
  * @progress
  */
-public class RSSTask extends AsyncTask<RSSFeed, Void, RSSDataContainer[]>
+public class RSSTask extends AsyncTask<RSSFeed, Void, Void>
 {
+    private static final String DEBUG_TAG = "RSSTask";
+    
     private RSSTaskComplete task;
     private Context context;
-    private ProgressDialog dialog;
     private boolean showDialog;
+    private ProgressDialog dialog;
 
     /**
      * Constructor
@@ -52,30 +59,38 @@ public class RSSTask extends AsyncTask<RSSFeed, Void, RSSDataContainer[]>
     }
 
     /**
-     * Creates a RSSDataContainer[] object that is filled and returned
+     * Creates RSSParser then parses each of the RSSFeeds into the RSSDatabase
      * 
      * @param feeds
      *            an array of RSSFeed's passed when RSSTask.execute(RSSFeed) is called
      */
     @Override
-    protected RSSDataContainer[] doInBackground(RSSFeed... feeds)
+    protected Void doInBackground(RSSFeed... feeds)
     {
-	RSSDataContainer[] container = new RSSDataContainer[feeds.length];
-	for(int i = 0; i < feeds.length; i++)
+	try 
 	{
-	    container[i] = new RSSDataContainer(feeds[i]);
-	    container[i].fill(context);
+	    RSSParser parser = new RSSParser(context);
+	    for(int i = 0; i < feeds.length; i++)
+	    {
+		parser.setUpConnections(feeds[i]);
+		parser.parseFeed();
+	    }
+	}catch(XmlPullParserException e) {
+	    Toast.makeText(context, "An error occured", Toast.LENGTH_LONG).show();
+	    Log.e(DEBUG_TAG, "XmlPullParserException", e);
+	}catch(IOException e) {
+	    Toast.makeText(context, "An error occured", Toast.LENGTH_LONG).show();
+	    Log.e(DEBUG_TAG, "IOException", e);
 	}
-	return container;
+	return null;
     }
 
     /**
      * Calls the RSSTaskComplete object's taskComplete() method
      * 
-     * @param container
-     *            the container returned by doInBackground()
+     * @param result
      */
-    protected void onPostExecute(RSSDataContainer[] container)
+    protected void onPostExecute(Void result)
     {
 	if (showDialog)
 	{
@@ -84,6 +99,20 @@ public class RSSTask extends AsyncTask<RSSFeed, Void, RSSDataContainer[]>
 		dialog.dismiss();
 	    }
 	}
-	task.taskComplete(container);
+	task.taskComplete();
+    }
+    
+    /**
+     * An interface to be used by any class that has an instance of RSSTask.
+     * This method serves as a callback whenever onPostExecute() is called
+     * @author Derek
+     *
+     */
+    public interface RSSTaskComplete
+    {
+	/**
+	 * This method is called when onPostExecute() is called
+	 */
+	void taskComplete();
     }
 }

@@ -1,14 +1,17 @@
 package edu.ggc.it.rss;
 
-import edu.ggc.it.R;
-import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
 import android.app.ListActivity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import edu.ggc.it.R;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import edu.ggc.it.rss.RSSTask.RSSTaskComplete;
 
 /**
  * Activity responsible for displaying RSS feeds from ggc.edu
@@ -20,6 +23,7 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 {
     public static final String RSS_URL_EXTRA = "edu.ggc.it.rss.RSS_URL_EXTRA";
 
+    private RSSFeed feed;
     private Context context;
     private RSSTask rssTask;
     private RSSAdapter adapter;
@@ -31,13 +35,25 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
 	setContentView(R.layout.rss);
 
 	String rssURL = getIntent().getStringExtra(RSS_URL_EXTRA);
-	RSSFeed feed = getRSSFeed(rssURL);
+	feed = getRSSFeed(rssURL);
 	context = this;
+	
+	setUpDatabase();
+	
 	rssTask = new RSSTask(this, context, true);
-	rssTask.execute(feed);
+	rssTask.execute(RSSFeed.values());
 	
 	setTitle(feed.title());
-	adapter = new RSSAdapter(context);
+	adapter = new RSSAdapter(context, feed);
+    }
+    
+    /**
+     * Simply sets up the database to be used in the rss package
+     */
+    private void setUpDatabase()
+    {
+	RSSDatabase db = RSSDatabase.getInstance(context);
+	db.onUpgrade(db.getWritableDatabase(), 0, 0);
     }
     
     /**
@@ -61,7 +77,8 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     }
 
     /**
-     * Called when user clicks on a List item Opens webpage of item
+     * Called when user clicks on a List item. Opens web page of item clicked.
+     * Makes a query to the RSSProvider to get the appropriate link.
      * 
      * @param list		ListView where the click happened
      * @param view		View that was clicked within the ListView
@@ -71,29 +88,36 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     @Override
     protected void onListItemClick(ListView list, View view, int position, long id)
     {
-	RSSDataContainer container = adapter.getContainer();
-	Uri uri = Uri.parse(container.getLinkAt(position));
-	Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-	startActivity(intent);
+	ContentResolver resolver = context.getContentResolver();
+	Cursor cursor = resolver.query(RSSProvider.CONTENT_URI,
+					new String[] {RSSTable.COL_LINK},
+					RSSTable.COL_FEED + "=?",
+					new String[] {feed.title()},
+					null);
+	if(cursor.moveToPosition(position))
+	{
+	    String url = cursor.getString(cursor.getColumnIndex(RSSTable.COL_LINK));
+	    Uri uri = Uri.parse(url);
+	    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+	    cursor.close();
+	    startActivity(intent);
+	}
     }
 
     /**
      * Called when RSSTask finishes execution
-     * 
-     * @param containers	containers filled by RSSTask
      */
     @Override
-    public void taskComplete(RSSDataContainer[] containers)
+    public void taskComplete()
     {
-	adapter.setContainer(containers[0]);
+	adapter.setCursor();
 	setListAdapter(adapter);
     }
 
     @Override
     protected void onDestroy()
     {
-	RSSDataContainer container = adapter.getContainer();
-	container.clearContainer();
+	adapter.closeCursor();
 	super.onDestroy();
     }
 }

@@ -4,9 +4,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import edu.ggc.it.R;
+import edu.ggc.it.rss.RSSDatabase;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import edu.ggc.it.rss.RSSFeed;
 
 /**
  * The WidgetProvider class which is a AppWidgetProvider a type of BroadcastReceiver.
@@ -33,6 +37,14 @@ public class WidgetProvider extends AppWidgetProvider
      */
     public static final String FILL_EXTRA = "edu.ggc.it.widget.WidgetProvider.FILLIN";
     
+    @Override
+    public void onEnabled(Context context)
+    {
+	RSSDatabase db = RSSDatabase.getInstance(context);
+	db.onUpgrade(db.getWritableDatabase(), 0, 0);
+	super.onEnabled(context);
+    }
+        
     /**
      * Updates the widget everytime it is created and for every update period.
      * The update period is defined in the appwidget-provider xml file which for this widget is located in /res/xml/widget_info.xml
@@ -73,22 +85,39 @@ public class WidgetProvider extends AppWidgetProvider
 	    rv.showNext(R.id.widget_view_flipper);
 	    manager.partiallyUpdateAppWidget(widgetID, rv);
 	}
-	if (action.equals(SWITCH_ACTION))//The "switch" button clicked, changes RSSDataContainer and updates the text on the banner
+	if (action.equals(SWITCH_ACTION))//The "switch" button clicked, changes RSSFeed and updates the text on the banner
 	{
-	    data.switchContainer();
+	    data.switchFeed();
 	    manager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_view_flipper);
 	    
-	    rv.setTextViewText(R.id.widget_banner, data.getTitle());
+	    RSSFeed currentFeed = data.getCurrentFeed();
+	    rv.setTextViewText(R.id.widget_banner, currentFeed.title());
 	    manager.updateAppWidget(widgetID, rv);
 	}
 	if(action.equals(WEB_ACTION))//When user clicks the widget_item returned from WidgetService, opens webpage to item clicked
 	{
 	    int index = intent.getIntExtra(FILL_EXTRA, 0);
-	    Uri uri = Uri.parse(data.getCurrentContainer().getLinkAt(index));
+	    
+	    Cursor cursor = data.getCursor(context);
+	    String link = "";
+	    if(cursor.moveToPosition(index))
+	    {
+		link = cursor.getString(cursor.getColumnIndex(RSSTable.COL_LINK));
+	    }
+	    cursor.close();
+	    
+	    Uri uri = Uri.parse(link);
 	    Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
 	    webIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    context.startActivity(webIntent);
 	}
 	super.onReceive(context, intent);
+    }
+
+    @Override
+    public void onDisabled(Context context)
+    {
+	RSSDatabase.getInstance(context).close();
+	super.onDisabled(context);
     }
 }

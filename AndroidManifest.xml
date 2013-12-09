@@ -185,7 +185,7 @@
         <!--
         The property configChanges was added here to tell Android
         not to reset the activity to default when the keyboard is pulled out, 
-        or the phone is rotated; I want to handle this myself.
+        or the phone is rotated; I want to handle this myself.
         -->
         <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
@@ -206,7 +206,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+ 
         <receiver android:name="edu.ggc.it.widget.WidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -222,6 +222,12 @@
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" >
         </service>
+        
+        <provider
+            android:name="edu.ggc.it.rss.RSSProvider"
+            android:authorities="edu.ggc.it.rss.RSSProvider"
+            android:exported="true">
+        </provider>
 
         <activity
             android:name="edu.ggc.it.calendar.CalendarActivity"

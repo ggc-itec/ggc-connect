@@ -1,7 +1,10 @@
 package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -19,7 +22,7 @@ public class WidgetService extends RemoteViewsService
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent)
     {
-	return new ViewsFactory(intent);
+	return new ViewsFactory(this.getApplicationContext());
     }
     
     /**
@@ -30,18 +33,19 @@ public class WidgetService extends RemoteViewsService
      */
     private class ViewsFactory implements RemoteViewsService.RemoteViewsFactory
     {
-	private Intent intent;
 	private RemoteViews rv;
+	private Context context;
 	private WidgetData data = WidgetData.getInstance();
+	private Cursor cursor;
 	
 	/**
 	 * Constructor
 	 * @param intent	the Intent passed from WidgetUpdater(Unused for now)
 	 */
-	public ViewsFactory(Intent intent)
+	public ViewsFactory(Context context)
 	{
-	    this.intent = intent;
-	    rv = new RemoteViews(getPackageName(), R.layout.widget_item);
+	    this.rv = new RemoteViews(getPackageName(), R.layout.widget_item);
+	    this.context = context;
 	}
 
 	/**
@@ -50,7 +54,7 @@ public class WidgetService extends RemoteViewsService
 	@Override
 	public int getCount()
 	{
-	    return data.getCount();
+	    return cursor.getCount();
 	}
 
 	/**
@@ -74,7 +78,12 @@ public class WidgetService extends RemoteViewsService
 	    if(index < 0 || index >= getCount()) {
 		return getLoadingView();
 	    }
-	    String title = data.getCurrentContainer().getTitleAt(index);
+	    
+	    String title = "";
+	    if(cursor.moveToPosition(index))
+	    {
+		title = cursor.getString(cursor.getColumnIndex(RSSTable.COL_TITLE));
+	    }
 	    rv.setTextViewText(R.id.widget_titles_textview, title);
 	    
 	    Intent fillIntent = new Intent();
@@ -101,6 +110,19 @@ public class WidgetService extends RemoteViewsService
 	    return true;
 	}
 	
+	@Override
+	public void onDataSetChanged()
+	{
+	    cursor = data.getCursor(context);
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+	    if(cursor != null)
+		cursor.close();
+	}
+	
 	/*
 	 * These methods are unused
 	 */
@@ -109,11 +131,5 @@ public class WidgetService extends RemoteViewsService
 
 	@Override
 	public void onCreate(){}
-
-	@Override
-	public void onDataSetChanged(){}
-
-	@Override
-	public void onDestroy(){}
     }
 }
