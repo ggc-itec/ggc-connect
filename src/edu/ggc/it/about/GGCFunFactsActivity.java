@@ -24,7 +24,7 @@ public class GGCFunFactsActivity extends Activity
 		// sets the content view of this activity to the fun facts layout
 		setContentView(R.layout.activity_ggc_fun_facts);
 		
-		//adds a clickable link to the flickrLink TextView in the fun facts layout
+		//adds a clickable link to the flickrLink TextView in the activity_ggc_fun_facts.xml layout
 		TextView flickrLink = (TextView) findViewById(R.id.flickrLink);
 		flickrLink.setMovementMethod(LinkMovementMethod.getInstance());
 		String text = "•	<a href='http://www.flickr.com/photos/georgiagwinnett/7290433094/'> GGC Flickr Photos </a>";

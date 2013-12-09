@@ -17,6 +17,11 @@ import android.widget.TextView;
  * Class GGCSongActivity
  * 
  * Media player that plays GGC's Alma Mater (Official Song) and displays lyrics.
+ * 
+ * Much of the code contained in this class (plus images used for the media player) was
+ * obtained from the following tutorial and includes many of my own changes/modifications:
+ * 
+ * http://www.androidhive.info/2012/03/android-building-audio-player-tutorial/
  *
  */
 public class GGCSongActivity extends Activity implements OnCompletionListener, SeekBar.OnSeekBarChangeListener
@@ -31,7 +36,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	private Handler mHandler = new Handler();
 	private int seekForwardTime = 5000;
 	private int seekBackwardTime = 5000;
-	private AssetFileDescriptor afd;
+	private AssetFileDescriptor songFile;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -48,7 +53,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		songProgressBar.setOnSeekBarChangeListener(this);
 		mp = new MediaPlayer();
 		mp.setOnCompletionListener(this);
-		afd = this.getResources().openRawResourceFd(R.raw.ggc_alma_mater); 
+		songFile = this.getResources().openRawResourceFd(R.raw.ggc_alma_mater); 
 		
 		prepareMediaPlayer();
 		
@@ -56,7 +61,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		 * Play button click event
 		 * plays a song and changes button to pause image
 		 * pauses a song and changes button to play image
-		 * */
+		 */
 		btnPlay.setOnClickListener(new View.OnClickListener() 
 		{
 			@Override
@@ -93,7 +98,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		/**
 		 * Forward button click event
 		 * Forwards song specified seconds
-		 * */
+		 */
 		btnForward.setOnClickListener(new View.OnClickListener() 
 		{
 			@Override
@@ -119,7 +124,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		/**
 		 * Rewind button click event
 		 * Rewinds song to specified seconds
-		 * */
+		 */
 		btnBackward.setOnClickListener(new View.OnClickListener() 
 		{
 			@Override
@@ -145,14 +150,14 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	
 	/**
 	 * Function to set up media player
-	 * */
+	 */
 	public void prepareMediaPlayer()
 	{
 		try 
 		{
 			// sets media player's data source and prepares it
 			mp.reset();
-			mp.setDataSource(afd.getFileDescriptor());
+			mp.setDataSource(songFile.getFileDescriptor());
 			mp.prepare();
 			
 			// Changes Button Image to play image
@@ -185,15 +190,15 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	
 	/**
 	 * Update timer on seekbar
-	 * */
+	 */
 	public void updateProgressBar() 
 	{
 		mHandler.postDelayed(mUpdateTimeTask, 100);        
 	}
 	
 	/**
-	 * Background Runnable thread
-	 * */
+	 * Background Runnable thread for updateProgressBar() method
+	 */
 	private Runnable mUpdateTimeTask = new Runnable() 
 	{
 		public void run() 
@@ -214,7 +219,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	
 	/**
 	 * Updates media player to play from where user sets the seekbar.
-	 * */
+	 */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 
 	{
@@ -226,7 +231,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	
 	/**
 	 * When user starts moving the progress handler
-	 * */
+	 */
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) 
 	{
@@ -236,7 +241,7 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 	
 	/**
 	 * When user stops moving the progress handler
-	 * */
+	 */
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) 
 	{
@@ -253,23 +258,31 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		updateProgressBar();
 	}
 	
+	/**
+	 *  Controls what happens when the activity is paused -- not when the song is paused.
+	 *  Releases media player resources and removes pending posts of the progress bar update runnable.
+	 */
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-		//mp.pause();
 		mHandler.removeCallbacks(mUpdateTimeTask);
 		mp.release();
-		btnPlay.setImageResource(R.drawable.btn_play);
-		finish();
 	}
 	
+	/**
+	 * Recreates media player after resumed from a paused state
+	 */
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
+		onCreate(null);
 	}
 	
+	/**
+	 * Releases media player resources and removes pending posts of the progress bar update runnable when activity is destroyed
+	 */
 	@Override
 	protected void onDestroy()
 	{
@@ -278,22 +291,19 @@ public class GGCSongActivity extends Activity implements OnCompletionListener, S
 		mp.release();
 	}
 	
+	/**
+	 * Sets pause/play button to play image when song is completed
+	 */
 	@Override
 	public void onCompletion(MediaPlayer mp)
 	{
 		btnPlay.setImageResource(R.drawable.btn_play);
 	}
 	
-	public void onStop()
-	{
-		super.onStop();
-		mp.release();
-	}
-	
 	/**
 	 * Function to convert milliseconds time to Timer Format for media player timer
 	 * Minutes:Seconds
-	 * */
+	 */
 	public String milliSecondsToTimer(int milliseconds)
 	{
 		String strTime = "";

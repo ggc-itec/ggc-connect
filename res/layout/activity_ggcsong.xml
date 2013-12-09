@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/player_header_bg" >
 
+        <!-- Left Side Current Song Progress Time -->
         <TextView
             android:id="@+id/songCurrentDurationLabel"
             android:layout_width="fill_parent"
@@ -45,6 +46,7 @@
             android:textColor="#eeeeee"
             android:textStyle="bold" />
 
+        <!-- Right Side Song Total Duration -->
         <TextView
             android:id="@+id/songTotalDurationLabel"
             android:layout_width="fill_parent"
@@ -88,6 +90,7 @@
             android:background="@layout/rounded_corner"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
+            
             <!-- Backward Button -->
             <ImageButton 
                 android:id="@+id/btnBackward"
@@ -95,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"/>
+            
             <!-- Play Button -->
             <ImageButton 
                 android:id="@+id/btnPlay"
@@ -102,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"/>
+            
             <!-- Forward Button -->
             <ImageButton 
                 android:id="@+id/btnForward"
@@ -112,7 +117,7 @@
         </LinearLayout>
     </LinearLayout>
     
-    <!-- Lyrics Display -->
+    <!-- Main Lyrics Display -->
     <LinearLayout 
         android:id="@+id/lyricsDisplay"
         android:orientation="vertical"
@@ -122,6 +127,7 @@
         android:layout_below="@id/player_footer_bg"
         android:background="#aaaaaa">
 
+        <!-- Lyrics Title -->
         <TextView
             android:id="@+id/lyricsTitle"
             android:layout_width="fill_parent"
@@ -134,21 +140,32 @@
             android:textColor="#000000"
             android:text="Alma Mater Lyrics\n" />
         
+        <!-- Lyrics Scroller -->
         <ScrollView 
         	android:id="@+id/lyricsScrollView" 
         	android:layout_width="fill_parent"
         	android:layout_height="match_parent" 
         	android:fadeScrollbars="false" >
         
-        	<TextView 
-        		android:id="@+id/lyricsText"
-	        	android:layout_width="fill_parent"
-	        	android:layout_height="wrap_content"
-	        	android:padding="5dp"
-	        	android:gravity="center"
-	        	android:textSize="22sp"
-	        	android:textColor="#000000"
-	        	android:text=" We have gained wisdom and honor\n
+	        <!-- Inner Lyrics Text Display -->
+	    	<LinearLayout 
+		        android:id="@+id/lyricsTextDisplay"
+		        android:orientation="vertical"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:background="#aaaaaa">
+	            
+	    	    	<!-- Lyrics Text -->
+		        	<TextView 
+		        		android:id="@+id/lyricsText"
+			        	android:layout_width="fill_parent"
+			        	android:layout_height="wrap_content"
+			        	android:padding="5dp"
+			        	android:gravity="center"
+			        	android:textSize="22sp"
+			        	android:textColor="#000000"
+			        	android:text=" We have gained wisdom and honor\n
 From our home of green and gray.\n
 We will go forth and remember\n
 All we've learned along the way.\n
@@ -161,6 +178,18 @@ How we have grown,\n
 and those that we've met.\n
 Georgia Gwinnett, love and respect\n
 Our alma mater, Georgia Gwinnett." />
+        	
+		        <!-- Song Authors -->	
+	        	<TextView 
+	        		android:id="@+id/songAuthorText"
+		        	android:layout_width="fill_parent"
+		        	android:layout_height="wrap_content"
+		        	android:padding="5dp"
+		        	android:textSize="15sp"
+		        	android:textColor="#000000"
+		        	android:text="Lyrics by Dr. Alvina Atkinson and Brittany Dertz, Class of 2011\n\n
+Music by Dr. Thomas Young\n\n" />
+	        </LinearLayout>
     	</ScrollView>
     </LinearLayout>
     

@@ -56,7 +56,7 @@
             android:layout_alignLeft="@+id/socialLinearLayout"
             android:layout_alignParentTop="true"
             android:layout_marginTop="42dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_about_ggc" />
 
     <!-- About GGC Button Title -->
     <TextView
