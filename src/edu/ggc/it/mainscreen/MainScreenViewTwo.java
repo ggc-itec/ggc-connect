@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import edu.ggc.it.R;
 import edu.ggc.it.calendar.CalendarActivity;
+import edu.ggc.it.degrees.DegreesMainActivity;
 import edu.ggc.it.departmenthours.DepartmentHoursActivity;
 import edu.ggc.it.gpacalc.GPACalcActivity;
 import edu.ggc.it.about.AboutMainActivity;
@@ -70,7 +71,7 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
         Button buttonTwo = getListenedButton(R.id.view_two_department_hours_btn);
         Button gpaCalcButton = getListenedButton(R.id.gpa_calc_button);
         Button calendarButton = getListenedButton(R.id.calendar_btn);
-        Button buttonFive = getListenedButton(R.id.view_two_dummy_btn5);
+        Button degreesButton = getListenedButton(R.id.degrees_button);
         Button buttonSix = getListenedButton(R.id.view_two_dummy_btn6);
     }
 
@@ -92,8 +93,8 @@ public class MainScreenViewTwo extends RelativeLayout implements View.OnClickLis
             context.startActivity(new Intent(context, GPACalcActivity.class));
         } else if (view.getId() == R.id.calendar_btn) {
             context.startActivity(new Intent(context, CalendarActivity.class));
-        } else if (view.getId() == R.id.view_two_dummy_btn5) {
-            //context.startActivity(new Intent(context, YourActivity.class));
+        } else if (view.getId() == R.id.degrees_button) {
+            context.startActivity(new Intent(context, DegreesMainActivity.class));
         } else if (view.getId() == R.id.view_two_dummy_btn6) {
             //context.startActivity(new Intent(context, YourActivity.class));
         }

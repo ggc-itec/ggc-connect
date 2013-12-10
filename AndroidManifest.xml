@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="15"
-    android:versionName="1.3.2" >
+    android:versionCode="16"
+    android:versionName="1.3.3" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -181,6 +181,12 @@
             android:label="@string/title_activity_ggcsong"
             android:screenOrientation="portrait" >
         </activity>
+
+        <!--
+        The property configChanges was added here to tell Android
+        not to reset the activity to default when the keyboard is pulled out, 
+        or the phone is rotated; I want to handle this myself.
+        -->
         <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -220,6 +226,78 @@
         <activity
             android:name="edu.ggc.it.calendar.CalendarActivity"
             android:label="@string/title_activity_calendar" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.Biology"
+            android:label="@string/title_activity_biology" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.Business"
+            android:label="@string/title_activity_business" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.CriminalJustice"
+            android:label="@string/title_activity_criminal_justice" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.DegreesMainActivity"
+            android:label="@string/title_activity_degrees_main" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.Education"
+            android:label="@string/title_activity_education" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.HealthScience"
+            android:label="@string/title_activity_health_science" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.InformationTechnology"
+            android:label="@string/title_activity_information_technology" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.LiberalArts"
+            android:label="@string/title_activity_liberal_arts" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.LiberalArtsEnglish"
+            android:label="@string/title_activity_liberal_arts_english" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.LiberalArtsHistory"
+            android:label="@string/title_activity_liberal_arts_history" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.LiberalArtsPoliticalScience"
+            android:label="@string/title_activity_liberal_arts_political_science" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.Mathematics"
+            android:label="@string/title_activity_mathematics" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.Schools"
+            android:label="@string/title_activity_schools" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.degrees.ScienceTechnology"
+            android:label="@string/title_activity_science_technology" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.banner_web.BannerWebLoginActivity"
+            android:label="@string/title_activity_banner_web_login" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.banner_web.BannerWebActivity"
+            android:label="@string/title_activity_banner_web" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.d2l_web.D2LWebActivity"
+            android:label="@string/title_activity_d2_lweb" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.d2l_web.D2LWebLoginActivity"
+            android:label="@string/title_activity_d2_lweb_login" >
         </activity>
     </application>
 

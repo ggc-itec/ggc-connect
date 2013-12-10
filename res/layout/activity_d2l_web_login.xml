@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff4C7801"
+    android:focusableInTouchMode="true"
+    android:padding="10dp" >
+
+    <TextView
+         android:id="@+id/textview_d2l_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Desire2Learn"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textview_d2l_title"
+        android:background="#ff000000"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textview_d2l_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="UserID "
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edittext_d2l_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textview_d2l_username"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/textview_d2l_username" />
+
+        <TextView
+            android:id="@+id/textview_d2l_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_d2l_username"
+            android:paddingTop="15dp"
+            android:text="PIN       "
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edittext_d2l_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textview_d2l_password"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/textview_d2l_password"
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkbox_save_d2l_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textview_d2l_password"
+            android:layout_marginLeft="-8dp"
+            android:layout_marginTop="15dp"
+            android:text="Remember me" />
+
+        <Button
+            android:id="@+id/button_d2l_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/checkbox_save_d2l_login"
+            android:layout_below="@+id/checkbox_save_d2l_login"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:text="Sign In" />
+    </RelativeLayout>
+
+</RelativeLayout>

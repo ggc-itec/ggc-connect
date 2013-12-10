@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
+ * This xml represents the opening and closing times of a department
+ * in military time, 0 to 2300, for a single day of the week,
+ * Sunday (1) through Saturday (7).
+	 
+	 	 Sunday = 1
+		 Monday = 2
+		 Tuesday = 3
+		 Wednesday = 4
+		 Thursday = 5
+		 Friday = 6
+		 Saturday = 7
+ * 
+ 	For example: I want to change the Admissions for Tuesday and change the opening time to 6:30 AM and have it close at 9:45PM.
+ *
+ * 1) Navigate to the appropriate department node.
+ * 2) In the nested hoursfordayofweek node, look for the appropriate day of the week. I want to change the hours for Tuesday. Tuesday = 2.
+ * 3) for the opening time I want to change it to 6:30AM. 6:30AM should be written as "630". 
+ * 4) for the closing time I want to change it to 9:45 PM. So I would put the input as "2145".
+ * 	NOTE: if you do know military time, there are plenty of google results on how to convert a 12-hour format to the 24-hour "military time.
+ * 5) save the xml.
+ * 6) Run the Campus Hours from the main screen of GGC-Connect. Verify your hours.
+ *  
+ *	 For any bugs and problems, please submit a new ticket in github. Thank you!
+ *
+ */
+ -->
 <resources>
     <department name="Admissions" url="http://www.ggc.edu/admissions/index.html">
         <hoursofoperation>

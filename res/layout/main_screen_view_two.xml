@@ -31,7 +31,7 @@
             android:id="@+id/view_two_dummy_btn6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/view_two_dummy_btn5"
+            android:layout_alignBaseline="@+id/degrees_button"
             android:layout_alignRight="@+id/socialLinearLayout"
             android:layout_below="@+id/calendar_btn"
             android:layout_marginLeft="37dp"
@@ -56,7 +56,7 @@
             android:layout_alignLeft="@+id/socialLinearLayout"
             android:layout_alignParentTop="true"
             android:layout_marginTop="42dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_about_ggc" />
 
     <!-- About GGC Button Title -->
     <TextView
@@ -110,7 +110,7 @@
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_two_dummy_btn5"
+            android:id="@+id/degrees_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/gpa_calc_button"
@@ -119,13 +119,13 @@
             android:background="@drawable/main_button_directory" />
 
     <TextView
-            android:id="@+id/view_two_textview5"
+            android:id="@+id/view_two_degrees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn5"
-            android:layout_below="@+id/view_two_dummy_btn5"
-            android:layout_marginLeft="-10dp"
-            android:text="dummy textview5"
+            android:layout_alignLeft="@+id/degrees_button"
+            android:layout_below="@+id/degrees_button"
+            android:layout_marginLeft="18dp"
+            android:text="Degrees"
             android:textColor="@color/main_button_text" />
 
     <edu.ggc.it.mainscreen.MainScreenSocialView

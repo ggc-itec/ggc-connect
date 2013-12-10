@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <!-- Did You Know Image -->
         <ImageView
             android:id="@+id/didYouKnowImage"
             android:layout_width="150dp"
@@ -16,6 +17,7 @@
             android:padding="10dp"
             android:src="@drawable/did_you_know" />
 
+        <!-- Fun Facts Text -->
         <TextView
             android:id="@+id/textView_funFacts"
             android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
 •	The Library promotes the whole-building approach to sustainability by recognizing performance in six key areas of human and environmental health.\n\n
 •	GGC&apos;s Library is the first academic library in Georgia to achieve LEED Gold certification."  />
 		
+        <!-- Flickr Link Intro -->
         <TextView
             android:id="@+id/flickrLinkIntro"
             android:layout_width="wrap_content"
@@ -50,6 +53,7 @@
             android:textSize="20sp"
             android:text="Cool To Watch: After Acceptance" />
         
+        <!-- Flickr Link -->
         <TextView
             android:id="@+id/flickrLink"
             android:layout_width="wrap_content"
@@ -59,8 +63,8 @@
             android:paddingBottom="10dp"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColorLink="#081078"
-            android:text="link will appear here" />
+            android:textColorLink="#64E6F5"
+            android:text="link will show up here in place of this text -- It is coded in GGCFunFactsActivity.java" />
         
     </LinearLayout>
 
