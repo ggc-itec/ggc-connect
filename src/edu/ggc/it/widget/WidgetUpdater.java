@@ -13,7 +13,7 @@ import android.widget.RemoteViews;
 /**
  * A class that updates the information for each widget.
  * For each widget that is available a new WidgetUpdater is created.
- * Keep in mind there can be multiple of the same widget on the homescreen.
+ * Keep in mind there can be multiple of the same widget on the home screen.
  * @author Derek
  *
  */

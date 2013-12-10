@@ -8,9 +8,9 @@ import edu.ggc.it.rss.RSSFeed;
 import edu.ggc.it.rss.RSSProvider;
 
 /**
- * A singleton class to be used to handle global data in the widget package.
- * Holds the RSSDataContainer[] returned by RSSTask, an int is used to keep track
- * of the currently displayed rss feed
+ * A singleton class that keeps track of the currently displayed feed.
+ * This class's getCursor() method is to return a Cursor with information from RSSDatabase.
+ * 
  * @author Derek
  *
  */

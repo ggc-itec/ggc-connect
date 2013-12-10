@@ -25,6 +25,20 @@ public class RSSTask extends AsyncTask<RSSFeed, Void, Void>
     private Context context;
     private boolean showDialog;
     private ProgressDialog dialog;
+    
+    /**
+     * An interface to be used by any class that has an instance of RSSTask.
+     * This method serves as a callback whenever onPostExecute() is called
+     * @author Derek
+     *
+     */
+    public interface RSSTaskComplete
+    {
+	/**
+	 * This method is called when onPostExecute() is called
+	 */
+	void taskComplete();
+    }
 
     /**
      * Constructor
@@ -100,19 +114,5 @@ public class RSSTask extends AsyncTask<RSSFeed, Void, Void>
 	    }
 	}
 	task.taskComplete();
-    }
-    
-    /**
-     * An interface to be used by any class that has an instance of RSSTask.
-     * This method serves as a callback whenever onPostExecute() is called
-     * @author Derek
-     *
-     */
-    public interface RSSTaskComplete
-    {
-	/**
-	 * This method is called when onPostExecute() is called
-	 */
-	void taskComplete();
     }
 }

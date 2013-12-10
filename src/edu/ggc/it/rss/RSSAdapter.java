@@ -64,8 +64,9 @@ public class RSSAdapter extends BaseAdapter
      */
     public void setCursor()
     {
+	String[] columns = {RSSTable.COL_TITLE, RSSTable.COL_PUB_DATE, RSSTable.COL_DESCRIPTION};
 	cursor = context.getContentResolver().query(RSSProvider.CONTENT_URI,
-				new String[] {RSSTable.COL_TITLE, RSSTable.COL_PUB_DATE, RSSTable.COL_DESCRIPTION},
+				columns,
 				RSSTable.COL_FEED + "=?",
 				new String[] {feed.title()},
 				null);

@@ -7,6 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import edu.ggc.it.rss.RSSDatabase.RSSTable;
 
+/**
+ * The ContentProvider for the RSSDatabase.
+ * A ContentProvider acts like as abstraction layer between a database and your application.
+ * This Provider is used in both the rss and widget package to query and insert data into the database.
+ * 
+ * @author Derek
+ *
+ */
 public class RSSProvider extends ContentProvider
 {
     private RSSDatabase dbHelper;
@@ -20,6 +28,13 @@ public class RSSProvider extends ContentProvider
 	return true;
     }
     
+    /**
+     * Inserts data into the RSSDatabase.
+     * Since the database has only one table the Uri doesn't need to be matched to a specific table.
+     * 
+     * @param uri		The Uri identifying where to insert data (not used here).
+     * @param values		ContentValues is what represents a row of data in the table.
+     */
     @Override
     public Uri insert(Uri uri, ContentValues values)
     {
@@ -29,6 +44,19 @@ public class RSSProvider extends ContentProvider
 	return uri;
     }
 
+    /**
+     * Query's the RSSDatabase.
+     * 
+     * @param uri		The Uri identifying what table to query the data from (not used here).
+     * @param columns		Array representing the table columns we want.
+     * @param selection		Column we want to compare to selectionArgs.
+     * 				NOTE: When comparing selection to selectionArgs you must concatenate "=?" to the end of selection
+     * @param selectionArgs	Array of column(s) we want to compare selection with. The combination of selection and sectionArgs is what
+     * 				constitutes the WHERE clause in SQL. Example: WHERE COL_FEED = GGC News, etc.
+     * @param sortOrder		The sort order you want for the returned Cursor.
+     * 
+     * @return cursor		A Cursor representing the data queried from the database.
+     */
     @Override
     public Cursor query(Uri uri, String[] columns, String selection, String[] selectionArgs, String sortOrder)
     {
