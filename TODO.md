@@ -10,5 +10,5 @@
 - Add Twitter feed to RSS
 - Add Get Involved feed to RSS
 - Add my.ggc.edu access
-
+- Add visual aid (map?) for [campus crime log](http://www.ggc.edu/about-ggc/departments/public-safety/crime-prevention-reporting/daily-crime-log/)
 

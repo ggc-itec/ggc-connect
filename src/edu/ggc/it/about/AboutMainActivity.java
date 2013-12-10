@@ -9,10 +9,30 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
+ * /////////////////////////////////////////////////////////////////////////////////////////
+ * ///                             COPYRIGHT DISCLAIMER                                  ///
+ * ///                                                                                   ///
+ * ///  Owner(s) of (or contributor(s) to) the GGC Connect App claim no ownership of     ///
+ * ///  the GGC Alma Mater music or lyrics. The music and lyrics belong to their         ///
+ * ///  respective owner(s).                                                             ///
+ * ///                                                                                   ///
+ * ///                      GEORGIA GWINNETT COLLEGE ALMA MATER                          ///
+ * ///        Lyrics by Dr. Alvina Atkinson and Brittany Dertz, Class of 2011            ///
+ * ///        Music by Dr. Thomas Young                                                  ///
+ * ///                                                                                   ///
+ * ///  For more information:                                                            ///
+ * ///                                                                                   ///
+ * ///  http://www.ggc.edu/student-life/commencement-landing/spring-commencement-2013/   ///
+ * ///  ceremony-and-reception-info/alma-mater/index.html                                ///
+ * ///                                                                                   ///
+ * ///  http://www.ggc.edu/about-ggc/news/6-2-11-GGC%20Alma%20Mater%20premiers%20at%20   ///
+ * ///  June%202%20commencement.html                                                     ///
+ * /////////////////////////////////////////////////////////////////////////////////////////
+ * 
  * Class: MainActivity
  * 
- * Main page for AboutGGC. Provides buttons for GGC history, geography, song, fun facts.
- *
+ * Main page for AboutGGC. Provides buttons for GGC history, geography, song, and fun facts.
+ * 
  */
 public class AboutMainActivity extends Activity
 {
