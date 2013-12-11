@@ -1,6 +1,7 @@
 package edu.ggc.it.rss;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import edu.ggc.it.R;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
 
 /**
  * 
@@ -24,15 +26,15 @@ import edu.ggc.it.R;
  */
 public class RSSAdapter extends BaseAdapter
 {
+    private Context context;
+    private RSSFeed feed;
     private LayoutInflater inflater;
-    private RSSDataContainer container;
+    private Cursor cursor;
 
     /**
-     * This is the ViewHolder pattern.
      * Holds references to TextViews from layout rss_list_row.
-     * Instead of reinflating Views each time getView() is called
-     * we store Views in this static class
-     * This keeps calls to findViewById() to a minimum
+     * Instead of reinflating Views each time getView() is called we store Views in this static class.
+     * This keeps calls to findViewById() to a minimum.
      * @author Derek
      *
      */
@@ -48,12 +50,35 @@ public class RSSAdapter extends BaseAdapter
      * Needs context to set up LayoutInflater
      * 
      * @param context		the Context of the calling class
+     * @param feed		RSSFeed that was selected
      */
-    public RSSAdapter(Context context)
+    public RSSAdapter(Context context, RSSFeed feed)
     {
-	inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	this.context = context;
+	this.feed = feed;
+	this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     
+    /**
+     * Sets the Cursor object by querying the RSSDatabase through the RSSProvider.
+     */
+    public void setCursor()
+    {
+	String[] columns = {RSSTable.COL_TITLE, RSSTable.COL_PUB_DATE, RSSTable.COL_DESCRIPTION};
+	cursor = context.getContentResolver().query(RSSProvider.CONTENT_URI,
+				columns,
+				RSSTable.COL_FEED + "=?",
+				new String[] {feed.title()},
+				null);
+    }
+    
+    /**
+     * Closes the cursor
+     */
+    public void closeCursor()
+    {
+	cursor.close();
+    }
 
     /**
      * @return the number of rss items (views) this adapter is returning
@@ -61,7 +86,7 @@ public class RSSAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-	return container.getTitlesSize();
+	return cursor.getCount();
     }
 
     /**
@@ -115,20 +140,15 @@ public class RSSAdapter extends BaseAdapter
 	    holder = (ViewHolder) view.getTag();
 	}
 
-	holder.titleText.setText(container.getTitleAt(position));
-	holder.dateText.setText(container.getDateAt(position));
-	holder.descriptionText.setText(Html.fromHtml(container.getDescriptionAt(position)));
-
+	if(cursor.moveToPosition(position))
+	{
+	    CharSequence title = cursor.getString(cursor.getColumnIndex(RSSTable.COL_TITLE));
+	    CharSequence date = cursor.getString(cursor.getColumnIndex(RSSTable.COL_PUB_DATE));
+	    CharSequence description = Html.fromHtml(cursor.getString(cursor.getColumnIndex(RSSTable.COL_DESCRIPTION)));
+	    holder.titleText.setText(title);
+	    holder.dateText.setText(date);
+	    holder.descriptionText.setText(description);
+	}
 	return view;
-    }
-    
-    public void setContainer(RSSDataContainer container)
-    {
-	this.container = container;
-    }
-
-    public RSSDataContainer getContainer()
-    {
-	return container;
     }
 }

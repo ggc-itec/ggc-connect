@@ -1,10 +1,8 @@
 package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
-import edu.ggc.it.rss.RSSDataContainer;
-import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
+import edu.ggc.it.rss.RSSFeed;
 import edu.ggc.it.rss.RSSTask;
-import edu.ggc.it.rss.RSSTaskComplete;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -15,11 +13,11 @@ import android.widget.RemoteViews;
 /**
  * A class that updates the information for each widget.
  * For each widget that is available a new WidgetUpdater is created.
- * Keep in mind there can be multiple of the same widget on the homescreen.
+ * Keep in mind there can be multiple of the same widget on the home screen.
  * @author Derek
  *
  */
-public class WidgetUpdater implements RSSTaskComplete
+public class WidgetUpdater implements RSSTask.RSSTaskComplete
 {
     private Context context;
     private AppWidgetManager manager;
@@ -50,7 +48,7 @@ public class WidgetUpdater implements RSSTaskComplete
 	this.widgetID = widgetID;
 	
 	rv = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-	serviceIntent = new Intent(context, WidgetService.class);
+	serviceIntent = new Intent(context, WidgetService.class);	
     }
     
     /**
@@ -101,15 +99,13 @@ public class WidgetUpdater implements RSSTaskComplete
 
     /**
      * When RSSTask finishes it calls this method.
-     * Sets the containers in WidgetData, and the Adapter for the widget.
      * In this case the Adapter is actually a WidgetService inner class.
      * Finally the widget is updated with the widgetID and RemoteViews object
      */
     @SuppressWarnings("deprecation")
     @Override
-    public void taskComplete(RSSDataContainer[] containers)
+    public void taskComplete()
     {
-	WidgetData.getInstance().setContainers(containers);
 	rv.setRemoteAdapter(widgetID, R.id.widget_view_flipper, serviceIntent);
 	manager.updateAppWidget(widgetID, rv);
     }

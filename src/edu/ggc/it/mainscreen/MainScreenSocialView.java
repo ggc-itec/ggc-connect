@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSActivity;
-import edu.ggc.it.rss.RSSEnumSets.RSSFeed;
+import edu.ggc.it.rss.RSSFeed;
 
 /**
  * Created by gregwesterfield on 10/21/13.

@@ -8,39 +8,80 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import edu.ggc.it.rss.RSSEnumSets.RSSTag;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.widget.Toast;
 
+/**
+ * This is that class that handles parsing the rss feeds.
+ * A lot of the methods are based on the Android training course on parsing XML data.
+ * http://developer.android.com/training/basics/network-ops/xml.html
+ * 
+ * @author Derek
+ *
+ */
 public class RSSParser
 {
-    private RSSDataContainer container;
     private Context context;
+    private ContentResolver resolver;
+    private RSSFeed feed;
     private URL url;
     private XmlPullParserFactory factory;
     private XmlPullParser parser;
+    
+    /**
+     * Defines the tags present in the XML document from the Rss Feed
+     * 
+     * @author crystalist
+     * 
+     */
+    public enum RSSTag
+    {
+	ITEM("item"),
+	TITLE("title"),
+	LINK("link"),
+	DESCRIPTION("description"),
+	PUBLISH_DATE("pubDate"),
+	OTHER("");
 
+	private final String detail;
+
+	private RSSTag(String s)
+	{
+	    detail = s;
+	}
+
+	public String tag()
+	{
+	    return detail;
+	}
+    }
+    
     /**
      * Constructor
      * 
-     * @param container		reference to RSSDataContainer that uses this class
-     * @param context		Context of activity
+     * @param context
      */
-    public RSSParser(RSSDataContainer container, Context context)
+    public RSSParser(Context context)
     {
-	this.container = container;
 	this.context = context;
-	setUpConnections();
+	this.resolver = context.getContentResolver();
     }
 
     /**
-     * Set up connection instances
+     * Set up connection instances. This method should be called before parseFeed().
+     * 
+     * @throws XmlPullParserException 
+     * @throws IOException 
      */
-    private void setUpConnections()
+    public void setUpConnections(RSSFeed feed) throws XmlPullParserException, IOException
     {
+	this.feed = feed;
 	try
 	{
-	    url = new URL(container.getRSSFeed().URL());
+	    url = new URL(feed.URL());
 	    factory = XmlPullParserFactory.newInstance();
 	    factory.setNamespaceAware(false);
 	    parser = factory.newPullParser();
@@ -48,63 +89,133 @@ public class RSSParser
 	} catch (MalformedURLException e)
 	{
 	    Toast.makeText(context, "Bad URL", Toast.LENGTH_LONG).show();
-	} catch (XmlPullParserException e)
-	{
-	    Toast.makeText(context, "An error occured", Toast.LENGTH_LONG).show();
-	} catch (IOException e)
-	{
-	    Toast.makeText(context, "Unable to contact server", Toast.LENGTH_LONG).show();
 	}
     }
-
+    
     /**
-     * Parses information from RSS feed and adds to RSSDataContainer object
+     * Parses the RSSFeed. When it finds an "item" tag, the method readItem() is called.
+     * This method should be called after setUpConnections().
+     * 
+     * @throws XmlPullParserException
+     * @throws IOException
      */
-    public void parseRSS()
+    public void parseFeed() throws XmlPullParserException, IOException
     {
-	try {
-	    boolean insideItem = false;
-	    int eventType = parser.getEventType();
-	    while (eventType != XmlPullParser.END_DOCUMENT)
+	while(parser.next() != XmlPullParser.END_DOCUMENT)
+	{
+	    if(parser.getEventType() != XmlPullParser.START_TAG)
+		continue;
+	    
+	    String name = parser.getName();
+	    if(name.equalsIgnoreCase(RSSTag.ITEM.tag()))
 	    {
-		String name = parser.getName();
-		if (eventType == XmlPullParser.START_TAG)
-		{
-		    if (name.equalsIgnoreCase(RSSTag.ITEM.tag()))
-		    {
-			insideItem = true;
-		    }
-		    else if (name.equalsIgnoreCase(RSSTag.TITLE.tag()))
-		    {
-			if (insideItem)
-			    container.add(parser.nextText(), RSSTag.TITLE);
-		    }
-		    else if (name.equalsIgnoreCase(RSSTag.LINK.tag()))
-		    {
-			if (insideItem)
-			    container.add(parser.nextText(), RSSTag.LINK);
-		    }
-		    else if (name.equalsIgnoreCase(RSSTag.DESCRIPTION.tag()))
-		    {
-			if (insideItem)
-			    container.add(parser.nextText(), RSSTag.DESCRIPTION);
-		    }
-		    else if (name.equalsIgnoreCase(RSSTag.PUBLISH_DATE.tag()))
-		    {
-			if (insideItem)
-			    container.add(parser.nextText(), RSSTag.PUBLISH_DATE);
-		    }
-		}
-		else if (eventType == XmlPullParser.END_TAG && name.equalsIgnoreCase(RSSTag.ITEM.tag()))
-		{
-		    insideItem = false;
-		}
-		eventType = parser.next();
-	    }//end while loop
-	} catch (XmlPullParserException e){
-	    Toast.makeText(context, "An error occured", Toast.LENGTH_LONG).show();
-	} catch (IOException e){
-	    Toast.makeText(context, "Unable to contact server", Toast.LENGTH_LONG).show();
+		readItem();
+	    }
 	}
+    }
+    
+    /**
+     * Parses information within the "item" and puts it into a ContentValues.
+     * This ContentValues is then added to the RSSDatabase by way of the RSSProvider.
+     * ContentValues are basically a row within a table.
+     * 
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    private void readItem() throws XmlPullParserException, IOException
+    {
+	ContentValues values = new ContentValues();
+	while(parser.next() != XmlPullParser.END_TAG)
+	{
+	    if(parser.getEventType() != XmlPullParser.START_TAG)
+		continue;
+	    
+	    RSSTag tag = getTag(parser.getName());
+	    switch (tag)
+	    {
+	    	case TITLE:
+	    	    values.put(RSSTable.COL_TITLE, readText());
+	    	    break;
+	    	case LINK:
+	    	    values.put(RSSTable.COL_LINK, readText());
+	    	    break;
+	    	case DESCRIPTION:
+	    	    values.put(RSSTable.COL_DESCRIPTION, readText());
+	    	    break;
+	    	case PUBLISH_DATE:
+	    	    values.put(RSSTable.COL_PUB_DATE, readText());
+	    	    break;
+	    	default:
+	    	    skip();
+	    	    break;
+	    }
+	}
+	values.put(RSSTable.COL_FEED, feed.title());
+	resolver.insert(RSSProvider.CONTENT_URI, values);
+    }
+    
+    /**
+     * This method returns the String located in between the various tags in the rss feed.
+     * 
+     * @return result		The text located within a tag
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    private String readText() throws XmlPullParserException, IOException
+    {
+	String result = "";
+	if(parser.next() == XmlPullParser.TEXT)
+	{
+	    result = parser.getText();
+	    parser.nextTag();
+	}
+	return result;
+    }
+    
+    /**
+     * This method is called when the parser finds a tag whose data won't get added to the RSSDatabase.
+     * Pretty much a copy paste from the Android XML parsing training course.
+     * 
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    private void skip() throws XmlPullParserException, IOException
+    {
+	if(parser.getEventType() != XmlPullParser.START_TAG)
+	    throw new IllegalStateException();
+	int depth = 1;
+        while (depth != 0) {
+            switch (parser.next()) {
+            case XmlPullParser.END_TAG:
+                    depth--;
+                    break;
+            case XmlPullParser.START_TAG:
+                    depth++;
+                    break;
+            }
+        }
+    }
+    
+    /**
+     * Returns an RSSTag based on the passed name.
+     * If the name isn't one of the tags that will go into the database, then the RSSTag is set to OTHER.
+     * 
+     * @param name	The name of the tag
+     * @return tag	The RSSTag associated with the passed name
+     */
+    private RSSTag getTag(String name)
+    {
+	RSSTag tag;
+	if(name.equalsIgnoreCase(RSSTag.TITLE.tag()))
+	    tag = RSSTag.TITLE;
+	else if(name.equalsIgnoreCase(RSSTag.LINK.tag()))
+	    tag = RSSTag.LINK;
+	else if(name.equalsIgnoreCase(RSSTag.DESCRIPTION.tag()))
+	    tag = RSSTag.DESCRIPTION;
+	else if(name.equalsIgnoreCase(RSSTag.PUBLISH_DATE.tag()))
+	    tag = RSSTag.PUBLISH_DATE;
+	else
+	    tag = RSSTag.OTHER;
+	return tag;
     }
 }

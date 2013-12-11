@@ -1,33 +1,38 @@
 package edu.ggc.it.widget;
 
-import edu.ggc.it.rss.RSSDataContainer;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import edu.ggc.it.rss.RSSFeed;
+import edu.ggc.it.rss.RSSProvider;
 
 /**
- * A singleton class to be used to handle global data in the widget package.
- * Holds the RSSDataContainer[] returned by RSSTask, an int is used to keep track
- * of the currently displayed rss feed
+ * A singleton class that keeps track of the currently displayed feed.
+ * This class's getCursor() method is to return a Cursor with information from RSSDatabase.
+ * 
  * @author Derek
  *
  */
 public class WidgetData
 {
     /**
-     * The singleton instance
+     * The singleton instance.
      */
-    private static WidgetData data;
-    
+    private static WidgetData instance;
+        
     /**
-     * The containers for the rss feeds
-     */
-    public RSSDataContainer[] containers;
-    
-    /**
-     * The index of the current rss feed
-     * 0 = News
-     * 1 = Events
+     * The index of the current rss feed.
+     * 0 = News,
+     * 1 = Events.
      * Note: this isn't the best implementation just the easiest at the time
      */
-    private int current = 0;
+    private int currentFeed = 0;
+    
+    /**
+     * An array with all feeds stored in the RSSFeed enum.
+     */
+    private RSSFeed[] feeds = RSSFeed.values();
     
     /**
      * The singleton constructor, just leave blank
@@ -36,59 +41,48 @@ public class WidgetData
     
     /**
      * Singleton getInstance() method
-     * @return data		the instance of this class
+     * @return instance		the instance of this class
      */
     public static WidgetData getInstance()
     {
-	if(data == null)
+	if(instance == null)
 	{
-	    data = new WidgetData();
+	    instance = new WidgetData();
 	}
-	return data;
+	return instance;
     }
     
     /**
-     * Sets this class's containers object.
-     * Since this is a singleton class this method needs to be called to set the containers object.
-     * Preferably this method is called in WidgetUpdater's taskComplete() method
-     * @param containers
+     * Increments the value of currentFeed only if the new value is a valid index of the feeds[] array.
      */
-    public void setContainers(RSSDataContainer[] containers)
+    public void switchFeed()
     {
-	this.containers = containers;
+	currentFeed = (currentFeed + 1 >= feeds.length)? 0 : ++currentFeed;
     }
     
     /**
-     * @return the currently displayed RSSDataContainer
+     * Returns a cursor with the title and link information based on the current feed.
+     * 
+     * @param context
+     * @return cursor
      */
-    public RSSDataContainer getCurrentContainer()
+    public Cursor getCursor(Context context)
     {
-	return containers[current];
+	ContentResolver resolver = context.getContentResolver();
+	String[] columns = {RSSTable.COL_TITLE, RSSTable.COL_LINK};
+	Cursor cursor = resolver.query(RSSProvider.CONTENT_URI,
+					columns,
+					RSSTable.COL_FEED + "=?",
+					new String[] {feeds[currentFeed].title()},
+					null);
+	return cursor;
     }
     
     /**
-     * Switches the value of current based on the value of current at time this method is called.
-     * This is the ternary operator. If current is equal to 0 then set current to 1, else set current to 0.
-     * NOTE: If there more than 2 rss feeds this method will need to be changed as it can only handle 2 feeds
+     * @return the current RSSFeed
      */
-    public void switchContainer()
+    public RSSFeed getCurrentFeed()
     {
-	current = (current == 0) ? 1 : 0;
-    }
-    
-    /**
-     * @return the amount of titles in the current RSSDataContainer
-     */
-    public int getCount()
-    {
-	return getCurrentContainer().getTitlesSize();
-    }
-    
-    /**
-     * @return the title of the current RSSDataContainers RSSFeed title
-     */
-    public String getTitle()
-    {
-	return getCurrentContainer().getRSSFeed().title();
+	return feeds[currentFeed];
     }
 }

@@ -1,13 +1,17 @@
 package edu.ggc.it.widget;
 
 import edu.ggc.it.R;
+import edu.ggc.it.rss.RSSDatabase.RSSTable;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 /**
  * The WidgetService class which is a RemoteViewsService a type of Service.
- * For a simple collection widget like this one we only need to override the onGetViewFactory() method
+ * For a simple collection widget like this one we only need to override the onGetViewFactory() method.
+ * 
  * @author Derek
  *
  */
@@ -19,29 +23,31 @@ public class WidgetService extends RemoteViewsService
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent)
     {
-	return new ViewsFactory(intent);
+	return new ViewsFactory(this.getApplicationContext());
     }
     
     /**
      * The ViewsFactory class implements RemoteViewsFactory which is a thin wrapper for an Adapter.
-     * This class returns views for any underlying data which in this case is stored in the WidgetData singleton
+     * This class returns views from data in the RSSProvider.
      * @author Derek
      *
      */
     private class ViewsFactory implements RemoteViewsService.RemoteViewsFactory
     {
-	private Intent intent;
 	private RemoteViews rv;
+	private Context context;
 	private WidgetData data = WidgetData.getInstance();
+	private Cursor cursor;
 	
 	/**
 	 * Constructor
-	 * @param intent	the Intent passed from WidgetUpdater(Unused for now)
+	 * 
+	 * @param context	The application Context
 	 */
-	public ViewsFactory(Intent intent)
+	public ViewsFactory(Context context)
 	{
-	    this.intent = intent;
-	    rv = new RemoteViews(getPackageName(), R.layout.widget_item);
+	    this.rv = new RemoteViews(getPackageName(), R.layout.widget_item);
+	    this.context = context;
 	}
 
 	/**
@@ -50,7 +56,7 @@ public class WidgetService extends RemoteViewsService
 	@Override
 	public int getCount()
 	{
-	    return data.getCount();
+	    return cursor.getCount();
 	}
 
 	/**
@@ -66,7 +72,7 @@ public class WidgetService extends RemoteViewsService
 
 	/**
 	 * Returns RemoteViews that display data at the supplied index.
-	 * Also fills in the PendingIntentTemplate with the data's index.
+	 * Also fills in the PendingIntentTemplate with the data's link.
 	 */
 	@Override
 	public RemoteViews getViewAt(int index)
@@ -74,11 +80,18 @@ public class WidgetService extends RemoteViewsService
 	    if(index < 0 || index >= getCount()) {
 		return getLoadingView();
 	    }
-	    String title = data.getCurrentContainer().getTitleAt(index);
+	    
+	    String title = "";
+	    String link = "";
+	    if(cursor.moveToPosition(index))
+	    {
+		title = cursor.getString(cursor.getColumnIndex(RSSTable.COL_TITLE));
+		link = cursor.getString(cursor.getColumnIndex(RSSTable.COL_LINK));
+	    }
 	    rv.setTextViewText(R.id.widget_titles_textview, title);
 	    
 	    Intent fillIntent = new Intent();
-	    fillIntent.putExtra(WidgetProvider.FILL_EXTRA, index);
+	    fillIntent.putExtra(WidgetProvider.FILL_EXTRA, link);
 	    rv.setOnClickFillInIntent(R.id.widget_titles_textview, fillIntent);
 	    return rv;
 	}
@@ -101,6 +114,25 @@ public class WidgetService extends RemoteViewsService
 	    return true;
 	}
 	
+	/**
+	 * This method is called when the ViewsFactory is first created and whenever notifyAppWidgetViewDataChanged() is called.
+	 */
+	@Override
+	public void onDataSetChanged()
+	{
+	    cursor = data.getCursor(context);
+	}
+	
+	/**
+	 * Called when all RemoteViewsAdapters are unbound
+	 */
+	@Override
+	public void onDestroy()
+	{
+	    if(cursor != null)
+		cursor.close();
+	}
+	
 	/*
 	 * These methods are unused
 	 */
@@ -109,11 +141,5 @@ public class WidgetService extends RemoteViewsService
 
 	@Override
 	public void onCreate(){}
-
-	@Override
-	public void onDataSetChanged(){}
-
-	@Override
-	public void onDestroy(){}
     }
 }
