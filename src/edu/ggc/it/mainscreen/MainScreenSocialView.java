@@ -93,38 +93,7 @@ public class MainScreenSocialView extends LinearLayout implements View.OnClickLi
                         Uri.parse("http://www.youtube.com/user/georgiagwinnett")));
             }
         } else if (view.getId() == R.id.rss_feed) {
-            rssChoserDialog();
+            context.startActivity(new Intent(context, RSSActivity.class));
         }
-    }
-
-    /**
-     * Method that allows the user to choose between News and Events RSS feeds
-     */
-    private void rssChoserDialog()
-    {
-        new AlertDialog.Builder(context)
-                .setTitle("RSS Feed")
-                .setMessage("Which RSS feed would you like to read?")
-                .setIcon(R.drawable.icon_rss)
-                .setPositiveButton("News",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                Intent newsIntent = new Intent(context, RSSActivity.class);
-                                newsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.NEWS.URL());
-                                context.startActivity(newsIntent);
-                            }
-                        })
-                .setNegativeButton("Events",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                Intent eventsIntent = new Intent(context, RSSActivity.class);
-                                eventsIntent.putExtra(RSSActivity.RSS_URL_EXTRA, RSSFeed.EVENTS.URL());
-                                context.startActivity(eventsIntent);
-                            }
-                        }).show();
     }
 }

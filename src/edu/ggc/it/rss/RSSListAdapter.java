@@ -1,5 +1,8 @@
 package edu.ggc.it.rss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.text.Html;
@@ -12,23 +15,17 @@ import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSDatabase.RSSTable;
 
 /**
- * 
- * NewsAdapter, which is an adapter, serves up the views for AdapterViews. What
- * is an AdapterView? It is view with multiple subviews that are similar. (e.g.
- * ListView, Spinner, Gallery)
- * 
- * This adapter will return views that will show the title and the published
- * date of a feed.
- * 
- * 
- * @author crystalist
+ * This class serves up Views to RSSListFragment.
+ * These Views, defined in rss_list_row, are "filled" in getView().
+ * @author crystalist, Derek
  * 
  */
-public class RSSAdapter extends BaseAdapter
+public class RSSListAdapter extends BaseAdapter
 {
     private Context context;
     private RSSFeed feed;
     private LayoutInflater inflater;
+    private List<CharSequence> links;
     private Cursor cursor;
 
     /**
@@ -52,24 +49,27 @@ public class RSSAdapter extends BaseAdapter
      * @param context		the Context of the calling class
      * @param feed		RSSFeed that was selected
      */
-    public RSSAdapter(Context context, RSSFeed feed)
+    public RSSListAdapter(Context context, RSSFeed feed)
     {
 	this.context = context;
 	this.feed = feed;
 	this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	this.links = new ArrayList<CharSequence>();
+	setCursor();
     }
     
     /**
      * Sets the Cursor object by querying the RSSDatabase through the RSSProvider.
      */
-    public void setCursor()
+    private void setCursor()
     {
-	String[] columns = {RSSTable.COL_TITLE, RSSTable.COL_PUB_DATE, RSSTable.COL_DESCRIPTION};
-	cursor = context.getContentResolver().query(RSSProvider.CONTENT_URI,
-				columns,
-				RSSTable.COL_FEED + "=?",
-				new String[] {feed.title()},
-				null);
+	String[] columns = {RSSTable.COL_TITLE, RSSTable.COL_PUB_DATE, RSSTable.COL_DESCRIPTION, RSSTable.COL_LINK};
+	cursor = context.getContentResolver().query(
+					RSSProvider.CONTENT_URI,
+					columns,
+					RSSTable.COL_FEED + "=?",
+					new String[] {feed.title()},
+					null);
     }
     
     /**
@@ -90,25 +90,7 @@ public class RSSAdapter extends BaseAdapter
     }
 
     /**
-     * TODO: ignored for now
-     */
-    @Override
-    public Object getItem(int position)
-    {
-	return null;
-    }
-
-    /**
-     * TODO: ignored for now
-     */
-    @Override
-    public long getItemId(int position)
-    {
-	return 0;
-    }
-
-    /**
-     * Returns a view for each rss item. Makes use of the ViewHolder pattern
+     * Returns a view for each rss item. Makes use of the ViewHolder pattern.
      * 
      * 
      * @param position		the current position for which the view is being generated
@@ -145,10 +127,31 @@ public class RSSAdapter extends BaseAdapter
 	    CharSequence title = cursor.getString(cursor.getColumnIndex(RSSTable.COL_TITLE));
 	    CharSequence date = cursor.getString(cursor.getColumnIndex(RSSTable.COL_PUB_DATE));
 	    CharSequence description = Html.fromHtml(cursor.getString(cursor.getColumnIndex(RSSTable.COL_DESCRIPTION)));
+	    CharSequence link = cursor.getString(cursor.getColumnIndex(RSSTable.COL_LINK));
 	    holder.titleText.setText(title);
 	    holder.dateText.setText(date);
 	    holder.descriptionText.setText(description);
+	    if(links.size() < getCount())//Keeps from adding duplicate links to ArrayList
+		links.add(link);
 	}
 	return view;
     }
+    
+    /**
+     * @param position		The index in the links ArrayList
+     * @return the link at the specified position.
+     */
+    public CharSequence getLinkAt(int position)
+    {
+	return links.get(position);
+    }
+    
+    /*
+     * These methods are unused.
+     */
+    @Override
+    public Object getItem(int position) {return null; }
+
+    @Override
+    public long getItemId(int position) {return 0;}
 }

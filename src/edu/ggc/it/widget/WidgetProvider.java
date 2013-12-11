@@ -4,11 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.widget.RemoteViews;
-import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSDatabase;
-import edu.ggc.it.rss.RSSFeed;
 
 /**
  * The WidgetProvider class which is a AppWidgetProvider a type of BroadcastReceiver.
@@ -29,7 +25,7 @@ public class WidgetProvider extends AppWidgetProvider
     /*
      * The fill extra for the widget_items
      */
-    public static final String FILL_EXTRA = "edu.ggc.it.widget.WidgetProvider.FILLIN";
+    public static final String FILL_EXTRA = "edu.ggc.it.widget.WidgetProvider.FILL_IN";
             
     /**
      * Updates the widget everytime it is created and for every update period.
@@ -58,39 +54,26 @@ public class WidgetProvider extends AppWidgetProvider
     @Override
     public void onReceive(Context context, Intent intent)
     {
-	WidgetData data = WidgetData.getInstance();
 	String action = intent.getAction();//the action defined by the received Intent
 	int widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-	
-	RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-	AppWidgetManager manager = AppWidgetManager.getInstance(context);
+	WidgetClickHandler clickHandler = new WidgetClickHandler(context, widgetID);
 	
 	if (action.equals(PREVIOUS_ACTION))//Previous button clicked
 	{
-	    rv.showPrevious(R.id.widget_view_flipper);
-	    manager.partiallyUpdateAppWidget(widgetID, rv);
+	    clickHandler.previousAction();
 	}
 	if (action.equals(NEXT_ACTION))//Next button clicked
 	{
-	    rv.showNext(R.id.widget_view_flipper);
-	    manager.partiallyUpdateAppWidget(widgetID, rv);
+	    clickHandler.nextAction();
 	}
 	if (action.equals(SWITCH_ACTION))//The "switch" button clicked, changes RSSFeed and updates the text on the banner
 	{
-	    data.switchFeed();
-	    manager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_view_flipper);
-		
-	    RSSFeed feed = data.getCurrentFeed();
-	    rv.setTextViewText(R.id.widget_banner, feed.title());
-	    manager.updateAppWidget(widgetID, rv);
+	    clickHandler.switchAction();
 	}
-	if(action.equals(WEB_ACTION))//When user clicks the widget_item returned from WidgetService, opens webpage to item clicked
+	if(action.equals(WEB_ACTION))//When user clicks the widget_item returned from WidgetService, opens web page to item clicked
 	{
 	    String link = intent.getStringExtra(FILL_EXTRA);
-	    Uri uri = Uri.parse(link);
-	    Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
-	    webIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	    context.startActivity(webIntent);
+	    clickHandler.webAction(link);
 	}
 	super.onReceive(context, intent);
     }

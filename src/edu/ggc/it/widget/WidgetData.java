@@ -27,12 +27,12 @@ public class WidgetData
      * 1 = Events.
      * Note: this isn't the best implementation just the easiest at the time
      */
-    private int currentFeed = 0;
+    private static int currentFeed = 0;
     
     /**
      * An array with all feeds stored in the RSSFeed enum.
      */
-    private RSSFeed[] feeds = RSSFeed.values();
+    private static RSSFeed[] feeds = RSSFeed.values();
     
     /**
      * The singleton constructor, just leave blank

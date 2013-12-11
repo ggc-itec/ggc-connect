@@ -41,7 +41,7 @@ public class WidgetUpdater implements RSSTask.RSSTaskComplete
     public WidgetUpdater(Context context, int widgetID)
     {
 	//create and execute a new RSSTask
-	new RSSTask(this, context, false).execute(RSSFeed.NEWS, RSSFeed.EVENTS);
+	new RSSTask(this, context, false).execute(RSSFeed.values());
 	
 	this.context = context;
 	this.manager = AppWidgetManager.getInstance(context);
