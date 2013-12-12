@@ -7,8 +7,8 @@
 - Schedule: test reminders on multiple devices
 - About: add Google maps 
 - GPA Calc: pull gpa data from Banner
-- Add Twitter feed to RSS
-- Add Get Involved feed to RSS
+- <del>Add Twitter feed to RSS</del>
+- <del>Add Get Involved feed to RSS</del>
 - Add my.ggc.edu access
 - Add visual aid (map?) for [campus crime log](http://www.ggc.edu/about-ggc/departments/public-safety/crime-prevention-reporting/daily-crime-log/)
 
