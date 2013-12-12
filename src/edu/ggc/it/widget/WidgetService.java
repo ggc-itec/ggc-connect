@@ -120,6 +120,7 @@ public class WidgetService extends RemoteViewsService
 	@Override
 	public void onDataSetChanged()
 	{
+	    closeCursor();
 	    cursor = data.getCursor(context);
 	}
 	
@@ -128,6 +129,14 @@ public class WidgetService extends RemoteViewsService
 	 */
 	@Override
 	public void onDestroy()
+	{
+	    closeCursor();
+	}
+	
+	/**
+	 * Closes the cursor if it has been instantiated.
+	 */
+	private void closeCursor()
 	{
 	    if(cursor != null)
 		cursor.close();

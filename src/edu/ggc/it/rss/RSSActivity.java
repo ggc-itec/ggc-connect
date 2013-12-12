@@ -1,50 +1,63 @@
 package edu.ggc.it.rss;
 
-import android.app.ListActivity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListView;
 import edu.ggc.it.R;
-import edu.ggc.it.rss.RSSDatabase.RSSTable;
 import edu.ggc.it.rss.RSSTask.RSSTaskComplete;
 
-/**
- * Activity responsible for displaying RSS feeds from ggc.edu
- * 
+/** CLASS: RSSActivity
+ * Activity responsible for displaying various GGC related RSS feeds.
+ * This class has two inner classes their order on this page is a hint to their view hierarchy within the app.
+ * From bottom to top:
+ * 1. RSSActivity,
+ * 2. RSSListFragment (returned by RSSPagerAdapter)
+ * 3. Views returned by RSSListAdapter
  * @author crystalist, Derek
  * 
  */
-public class RSSActivity extends ListActivity implements RSSTaskComplete
+public class RSSActivity extends FragmentActivity implements RSSTaskComplete
 {
-    public static final String RSS_URL_EXTRA = "edu.ggc.it.rss.RSS_URL_EXTRA";
+    private static final RSSFeed[] FEEDS = RSSFeed.values();
+    private static final int NUM_FEEDS = FEEDS.length;
 
-    private RSSFeed feed;
-    private Context context;
-    private RSSTask rssTask;
-    private RSSAdapter adapter;
+    private ViewPager pager;
+    private RSSPagerAdapter pagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.rss);
-
-	String rssURL = getIntent().getStringExtra(RSS_URL_EXTRA);
-	feed = getRSSFeed(rssURL);
-	context = this;
+	
+	//sets this window to be hardware accelerated, must be done before setContentView()
+	//check if Build is API level 11 or newer, hardware acceleration was added in Honeycomb (API 11)
+	if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+				WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+	
+	setContentView(R.layout.rss_view_pager);
 	
 	setUpDatabase();
 	
-	rssTask = new RSSTask(this, context, true);
-	rssTask.execute(RSSFeed.values());
+	Context context = this;
 	
-	setTitle(feed.title());
-	adapter = new RSSAdapter(context, feed);
+	new RSSTask(this, context, true).execute(FEEDS);//create & execute RSSTask
+	setTitle("GGC Feeds");
+	pager = (ViewPager) findViewById(R.id.rss_pager);
+	pagerAdapter = new RSSPagerAdapter(getSupportFragmentManager());
     }
     
     /**
@@ -52,56 +65,8 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
      */
     private void setUpDatabase()
     {
-	RSSDatabase db = RSSDatabase.getInstance(context);
+	RSSDatabase db = RSSDatabase.getInstance(this);
 	db.onUpgrade(db.getWritableDatabase(), 0, 0);
-    }
-    
-    /**
-     * Returns an RSSFeed enum with the same URL as the passed String
-     * 
-     * @param rssURL		the URL passed as an extra
-     * @return RSSFeed that matches passed String
-     */
-    private RSSFeed getRSSFeed(String rssURL)
-    {
-	RSSFeed[] feeds = RSSFeed.values();
-	int index = 0;
-	for(int i = 0; i < feeds.length; i++)
-	{
-	    if(rssURL.equals(feeds[i].URL()))
-	    {
-		index = i;
-	    }
-	}
-	return feeds[index];
-    }
-
-    /**
-     * Called when user clicks on a List item. Opens web page of item clicked.
-     * Makes a query to the RSSProvider to get the appropriate link.
-     * 
-     * @param list		ListView where the click happened
-     * @param view		View that was clicked within the ListView
-     * @param position		position of the View item clicked
-     * @param id		row id of the item that was clicked 
-     */
-    @Override
-    protected void onListItemClick(ListView list, View view, int position, long id)
-    {
-	ContentResolver resolver = context.getContentResolver();
-	Cursor cursor = resolver.query(RSSProvider.CONTENT_URI,
-					new String[] {RSSTable.COL_LINK},
-					RSSTable.COL_FEED + "=?",
-					new String[] {feed.title()},
-					null);
-	if(cursor.moveToPosition(position))
-	{
-	    String url = cursor.getString(cursor.getColumnIndex(RSSTable.COL_LINK));
-	    Uri uri = Uri.parse(url);
-	    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-	    cursor.close();
-	    startActivity(intent);
-	}
     }
 
     /**
@@ -110,14 +75,102 @@ public class RSSActivity extends ListActivity implements RSSTaskComplete
     @Override
     public void taskComplete()
     {
-	adapter.setCursor();
-	setListAdapter(adapter);
+	pager.setAdapter(pagerAdapter);
     }
-
-    @Override
-    protected void onDestroy()
+    
+    /** CLASS: RSSPagerAdapter
+     * This Adapter returns Fragments that will be added to RSSActivity.
+     * Think of these Fragments as pages in a book, each Fragment is a list for each RSSFeed.
+     * @author Derek
+     *
+     */
+    public static class RSSPagerAdapter extends FragmentStatePagerAdapter
     {
-	adapter.closeCursor();
-	super.onDestroy();
+	public RSSPagerAdapter(FragmentManager fm)
+	{
+	    super(fm);
+	}
+
+	/**
+	 * Returns a Fragment at specified index.
+	 * In this case the Fragments are ListFragments one for each RSSFeed.
+	 */
+	@Override
+	public Fragment getItem(int index)
+	{
+	    Fragment fragment = new RSSListFragment();
+	    Bundle args = new Bundle();
+	    args.putInt(RSSListFragment.FEED_INDEX_TAG, index);
+	    fragment.setArguments(args);
+	    return fragment;
+	}
+
+	/**
+	 * Returns the number of Fragments this adapter will handle.
+	 */
+	@Override
+	public int getCount()
+	{
+	    return NUM_FEEDS;
+	}
+
+	/**
+	 * Sets the title for each Fragment. Displayed in a title strip.
+	 */
+	@Override
+	public CharSequence getPageTitle(int position)
+	{
+	    return FEEDS[position].title();
+	}
+    }
+    
+    /** CLASS: RSSListFragment
+     * This class inflates and returns a View (specifically ListView) to RSSPagerAdapter.
+     * Each ListView sets a RSSListAdapter to get Views from.
+     * @author Derek
+     *
+     */
+    public static class RSSListFragment extends ListFragment
+    {
+	public static final String FEED_INDEX_TAG = "edu.ggc.it.rss.RSSListFragment.FEED_INDEX_TAG";
+	private RSSListAdapter adapter;
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+	    View list = inflater.inflate(R.layout.rss_list, container, false);
+	    int index = getArguments().getInt(FEED_INDEX_TAG);
+	    Context context = this.getActivity();
+	    adapter = new RSSListAdapter(context, FEEDS[index]);
+	    setListAdapter(adapter);
+	    return list;
+	}
+
+	/**
+	 * Called when user clicks on a List item. Opens web page of item clicked.
+	 * 
+	 * @param list		ListView where the click happened
+	 * @param view		View that was clicked within the ListView
+	 * @param position		position of the View item clicked
+	 * @param id		row id of the item that was clicked 
+	 */
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id)
+	{
+	    String link = (String) adapter.getLinkAt(position);
+	    Uri uri = Uri.parse(link);
+	    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+	    startActivity(intent);
+	}
+	
+	/**
+	 * Clean up by closing Cursor object in RSSListAdapter.
+	 */
+	@Override
+	public void onDestroy()
+	{
+	    adapter.closeCursor();
+	    super.onDestroy();
+	}
     }
 }
