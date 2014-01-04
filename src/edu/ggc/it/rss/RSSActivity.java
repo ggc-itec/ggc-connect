@@ -1,31 +1,19 @@
 package edu.ggc.it.rss;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ListView;
 import edu.ggc.it.R;
 import edu.ggc.it.rss.RSSTask.RSSTaskComplete;
 
 /** CLASS: RSSActivity
  * Activity responsible for displaying various GGC related RSS feeds.
- * This class has two inner classes their order on this page is a hint to their view hierarchy within the app.
- * From bottom to top:
- * 1. RSSActivity,
- * 2. RSSListFragment (returned by RSSPagerAdapter)
- * 3. Views returned by RSSListAdapter
  * @author crystalist, Derek
  * 
  */
@@ -66,7 +54,7 @@ public class RSSActivity extends FragmentActivity implements RSSTaskComplete
     private void setUpDatabase()
     {
 	RSSDatabase db = RSSDatabase.getInstance(this);
-	db.onUpgrade(db.getWritableDatabase(), 0, 0);
+	db.onCreate(db.getWritableDatabase());
     }
 
     /**
@@ -77,6 +65,8 @@ public class RSSActivity extends FragmentActivity implements RSSTaskComplete
     {
 	pager.setAdapter(pagerAdapter);
     }
+
+//==========================================Inner Class RSSPagerAdapter===============================================//
     
     /** CLASS: RSSPagerAdapter
      * This Adapter returns Fragments that will be added to RSSActivity.
@@ -93,7 +83,7 @@ public class RSSActivity extends FragmentActivity implements RSSTaskComplete
 
 	/**
 	 * Returns a Fragment at specified index.
-	 * In this case the Fragments are ListFragments one for each RSSFeed.
+	 * In this case the Fragments are RSSListFragments one for each RSSFeed.
 	 */
 	@Override
 	public Fragment getItem(int index)
@@ -121,56 +111,6 @@ public class RSSActivity extends FragmentActivity implements RSSTaskComplete
 	public CharSequence getPageTitle(int position)
 	{
 	    return FEEDS[position].title();
-	}
-    }
-    
-    /** CLASS: RSSListFragment
-     * This class inflates and returns a View (specifically ListView) to RSSPagerAdapter.
-     * Each ListView sets a RSSListAdapter to get Views from.
-     * @author Derek
-     *
-     */
-    public static class RSSListFragment extends ListFragment
-    {
-	public static final String FEED_INDEX_TAG = "edu.ggc.it.rss.RSSListFragment.FEED_INDEX_TAG";
-	private RSSListAdapter adapter;
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-	    View list = inflater.inflate(R.layout.rss_list, container, false);
-	    int index = getArguments().getInt(FEED_INDEX_TAG);
-	    Context context = this.getActivity();
-	    adapter = new RSSListAdapter(context, FEEDS[index]);
-	    setListAdapter(adapter);
-	    return list;
-	}
-
-	/**
-	 * Called when user clicks on a List item. Opens web page of item clicked.
-	 * 
-	 * @param list		ListView where the click happened
-	 * @param view		View that was clicked within the ListView
-	 * @param position		position of the View item clicked
-	 * @param id		row id of the item that was clicked 
-	 */
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id)
-	{
-	    String link = (String) adapter.getLinkAt(position);
-	    Uri uri = Uri.parse(link);
-	    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-	    startActivity(intent);
-	}
-	
-	/**
-	 * Clean up by closing Cursor object in RSSListAdapter.
-	 */
-	@Override
-	public void onDestroy()
-	{
-	    adapter.closeCursor();
-	    super.onDestroy();
 	}
     }
 }

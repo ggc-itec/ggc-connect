@@ -39,15 +39,10 @@ public class RSSDatabase extends SQLiteOpenHelper
     }
 
     /**
-     * Calls RSSTable's static onUpgrade() method.
-     * NOTE: This database is dynamically changed based on information gathered from the rss feeds.
-     * 	     Because of this it is unnecessary to actually upgrade the database to a new version, therefore any passed int's are ignored.
+     * This method is never needed as our database is dynamically changed based on information from RSS feeds.
      */
     @Override
-    public void onUpgrade(SQLiteDatabase db, int arg1, int arg2)
-    {
-	RSSTable.onUpgrade(db);
-    }
+    public void onUpgrade(SQLiteDatabase db, int arg1, int arg2){}
     
     public static class RSSTable
     {
@@ -68,25 +63,15 @@ public class RSSDatabase extends SQLiteOpenHelper
 	 */
 	public static void onCreate(SQLiteDatabase db)
 	{
+	    drop(db);
 	    db.execSQL("create table " + TABLE_NAME + " (" +
 		    			COL_ID + " integer primary key autoincrement," + 
 		    			COL_TITLE + " text not null," +
-		    			COL_LINK + " text," +
-		    			COL_DESCRIPTION + " text," +
-		    			COL_PUB_DATE + " text," +
-		    			COL_FEED + " text" + 
+		    			COL_LINK + " text not null," +
+		    			COL_DESCRIPTION + " text not null," +
+		    			COL_PUB_DATE + " text not null," +
+		    			COL_FEED + " text not null" + 
 		    			")");
-	}
-	
-	/**
-	 * This method drops the current information in the table and recreates it.
-	 * 
-	 * @param db	The database
-	 */
-	public static void onUpgrade(SQLiteDatabase db)
-	{
-	    drop(db);
-	    onCreate(db);
 	}
 	
 	/**
