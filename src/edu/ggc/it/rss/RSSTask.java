@@ -48,7 +48,7 @@ public class RSSTask extends AsyncTask<RSSFeed, Void, Void>
      * @param context
      *            Context of activity using this class
      * @param showDialog
-     *            if true ProgressDialog will be showed
+     *            if true ProgressDialog will be shown
      */
     public RSSTask(RSSTaskComplete task, Context context, boolean showDialog)
     {

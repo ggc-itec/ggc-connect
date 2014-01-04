@@ -16,9 +16,7 @@ import edu.ggc.it.rss.RSSFeed;
  *
  */
 public class WidgetClickHandler
-{
-    private static WidgetData data = WidgetData.getInstance();
-    
+{    
     private Context context;
     private int widgetID;
     private RemoteViews rv;
@@ -60,10 +58,10 @@ public class WidgetClickHandler
      */
     public void switchAction()
     {
-	data.switchFeed();
+	WidgetService.switchFeed();
 	manager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_view_flipper);
 	
-	RSSFeed feed = data.getCurrentFeed();
+	RSSFeed feed = WidgetService.getCurrentFeed();
 	rv.setTextViewText(R.id.widget_banner, feed.title());
 	manager.updateAppWidget(widgetID, rv);
     }

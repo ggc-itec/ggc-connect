@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * A class that updates the information for each widget.
@@ -51,6 +52,15 @@ public class WidgetUpdater implements RSSTask.RSSTaskComplete
 	serviceIntent = new Intent(context, WidgetService.class);	
     }
     
+    public void setUpInstances(Context context, int widgetID)
+    {
+	this.context = context;
+	this.widgetID = widgetID;
+	
+	rv = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+	serviceIntent = new Intent(context, WidgetService.class);
+    }
+    
     /**
      * Called in onUpdate() this method updates the data for the widget
      */
@@ -78,6 +88,7 @@ public class WidgetUpdater implements RSSTask.RSSTaskComplete
 	rv.setOnClickPendingIntent(R.id.widget_previous_button, getPendingIntent(WidgetProvider.PREVIOUS_ACTION));
 	rv.setOnClickPendingIntent(R.id.widget_next_button, getPendingIntent(WidgetProvider.NEXT_ACTION));
 	rv.setOnClickPendingIntent(R.id.widget_switch_button, getPendingIntent(WidgetProvider.SWITCH_ACTION));
+	rv.setOnClickPendingIntent(R.id.widget_refresh_button, getPendingIntent(WidgetProvider.REFRESH_ACTION));
 	rv.setPendingIntentTemplate(R.id.widget_view_flipper, getPendingIntent(WidgetProvider.WEB_ACTION));
     }
     
@@ -106,7 +117,9 @@ public class WidgetUpdater implements RSSTask.RSSTaskComplete
     @Override
     public void taskComplete()
     {
+	Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
 	rv.setRemoteAdapter(widgetID, R.id.widget_view_flipper, serviceIntent);
+	rv.setTextViewText(R.id.widget_banner, "GGC News");
 	manager.updateAppWidget(widgetID, rv);
     }
 }

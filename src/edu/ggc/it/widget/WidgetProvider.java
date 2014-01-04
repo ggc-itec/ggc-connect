@@ -2,6 +2,7 @@ package edu.ggc.it.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import edu.ggc.it.rss.RSSDatabase;
@@ -20,31 +21,32 @@ public class WidgetProvider extends AppWidgetProvider
      */
     public static final String PREVIOUS_ACTION = "edu.ggc.it.widget.WidgetProvider.PREVIOUS";
     public static final String NEXT_ACTION = "edu.ggc.it.widget.WidgetProvider.NEXT";
+    public static final String REFRESH_ACTION = "edu.ggc.it.widget.WidgetProvider.REFRESH";
     public static final String SWITCH_ACTION = "edu.ggc.it.widget.WidgetProvider.SWITCH";
     public static final String WEB_ACTION = "edu.ggc.it.widget.WidgetProvider.WEB";
     /*
      * The fill extra for the widget_items
      */
     public static final String FILL_EXTRA = "edu.ggc.it.widget.WidgetProvider.FILL_IN";
-            
+                
     /**
      * Updates the widget everytime it is created and for every update period.
      * The update period is defined in the appwidget-provider xml file which for this widget is located in /res/xml/widget_info.xml
      * Loops through every active widget and creates a WidgetUpdater for each one.
      */
     @Override
-    public void onUpdate(Context context, AppWidgetManager widgetManager, int[] widgetIds)
+    public void onUpdate(Context context, AppWidgetManager widgetManager, int[] widgetIDs)
     {
-	RSSDatabase db = RSSDatabase.getInstance(context);
-	db.onUpgrade(db.getWritableDatabase(), 0, 0);
+	RSSDatabase dbHelper = RSSDatabase.getInstance(context);
+	dbHelper.onCreate(dbHelper.getWritableDatabase());
 	
-	for(int i = 0; i < widgetIds.length; i++)
+	for(int i = 0; i < widgetIDs.length; i++)
 	{
-	    WidgetUpdater updater = new WidgetUpdater(context, widgetIds[i]);
+	    WidgetUpdater updater = new WidgetUpdater(context, widgetIDs[i]);
 	    updater.updateWidget();
 	}
-	super.onUpdate(context, widgetManager, widgetIds);
-    } 
+	super.onUpdate(context, widgetManager, widgetIDs);
+    }
     
     /**
      * Receives Intents that are defined as PendingIntents in WidgetUpdater.
@@ -75,13 +77,12 @@ public class WidgetProvider extends AppWidgetProvider
 	    String link = intent.getStringExtra(FILL_EXTRA);
 	    clickHandler.webAction(link);
 	}
+	if(action.equals(REFRESH_ACTION))//Calls the onUpdate() method to refresh the widget
+	{
+	    ComponentName cn = new ComponentName(context, WidgetProvider.class);
+	    AppWidgetManager manager = AppWidgetManager.getInstance(context);
+	    onUpdate(context, manager, manager.getAppWidgetIds(cn));
+	}
 	super.onReceive(context, intent);
-    }
-
-    @Override
-    public void onDisabled(Context context)
-    {
-	RSSDatabase.getInstance(context).close();
-	super.onDisabled(context);
     }
 }

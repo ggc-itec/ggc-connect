@@ -40,7 +40,6 @@ public class RSSProvider extends ContentProvider
     {
 	SQLiteDatabase db = dbHelper.getWritableDatabase();
 	db.insert(RSSTable.TABLE_NAME, null, values);
-	db.close();
 	return uri;
     }
 
