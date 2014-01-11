@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 /**
  * A class that updates the information for each widget.
@@ -117,7 +116,6 @@ public class WidgetUpdater implements RSSTask.RSSTaskComplete
     @Override
     public void taskComplete()
     {
-	Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
 	rv.setRemoteAdapter(widgetID, R.id.widget_view_flipper, serviceIntent);
 	rv.setTextViewText(R.id.widget_banner, "GGC News");
 	manager.updateAppWidget(widgetID, rv);
