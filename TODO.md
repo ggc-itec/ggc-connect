@@ -13,5 +13,6 @@
 - Add visual aid (map?) for [campus crime log](http://www.ggc.edu/about-ggc/departments/public-safety/crime-prevention-reporting/daily-crime-log/)
 - Replace social images with higher resolution images
 - Make menu visible on main activity
+- Update Gym activity with instructions on how to use the gym equipment
 
 
