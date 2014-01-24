@@ -3,8 +3,8 @@ package edu.ggc.it.catalog;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -18,13 +18,17 @@ import edu.ggc.it.banner.CourseSearchBuilder;
 import edu.ggc.it.banner.Instructor;
 import edu.ggc.it.banner.Section;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -87,12 +91,44 @@ public class ClassSearchActivity extends Activity
 	private Integer asyncCounter;
 	
 	@Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+                // Inflate the menu; this adds items to the action bar if it is present.
+                getMenuInflater().inflate(R.menu.class_search_menu, menu);
+                
+                return true;
+        }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	    if( item.getItemId() == R.id.action_catalog_refresh)
+	    {
+	        new AlertDialog.Builder(this)
+	        .setTitle("Refresh Data")
+	        .setMessage("Are you sure you want to delete downloaded data?")
+	        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int which) { 
+	                courseDS.deleteTables();
+	            }
+	         })
+	        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int which) { 
+	                //don't do anything
+	            }
+	         })
+	         .show();
+	    }
+	            
+	    return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_search);
 		
-		terms = new HashMap<String, String>();
+		terms = new LinkedHashMap<String, String>();
 		
 		asyncCounter = 0;
 		
@@ -176,11 +212,11 @@ public class ClassSearchActivity extends Activity
 	
 	private void getTerms()
     {
-		
-		terms.put("Spring 2013",  "2013" + TERM_SUMMER);
-		terms.put("Summer 2013", "2013" + TERM_SUMMER);
-	    terms.put("Fall 2013", "2013" + TERM_FALL);
-	    terms.put("Spring 2014",  "2014" + TERM_SPRING);
+            terms.put("Summer 2014", "2014" + TERM_SUMMER);
+            terms.put("Spring 2014",  "2014" + TERM_SPRING);
+            terms.put("Fall 2013", "2013" + TERM_FALL);
+            terms.put("Summer 2013", "2013" + TERM_SUMMER);		
+            terms.put("Spring 2013",  "2013" + TERM_SUMMER);
 	    
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				new ArrayList<String>(terms.keySet()));

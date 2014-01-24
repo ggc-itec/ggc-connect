@@ -134,8 +134,10 @@ public class CourseSearchBuilder implements Serializable
 			else
 				selection += "%'";
 		}
-		if (instructor != null)
-			selection += " and " + CourseDB.Instructors.COL_NAME + " like '%" + instructor + "%'";
+		if (instructor != null) {
+		        String instructor_cleaned = instructor.replace("'", "''"); //remove single quote in the instructor's name
+			selection += " and " + CourseDB.Instructors.COL_NAME + " like '%" + instructor_cleaned + "%'";
+		}
 		selection += ")";
 		Cursor sectcsr = db.query(CourseDB.Schedule.TABLE, SECTION_COLUMNS,
 				selection, args, null, null, null);

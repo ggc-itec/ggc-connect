@@ -292,6 +292,10 @@ public class CourseDataSource
 		return result;
 	}
 	
+	public void deleteTables() {
+	    dbHelper.onUpgrade(db, 0 , 0 );  // TODO: this is ugly and probably wrong, refactoring required
+	}
+	
 	private List<Section> cursorToSections(Cursor sectcsr)
     {
 		final String typeid = CourseDB.ClassTypes.TABLE + "." + CourseDB.ClassTypes.COL_ID;
