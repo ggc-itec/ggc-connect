@@ -212,6 +212,7 @@ public class ClassSearchActivity extends Activity
 	
 	private void getTerms()
     {
+	    terms.put("Fall 2014", "2014" + TERM_FALL);
             terms.put("Summer 2014", "2014" + TERM_SUMMER);
             terms.put("Spring 2014",  "2014" + TERM_SPRING);
             terms.put("Fall 2013", "2013" + TERM_FALL);

@@ -28,24 +28,25 @@
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_two_dummy_btn6"
+            android:id="@+id/library_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/degrees_button"
             android:layout_alignRight="@+id/socialLinearLayout"
             android:layout_below="@+id/calendar_btn"
             android:layout_marginLeft="37dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_library" />
 
+    <!--  Library (GIL) Button -->
     <TextView
-            android:id="@+id/view_two_textview6"
+            android:id="@+id/view_two_textview_library"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_two_dummy_btn6"
-            android:layout_below="@+id/view_two_dummy_btn6"
-            android:layout_marginLeft="-12dp"
+            android:layout_alignLeft="@+id/library_button"
+            android:layout_below="@+id/library_button"
+            android:layout_marginLeft="21dp"
             android:layout_marginTop="40dp"
-            android:text="dummy textview6"
+            android:text="Library"
             android:textColor="@color/main_button_text" />
 
     <!-- About GGC Button -->

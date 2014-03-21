@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ggc.it"
-    android:versionCode="19"
-    android:versionName="1.3.6" >
+    android:versionCode="20"
+    android:versionName="1.3.7" >
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -185,7 +185,7 @@
         <!--
         The property configChanges was added here to tell Android
         not to reset the activity to default when the keyboard is pulled out, 
-        or the phone is rotated; I want to handle this myself.
+        or the phone is rotated; I want to handle this myself.
         -->
         <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
@@ -206,7 +206,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
- 
+
         <receiver android:name="edu.ggc.it.widget.WidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -222,11 +222,11 @@
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" >
         </service>
-        
+
         <provider
             android:name="edu.ggc.it.rss.RSSProvider"
             android:authorities="edu.ggc.it.rss.RSSProvider"
-            android:exported="true">
+            android:exported="true" >
         </provider>
 
         <activity
@@ -304,6 +304,10 @@
         <activity
             android:name="edu.ggc.it.d2l_web.D2LWebLoginActivity"
             android:label="@string/title_activity_d2_lweb_login" >
+        </activity>
+        <activity
+            android:name="edu.ggc.it.library.LibraryActivity"
+            android:label="@string/title_activity_library" >
         </activity>
     </application>
 

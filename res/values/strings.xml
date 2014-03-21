@@ -367,5 +367,6 @@
     <string name="title_activity_banner_web">Banner Web</string>
     <string name="title_activity_d2_lweb">Desire2Learn Web</string>
     <string name="title_activity_d2_lweb_login">Desire2Learn Login</string>
+    <string name="title_activity_library">LibraryActivity</string>
 
 </resources>
