@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.apache.http.Header;
@@ -90,7 +91,7 @@ public class Banner
 			});
 	
 	private Banner()
-    {
+        {
 		// cannot instantiate; static class
         throw new AssertionError();
 	}
@@ -448,11 +449,37 @@ public class Banner
 			
 			// incomplete course data
 			Course course = new Course(subject, name, courseNum, null, temp);
-			Section sect = new Section(course, term, Integer.parseInt(section), Integer.parseInt(crn), meetingTimes);
+			int sn = 0;
+			try {
+			    sn = Integer.parseInt(section);
+			} catch (NumberFormatException e) {
+			    sn = Integer.parseInt(extractIntString(section));
+			}
+			
+			int c = 0;
+			try {
+			    c = Integer.parseInt(crn);
+			} catch (NumberFormatException e) {
+			    c = Integer.parseInt(extractIntString(crn));
+			}
+			Section sect = new Section(course, term, sn, c, meetingTimes);
 			result.add(sect);
 		}
 		
 		return result;
+	}
+	
+	private static String extractIntString(String str) 
+	{
+	    String part = "";
+	    for(int i=0; i<str.length(); i++)
+	    {
+	        if(Character.isDigit(str.charAt(i)))
+	        {
+	            part += str.charAt(i);
+	        }
+	    }
+	    return part;
 	}
 	
 	/**
