@@ -50,6 +50,17 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1500"/>
         </hoursofoperation>
     </department>
+    <department name="Brewed Awakenings" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="1000" closingTime="1400"/>
+        </hoursofoperation>
+    </department>
     <department name="B Building Information Commons Help Desk" url="http://www.ggc.edu/about-ggc/departments/library/index.html">
         <hoursofoperation>
             <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
@@ -69,6 +80,17 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="4" openingTime="800" closingTime="1700"/>
             <hoursfordayofweek dayOfWeek="5" openingTime="800" closingTime="1700"/>
             <hoursfordayofweek dayOfWeek="6" openingTime="800" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
+    <department name="Chick-fil-A" url="http://www.ggc.edu/student-life/student-services/dining/hours/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="2200"/>
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
@@ -138,6 +160,17 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
+    <department name="Einstein Bros Bagels" url="http://www.ggc.edu/student-life/student-services/dining/hours/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1600"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
     <department name="Financial Aid" url="http://www.ggc.edu/admissions/tuition-and-aid/financial-aid/index.html">
         <hoursofoperation>
             <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
@@ -182,14 +215,14 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
-    <department name="Jazzman's Cafe and Bakery" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+    <department name="JambaGO" url="http://www.ggc.edu/student-life/student-services/dining/hours/">
         <hoursofoperation>
             <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
-            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1900"/>
-            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1900"/>
-            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1900"/>
-            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1900"/>
-            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="1400"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="1400"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="1400"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="1400"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1300"/>
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
@@ -226,14 +259,14 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
-    <department name="Quiznos Sub" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
+    <department name="Panda Express" url="http://www.ggc.edu/student-life/student-services/dining/hours/">
         <hoursofoperation>
             <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
-            <hoursfordayofweek dayOfWeek="2" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="3" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="4" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="5" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="6" openingTime="1030" closingTime="1900"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="730" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="730" closingTime="1900"/>
             <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
@@ -270,6 +303,17 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="7" openingTime="1100" closingTime="1900"/>
         </hoursofoperation>
     </department>
+    <department name="SUBWAY" url="http://www.ggc.edu/student-life/student-services/dining/hours/">
+        <hoursofoperation>
+            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
+            <hoursfordayofweek dayOfWeek="2" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="3" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="4" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="5" openingTime="1030" closingTime="2200"/>
+            <hoursfordayofweek dayOfWeek="6" openingTime="1030" closingTime="1700"/>
+            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
+        </hoursofoperation>
+    </department>
     <department name="Wellness and Recreation Center" url="http://www.ggc.edu/about-ggc/departments/wellness-center/index.html">
         <hoursofoperation>
             <hoursfordayofweek dayOfWeek="1" openingTime="1200" closingTime="1600"/>
@@ -279,17 +323,6 @@ PLEASE READ ME FIRST BEFORE EDITING THIS FILE.
             <hoursfordayofweek dayOfWeek="5" openingTime="700" closingTime="2200"/>
             <hoursfordayofweek dayOfWeek="6" openingTime="700" closingTime="1730"/>
             <hoursfordayofweek dayOfWeek="7" openingTime="800" closingTime="1700"/>
-        </hoursofoperation>
-    </department>
-    <department name="WOW Cafe and Wingery" url="http://www.ggc.edu/about-ggc/departments/dining/hours/index.html">
-        <hoursofoperation>
-            <hoursfordayofweek dayOfWeek="1" openingTime="0" closingTime="0"/>
-            <hoursfordayofweek dayOfWeek="2" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="3" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="4" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="5" openingTime="1030" closingTime="2200"/>
-            <hoursfordayofweek dayOfWeek="6" openingTime="1030" closingTime="1900"/>
-            <hoursfordayofweek dayOfWeek="7" openingTime="0" closingTime="0"/>
         </hoursofoperation>
     </department>
 </resources>
