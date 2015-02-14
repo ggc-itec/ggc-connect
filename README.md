@@ -1,6 +1,7 @@
 #GGC-Connect
 
-An Android app for the Georgia Gwinnett College community
+An Android app for the Georgia Gwinnett College community. The project has been migrated to [Android Studio](https://github.com/ggc-itec/ggc-connect2).
+
 
 ##Download
 Now available on the Play Store. Updated weekly.
