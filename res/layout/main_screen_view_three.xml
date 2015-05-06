@@ -15,7 +15,7 @@
             android:layout_alignLeft="@+id/button_banner_web"
             android:layout_below="@+id/button_banner_web"
             android:layout_marginTop="40dp"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_dining"/>
 
     <TextView
             android:id="@+id/textview_dining_web"

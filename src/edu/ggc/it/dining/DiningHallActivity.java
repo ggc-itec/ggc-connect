@@ -2,7 +2,9 @@ package edu.ggc.it.dining;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import edu.ggc.it.R;
 
 /**
@@ -11,9 +13,7 @@ import edu.ggc.it.R;
  * Course: ITEC 3870 Spring 2015
  * Written: 4/3/2015
  *
- * This class represents a ...
- *
- * Purpose: Allows the manipulation of a ...
+ * Purpose: Allows the user to view what is on today's menu, all within the app.
  */
 public class DiningHallActivity extends Activity
 {
@@ -25,15 +25,11 @@ public class DiningHallActivity extends Activity
         setContentView(R.layout.activity_what_to_eat);
 
         webView = (WebView) findViewById(R.id.webView2);
-        // experiment with this!!
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setJavaScriptEnabled(true);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webView.setInitialScale(67);
         webView.loadUrl("http://ggc.campusdish.com/Commerce/Catalog/Menus.aspx?LocationId=7123");
 
-        // experiment with this too!
-        //you can create and display your own web document
-        //String customHtml = "<html><body><h1>Hello, WebView</h1></body></html>";
-        // hmmn, what are "text/html"and "UTF-8" ??
-        //webView.loadData(customHtml, "text/html", "UTF-8");
+        webView.setWebViewClient(new WebViewClient());
     }
 }
