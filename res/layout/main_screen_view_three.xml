@@ -24,7 +24,7 @@
             android:layout_alignLeft="@+id/button_dining_web"
             android:layout_below="@+id/button_dining_web"
             android:text="What To Eat?"
-            android:textColor="@color/main_button_text" android:layout_marginLeft="-3dp"/>
+            android:textColor="@color/main_button_text" android:layout_marginLeft="5dp"/>
 
     <Button
             android:id="@+id/view_three_dummy_btn6"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/view_three_dummy_btn5"
             android:layout_alignRight="@+id/socialLinearLayout"
-            android:layout_below="@+id/view_three_dummy_btn4"
+            android:layout_below="@+id/button_reddit"
             android:layout_marginLeft="37dp"
             android:background="@drawable/main_button_directory" />
 
@@ -86,23 +86,22 @@
             android:textColor="@color/main_button_text" />
 
     <Button
-            android:id="@+id/view_three_dummy_btn4"
+            android:id="@+id/button_reddit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/button_dining_web"
             android:layout_alignBottom="@+id/button_dining_web"
             android:layout_alignRight="@+id/button_d2l_web"
-            android:background="@drawable/main_button_directory" />
+            android:background="@drawable/main_button_reddit" />
 
     <TextView
-            android:id="@+id/view_three_textview4"
+            android:id="@+id/textview_reddit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/view_three_dummy_btn4"
-            android:layout_below="@+id/view_three_dummy_btn4"
-            android:layout_marginLeft="-15dp"
-            android:text="dummy textview4"
-            android:textColor="@color/main_button_text" />
+            android:layout_alignLeft="@+id/button_reddit"
+            android:layout_below="@+id/button_reddit"
+            android:text="Reddit"
+            android:textColor="@color/main_button_text" android:layout_marginLeft="25dp"/>
 
     <Button
             android:id="@+id/view_three_dummy_btn5"

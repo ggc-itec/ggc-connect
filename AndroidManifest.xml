@@ -310,6 +310,10 @@
                 android:name="edu.ggc.it.dining.DiningHallActivity"
                 android:label="@string/title_activity_dining_hall" >
         </activity>
+        <activity
+                android:name="edu.ggc.it.reddit.RedditActivity"
+                android:label="@string/title_activity_reddit" >
+        </activity>
     </application>
 
 </manifest>
