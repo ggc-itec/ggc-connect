@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-sdk android:minSdkVersion="11" />
+    <uses-sdk android:minSdkVersion="16"
+        android:targetSdkVersion="19"/>
 
     <application
         android:allowBackup="true"
@@ -53,14 +54,11 @@
                 android:value="edu.ggc.it.Main" />
         </activity>
         <activity
-            android:name="edu.ggc.it.schedule.SchedulePreferenceActivity"
-            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity" >
+
+            android:parentActivityName="edu.ggc.it.schedule.ScheduleActivity"
+            android:name="edu.ggc.it.schedule.SchedulePreferenceActivity">
         </activity>
-        <activity
-            android:name="edu.ggc.it.love.SetupActivity"
-            android:label="@string/dating_label"
-            android:screenOrientation="portrait" >
-        </activity>
+
         <activity
             android:name="edu.ggc.it.directory.DirectoryActivity"
             android:label="@string/title_activity_directory"
@@ -120,8 +118,6 @@
             android:name="edu.ggc.it.todo.ToDoUpdateActivity"
             android:label="TODO Update"
             android:windowSoftInputMode="stateVisible" >
-        </activity>
-        <activity android:name="edu.ggc.it.rss.RSSActivity" >
         </activity>
         <activity
             android:name="edu.ggc.it.directory.SavedSearchUpdateActivity"
@@ -185,7 +181,8 @@
         <!--
         The property configChanges was added here to tell Android
         not to reset the activity to default when the keyboard is pulled out, 
-        or the phone is rotated; I want to handle this myself.
+        or the phone is rotated; I want to handle this myself.
+
         -->
         <activity
             android:name="edu.ggc.it.gpacalc.GPACalcActivity"
@@ -308,6 +305,14 @@
         <activity
             android:name="edu.ggc.it.library.LibraryActivity"
             android:label="@string/title_activity_library" >
+        </activity>
+        <activity
+                android:name="edu.ggc.it.dining.DiningHallActivity"
+                android:label="@string/title_activity_dining_hall" >
+        </activity>
+        <activity
+                android:name="edu.ggc.it.reddit.RedditActivity"
+                android:label="@string/title_activity_reddit" >
         </activity>
     </application>
 

@@ -65,6 +65,9 @@
     <string name="chk_schedule_update_friday">Friday</string>
     <string name="chk_schedule_update_saturday">Saturday</string>
     <string name="textview_schedule_update_building_location">Building:</string>
+    <string name="title_activity_dining_hall">Dining Hall</string>
+    <string name="title_activity_reddit">Reddit</string>
+
 
     <string-array name="buildings">
         <item>Building A</item>

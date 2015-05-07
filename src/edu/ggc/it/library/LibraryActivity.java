@@ -20,7 +20,10 @@ public class LibraryActivity extends Activity
         setContentView(R.layout.activity_calendar);
         webView = (WebView) findViewById(R.id.calendar_webview);
         webView.getSettings().setSupportZoom(true);
+        
+        //this is to override the SSL errors that keep appearing
         webView.setWebViewClient(new LibraryWebViewClient());
+        //this is what will actually load the url
         webView.loadUrl(GGC_GIL_LIBRARY_URL);
     }
     
